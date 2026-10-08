@@ -2180,6 +2180,7 @@ vertical-align: -.125em;
   <li><a href="#what-changed-from-version-1" id="toc-what-changed-from-version-1" class="nav-link" data-scroll-target="#what-changed-from-version-1">What changed from version 1</a></li>
   <li><a href="#data-and-decisions" id="toc-data-and-decisions" class="nav-link" data-scroll-target="#data-and-decisions">Data and decisions</a></li>
   <li><a href="#comparison-with-hlásny-et-al.-2025-table-6" id="toc-comparison-with-hlásny-et-al.-2025-table-6" class="nav-link" data-scroll-target="#comparison-with-hlásny-et-al.-2025-table-6">Comparison with Hlásny et al. (2025), Table 6</a></li>
+  <li><a href="#species-nuts-occurrence-ranking" id="toc-species-nuts-occurrence-ranking" class="nav-link" data-scroll-target="#species-nuts-occurrence-ranking">Species – NUTS occurrence ranking</a></li>
   <li><a href="#coverage" id="toc-coverage" class="nav-link" data-scroll-target="#coverage">Coverage</a></li>
   <li><a href="#pairwise-correlations" id="toc-pairwise-correlations" class="nav-link" data-scroll-target="#pairwise-correlations">Pairwise correlations</a>
   <ul class="collapse">
@@ -2586,6 +2587,686 @@ vertical-align: -.125em;
 <li><strong>This is worth raising with Prof. Hlásny privately</strong> before relying on Table 6 elsewhere.</li>
 <li>Europe-wide totals are dominated by a few big years (2003, 2018–2020) and by Germany. Detrending changes several values substantially (last column), so continental synchrony partly reflects shared long-term trends.</li>
 </ul>
+</section>
+<section id="species-nuts-occurrence-ranking" class="level2">
+<h2 class="anchored" data-anchor-id="species-nuts-occurrence-ranking">Species – NUTS occurrence ranking</h2>
+<p>Suggested by Prof. Hlásny. <em>Occurs</em> = at least one year with damage &gt; 0 in a NUTS unit; <em>usable series</em> = at least 6 such years (the paper’s filter). Damage shares and ranks are within unit (m³ for borers, ha for defoliators). National-level countries count as one unit each. Full tables, including the ranking of species within every region and a region × species matrix, are in <code>outputs/tables/species_nuts_occurrence_ranking.xlsx</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 21%">
+<col style="width: 10%">
+<col style="width: 16%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">rank</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">guild</th>
+<th style="text-align: left;">unit</th>
+<th style="text-align: right;">countries</th>
+<th style="text-align: left;">regions occurring / monitored</th>
+<th style="text-align: right;">usable series</th>
+<th style="text-align: left;">% of all damage (unit)</th>
+<th style="text-align: right;">damage rank (unit)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">ips_typ</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">72 / 77</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: left;">81.21</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">pha_cya</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">44 / 50</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: left;">2.14</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">tom_spp</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">42 / 50</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: left;">0.78</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">ips_acu</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">34 / 43</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">1.04</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">lym_mon</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">32 / 41</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">19.54</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">dip_sp</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">31 / 42</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">7.83</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">tor_vir</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">30 / 35</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">5.31</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">agr_big</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">28 / 32</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">0.97</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">lym_dis</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">28 / 39</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">19.32</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">geo_db</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">28 / 36</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">6.34</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">mel_spp</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">26 / 32</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">12.96</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">pit_cha</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">24 / 28</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">4.04</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">pan_fla</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">23 / 41</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">5.15</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">bup_pin</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">22 / 32</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">1.84</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">pit_spp</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">21 / 34</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">1.13</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">den_pin</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">21 / 33</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">6.98</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Def_dec&amp;DB</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">21 / 32</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">3.37</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">tet_gab</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">18 / 32</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">0.05</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">ips_sex</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">17 / 24</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">0.26</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">sco_int</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">16 / 23</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">pri_abi</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">15 / 23</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">4.03</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">CambXyl_con&amp;BB_con&amp;BO</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">12 / 25</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">0.13</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">sco_rat</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">12 / 24</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">0.01</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">ips_cem</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">11 / 15</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">0.41</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">xyl_spp</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">11 / 15</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">0.22</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">era_def</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">11 / 15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1.27</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">ips_dup</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">10 / 10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">2.19</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">xyl_lin</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">10 / 15</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">1.76</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">tha_pro</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">10 / 15</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">2.52</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">agr_vir</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">9 / 15</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">0.28</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">CambXyl_con&amp;MD</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">9 / 23</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">0.04</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">pol_pol</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">9 / 9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">0.04</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">ope_spp</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">9 / 15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">2.11</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">34</td>
+<td style="text-align: left;">tet_spp</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">8 / 15</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">0.06</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">34</td>
+<td style="text-align: left;">pis_pin</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">8 / 16</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">0.05</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">34</td>
+<td style="text-align: left;">zei_gri</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">8 / 23</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">0.01</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">37</td>
+<td style="text-align: left;">cep_spp</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">7 / 8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">0.11</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">38</td>
+<td style="text-align: left;">sco_sco</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">6 / 16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">pit_bid</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">5 / 15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">0.03</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">neo_ser</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">5 / 24</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">0.34</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">41</td>
+<td style="text-align: left;">uro_sir_spp</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">4 / 15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">CambXyl_con&amp;BO</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">3 / 16</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">0.10</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">tha_pit</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">3 / 17</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">0.97</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">den_mic</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">3 / 24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">CambXyl_con&amp;BB_con&amp;SM</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2 / 15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">2.92</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">ips_ami</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2 / 15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">0.06</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Def_dec</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2 / 15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">48</td>
+<td style="text-align: left;">clo_ana</td>
+<td style="text-align: left;">defoliator</td>
+<td style="text-align: left;">ha</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1 / 1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">48</td>
+<td style="text-align: left;">sap_car</td>
+<td style="text-align: left;">borer</td>
+<td style="text-align: left;">m3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1 / 15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: right;">29</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">unit</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">regions where #1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">lym_mon</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">lym_dis</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">mel_spp</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">Def_dec&amp;DB</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">geo_db</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">den_pin</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">dip_sp</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">pri_abi</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">tor_vir</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ha</td>
+<td style="text-align: left;">pan_fla</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">ips_typ</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">pha_cya</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">ips_acu</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">agr_big</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">pit_spp</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">tet_gab</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m3</td>
+<td style="text-align: left;">tom_spp</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><em>I. typographus</em> occurs in 72 of 77 monitored units and is the largest borer in 60 of them. Among defoliators no single species dominates: <em>L. monacha</em>, <em>L. dispar</em> and <em>Melolontha</em> lead in different regions. Many species occur in few units, mostly within Germany, which is the same limitation seen in the transferability analysis.</p>
 </section>
 <section id="coverage" class="level2">
 <h2 class="anchored" data-anchor-id="coverage">Coverage</h2>
@@ -3761,7 +4442,7 @@ vertical-align: -.125em;
 <section id="files" class="level2">
 <h2 class="anchored" data-anchor-id="files">Files</h2>
 <ul>
-<li>Tables: <code>outputs/tables/</code> — <code>pairwise_correlations.csv</code>, <code>pairwise_correlations_sensitivity_no_series_filter.csv</code>, <code>paper_table6_replication.csv</code>, <code>temporal_vs_spatial.csv</code>, <code>per_country_correlations.csv</code>, <code>leave_one_country_out.csv</code>, <code>transferability_summary.csv</code>, <code>coverage_*.csv</code>, <code>guild_permutation_test.csv</code>, <code>transform_versions.csv</code></li>
+<li>Tables: <code>outputs/tables/</code> — <code>species_nuts_occurrence_ranking.xlsx</code> (also as <code>species_occurrence_ranking.csv</code>, <code>region_species_ranking.csv</code>, <code>occurrence_matrix_region_species.csv</code>), <code>pairwise_correlations.csv</code>, <code>pairwise_correlations_sensitivity_no_series_filter.csv</code>, <code>paper_table6_replication.csv</code>, <code>temporal_vs_spatial.csv</code>, <code>per_country_correlations.csv</code>, <code>leave_one_country_out.csv</code>, <code>transferability_summary.csv</code>, <code>coverage_*.csv</code>, <code>guild_permutation_test.csv</code>, <code>transform_versions.csv</code></li>
 <li>Figures: <code>outputs/figures/</code></li>
 <li>Guild template: <code>data/lookup/species_guild_TEMPLATE.csv</code></li>
 </ul>

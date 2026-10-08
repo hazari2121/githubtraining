@@ -88,6 +88,27 @@ t6 |> arrange(desc(paper_value)) |>
 - **This is worth raising with Prof. Hlásny privately** before relying on Table 6 elsewhere.
 - Europe-wide totals are dominated by a few big years (2003, 2018–2020) and by Germany. Detrending changes several values substantially (last column), so continental synchrony partly reflects shared long-term trends.
 
+## Species – NUTS occurrence ranking
+
+Suggested by Prof. Hlásny. *Occurs* = at least one year with damage > 0 in a NUTS unit; *usable series* = at least 6 such years (the paper's filter). Damage shares and ranks are within unit (m³ for borers, ha for defoliators). National-level countries count as one unit each. Full tables, including the ranking of species within every region and a region × species matrix, are in `outputs/tables/species_nuts_occurrence_ranking.xlsx`.
+
+```{r ranking}
+rd("sp_rank") |>
+  transmute(rank = rank_by_regions, species, guild, unit,
+            countries = n_countries_occurring,
+            `regions occurring / monitored` = paste(n_regions_occurring, "/", n_regions_monitored),
+            `usable series` = n_usable_series,
+            `% of all damage (unit)` = f2(pct_of_unit_total),
+            `damage rank (unit)` = rank_by_damage_within_unit)
+```
+
+```{r top-per-region}
+rr <- rd("reg_rank") |> filter(rank_in_region == 1, total_damage > 0)
+rr |> count(unit, species, name = "regions where #1") |> arrange(unit, desc(`regions where #1`))
+```
+
+*I. typographus* occurs in `r rd("sp_rank")$n_regions_occurring[rd("sp_rank")$species=="ips_typ"]` of `r rd("sp_rank")$n_regions_monitored[rd("sp_rank")$species=="ips_typ"]` monitored units and is the largest borer in `r sum(rr$species=="ips_typ")` of them. Among defoliators no single species dominates: *L. monacha*, *L. dispar* and *Melolontha* lead in different regions. Many species occur in few units, mostly within Germany, which is the same limitation seen in the transferability analysis.
+
 ## Coverage
 
 ![](../outputs/figures/coverage_country_species.png)
@@ -233,6 +254,6 @@ log(target + 1) ~ log(helper + 1) * year + VPD + host abundance
 
 ## Files
 
-- Tables: `outputs/tables/` — `pairwise_correlations.csv`, `pairwise_correlations_sensitivity_no_series_filter.csv`, `paper_table6_replication.csv`, `temporal_vs_spatial.csv`, `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`, `coverage_*.csv`, `guild_permutation_test.csv`, `transform_versions.csv`
+- Tables: `outputs/tables/` — `species_nuts_occurrence_ranking.xlsx` (also as `species_occurrence_ranking.csv`, `region_species_ranking.csv`, `occurrence_matrix_region_species.csv`), `pairwise_correlations.csv`, `pairwise_correlations_sensitivity_no_series_filter.csv`, `paper_table6_replication.csv`, `temporal_vs_spatial.csv`, `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`, `coverage_*.csv`, `guild_permutation_test.csv`, `transform_versions.csv`
 - Figures: `outputs/figures/`
 - Guild template: `data/lookup/species_guild_TEMPLATE.csv`

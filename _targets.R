@@ -5,7 +5,7 @@
 library(targets)
 
 tar_option_set(packages = c("dplyr", "tidyr", "readr", "readxl", "stringr", "tibble",
-                            "purrr", "ggplot2"))
+                            "purrr", "ggplot2", "writexl"))
 tar_source("R")
 
 tab <- function(x, name) write_csv_out(x, file.path("outputs/tables", name))
@@ -38,6 +38,18 @@ list(
   tar_target(cov_country_csv, tab(cov_country, "coverage_by_country.csv"), format = "file"),
   tar_target(cov_cs_csv, tab(cov_cs, "coverage_country_species.csv"), format = "file"),
   tar_target(fig_coverage, save_fig(plot_coverage(cov_cs), "outputs/figures/coverage_country_species.png", 11, 5),
+             format = "file"),
+
+  # ---- Species - NUTS occurrence ranking -------------------------------------
+  tar_target(rs_summary, region_species_summary(cells)),
+  tar_target(sp_rank, species_occurrence_ranking(rs_summary, species_meta)),
+  tar_target(reg_rank, region_species_ranking(rs_summary)),
+  tar_target(occ_matrix, occurrence_matrix(rs_summary, sp_rank)),
+  tar_target(sp_rank_csv, tab(sp_rank, "species_occurrence_ranking.csv"), format = "file"),
+  tar_target(reg_rank_csv, tab(reg_rank, "region_species_ranking.csv"), format = "file"),
+  tar_target(occ_matrix_csv, tab(occ_matrix, "occurrence_matrix_region_species.csv"), format = "file"),
+  tar_target(ranking_xlsx, write_ranking_xlsx(sp_rank, reg_rank, occ_matrix,
+                                              "outputs/tables/species_nuts_occurrence_ranking.xlsx"),
              format = "file"),
 
   # ---- Step 3: transformed versions ----------------------------------------
