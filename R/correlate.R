@@ -41,7 +41,7 @@ pair_stats <- function(x, y) {
 
 # Step 4: all pairs x versions, with BH-FDR across all pairs within version x method
 pairwise_correlations <- function(tr, species,
-                                  versions = c("z_within", "detrended", "diff", "log_damage")) {
+                                  versions = c("z_within", "detrended", "diff", "anomaly", "log_damage")) {
   pairs <- species_pairs(species)
   # damage > 0 indicator on the same rows (all versions share the row set/order)
   P <- make_wide(dplyr::mutate(tr, pos = as.numeric(damage > 0)), "pos")
@@ -130,7 +130,7 @@ temporal_vs_spatial <- function(pw, sp, link_threshold = 0.3, min_regions_spatia
 }
 
 # Step 6a: per-country correlations (countries with n >= 10 for the pair)
-per_country_correlations <- function(tr, species, versions = c("z_within", "detrended")) {
+per_country_correlations <- function(tr, species, versions = c("z_within", "detrended", "anomaly")) {
   pairs <- species_pairs(species)
   purrr::map_dfr(versions, function(v) {
     W <- make_wide(tr, v)

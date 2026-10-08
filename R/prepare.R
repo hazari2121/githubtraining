@@ -5,7 +5,8 @@
 #  - CZ has 1-3 rows per NUTS2-year-species (sub-regions, probably kraje).
 #    Damage (m3 / ha) is additive, so sub-rows are summed to NUTS2.
 #  - Aggregate codes (containing "&", plus "Def_dec") are kept as their own units
-#    and flagged; their content differs between countries.
+#    and flagged; their content differs between countries. Exception: groups a
+#    country reports in place of a dominant species (see group_to_species).
 
 # Species metadata from the file itself. Guild is derived from the indicator
 # columns ("Bark borers on ..." / "Defoliators on ..."), which are consistent
@@ -41,9 +42,24 @@ species_meta_from_raw <- function(raw) {
     )
 }
 
+# Group codes treated as a single species, following Hlasny et al. (2025, GCB,
+# Sect. 2.2): "if the national data providers indicated that a broader group was
+# dominated by a single species (e.g. borers on gymnosperms is dominated by
+# I. typographus), we considered this group in species-specific analyses".
+# Only applied where the country does not report that species separately.
+# This mapping reproduces the paper's Table 6 (see R/paper.R).
+group_to_species <- tibble::tribble(
+  ~country, ~from,                   ~to,       ~reason,
+  "CZ",     "CambXyl_con&BB_con&SM", "ips_typ", "Spruce bark-borer group, dominated by I. typographus; CZ reports no separate ips_typ"
+)
+
 # One row per country-nuts-year-species with the damage value used downstream.
-prepare_damage <- function(long, species_meta) {
+prepare_damage <- function(long, species_meta, recode = group_to_species) {
   long |>
+    dplyr::left_join(dplyr::select(recode, country, species = from, to),
+                     by = c("country", "species")) |>
+    dplyr::mutate(species = dplyr::coalesce(to, species)) |>
+    dplyr::select(-to) |>
     # BG/RS rows with missing value also miss the unit; units are fixed per species
     dplyr::select(-unit) |>
     dplyr::left_join(dplyr::select(species_meta, species, unit), by = "species") |>

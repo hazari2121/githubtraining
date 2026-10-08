@@ -3,3 +3,4 @@ log_damage,FALSE,"Pooled reference only. Units are fixed per species, but levels
 z_within,TRUE,Standardised within each region-species series; removes region size and scale.
 detrended,TRUE,"Residuals of a linear time trend per series, in log units; removes shared long-term trends."
 diff,TRUE,Year-to-year change in log_damage; removes level and most trend.
+anomaly,TRUE,z_within minus the same species' mean z_within in that year in all other regions; removes Europe-wide year effects.

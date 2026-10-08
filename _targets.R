@@ -23,7 +23,7 @@ list(
   tar_target(coverage_raw_csv, tab(coverage_raw, "step1_country_species_coverage.csv"), format = "file"),
   tar_target(sp_lookup_csv, tab(sp_lookup, "step1_species_in_file.csv"), format = "file"),
 
-  # ---- Prepare: CZ sub-rows summed, value1 only ------------------------------
+  # ---- Prepare: CZ sub-rows summed, value1 only, CZ spruce group -> ips_typ ----
   tar_target(species_meta, species_meta_from_raw(raw)),
   tar_target(dmg, prepare_damage(long, species_meta)),
   tar_target(dmg_csv, write_csv_out(dmg, "data/processed/eufordam_damage_nuts.csv"), format = "file"),
@@ -41,17 +41,22 @@ list(
              format = "file"),
 
   # ---- Step 3: transformed versions ----------------------------------------
-  tar_target(tr, make_transforms(cells)),
-  tar_target(tr_sens, make_transforms(cells, drop_suspect_zeros = TRUE)),
+  # Main: series with >= 6 non-zero values (Hlasny et al. 2025). Sensitivity: no filter.
+  tar_target(tr, make_transforms(cells, min_nonzero = 6)),
+  tar_target(tr_nofilter, make_transforms(cells, min_nonzero = 0)),
   tar_target(tr_csv, write_csv_out(tr, "data/processed/transformed_observed.csv"), format = "file"),
   tar_target(versions_csv, tab(transform_versions, "transform_versions.csv"), format = "file"),
   tar_target(all_species, sort(unique(cells$species))),
 
   # ---- Step 4: pairwise correlations ---------------------------------------
   tar_target(pw, pairwise_correlations(tr, all_species)),
-  tar_target(pw_sens, pairwise_correlations(tr_sens, all_species, versions = c("z_within", "detrended"))),
+  tar_target(pw_nofilter, pairwise_correlations(tr_nofilter, all_species, versions = c("z_within", "anomaly"))),
   tar_target(pw_csv, tab(pw, "pairwise_correlations.csv"), format = "file"),
-  tar_target(pw_sens_csv, tab(pw_sens, "pairwise_correlations_sensitivity_no_suspect_zeros.csv"), format = "file"),
+  tar_target(pw_nofilter_csv, tab(pw_nofilter, "pairwise_correlations_sensitivity_no_series_filter.csv"), format = "file"),
+
+  # ---- Comparison with Hlasny et al. (2025) Table 6 -------------------------
+  tar_target(paper_t6, europe_total_correlations(dmg)),
+  tar_target(paper_t6_csv, tab(paper_t6, "paper_table6_replication.csv"), format = "file"),
 
   # ---- Step 5: temporal vs spatial -----------------------------------------
   tar_target(sp_cor, spatial_correlations(tr, all_species)),
@@ -60,10 +65,10 @@ list(
 
   # ---- Step 6: transferability ---------------------------------------------
   tar_target(pc, per_country_correlations(tr, all_species)),
-  tar_target(loco, dplyr::bind_rows(loco_correlations(tr, all_species, "z_within"),
-                                    loco_correlations(tr, all_species, "detrended"))),
-  tar_target(ts, dplyr::bind_rows(transferability_summary(pw, pc, loco, "z_within"),
-                                  transferability_summary(pw, pc, loco, "detrended"))),
+  tar_target(loco, dplyr::bind_rows(lapply(c("z_within", "detrended", "anomaly"), function(v)
+    loco_correlations(tr, all_species, v)))),
+  tar_target(ts, dplyr::bind_rows(lapply(c("z_within", "detrended", "anomaly"), function(v)
+    transferability_summary(pw, pc, loco, v)))),
   tar_target(pc_csv, tab(pc, "per_country_correlations.csv"), format = "file"),
   tar_target(loco_csv, tab(loco, "leave_one_country_out.csv"), format = "file"),
   tar_target(ts_csv, tab(ts, "transferability_summary.csv"), format = "file"),
@@ -80,7 +85,7 @@ list(
                                                          paste(guild, host, sep = " / "))),
              cue = tar_cue(mode = "always")),
   tar_target(clust, cluster_species(pw, "z_within")),
-  tar_target(perm, dplyr::bind_rows(lapply(c("z_within", "detrended"), function(v)
+  tar_target(perm, dplyr::bind_rows(lapply(c("z_within", "detrended", "anomaly"), function(v)
     dplyr::bind_rows(lapply(c("guild", "host", "guild_host"), function(g)
       group_permutation_test(pw, guild_lookup, g, version = v)))))),
   tar_target(perm_csv, tab(perm, "guild_permutation_test.csv"), format = "file"),

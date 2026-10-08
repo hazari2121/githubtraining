@@ -23,5 +23,8 @@ quarto render reports/report.qmd
 ```
 
 Status: Steps 1-7 done (inspection, missingness, transforms, pairwise
-correlations, temporal vs spatial, transferability, guild structure).
-No gap-filling or imputation yet.
+correlations, temporal vs spatial, transferability, guild structure), version 2
+aligned with Hlasny et al. (2025, Global Change Biology): series with < 6
+non-zero values removed, CZ spruce bark-borer group treated as I. typographus,
+year-anomaly version added, and the paper's Table 6 replicated
+(`R/paper.R`). No gap-filling or imputation yet.
