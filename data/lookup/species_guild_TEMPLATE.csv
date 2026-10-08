@@ -1,0 +1,50 @@
+species,guild,host,suggested_guild,suggested_host,host_tree_in_file,is_aggregate,is_genus_level,flags_in_file
+CambXyl_con&BB_con&BO,,,borer,conifer,Pinus sylvestris,TRUE,FALSE,Bark borers on conifers; Bark borers on pine
+CambXyl_con&BB_con&SM,,,borer,conifer,Picea abies,TRUE,FALSE,Bark borers on conifers; Bark borers on spruce; Ips typographus
+CambXyl_con&BO,,,borer,conifer,Pinus sylvestris,TRUE,FALSE,Bark borers on conifers; Bark borers on pine
+CambXyl_con&MD,,,borer,conifer,Larix decidua,TRUE,FALSE,Bark borers on conifers
+Def_dec,,,defoliator,broadleaf,Aesculus spp.,TRUE,FALSE,Defoliators on decidous
+Def_dec&DB,,,defoliator,broadleaf,Quercus spp.,TRUE,FALSE,Defoliators on decidous
+agr_big,,,borer,broadleaf,Quercus spp.,FALSE,FALSE,Bark borers on decidous
+agr_vir,,,borer,broadleaf,Quercus spp.,FALSE,FALSE,Bark borers on decidous
+bup_pin,,,defoliator,conifer,Pinus sylvestris,FALSE,FALSE,Defoliators on conifers; Defoliators on pine
+cep_spp,,,defoliator,conifer,Picea abies,FALSE,TRUE,Defoliators on conifers; Defoliators on spruce
+clo_ana,,,defoliator,broadleaf,"Populus, Salix ?",FALSE,FALSE,Defoliators on decidous
+den_mic,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce
+den_pin,,,defoliator,conifer,Pinus sylvestris,FALSE,FALSE,Defoliators on conifers; Defoliators on pine
+dip_sp,,,defoliator,conifer,Pinus sylvestris,FALSE,TRUE,Defoliators on conifers; Defoliators on pine
+era_def,,,defoliator,broadleaf,Quercus spp.,FALSE,FALSE,Defoliators on decidous
+geo_db,,,defoliator,broadleaf,Quercus spp.,FALSE,FALSE,Defoliators on decidous; Geometridae on oaks
+ips_acu,,,borer,conifer,Pinus sylvestris,FALSE,FALSE,Bark borers on conifers; Bark borers on pine; Ips acuminatus
+ips_ami,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce
+ips_cem,,,borer,conifer,Larix decidua,FALSE,FALSE,Bark borers on conifers
+ips_dup,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce
+ips_sex,,,borer,conifer,Pinus sylvestris,FALSE,FALSE,Bark borers on conifers; Bark borers on pine
+ips_typ,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce; Ips typographus
+lym_dis,,,defoliator,broadleaf,Quercus spp.,FALSE,FALSE,Defoliators on decidous; Lymantria dispar
+lym_mon,,,defoliator,conifer,Picea abies,FALSE,FALSE,Defoliators on conifers; Defoliators on spruce; Lymantria monacha
+mel_spp,,,defoliator,broadleaf,Quercus spp.,FALSE,TRUE,Defoliators on decidous
+neo_ser,,,defoliator,conifer,Pinus sylvestris,FALSE,FALSE,Defoliators on conifers; Defoliators on pine
+ope_spp,,,defoliator,broadleaf,Quercus spp.,FALSE,TRUE,Defoliators on decidous
+pan_fla,,,defoliator,conifer,Pinus sylvestris,FALSE,FALSE,Defoliators on conifers; Defoliators on pine
+pha_cya,,,borer,conifer,Pinus sylvestris,FALSE,FALSE,Bark borers on conifers; Bark borers on pine; Phaenops cyanea
+pis_pin,,,borer,conifer,Pinus sylvestris,FALSE,FALSE,Bark borers on conifers; Bark borers on pine
+pit_bid,,,borer,conifer,Pinus sylvestris,FALSE,FALSE,Bark borers on conifers; Bark borers on pine
+pit_cha,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce; Pityogenes chalcographus
+pit_spp,,,borer,conifer,Abies alba,FALSE,TRUE,Bark borers on conifers; Bark borers on fir
+pol_pol,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers; Bark borers on spruce
+pri_abi,,,defoliator,conifer,Picea abies,FALSE,FALSE,Defoliators on conifers; Defoliators on spruce
+sap_car,,,borer,broadleaf,"Populus, Salix",FALSE,FALSE,Bark borers on decidous
+sco_int,,,borer,broadleaf,Quercus spp.,FALSE,FALSE,Bark borers on decidous
+sco_rat,,,borer,broadleaf,Betula spp.,FALSE,FALSE,Bark borers on decidous
+sco_sco,,,borer,broadleaf,Ulmus spp.,FALSE,FALSE,Bark borers on decidous
+tet_gab,,,borer,conifer,Larix decidua,FALSE,FALSE,Bark borers on conifers
+tet_spp,,,borer,conifer,Picea abies,FALSE,TRUE,Bark borers on conifers; Bark borers on spruce
+tha_pit,,,defoliator,conifer,Pinus sylvestris,FALSE,FALSE,Defoliators on conifers; Defoliators on pine
+tha_pro,,,defoliator,broadleaf,Quercus spp.,FALSE,FALSE,Defoliators on decidous
+tom_spp,,,borer,conifer,Pinus sylvestris,FALSE,TRUE,Bark borers on conifers; Bark borers on pine; Tomicus minor and Tomicus piniperda
+tor_vir,,,defoliator,broadleaf,Quercus spp.,FALSE,FALSE,Defoliators on decidous; Tortrix viridana
+uro_sir_spp,,,borer,conifer,Picea abies,FALSE,TRUE,Bark borers on conifers; Bark borers on spruce
+xyl_lin,,,borer,conifer,Picea abies,FALSE,FALSE,Bark borers on conifers
+xyl_spp,,,borer,broadleaf,Quercus spp.,FALSE,TRUE,Bark borers on decidous
+zei_gri,,,defoliator,conifer,Picea abies,FALSE,FALSE,Defoliators on conifers; Defoliators on spruce

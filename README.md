@@ -11,7 +11,17 @@ damage record is about every other species, as groundwork for gap-filling.
 - `outputs/tables/`, `outputs/figures/` – results
 - `renv.lock` – package versions
 
-## Run
-Put `EUForDam_REW3.xlsx` in `data/raw/`, then in R: `targets::tar_make()`.
+- `data/lookup/species_guild_TEMPLATE.csv` – fill in guild/host, save as `species_guild.csv`
+- `reports/report.qmd` – summary report (rendered: `reports/report.html`)
 
-Status: Step 1 (data inspection) only.
+## Run
+Put `EUForDam_REW3.xlsx` in `data/raw/`, then:
+
+```
+Rscript -e 'targets::tar_make()'
+quarto render reports/report.qmd
+```
+
+Status: Steps 1-7 done (inspection, missingness, transforms, pairwise
+correlations, temporal vs spatial, transferability, guild structure).
+No gap-filling or imputation yet.

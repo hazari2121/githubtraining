@@ -1,0 +1,163 @@
+---
+title: "EU-ForDAM: cross-species correlation of insect damage"
+subtitle: "Step 1–7 summary — groundwork for gap-filling (no imputation done)"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    df-print: kable
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(dplyr)
+library(targets)
+store <- "../_targets"
+rd <- function(x) tar_read_raw(x, store = store)
+f2 <- function(x) formatC(x, format = "f", digits = 2)
+pct <- function(x) paste0(round(x), "%")
+
+counts <- rd("counts"); cells <- rd("cells"); cov_country <- rd("cov_country")
+cov_species <- rd("cov_species"); pw <- rd("pw"); pw_sens <- rd("pw_sens")
+ts <- rd("ts"); tvs <- rd("tvs"); perm <- rd("perm"); pc <- rd("pc")
+lookup <- rd("guild_lookup"); meta <- rd("species_meta")
+
+tz <- ts |> filter(version == "z_within") |>
+  left_join(pw |> filter(version == "z_within") |>
+              select(species_a, species_b, n_both_positive, r_spearman),
+            by = c("species_a", "species_b")) |>
+  left_join(pw_sens |> filter(version == "z_within") |>
+              select(species_a, species_b, r_no_suspect = r_pearson),
+            by = c("species_a", "species_b"))
+interp <- tz |> filter(!is.na(r_pooled), n_pooled >= 10)
+```
+
+## Data and decisions
+
+Source: `EUForDam_REW3.xlsx`, sheet `EUForDam_REW`: `r counts$n_rows` rows, `r counts$n_countries` countries, `r counts$n_species` species codes, `r counts$n_regions` regions, `r counts$year_min`–`r counts$year_max`.
+
+Processing decisions (agreed before analysis):
+
+- **Damage variable = `value1`.** `value2` is filled for ~12% of rows; in most countries it is an exact constant fraction of `value1` (a unit conversion), in DE a sub-part of it.
+- **CZ sub-rows summed to NUTS2.** CZ has 1–3 rows per NUTS2-year-species (sub-regions, probably kraje); damage in m³/ha is additive. CZ values are multiples of 1/7 (cause unknown; a constant factor does not affect within-series correlations).
+- **Zeros are real (observed_zero).** NA values and missing rows are *not monitored*. As a sensitivity check, "suspect zeros" (zeros in a country-species-year where no region of that country reports any damage, `r format(sum(cells$suspect_zero), big.mark = ",")` cells) are dropped and correlations recomputed.
+- **Aggregate codes kept as their own units** (`r paste(meta$species[meta$is_aggregate], collapse = ", ")`) and flagged. Their content differs between countries (e.g. `CambXyl_con&BB_con&SM` is the main spruce bark-beetle record in CZ but a minor residual group in DE).
+- **Units** are fixed per species (defoliators ha, borers m³), not per country. NUTS level differs by country (national for 11 countries, NUTS1 DE, NUTS2 AT/CZ/PL, NUTS3 FI), so raw `log_damage` levels are **not comparable across countries**; `z_within`, `detrended` and `diff` are.
+- **"Impossible" (host absent)** is a placeholder column (TODO: host-tree maps).
+
+## Coverage
+
+![](../outputs/figures/coverage_country_species.png)
+
+Of `r format(nrow(cells), big.mark = ",")` region-year-species cells, `r pct(100*mean(cells$status=="observed_positive"))` are observed positive, `r pct(100*mean(cells$status=="observed_zero"))` observed zero and `r pct(100*mean(cells$status=="not_monitored"))` not monitored. DE reports `r sum(rd("cov_cs")$country=="DE" & rd("cov_cs")$pct_observed>0)` of `r counts$n_species` codes; most other countries report 1–21. `ips_typ` is the only species recorded by nearly every country.
+
+```{r coverage-country}
+cov_country |>
+  transmute(country, cells = n_cells,
+            `% positive` = round(pct_observed_positive, 1), `% zero` = round(pct_observed_zero, 1),
+            `% not monitored` = round(pct_not_monitored, 1), `% suspect zero` = round(pct_suspect_zero, 1)) |>
+  arrange(`% not monitored`)
+```
+
+DE dominates the observed data (`r pct(cov_country$pct_observed_zero[cov_country$country=="DE"])` of its cells are zeros), so pooled correlations lean heavily on DE.
+
+## Pairwise correlations (Step 4)
+
+`r nrow(interp)` of `r nrow(tz)` species pairs have an interpretable pooled `z_within` correlation (n ≥ 10 co-observed region-years). Strength of |r|: `r paste(names(table(interp$strength)), table(interp$strength), sep = " ", collapse = ", ")`.
+
+```{r versions}
+pw |> filter(!low_n, !is.na(r_pearson)) |>
+  group_by(version) |>
+  summarise(pairs = n(), `median |r|` = f2(median(abs(r_pearson))),
+            `pairs FDR < 0.05` = sum(fdr_pearson < 0.05, na.rm = TRUE),
+            `share r > 0` = pct(100 * mean(r_pearson > 0)))
+```
+
+`diff` gives the weakest correlations, as expected (year-to-year noise dominates). `log_damage` is shown for reference only. **p-values are optimistic**: years within a series are autocorrelated and region-years are not independent. Effect size, n and cross-country consistency are the main evidence.
+
+**Zero sensitivity.** Dropping suspect zeros, pooled `z_within` r correlates `r f2(cor(tz$r_pooled, tz$r_no_suspect, use = "complete"))` with the main run; `r sum(!is.na(tz$r_pooled) & is.na(tz$r_no_suspect))` pairs lose their estimate. The strongest pairs barely move (see tables), but weak pairs are sensitive to how zeros are treated. The column `n_both_positive` counts region-years where both species had damage; pairs with few such years are driven mainly by shared zeros.
+
+## Temporal vs spatial (Step 5)
+
+Temporal = pooled within-series `z_within` r; spatial = r between region means of `log_damage` across regions (co-observed years only). Linked = |r| ≥ 0.3.
+
+```{r tvs}
+tvs |> count(linked_by, name = "pairs") |> arrange(desc(pairs))
+```
+
+Many pairs are linked "by place" only: regions with a lot of one species tend to have a lot of another, mainly because large regions (and whole countries reported nationally) have more damage of everything. Spatial links are therefore weak evidence for gap-filling; temporal links are the useful part.
+
+## Transferability across countries (Step 6) — most important
+
+Flag rules (`z_within`, Pearson): **consistent** = ≥ 2 countries with n ≥ 10, every country r has the pooled sign, SD of country r ≤ 0.2, and no leave-one-country-out sign flip; **inconsistent** = ≥ 2 countries but a rule fails; **insufficient data** = < 2 countries.
+
+```{r transfer-count}
+tz |> count(transferability, name = "pairs")
+```
+
+Most pairs (`r sum(tz$transferability == "insufficient data")`) cannot be tested because only one country, usually DE, records both species. Transferability is the binding constraint for gap-filling.
+
+### Strongest consistent pairs
+
+```{r consistent}
+tz |> filter(transferability == "consistent") |>
+  arrange(desc(abs(r_pooled))) |> slice_head(n = 15) |>
+  transmute(pair = paste(species_a, "×", species_b), n = n_pooled, `n both > 0` = n_both_positive,
+            r = f2(r_pooled), `r no suspect 0` = f2(r_no_suspect), countries = countries_n10,
+            `SD r` = f2(r_sd), `max LOCO change` = f2(loco_max_abs_change))
+```
+
+These are mostly within the pine bark-borer complex (`ips_sex`, `ips_acu`, `pha_cya`, `tom_spp`, `pis_pin`, the pine borer aggregate) and the pine defoliators (`bup_pin`, `pan_fla`, `den_pin`), plus `ips_typ` × `pit_spp` across four countries. Some cross guild/host lines (`agr_big` on oak × `pha_cya` on pine, DE and PL) suggest shared drivers such as drought years. Two negative pairs involve `pri_abi`. Most "consistent" pairs rest on only 2 countries.
+
+### Strong but inconsistent pairs
+
+![](../outputs/figures/top_pairs_by_country.png)
+
+```{r inconsistent}
+tz |> filter(transferability == "inconsistent") |>
+  arrange(desc(abs(r_pooled))) |> slice_head(n = 12) |>
+  transmute(pair = paste(species_a, "×", species_b), n = n_pooled, r = f2(r_pooled),
+            countries = countries_n10, `min r` = f2(r_min), `max r` = f2(r_max),
+            `sign agree` = pct(100 * sign_consistency), `most influential` = loco_most_influential)
+```
+
+- `ips_typ × pit_cha` is the strongest pooled pair (r = `r f2(tz$r_pooled[tz$species_a=="ips_typ" & tz$species_b=="pit_cha"])`) and strong in DE and AT, but weak in LT/SK and negative in IT. National series (n ≈ 23) are much noisier than the regional DE/AT data.
+- Pairs with the `CambXyl_con&BB_con&SM` aggregate are strong in CZ and weak or negative in DE, which is consistent with that code meaning different things in the two countries.
+
+## Guild structure (Step 7)
+
+Guild/host lookup used here: **`r unique(lookup$lookup_source)`** (borer vs defoliator from the indicator columns; conifer vs broadleaf from TREETYPE). Fill in `data/lookup/species_guild_TEMPLATE.csv`, save it as `data/lookup/species_guild.csv` and rerun the pipeline to use your classification.
+
+![](../outputs/figures/correlation_heatmap_clustered.png)
+
+```{r perm}
+perm |> transmute(grouping, version, `pairs within` = n_within, `pairs between` = n_between,
+                  `mean r within` = f2(mean_r_within), `mean r between` = f2(mean_r_between),
+                  difference = f2(diff_observed), `p (permutation)` = signif(p_perm_one_sided, 2))
+```
+
+Species do cluster by guild: same-guild pairs correlate more strongly than cross-guild pairs (permutation p ≤ 0.003 for both `z_within` and `detrended`, 9,999 label permutations, seed 20261008). Host type alone (conifer vs broadleaf) does not separate them. The clearest block is the bark-beetle complex on conifers (`ips_typ`, `pit_cha`, `ips_cem`, `ips_sex`, `pha_cya`, `pit_bid`, `tom_spp`, `ips_acu`). Within-guild differences are modest (mean r `r f2(perm$mean_r_within[1])` vs `r f2(perm$mean_r_between[1])`).
+
+Clustering caveat: `r rd("clust")$n_missing_set_to_zero` species pairs without an interpretable r were set to r = 0 for clustering only.
+
+The matching n heatmap is `outputs/figures/n_coobserved_heatmap.png`.
+
+## Open questions
+
+1. **Zeros vs not recorded.** Results for weak pairs depend on this. Could the data compiler (or national contacts) confirm which countries record zeros explicitly, particularly LT, DE and the national series?
+2. **What is `value2`** and why are CZ values multiples of 1/7?
+3. **Aggregates.** Should CZ `CambXyl_con&BB_con&SM` be treated as *I. typographus* for transfer purposes? It is the main source of inconsistent pairs.
+4. **Guild/host lookup.** The test above uses a provisional borer/defoliator split; bark vs wood borers need your table.
+5. **Host-tree maps** are needed for the "impossible" class.
+6. **Few countries per pair.** Transferability can be tested for only `r sum(tz$transferability != "insufficient data")` pairs. For gap-filling, transfer from DE to other countries is mostly untested.
+7. **Autocorrelation.** If p-values matter later, a block bootstrap by region or a mixed model with year/region effects would give honest uncertainty.
+
+## Files
+
+- Tables: `outputs/tables/` — `pairwise_correlations.csv`, `pairwise_correlations_sensitivity_no_suspect_zeros.csv`, `temporal_vs_spatial.csv`, `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`, `coverage_by_species.csv`, `coverage_by_country.csv`, `coverage_country_species.csv`, `guild_permutation_test.csv`, `transform_versions.csv`
+- Figures: `outputs/figures/`
+- Guild template: `data/lookup/species_guild_TEMPLATE.csv`
