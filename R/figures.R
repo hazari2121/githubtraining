@@ -181,3 +181,31 @@ plot_occurrence_map <- function(rs, sp_rank) {
                    strip.text.y.left = ggplot2::element_text(angle = 0, face = "bold"),
                    panel.spacing.y = ggplot2::unit(1.5, "pt"))
 }
+
+# Rank-occupancy curve: species (y, ranked) against number of NUTS units where
+# they occur (x), joined by a line from the rarest to the most widespread.
+plot_occupancy_curve <- function(sp_rank) {
+  d <- sp_rank |>
+    dplyr::mutate(guild = dplyr::coalesce(guild, "other")) |>
+    dplyr::arrange(n_regions_occurring, dplyr::desc(species)) |>
+    dplyr::mutate(species = factor(species, species), y = as.integer(species))
+  n_units <- max(sp_rank$n_regions_monitored)
+  ggplot2::ggplot(d, ggplot2::aes(n_regions_occurring, y)) +
+    ggplot2::geom_path(colour = pal$ink2, linewidth = 0.6) +
+    ggplot2::geom_point(ggplot2::aes(colour = guild, shape = guild), size = 2.6) +
+    ggplot2::geom_text(ggplot2::aes(label = n_regions_occurring), hjust = 0, nudge_x = 1.3,
+                       size = 2.4, colour = pal$ink2) +
+    ggplot2::scale_y_continuous(breaks = d$y, labels = as.character(d$species),
+                                expand = ggplot2::expansion(add = 0.8)) +
+    ggplot2::scale_x_continuous(limits = c(0, n_units), breaks = seq(0, 80, 10)) +
+    ggplot2::scale_colour_manual(values = pal$guild, name = "Guild") +
+    ggplot2::scale_shape_manual(values = c(borer = 16, defoliator = 17, other = 15), name = "Guild") +
+    ggplot2::labs(x = "Number of NUTS units where the species occurs (damage > 0 in at least one year)",
+                  y = NULL, title = "Species occupancy across NUTS units",
+                  subtitle = "Few widespread species, many species found in few units",
+                  caption = paste0("Out of ", n_units, " NUTS units in the dataset. National-level countries count as one unit; PL district codes aggregated to NUTS2.")) +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = c(0.82, 0.15),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3),
+                   panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
+}

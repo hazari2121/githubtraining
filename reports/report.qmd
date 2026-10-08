@@ -92,6 +92,8 @@ t6 |> arrange(desc(paper_value)) |>
 
 Suggested by Prof. Hlásny. *Occurs* = at least one year with damage > 0 in a NUTS unit; *usable series* = at least 6 such years (the paper's filter). Damage shares and ranks are within unit (m³ for borers, ha for defoliators). National-level countries count as one unit each. Full tables, including the ranking of species within every region and a region × species matrix, are in `outputs/tables/species_nuts_occurrence_ranking.xlsx`.
 
+![](../outputs/figures/species_occupancy_curve.png)
+
 ![](../outputs/figures/species_occurrence_ranking.png)
 
 ![](../outputs/figures/occurrence_map_region_species.png)

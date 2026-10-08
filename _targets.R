@@ -50,6 +50,8 @@ list(
   tar_target(occ_matrix_csv, tab(occ_matrix, "occurrence_matrix_region_species.csv"), format = "file"),
   tar_target(fig_sp_rank, save_fig(plot_species_ranking(sp_rank),
                                     "outputs/figures/species_occurrence_ranking.png", 8, 9.5), format = "file"),
+  tar_target(fig_occupancy, save_fig(plot_occupancy_curve(sp_rank),
+                                     "outputs/figures/species_occupancy_curve.png", 7.5, 9.5), format = "file"),
   tar_target(fig_occ_map, save_fig(plot_occurrence_map(rs_summary, sp_rank),
                                    "outputs/figures/occurrence_map_region_species.png", 11, 14), format = "file"),
   tar_target(ranking_xlsx, write_ranking_xlsx(sp_rank, reg_rank, occ_matrix,
