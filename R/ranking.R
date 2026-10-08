@@ -7,8 +7,11 @@
 # Region counts mix NUTS levels: 11 countries report one national series, which
 # counts as one region (column n_national_units).
 
-nuts_level <- function(nuts_id) {
+# PL uses 3-letter district codes (BIA, GDA, ...) aggregated to NUTS2 level
+# (Hlasny et al. 2025, Sect. 2.2), so country is needed as well as the code.
+nuts_level <- function(nuts_id, country) {
   dplyr::case_when(
+    country == "PL"        ~ "NUTS2",
     grepl(";", nuts_id)    ~ "NUTS1 (merged)",
     nchar(nuts_id) == 2    ~ "national",
     nchar(nuts_id) == 3    ~ "NUTS1",
@@ -33,7 +36,7 @@ region_species_summary <- function(cells, min_nonzero = 6) {
       .groups = "drop"
     ) |>
     dplyr::mutate(
-      nuts_level = nuts_level(nuts_id),
+      nuts_level = nuts_level(nuts_id, country),
       occurs = years_with_damage > 0,
       usable_series = years_with_damage >= min_nonzero   # Hlasny et al. (2025) filter
     )

@@ -130,3 +130,54 @@ plot_top_pairs <- function(ts, pc, k = 15, version = "z_within") {
     theme_eu() +
     ggplot2::theme(panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
 }
+
+# Species ranking: regions where the species occurs (dark) out of regions where
+# it is monitored (light), one panel per guild.
+plot_species_ranking <- function(sp_rank) {
+  d <- sp_rank |>
+    dplyr::mutate(guild = dplyr::coalesce(guild, "other"),
+                  species = factor(species, rev(species)),
+                  lab = paste0(n_regions_occurring, " (", n_countries_occurring, " ctry)"))
+  ggplot2::ggplot(d, ggplot2::aes(y = species)) +
+    ggplot2::geom_col(ggplot2::aes(x = n_regions_monitored), fill = "#e6e5e1", width = 0.75) +
+    ggplot2::geom_col(ggplot2::aes(x = n_regions_occurring, fill = guild), width = 0.75) +
+    ggplot2::geom_text(ggplot2::aes(x = n_regions_monitored, label = lab), hjust = -0.1,
+                       size = 2.4, colour = pal$ink2) +
+    ggplot2::scale_fill_manual(values = pal$guild, guide = "none") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.18))) +
+    ggplot2::facet_grid(guild ~ ., scales = "free_y", space = "free_y") +
+    ggplot2::labs(x = "Number of NUTS units", y = NULL,
+                  title = "Where does each insect occur?",
+                  subtitle = "Coloured bar = units with damage in at least one year; grey bar = units where monitored",
+                  caption = "Label: units with damage (number of countries). National-level countries count as one unit.") +
+    theme_eu(9) +
+    ggplot2::theme(strip.text.y = ggplot2::element_text(angle = 0, face = "bold"),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+# Region x species map: years with damage. Blank = not monitored,
+# grey = monitored but never damaged, blue = years with damage.
+plot_occurrence_map <- function(rs, sp_rank) {
+  d <- rs |>
+    dplyr::mutate(
+      species = factor(species, sp_rank$species),
+      region = paste0(nuts_id, " "),
+      yrs = dplyr::na_if(years_with_damage, 0L)
+    )
+  reg_order <- d |> dplyr::distinct(country, region) |> dplyr::arrange(dplyr::desc(country), dplyr::desc(region))
+  d$region <- factor(d$region, reg_order$region)
+  ggplot2::ggplot(d, ggplot2::aes(species, region, fill = yrs)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.3) +
+    ggplot2::scale_fill_gradientn(colours = pal$seq, limits = c(1, 23), na.value = "#cfcec9",
+                                  name = "Years with\ndamage") +
+    ggplot2::facet_grid(country ~ ., scales = "free_y", space = "free_y", switch = "y") +
+    ggplot2::scale_x_discrete(position = "top") +
+    ggplot2::labs(x = NULL, y = NULL, title = "Insect occurrence by NUTS unit, 2000-2022",
+                  caption = paste("Blank = not monitored. Grey = monitored, no damage recorded. Insects ordered by number of units where they occur.",
+                                  "PL rows are district codes aggregated to NUTS2.")) +
+    theme_eu(7) +
+    ggplot2::theme(axis.text.x.top = ggplot2::element_text(angle = 90, hjust = 0, vjust = 0.5),
+                   strip.placement = "outside",
+                   strip.text.y.left = ggplot2::element_text(angle = 0, face = "bold"),
+                   panel.spacing.y = ggplot2::unit(1.5, "pt"))
+}

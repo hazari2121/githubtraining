@@ -92,6 +92,12 @@ t6 |> arrange(desc(paper_value)) |>
 
 Suggested by Prof. Hlásny. *Occurs* = at least one year with damage > 0 in a NUTS unit; *usable series* = at least 6 such years (the paper's filter). Damage shares and ranks are within unit (m³ for borers, ha for defoliators). National-level countries count as one unit each. Full tables, including the ranking of species within every region and a region × species matrix, are in `outputs/tables/species_nuts_occurrence_ranking.xlsx`.
 
+![](../outputs/figures/species_occurrence_ranking.png)
+
+![](../outputs/figures/occurrence_map_region_species.png)
+
+**Zeros that are probably missing data.** Lower Saxony (DE9) reports exactly 0 *I. typographus* damage in all 23 years, and only 4 non-zero values across all 45 species, although the Harz mountains in Lower Saxony had one of Germany's largest bark-beetle outbreaks in 2018–2022. Berlin, Bremen and Hamburg (DE3, DE5, DE6) are zero for every species. These zeros most likely mean "not reported". The ≥ 6 non-zero filter already excludes them from the correlations, but for gap-filling they should be treated as gaps, not as observed zeros. **To confirm with Prof. Hlásny.**
+
 ```{r ranking}
 rd("sp_rank") |>
   transmute(rank = rank_by_regions, species, guild, unit,
@@ -251,6 +257,7 @@ log(target + 1) ~ log(helper + 1) * year + VPD + host abundance
 4. **VPD per region** as used in the paper.
 5. **CZ values in multiples of 1/7** — known cause?
 6. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
+7. **German regions with only zeros** (DE9 Lower Saxony, DE3 Berlin, DE5 Bremen, DE6 Hamburg): not reported, or truly no damage?
 
 ## Files
 
