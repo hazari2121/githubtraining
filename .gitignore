@@ -1,0 +1,12 @@
+# Raw data is not committed (public repo; licence of national monitoring data unclear)
+data/raw/
+data/processed/
+# targets cache
+_targets/
+# renv library (lockfile is committed)
+renv/library/
+renv/staging/
+.Rproj.user/
+.Rhistory
+.RData
+*_files/

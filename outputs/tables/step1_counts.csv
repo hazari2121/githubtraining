@@ -1,0 +1,2 @@
+n_rows,n_countries,n_species,n_regions,n_years,year_min,year_max,n_value1_na,n_value1_zero,n_value1_pos,n_value2_present,n_unit_na,n_dup_keys
+30019,16,49,77,23,2000,2022,39,19260,10720,3480,38,2415
