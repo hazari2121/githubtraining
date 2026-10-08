@@ -209,3 +209,43 @@ plot_occupancy_curve <- function(sp_rank) {
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3),
                    panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
 }
+
+# Two rank-occupancy curves side by side: NUTS units where each species is
+# monitored, and NUTS units where it occurs. Each panel is ranked on its own
+# measure, so species order differs between panels.
+plot_occupancy_curves_monitored <- function(sp_rank) {
+  n_units <- max(sp_rank$n_regions_monitored)
+  long <- dplyr::bind_rows(
+    sp_rank |> dplyr::transmute(species, guild, n = n_regions_monitored,
+                                panel = "Monitored (value reported, 0 or > 0)"),
+    sp_rank |> dplyr::transmute(species, guild, n = n_regions_occurring,
+                                panel = "Occurring (damage > 0 in at least one year)")
+  ) |>
+    dplyr::mutate(guild = dplyr::coalesce(guild, "other"),
+                  panel = factor(panel, unique(panel))) |>
+    dplyr::group_by(panel) |>
+    dplyr::arrange(n, dplyr::desc(species), .by_group = TRUE) |>
+    dplyr::mutate(key = paste(species, as.integer(panel), sep = "___")) |>
+    dplyr::ungroup()
+  long$key <- factor(long$key, long$key)
+
+  ggplot2::ggplot(long, ggplot2::aes(n, key, group = panel)) +
+    ggplot2::geom_path(colour = pal$ink2, linewidth = 0.6) +
+    ggplot2::geom_point(ggplot2::aes(colour = guild, shape = guild), size = 2.2) +
+    ggplot2::geom_text(ggplot2::aes(label = n), hjust = 0, nudge_x = 1.5, size = 2.2, colour = pal$ink2) +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", nrow = 1) +
+    ggplot2::scale_y_discrete(labels = function(x) sub("___.*$", "", x)) +
+    ggplot2::scale_x_continuous(limits = c(0, n_units + 4), breaks = seq(0, 80, 10)) +
+    ggplot2::scale_colour_manual(values = pal$guild, name = "Guild") +
+    ggplot2::scale_shape_manual(values = c(borer = 16, defoliator = 17, other = 15), name = "Guild") +
+    ggplot2::labs(x = "Number of NUTS units", y = NULL,
+                  title = "Species-NUTS ranking: monitored vs occurring",
+                  subtitle = "Each panel ranked on its own measure (species order differs between panels)",
+                  caption = paste0("Out of ", n_units, " NUTS units. National-level countries count as one unit; PL district codes aggregated to NUTS2.")) +
+    theme_eu(8.5) +
+    ggplot2::theme(legend.position = "bottom",
+                   strip.text = ggplot2::element_text(face = "bold", hjust = 0),
+                   panel.spacing.x = ggplot2::unit(14, "pt"),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3),
+                   panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
+}
