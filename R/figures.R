@@ -249,3 +249,38 @@ plot_occupancy_curves_monitored <- function(sp_rank) {
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3),
                    panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
 }
+
+# Explainer: what a correlation looks like. For each example pair and country,
+# the yearly z-score of both species (mean over the country's regions).
+# Lines that rise and fall together = high r.
+plot_correlation_explainer <- function(tr, pc, examples) {
+  d <- purrr::pmap_dfr(examples, function(a, b, country, label) {
+    tr |>
+      dplyr::filter(country == !!country, species %in% c(a, b), !is.na(z_within)) |>
+      dplyr::group_by(species, year) |>
+      dplyr::summarise(z = mean(z_within), .groups = "drop") |>
+      dplyr::mutate(role = dplyr::if_else(species == a, "I. typographus", "Partner species"),
+                    country = country, label = label, pair_b = b)
+  })
+  rr <- examples |>
+    dplyr::left_join(dplyr::filter(pc, version == "z_within") |>
+                       dplyr::select(a = species_a, b = species_b, country, r_pearson),
+                     by = c("a", "b", "country")) |>
+    dplyr::mutate(panel = paste0(country, ":  r = ", formatC(r_pearson, format = "f", digits = 2)))
+  d <- d |> dplyr::left_join(dplyr::select(rr, label, country, panel), by = c("label", "country"))
+  d$label <- factor(d$label, unique(examples$label))
+  ggplot2::ggplot(d, ggplot2::aes(year, z, colour = role)) +
+    ggplot2::geom_hline(yintercept = 0, colour = "#d9d8d4", linewidth = 0.3) +
+    ggplot2::geom_line(linewidth = 0.8) +
+    ggplot2::scale_colour_manual(values = c(`I. typographus` = pal$guild[["borer"]],
+                                            `Partner species` = pal$guild[["defoliator"]]), name = NULL) +
+    ggplot2::facet_wrap(label ~ panel, ncol = 3, labeller = ggplot2::labeller(.multi_line = FALSE)) +
+    ggplot2::labs(x = NULL, y = "Damage, standardised (0 = that region's average)",
+                  title = "What a correlation looks like",
+                  subtitle = "Lines that rise and fall together = high r. Top row: the link holds in every country. Bottom row: strong in one country, absent in others.",
+                  caption = "z_within averaged over each country's regions. r = correlation across region-years in that country.") +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   strip.text = ggplot2::element_text(face = "bold", hjust = 0),
+                   panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
+}
