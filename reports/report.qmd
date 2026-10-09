@@ -181,7 +181,7 @@ rd("cm") |> count(link, name = "pairs") |>
 
 ![](../outputs/figures/cm_links_per_species.png)
 
-The most informative insects are *I. typographus*, *Tomicus*, *Phaenops* and *Pityokteines*: each is clearly linked to 10–19 others. Defoliators are linked to fewer species, and mostly to each other.
+The most informative insects are *I. typographus*, *Tomicus*, *Phaenops* and *Pityokteines*: each is clearly linked to 12–19 others. Defoliators are linked to fewer species, and mostly to each other.
 
 ![](../outputs/figures/cm_lead_effects.png)
 
