@@ -36,7 +36,7 @@ cms_tot <- cms |> mutate(total = strong_links + strong_but_shared_years + weak_l
 ## Key findings
 
 1. **Insects carry information about each other.** Of `r nrow(cm)` insect pairs, `r sum(!is.na(cm$same_year))` can be measured; `r sum(cm$link == "strong, beyond shared bad years")` show a strong link that survives removing Europe-wide bad years, and `r sum(cm$link == "strong, mostly shared bad years")` more are strong mainly because of shared bad years.
-2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree,, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
+2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
 3. **A latent factor model fills gaps `r pct(100 * lbest$skill_vs_year_baseline)` better than Europe-wide yearly averages**, tested by hiding whole country × species blocks. It also beats the best single helper species.
 4. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
 5. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
