@@ -223,6 +223,33 @@ ts |> filter(version %in% c("z_within", "anomaly"), species_a == "ips_typ" | spe
             countries = countries_n10)
 ```
 
+## Helper finder
+
+For each insect with gaps (*target*), which other insect (*helper*) could be used to fill them? Each target–helper pair is checked on three questions:
+
+1. **Link:** do they rise and fall together? (pooled r, `z_within`)
+2. **Transfer:** does the link hold in every country where it can be checked?
+3. **Availability:** is the helper recorded where the target is missing? (*% of gaps* = share of the target's missing region-years in which the helper is recorded)
+
+**Grades.** **A, recommended:** consistent in ≥ 2 countries, |r| ≥ 0.3, and the link survives removing Europe-wide bad years (|r| ≥ 0.2, same sign, in the `anomaly` version). **B, possible:** weaker (0.2–0.3), mostly shared bad years or opposite long-term trends, or strong but tested in one country only. **C, not suitable.** Every graded link must rest on ≥ 2 regions and ≥ 10 region-years where both insects had damage; this removes chance results such as r = 0.96 from one region with 6 shared damage years.
+
+![](../outputs/figures/helper_finder.png)
+
+```{r helper-best}
+rd("hf_best") |> filter(grade %in% c("A", "B")) |>
+  transmute(target, `#` = helper_rank, helper, grade, r = f2(r), `r without bad years` = f2(r_anomaly),
+            `link holds in` = countries, `% of gaps` = round(gap_coverage),
+            `gap countries reached` = gap_countries_reached)
+```
+
+```{r helper-count}
+hb1 <- rd("hf_best") |> group_by(target) |> slice_min(coalesce(helper_rank, 99L), n = 1, with_ties = FALSE) |> ungroup()
+```
+
+`r sum(hb1$grade == "A")` insects have a recommended (A) helper, `r sum(hb1$grade == "B")` only a possible (B) helper and `r sum(hb1$grade == "C")` none. *I. typographus* is the most useful helper because it is recorded almost everywhere: it is the best helper for *Pityokteines*, *Phaenops* and *T. gabrieli* and reaches 59–73% of their gaps. Some A-grade links cross guilds (e.g. *L. dispar* ← *Phaenops*); they pass the statistical checks but should be checked for ecological sense, as they may reflect shared regional drought rather than a direct relationship. Full results: `outputs/tables/helper_finder.xlsx`.
+
+These grades rank candidates; they do not yet show how well a helper actually predicts missing values. The next step tests that directly by leaving out whole countries.
+
 ## Guild structure
 
 Guild/host lookup used: **`r unique(lookup$lookup_source)`** (borer vs defoliator from the file's indicator columns; conifer vs broadleaf from TREETYPE). Fill in `data/lookup/species_guild_TEMPLATE.csv`, save as `data/lookup/species_guild.csv` and rerun to use your classification.

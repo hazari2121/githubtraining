@@ -106,6 +106,30 @@ list(
              save_fig(plot_top_pairs(dplyr::filter(ts, version == "z_within"), pc),
                       "outputs/figures/top_pairs_by_country.png", 9, 7), format = "file"),
 
+  # ---- Helper finder --------------------------------------------------------
+  tar_target(hf, helper_finder(cells, ts, pw, species_meta)),
+  tar_target(hf_best, helper_best(hf, k = 3)),
+  tar_target(hf_csv, tab(hf, "helper_finder_all_pairs.csv"), format = "file"),
+  tar_target(hf_best_csv, tab(hf_best, "helper_finder_best3.csv"), format = "file"),
+  tar_target(hf_xlsx, {
+    p <- "outputs/tables/helper_finder.xlsx"
+    writexl::write_xlsx(list(
+      README = tibble::tibble(item = c("best_helpers", "all_pairs", "grade A", "grade B", "grade C",
+                                       "r", "r_anomaly", "gap_coverage"),
+        meaning = c("Up to 3 best helpers per target insect (A before B, then strongest link).",
+                    "Every target-helper combination with all metrics.",
+                    "Recommended: link holds in >= 2 countries (same sign, similar strength), |r| >= 0.3, and it survives removing Europe-wide bad years (|r_anomaly| >= 0.2, same sign).",
+                    "Possible: consistent but weaker (0.2-0.3), consistent but mostly shared bad years, or |r| >= 0.3 tested in one country only. All grades need >= 2 regions and >= 10 years where both had damage.",
+                    "Not suitable: weak, inconsistent between countries, or helper never recorded where target is missing.",
+                    "Correlation of yearly ups and downs within regions (z_within).",
+                    "Same after removing Europe-wide bad years; shows the link beyond shared drought years.",
+                    "% of the target's missing region-years in which the helper is recorded.")),
+      best_helpers = hf_best, all_pairs = hf), p)
+    p
+  }, format = "file"),
+  tar_target(fig_hf, save_fig(plot_helper_finder(hf_best, sp_rank),
+                              "outputs/figures/helper_finder.png", 10, 10), format = "file"),
+
   # ---- Step 7: guild structure ---------------------------------------------
   tar_target(guild_template_csv,
              write_csv_out(guild_template(species_meta), "data/lookup/species_guild_TEMPLATE.csv"),
