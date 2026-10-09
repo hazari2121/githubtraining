@@ -1,9 +1,8 @@
 # Latent factor model (prototype) for harmonising / gap-filling EU-ForDAM.
 #
 # Data matrix Y: rows = region-years (all NUTS units x 2000-2022),
-# columns = species; values = log(damage + 1) for observed cells, NA otherwise.
-# Series with fewer than 6 non-zero years are treated as missing (paper rule),
-# so all-zero "not reported" series (e.g. DE9) do not train the model.
+# columns = species; values = log(damage + 1) for observed cells (zeros are real
+# observations: monitored, no damage), NA where not monitored.
 #
 # Model (low-rank matrix factorisation with biases):
 #   y[i, s] = mu[s] + c[i] + sum_k U[i, k] * V[s, k] + error
@@ -263,19 +262,3 @@ lfm_example_pick <- function(cv, best_model, n = 5) {
     dplyr::transmute(nuts_id, species, title = paste0(species, ", ", nuts_id, " (", country, ")"))
 }
 
-# Suspicious zero runs: >= 4 consecutive zeros starting right after a year with
-# log(damage + 1) >= 5 (about 150 m3 or ha). Real damage rarely drops from that
-# level to exactly zero and stays there; such runs may be "reporting stopped".
-# Some may be genuine (e.g. collapsing defoliator outbreaks), so they are only
-# used in a sensitivity analysis.
-flag_zero_runs <- function(tr, min_run = 4, min_prev_log = 5) {
-  tr |>
-    dplyr::arrange(country, nuts_id, species, year) |>
-    dplyr::group_by(country, nuts_id, species) |>
-    dplyr::mutate(z = damage == 0, grp = cumsum(!z)) |>
-    dplyr::group_by(country, nuts_id, species, grp) |>
-    dplyr::mutate(run_len = sum(z), prev = dplyr::first(log_damage)) |>
-    dplyr::ungroup() |>
-    dplyr::mutate(suspicious_zero_run = z & run_len >= min_run & prev >= min_prev_log) |>
-    dplyr::select(-z, -grp, -run_len, -prev)
-}

@@ -7,10 +7,8 @@
 #   impossible        : host tree absent from region. TODO: needs host-tree maps;
 #                       column `host_absent` is a placeholder (all NA) for now.
 #
-# suspect_zero (sensitivity only): an observed_zero in a country-species-year
-# where no region of that country reports any damage. These may be "nothing
-# recorded" rather than "monitored, no damage". For single-region (national)
-# countries every zero is suspect by this rule.
+# Coding confirmed by the data provider (Oct 2026): 0 = monitored, no damage;
+# empty = not monitored.
 classify_cells <- function(dmg, years = 2000:2022) {
   regions <- dplyr::distinct(dmg, country, nuts_id)
   grid <- tidyr::crossing(regions, year = years, species = sort(unique(dmg$species)))
@@ -24,12 +22,7 @@ classify_cells <- function(dmg, years = 2000:2022) {
         TRUE          ~ "observed_positive"
       ),
       host_absent = NA  # TODO: fill from host-tree maps -> status "impossible"
-    ) |>
-    dplyr::group_by(country, species, year) |>
-    dplyr::mutate(
-      suspect_zero = status == "observed_zero" & !any(status == "observed_positive")
-    ) |>
-    dplyr::ungroup()
+    )
 }
 
 # Share of cells in each class, by a grouping variable
@@ -43,7 +36,6 @@ coverage_summary <- function(cells, by) {
       pct_observed_zero     = 100 * mean(status == "observed_zero"),
       pct_not_monitored     = 100 * mean(status == "not_monitored"),
       pct_impossible        = NA_real_,  # TODO: needs host-tree maps
-      pct_suspect_zero      = 100 * mean(suspect_zero),
       .groups = "drop"
     )
 }
@@ -58,7 +50,6 @@ coverage_country_species <- function(cells) {
         paste(range(year[status != "not_monitored"]), collapse = "-") else NA_character_,
       pct_observed = 100 * mean(status %in% c("observed_positive", "observed_zero")),
       pct_positive = 100 * mean(status == "observed_positive"),
-      pct_suspect_zero = 100 * mean(suspect_zero),
       .groups = "drop"
     )
 }

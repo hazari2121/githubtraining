@@ -1,6 +1,6 @@
 ---
-title: "EU-ForDAM: cross-species correlation of insect damage"
-subtitle: "Version 2 — aligned with Hlásny et al. (2025, Global Change Biology). Groundwork for gap-filling; no imputation done."
+title: "EU-ForDAM: cross-species structure of forest insect damage"
+subtitle: "Version 3: zeros confirmed as real observations; groundwork for harmonising and gap-filling (PhD objective 1)"
 date: today
 format:
   html:
@@ -22,362 +22,193 @@ f2 <- function(x) formatC(x, format = "f", digits = 2)
 pct <- function(x) paste0(round(x), "%")
 
 counts <- rd("counts"); cells <- rd("cells"); cov_country <- rd("cov_country")
-pw <- rd("pw"); pw_nf <- rd("pw_nofilter"); tr <- rd("tr"); tr_nf <- rd("tr_nofilter")
-ts <- rd("ts"); tvs <- rd("tvs"); perm <- rd("perm"); pc <- rd("pc")
-lookup <- rd("guild_lookup"); meta <- rd("species_meta"); t6 <- rd("paper_t6")
+tr <- rd("tr"); tr6 <- rd("tr_paper6"); pw <- rd("pw"); pw6 <- rd("pw_paper6")
+ts <- rd("ts"); perm <- rd("perm"); meta <- rd("species_meta"); t6 <- rd("paper_t6")
+cm <- rd("cm"); cms <- rd("cm_species"); lags <- rd("cm_lags")
+lsc <- rd("lfm_score"); lbest <- rd("lfm_best"); lgrid <- rd("lfm_grid"); lcv <- rd("lfm_cv_res")
 
-add_pw <- function(x, v) x |>
-  left_join(pw |> filter(version == v) |> select(species_a, species_b, n_both_positive),
-            by = c("species_a", "species_b"))
-tz <- ts |> filter(version == "z_within") |> add_pw("z_within") |>
-  left_join(pw_nf |> filter(version == "z_within") |> select(species_a, species_b, r_nofilter = r_pearson),
-            by = c("species_a", "species_b"))
-ta <- ts |> filter(version == "anomaly") |> add_pw("anomaly")
-interp <- tz |> filter(!is.na(r_pooled), n_pooled >= 10)
-
-za <- pw |> filter(version %in% c("z_within", "anomaly"), !low_n) |>
-  select(species_a, species_b, version, r_pearson) |>
-  tidyr::pivot_wider(names_from = version, values_from = r_pearson) |>
-  filter(!is.na(z_within), !is.na(anomaly))
 n_series <- function(x) n_distinct(paste(x$nuts_id, x$species))
-pair_r <- function(d, a, b) d$r_pooled[d$species_a == a & d$species_b == b]
+tz <- ts |> filter(version == "z_within")
+skill <- function(m) lsc$skill_vs_year_baseline[lsc$model == m]
+cms_tot <- cms |> mutate(total = strong_links + strong_but_shared_years + weak_links) |> arrange(desc(total))
 ```
 
 ## Key findings
 
-1. **Our data reproduce the paper.** Europe-wide correlations from our data match Table 6 of Hlásny et al. (2025) to within `r f2(max(t6$abs_diff_paper_vs_r2))` — **but only when the paper's values are read as r² (squared correlations), not r.** This confirms our processing and suggests Table 6 reports r² with the sign removed (see below).
-2. **Much of the synchrony between species is shared bad years.** Europe-wide series correlate strongly (e.g. *I. typographus* × *P. cyanea* r = `r f2(t6$r_ours[t6$species_a=="ips_typ" & t6$species_b=="pha_cya"])`), but regional series much less. After removing the Europe-wide year signal, about half of the strong regional links remain (`r sum(abs(za$z_within) >= .4 & abs(za$anomaly) >= .3)` of `r sum(abs(za$z_within) >= .4)`), so species carry real information about each other beyond common drought years.
-3. **Bark beetles link together, also across countries.** With the CZ spruce group treated as *I. typographus* (the paper's rule), *I. typographus* now has testable links in up to `r max(tz$n_countries[tz$species_a=="ips_typ"|tz$species_b=="ips_typ"], na.rm=TRUE)` countries; links to *Pityokteines* (`pit_spp`), *I. acuminatus* and *Phaenops* are consistent, and *Tomicus* becomes consistent once shared bad years are removed. The strongest partner, *P. chalcographus*, remains inconsistent between countries.
-4. **Transferability is still the bottleneck.** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs cannot be tested across countries.
-5. **Guild structure is confirmed**, matching the paper: same-guild pairs correlate more than cross-guild pairs, also after removing year effects; host type alone does not.
-
-## What changed from version 1
-
-Following Hlásny et al. (2025):
-
-- **Series filter.** Region-species series with fewer than 6 non-zero values are removed (paper Sect. 2.5). This keeps `r n_series(tr)` of `r n_series(tr_nf)` series and replaces the earlier ad-hoc "suspect zero" rule. The unfiltered run is kept as a sensitivity check.
-- **CZ spruce bark-borer group → *I. typographus*.** The paper treats a group dominated by one species as that species (Sect. 2.2). CZ reports `CambXyl_con&BB_con&SM` instead of `ips_typ`; it is now recoded. DE keeps both codes, as it reports them separately.
-- **New version `anomaly`**: each series with the same species' Europe-wide yearly mean (from all other regions) removed. It isolates regional co-variation beyond shared bad years.
-- **`value2` explained:** the paper notes that DE, BG, FI, RO and LT reported some damage in both area and volume units — exactly the countries with `value2`. It is the second unit; conversion factors are in the paper's Appendix B. `value1` remains the damage variable.
+1. **Insects carry information about each other.** Of `r nrow(cm)` insect pairs, `r sum(!is.na(cm$same_year))` can be measured; `r sum(cm$link == "strong, beyond shared bad years")` show a strong link that survives removing Europe-wide bad years, and `r sum(cm$link == "strong, mostly shared bad years")` more are strong mainly because of shared bad years.
+2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree,, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
+3. **A latent factor model fills gaps `r pct(100 * lbest$skill_vs_year_baseline)` better than Europe-wide yearly averages**, tested by hiding whole country × species blocks. It also beats the best single helper species.
+4. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
+5. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
 
 ## Data and decisions
 
-Source: `EUForDam_REW3.xlsx`, sheet `EUForDam_REW`: `r counts$n_rows` rows, `r counts$n_countries` countries, `r counts$n_species` species codes, `r counts$n_regions` regions, `r counts$year_min`–`r counts$year_max`.
+Source: `EUForDam_REW3.xlsx`, sheet `EUForDam_REW`: `r counts$n_rows` rows, `r counts$n_countries` countries, `r counts$n_species` insect codes, `r counts$n_regions` regions, `r counts$year_min`–`r counts$year_max`.
 
-- **Damage = `value1`**, `log(x + 1)` as in the paper.
-- **CZ sub-rows summed to NUTS2** (1–3 rows per NUTS2-year-species, probably kraje). CZ values are multiples of 1/7 (cause unknown; a constant factor does not affect within-series correlations).
-- **Zeros are real** unless the series has fewer than 6 non-zero values. NA values and missing rows are *not monitored*.
-- **Other aggregate codes are kept as their own units** and flagged (`r paste(meta$species[meta$is_aggregate], collapse = ", ")`).
-- **Units** are fixed per species (defoliators ha, borers m³). NUTS level differs by country, so raw `log_damage` levels are **not comparable across countries**; the within-series versions are.
-- **Data quality:** the paper reports lower completeness for FI and SE; both report only *I. typographus*, so they barely enter pairwise results.
-- **"Impossible" (host absent)** is still a placeholder. The paper compiled host-tree abundance per region (its Appendix D), which would fill it.
+- **Zeros and empty cells (confirmed Oct 2026):** **0 = monitored, no damage** (a real observation); **empty = not monitored** (a true gap). All recorded values, including zeros, are used. This replaces the earlier choice to drop series with fewer than 6 damage years (Hlásny et al. 2025, Sect. 2.5), which is kept only as a sensitivity check. The main analysis now uses `r n_series(tr)` region-insect series instead of `r n_series(tr6)`.
+- **Damage = `value1`**, analysed as `log(x + 1)` as in the paper. `value2` is the same damage in a second unit (area vs volume), reported by DE, BG, FI, RO and LT (paper Sect. 2.2).
+- **CZ:** sub-region rows summed to NUTS2. The CZ spruce bark-borer group (`CambXyl_con&BB_con&SM`) is treated as *I. typographus*, following the paper's rule for groups dominated by one species. Other group codes are kept as their own units.
+- **Units** are fixed per insect (defoliators ha, borers m³), but NUTS level differs by country (national for 11 countries), so damage *levels* are not comparable across countries. Correlations use within-series standardised values (`z_within`), which are.
+- **Host absent ("impossible")** is still a placeholder; it needs host-tree abundance per region (paper Appendix D).
 
-## Comparison with Hlásny et al. (2025), Table 6
+## Coverage and occurrence
 
-The paper's Table 6 gives correlations between Europe-wide total damage series of nine species. We summed our data over all regions per species and year (untransformed, CZ group recoded) and correlated them.
-
-```{r t6}
-t6 |> arrange(desc(paper_value)) |>
-  transmute(pair = paste(species_a, "×", species_b), `paper (Table 6)` = f2(paper_value),
-            `our r²` = f2(r2_ours), `our r` = f2(r_ours), `our p` = signif(p_ours, 2),
-            `our r, detrended` = f2(r_ours_detrended))
-```
-
-- The paper's values equal our **r²** (mean absolute difference `r formatC(mean(t6$abs_diff_paper_vs_r2), format = "f", digits = 3)`), while they differ from our r by `r f2(mean(t6$abs_diff_paper_vs_r))` on average. Table 6 therefore appears to report squared correlations, which explains why the paper notes that all correlations were non-negative.
-- `r sum(t6$r_ours < 0)` of 36 pairs are actually **negative**, e.g. *I. acuminatus* × *T. viridana* (r = `r f2(t6$r_ours[t6$species_a=="ips_acu" & t6$species_b=="tor_vir"])`, shown as 0.17). None of the negative pairs reaches the paper's significance threshold (p < 0.001), so the paper's highlighted results are unaffected — but the table caption should say r², and signs matter for gap-filling.
-- **This is worth raising with Prof. Hlásny privately** before relying on Table 6 elsewhere.
-- Europe-wide totals are dominated by a few big years (2003, 2018–2020) and by Germany. Detrending changes several values substantially (last column), so continental synchrony partly reflects shared long-term trends.
-
-## Species – NUTS occurrence ranking
-
-Suggested by Prof. Hlásny. *Occurs* = at least one year with damage > 0 in a NUTS unit; *usable series* = at least 6 such years (the paper's filter). Damage shares and ranks are within unit (m³ for borers, ha for defoliators). National-level countries count as one unit each. Full tables, including the ranking of species within every region and a region × species matrix, are in `outputs/tables/species_nuts_occurrence_ranking.xlsx`.
-
-![](../outputs/figures/species_occupancy_monitored_vs_occurring.png)
-
-The flat step at 15 units in the *monitored* panel is the 15 German NUTS1 units: 14 species are monitored only in Germany. Comparing the panels shows where monitoring effort exceeds occurrence (e.g. *Panolis flammea* monitored in 41 units but found in 23).
-
-![](../outputs/figures/species_occurrence_ranking.png)
-
-![](../outputs/figures/occurrence_map_region_species.png)
-
-**Zeros that are probably missing data.** Lower Saxony (DE9) reports exactly 0 *I. typographus* damage in all 23 years, and only 4 non-zero values across all 45 species, although the Harz mountains in Lower Saxony had one of Germany's largest bark-beetle outbreaks in 2018–2022. Berlin, Bremen and Hamburg (DE3, DE5, DE6) are zero for every species. These zeros most likely mean "not reported". The ≥ 6 non-zero filter already excludes them from the correlations, but for gap-filling they should be treated as gaps, not as observed zeros. **To confirm with Prof. Hlásny.**
-
-```{r ranking}
-rd("sp_rank") |>
-  transmute(rank = rank_by_regions, species, guild, unit,
-            countries = n_countries_occurring,
-            `regions occurring / monitored` = paste(n_regions_occurring, "/", n_regions_monitored),
-            `usable series` = n_usable_series,
-            `% of all damage (unit)` = f2(pct_of_unit_total),
-            `damage rank (unit)` = rank_by_damage_within_unit)
-```
-
-```{r top-per-region}
-rr <- rd("reg_rank") |> filter(rank_in_region == 1, total_damage > 0)
-rr |> count(unit, species, name = "regions where #1") |> arrange(unit, desc(`regions where #1`))
-```
-
-*I. typographus* occurs in `r rd("sp_rank")$n_regions_occurring[rd("sp_rank")$species=="ips_typ"]` of `r rd("sp_rank")$n_regions_monitored[rd("sp_rank")$species=="ips_typ"]` monitored units and is the largest borer in `r sum(rr$species=="ips_typ")` of them. Among defoliators no single species dominates: *L. monacha*, *L. dispar* and *Melolontha* lead in different regions. Many species occur in few units, mostly within Germany, which is the same limitation seen in the transferability analysis.
-
-## Coverage
+Of `r format(nrow(cells), big.mark = ",")` region-year-insect cells, `r pct(100*mean(cells$status=="observed_positive"))` have damage, `r pct(100*mean(cells$status=="observed_zero"))` are monitored with no damage and `r pct(100*mean(cells$status=="not_monitored"))` are not monitored.
 
 ![](../outputs/figures/coverage_country_species.png)
 
-Of `r format(nrow(cells), big.mark = ",")` region-year-species cells, `r pct(100*mean(cells$status=="observed_positive"))` are observed positive, `r pct(100*mean(cells$status=="observed_zero"))` observed zero and `r pct(100*mean(cells$status=="not_monitored"))` not monitored.
+![](../outputs/figures/species_occupancy_monitored_vs_occurring.png)
 
-```{r coverage-country}
-cov_country |>
-  transmute(country, cells = n_cells,
-            `% positive` = round(pct_observed_positive, 1), `% zero` = round(pct_observed_zero, 1),
-            `% not monitored` = round(pct_not_monitored, 1)) |>
-  arrange(`% not monitored`)
-```
+The flat step at 15 units in the *monitored* panel is Germany's 15 NUTS1 units: many insects are monitored only there. The gap between the panels shows where an insect is monitored but never found.
 
-## Pairwise correlations
+![](../outputs/figures/occurrence_map_region_species.png)
 
-`r nrow(interp)` of `r nrow(tz)` species pairs have an interpretable pooled `z_within` correlation (n ≥ 10 co-observed region-years). Strength of |r|: `r paste(names(table(interp$strength)), table(interp$strength), sep = " ", collapse = ", ")`.
+Full occurrence tables (ranking of insects by regions, ranking within each region, region × insect matrix): `outputs/tables/species_nuts_occurrence_ranking.xlsx`.
 
-```{r versions}
-pw |> filter(!low_n, !is.na(r_pearson)) |>
-  mutate(version = factor(version, c("z_within", "detrended", "anomaly", "diff", "log_damage"))) |>
-  group_by(version) |>
-  summarise(pairs = n(), `median |r|` = f2(median(abs(r_pearson))),
-            `pairs |r| ≥ 0.5` = sum(abs(r_pearson) >= 0.5),
-            `pairs FDR < 0.05` = sum(fdr_pearson < 0.05, na.rm = TRUE),
-            `share r > 0` = pct(100 * mean(r_pearson > 0)))
-```
+## Correlation metrics: how much does each insect tell us about the others?
 
-**p-values are optimistic**: years within a series are autocorrelated and region-years are not independent. Effect size, n and cross-country consistency are the main evidence; the next step (mixed models with AR(1), as in the paper) will give honest uncertainty.
-
-**Series-filter sensitivity.** Pooled `z_within` r with and without the ≥ 6 non-zero filter correlate `r f2(cor(tz$r_pooled, tz$r_nofilter, use = "complete"))`. The filter mainly removes sparse series whose correlations were driven by shared zeros.
-
-### How much is shared bad years? (`z_within` vs `anomaly`)
-
-For the `r nrow(za)` pairs with both estimates, median r falls from `r f2(median(za$z_within))` to `r f2(median(za$anomaly))` after removing each species' Europe-wide year signal; the two versions correlate `r f2(cor(za$z_within, za$anomaly))`. Of the `r sum(abs(za$z_within) >= .4)` pairs with |r| ≥ 0.4, `r sum(abs(za$z_within) >= .4 & abs(za$anomaly) >= .3)` keep |r| ≥ 0.3. For gap-filling this means a year effect learned from other countries explains part of the co-variation, but a helper species adds information beyond it — which the modelling step must test explicitly.
-
-## Correlation metrics v3: how much does each insect tell us about the others?
-
-Redone with the PhD aims in mind (disturbance agents fluctuate together; existing records carry information about missing ones). For **all `r nrow(rd("cm"))` pairs** of insect codes, using region-years where both are recorded (series with ≥ 6 damage years):
+For every pair of insect codes, using region-years where both are recorded:
 
 - **Same year:** do they have bad years together? (r of within-series standardised damage)
-- **Beyond shared bad years:** still linked after removing each species' Europe-wide yearly signal? Separates a real link from both reacting to the same drought year.
-- **Lead effect:** does species A's bad year predict B's *next* year beyond B's own previous year (partial correlation, Granger-type)? Tests the "disturbances trigger each other" idea.
+- **Beyond shared bad years:** still linked after removing each insect's Europe-wide yearly signal? Separates a real link from both reacting to the same drought year.
+- **Lead effect:** does insect A's bad year predict insect B's *next* year beyond B's own previous year? (partial correlation, Granger-type) Tests whether one disturbance sets up another.
 - **Co-occurrence:** do they tend to have any damage in the same region-year?
 
-**Honest uncertainty.** 95% ranges come from a region block bootstrap (whole regions resampled 999 times), which respects the year-to-year dependence within each region that made earlier p-values too optimistic. Ranges are given only when ≥ 5 regions contribute.
+**Uncertainty.** 95% ranges come from resampling whole regions 999 times (block bootstrap), which respects the dependence between years within a region. Ranges are given only when ≥ 5 regions contribute (`r sum(!is.na(cm$same_year_lo))` pairs). A link counts only if its range excludes zero.
 
 ```{r cm-verdicts}
-rd("cm") |> count(link, name = "pairs") |>
+cm |> count(link, name = "pairs") |>
   mutate(link = factor(link, c("strong, beyond shared bad years", "strong, mostly shared bad years",
                                "weak but real", "no clear link", "not enough data"))) |> arrange(link)
 ```
 
-`r sum(!is.na(rd("cm")$same_year))` pairs could be measured at all and `r sum(!is.na(rd("cm")$same_year_lo))` have enough regions for a reliable range; the rest are never or rarely recorded together.
-
 ![](../outputs/figures/cm_top_links.png)
 
-- The strongest links are among **bark beetles on the same host**: spruce (*I. typographus*, *P. chalcographus*, *I. duplicatus*), pine (*I. sexdentatus*, *Phaenops*, *Tomicus*, *I. acuminatus*) and fir (*Pityokteines*).
-- Some links are **mostly shared bad years** (blue far from orange, e.g. *I. duplicatus* with *I. typographus*); others **survive** removing them (blue ≈ orange, e.g. *I. typographus* with *P. chalcographus*, r = `r f2(rd("cm")$beyond_year[rd("cm")$species_a=="ips_typ" & rd("cm")$species_b=="pit_cha"])`), meaning a direct regional connection beyond the weather year.
+Where the two dots of a pair are close, the link holds beyond shared bad years (a local connection); where the orange dot is much lower, the pair mainly shares the same bad years.
 
 ![](../outputs/figures/cm_links_per_species.png)
 
-The most informative insects are *I. typographus*, *Tomicus*, *Phaenops* and *Pityokteines*: each is clearly linked to 12–19 others. Defoliators are linked to fewer species, and mostly to each other.
+The most connected insects are `r paste0("*", cms_tot$species[1:5], "* (", cms_tot$total[1:5], ")", collapse = ", ")`: these carry the most information about other insects.
 
 ![](../outputs/figures/cm_lead_effects.png)
 
-**Lead effects:** `r sum(rd("cm_lags")$sure)` of `r sum(!is.na(rd("cm_lags")$lo))` testable ordered pairs pass, against about `r round(0.05*sum(!is.na(rd("cm_lags")$lo)))` expected by chance — so sequential effects exist in the data, but individual links should be treated as hypotheses. Examples include *I. cembrae* before *Tetropium* and *I. typographus* before *I. sexdentatus*. These are candidates for the "one disturbance predisposes the next" mechanism, to be revisited when storm and drought records are added.
+**Lead effects:** `r sum(lags$sure)` of `r sum(!is.na(lags$lo))` testable ordered pairs pass, against about `r round(0.05 * sum(!is.na(lags$lo)))` expected by chance. Sequential effects exist in the data, but any single link may be a chance result; they are candidates for the "one disturbance predisposes the next" mechanism once storm and drought records are added.
 
-**Co-occurrence** (any damage in the same region-year) is modest (median r = `r f2(median(rd("cm")$co_occur, na.rm = TRUE))`) and only partly tracks the same-year link (r = `r f2(cor(rd("cm")$co_occur, rd("cm")$same_year, use = "complete"))`), so *whether* damage occurs and *how much* behave somewhat differently — support for a two-part model later.
+**Co-occurrence** (any damage in the same region-year) has median r = `r f2(median(cm$co_occur, na.rm = TRUE))` and tracks the same-year link only partly (r = `r f2(cor(cm$co_occur, cm$same_year, use = "complete"))`): *whether* damage occurs and *how much* behave differently, which supports a two-part model.
 
-Full results: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`.
+### Guild structure
 
-## Temporal vs spatial
-
-Temporal = pooled `z_within` r; spatial = r between region means of `log_damage`. Linked = |r| ≥ 0.3.
-
-```{r tvs}
-tvs |> count(linked_by, name = "pairs") |> arrange(desc(pairs))
+```{r perm}
+perm |> transmute(grouping, version, `mean r within group` = f2(mean_r_within),
+                  `mean r between groups` = f2(mean_r_between), `p (permutation)` = signif(p_perm_one_sided, 2))
 ```
 
-"Place only" links mostly reflect region size (large regions and nationally reported countries have more of everything) and are weak evidence for gap-filling.
+Insects of the same feeding guild (borer vs defoliator) correlate more strongly than insects of different guilds, also after removing Europe-wide bad years; host type alone (conifer vs broadleaf) does not separate them. Guild labels are provisional (from the file's indicator columns).
 
-## Transferability across countries — most important
+![](../outputs/figures/correlation_heatmap_clustered.png)
 
-Rules: **consistent** = ≥ 2 countries with n ≥ 10, every country r has the pooled sign, SD of country r ≤ 0.2, and no leave-one-country-out sign flip; **inconsistent** = ≥ 2 countries but a rule fails; **insufficient data** = < 2 countries.
+### Does a link hold in other countries?
 
-```{r transfer-count}
-ts |> count(version, transferability) |>
-  tidyr::pivot_wider(names_from = transferability, values_from = n)
+Gaps are whole countries that never monitored an insect, so a link is only useful if it holds across countries. **Consistent** = ≥ 2 countries with ≥ 10 shared region-years, same sign everywhere, SD of country r ≤ 0.2, and no sign flip when any one country is dropped.
+
+```{r transfer}
+ts |> count(version, transferability) |> tidyr::pivot_wider(names_from = transferability, values_from = n)
 ```
-
-### Strongest consistent pairs (`z_within`)
 
 ```{r consistent}
-tz |> filter(transferability == "consistent") |>
-  arrange(desc(abs(r_pooled))) |> slice_head(n = 15) |>
-  transmute(pair = paste(species_a, "×", species_b), n = n_pooled, `n both > 0` = n_both_positive,
-            r = f2(r_pooled), countries = countries_n10, `SD r` = f2(r_sd),
-            `max LOCO change` = f2(loco_max_abs_change))
+tz |> filter(transferability == "consistent") |> arrange(desc(abs(r_pooled))) |> slice_head(n = 12) |>
+  transmute(pair = paste(species_a, "&", species_b), r = f2(r_pooled), countries = countries_n10, `SD of country r` = f2(r_sd))
 ```
-
-### Consistent pairs beyond shared bad years (`anomaly`)
-
-These pairs co-vary regionally after removing each species' Europe-wide year signal and do so consistently across countries — the best candidates for helper species in gap-filling.
-
-```{r consistent-anomaly}
-ta |> filter(transferability == "consistent") |>
-  arrange(desc(abs(r_pooled))) |> slice_head(n = 15) |>
-  transmute(pair = paste(species_a, "×", species_b), n = n_pooled, r = f2(r_pooled),
-            countries = countries_n10, `SD r` = f2(r_sd))
-```
-
-### Strong but inconsistent pairs
 
 ![](../outputs/figures/top_pairs_by_country.png)
 
-```{r inconsistent}
-tz |> filter(transferability == "inconsistent") |>
-  arrange(desc(abs(r_pooled))) |> slice_head(n = 12) |>
-  transmute(pair = paste(species_a, "×", species_b), n = n_pooled, r = f2(r_pooled),
-            countries = countries_n10, `min r` = f2(r_min), `max r` = f2(r_max),
-            `sign agree` = pct(100 * sign_consistency), `most influential` = loco_most_influential)
+*I. typographus*, recorded almost everywhere, has links that hold across countries with *Pityokteines*, *Phaenops* and *I. acuminatus*; its strongest partner, *P. chalcographus*, is strong in Germany and Austria but not elsewhere.
+
+![](../outputs/figures/correlation_explainer.png)
+
+### Sensitivity: the paper's series filter
+
+With the ≥ 6 damage-year filter of Hlásny et al. (2025), pooled same-year correlations correlate `r { j <- inner_join(pw |> filter(version == "z_within") |> select(species_a, species_b, r = r_pearson), pw6 |> filter(version == "z_within") |> select(species_a, species_b, r6 = r_pearson), by = c("species_a", "species_b")); f2(cor(j$r, j$r6, use = "complete")) }` with the main results; the filter mainly removes sparse series and many pairs with them.
+
+## Comparison with Hlásny et al. (2025), Table 6
+
+Summing our data over all regions per insect and year and correlating the Europe-wide totals reproduces Table 6 of the paper:
+
+```{r t6}
+t6 |> arrange(desc(paper_value)) |>
+  transmute(pair = paste(species_a, "&", species_b), `paper (Table 6)` = f2(paper_value),
+            `our r²` = f2(r2_ours), `our r` = f2(r_ours), `our p` = signif(p_ours, 2))
 ```
 
-### *I. typographus* as a helper species
-
-*I. typographus* is monitored almost everywhere, so it is the natural helper for gap-filling.
-
-```{r ityp}
-ts |> filter(version %in% c("z_within", "anomaly"), species_a == "ips_typ" | species_b == "ips_typ",
-             !is.na(r_pooled), n_countries >= 2) |>
-  mutate(partner = if_else(species_a == "ips_typ", species_b, species_a)) |>
-  select(partner, version, r_pooled, countries_n10, transferability) |>
-  tidyr::pivot_wider(names_from = version, values_from = c(r_pooled, transferability)) |>
-  arrange(desc(abs(r_pooled_z_within))) |>
-  transmute(partner, `r (z_within)` = f2(r_pooled_z_within), `flag (z_within)` = transferability_z_within,
-            `r (anomaly)` = f2(r_pooled_anomaly), `flag (anomaly)` = transferability_anomaly,
-            countries = countries_n10)
-```
-
-## Helper finder
-
-For each insect with gaps (*target*), which other insect (*helper*) could be used to fill them? Each target–helper pair is checked on three questions:
-
-1. **Link:** do they rise and fall together? (pooled r, `z_within`)
-2. **Transfer:** does the link hold in every country where it can be checked?
-3. **Availability:** is the helper recorded where the target is missing? (*% of gaps* = share of the target's missing region-years in which the helper is recorded)
-
-**Grades.** **A, recommended:** consistent in ≥ 2 countries, |r| ≥ 0.3, and the link survives removing Europe-wide bad years (|r| ≥ 0.2, same sign, in the `anomaly` version). **B, possible:** weaker (0.2–0.3), mostly shared bad years or opposite long-term trends, or strong but tested in one country only. **C, not suitable.** Every graded link must rest on ≥ 2 regions and ≥ 10 region-years where both insects had damage; this removes chance results such as r = 0.96 from one region with 6 shared damage years.
-
-![](../outputs/figures/helper_finder.png)
-
-```{r helper-best}
-rd("hf_best") |> filter(grade %in% c("A", "B")) |>
-  transmute(target, `#` = helper_rank, helper, grade, r = f2(r), `r without bad years` = f2(r_anomaly),
-            `link holds in` = countries, `% of gaps` = round(gap_coverage),
-            `gap countries reached` = gap_countries_reached)
-```
-
-```{r helper-count}
-hb1 <- rd("hf_best") |> group_by(target) |> slice_min(coalesce(helper_rank, 99L), n = 1, with_ties = FALSE) |> ungroup()
-```
-
-`r sum(hb1$grade == "A")` insects have a recommended (A) helper, `r sum(hb1$grade == "B")` only a possible (B) helper and `r sum(hb1$grade == "C")` none. *I. typographus* is the most useful helper because it is recorded almost everywhere: it is the best helper for *Pityokteines*, *Phaenops* and *T. gabrieli* and reaches 59–73% of their gaps. Some A-grade links cross guilds (e.g. *L. dispar* ← *Phaenops*); they pass the statistical checks but should be checked for ecological sense, as they may reflect shared regional drought rather than a direct relationship. Full results: `outputs/tables/helper_finder.xlsx`.
-
-These grades rank candidates; they do not yet show how well a helper actually predicts missing values. The next step tests that directly by leaving out whole countries.
+- The paper's values equal our **r²** (mean difference `r formatC(mean(t6$abs_diff_paper_vs_r2), format = "f", digits = 3)`), not our r (mean difference `r f2(mean(t6$abs_diff_paper_vs_r))`), so Table 6 appears to report squared correlations — which explains the paper's note that all correlations were non-negative.
+- `r sum(t6$r_ours < 0)` of 36 pairs are actually negative; none reaches the paper's significance threshold (p < 0.001), so its highlighted results are unaffected. Worth raising with Prof. Hlásny.
+- Europe-wide correlations (e.g. *I. typographus* & *Phaenops* r = `r f2(t6$r_ours[t6$species_a=="ips_typ" & t6$species_b=="pha_cya"])`) are much stronger than regional ones, because continental totals are dominated by a few big years and by Germany.
 
 ## Latent factor model (prototype)
 
-**Aim (PhD objective 1):** fill gaps using all available records at once, assuming damage across insect species is driven by a few shared hidden factors.
+**Aim (PhD objective 1):** fill gaps using all records at once, assuming that damage across insects is driven by a few shared hidden factors.
 
-**Model.** Table of region-years × species, values `log(damage + 1)`; series with < 6 damage years treated as missing. Each value = species level + overall damage intensity of that region-year + Σ (region-year score on factor k × species loading on factor k). Fitted by alternating ridge regression on observed cells only (code: `R/lfm.R`). With 0 factors it reduces to an additive model (region-year intensity + species level).
+**Model.** A table of region-years × insects (`log(damage + 1)`, zeros included, empty where not monitored). Each value = insect level + overall damage intensity of that region-year + Σ (region-year score on hidden factor k × the insect's sensitivity to factor k). Fitted by alternating ridge regression on recorded cells only (`R/lfm.R`).
 
-**Honest test.** Whole country × species blocks were hidden (e.g. all Polish *Phaenops* records) and predicted from everything else, mimicking real gaps. 10-fold cross-validation over `r nrow(rd("lfm_blocks"))` blocks; only species recorded in ≥ 2 countries can be tested. Compared against three baselines: species average, species × year average (Europe-wide bad years) and the best single helper species.
+**Test.** Whole country × insect blocks were hidden (e.g. all Polish *Phaenops* records) and predicted from everything else, mimicking real gaps: 10-fold cross-validation over `r nrow(rd("lfm_blocks"))` blocks (only insects recorded in ≥ 2 countries can be tested). Baselines: insect average; insect × year average (Europe-wide bad years); best single helper insect.
 
 ![](../outputs/figures/lfm_model_comparison.png)
 
 ```{r lfm-scores}
-rd("lfm_score") |> left_join(rd("lfm_grid"), by = "model") |>
-  filter(is.na(K) | lambda == 50 | K == 0) |> arrange(rmse) |>
-  transmute(model, `RMSE (log scale)` = f2(rmse), `error reduction vs species×year` = f2(skill_vs_year_baseline),
+lsc |> left_join(lgrid, by = "model") |> filter(is.na(K) | lambda %in% c(50, 100) | K == 0) |> arrange(rmse) |>
+  transmute(model, `RMSE (log scale)` = f2(rmse), `error reduction vs insect×year` = f2(skill_vs_year_baseline),
             `ups-and-downs r` = f2(dynamics_r))
 ```
 
-**Results.**
+```{r lfm-split}
+d <- lcv |> filter(model == lbest$model, !is.na(predicted)) |>
+  group_by(nuts_id, species) |> mutate(e = predicted - observed, lvl = mean(e)) |> ungroup()
+level_share <- mean(d$lvl^2) / mean(d$e^2)
+worst <- d |> distinct(country, nuts_id, species, lvl) |> group_by(country) |>
+  summarise(err = mean(abs(lvl)), .groups = "drop") |> arrange(desc(err))
+```
 
-- The factor model reduces prediction error by **`r round(100*rd("lfm_best")$skill_vs_year_baseline)`%** compared with the species × year baseline and beats the best single helper, which is *worse* than simply using Europe-wide yearly averages. Using all species jointly is better than using one helper.
-- **Most of the gain comes from the region-year intensity term**; adding hidden factors helps only slightly (chosen model: `r rd("lfm_best")$model`, the simplest within 0.5% of the best). With the current data, species overlap between countries is limited (outside Germany few species are recorded together), so species-specific factors are hard to learn and transfer.
-- **Errors are still large** (RMSE ≈ 3.5 on the log scale). About half is the *level* of damage, worst for countries reporting one national figure (SI, RS, RO, BG): without forest area or host-tree abundance the model cannot tell a small region from a whole country. The other half is year-to-year variation.
-- **Suspicious zeros.** `r nrow(readr::read_csv("../outputs/tables/suspicious_zero_runs.csv", show_col_types = FALSE))` series (mostly DE and PL) drop from substantial damage to ≥ 4 years of exact zeros, often from the same year (PL: 2013), suggesting reporting changes. Treating them as missing changes the results little (RMSE `r f2(rd("lfm_score_nz")$rmse[rd("lfm_score_nz")$model == rd("lfm_best")$model])`, same ranking of models), so conclusions are robust to them.
+- Chosen model: **`r lbest$model`** (simplest within 0.5% of the best). It reduces error by **`r pct(100 * lbest$skill_vs_year_baseline)`** versus insect × year averages; the best single helper reduces it by `r pct(100 * skill("Baseline: best single helper"))`. Using all insects together works better than using one.
+- **Most of the gain comes from the region-year intensity term:** the purely additive model (no hidden factors) is almost as good (`r pct(100 * skill("Factor model: K=0, lambda=20"))`). With the current data, few insects are recorded together outside Germany, so insect-specific factors are hard to learn and transfer.
+- **Errors are still large** (RMSE ≈ `r f2(lbest$rmse)` on the log scale). About `r pct(100 * level_share)` of the error is the *level* of damage, largest for `r paste(head(worst$country, 4), collapse = ", ")`. Without forest area or host-tree abundance the model cannot tell a small region from a whole country. The rest is year-to-year variation.
 
 ![](../outputs/figures/lfm_skill_by_species.png)
 
 ![](../outputs/figures/lfm_examples.png)
 
-The examples are the *typical* (median) hidden series for six species, not the best ones. Several real series (black) show abrupt drops to zero that no model can predict.
+The examples are the *typical* (median) hidden series for six insects, not the best ones.
 
-### What the model learned (objective 3 preview)
+### What the model learned
 
 ![](../outputs/figures/lfm_factor_years.png)
 
 ![](../outputs/figures/lfm_factor_loadings.png)
 
-- **Overall damage intensity** peaks in **2003–06 and 2018–19**, the two drought-related disturbance peaks described by Hlásny et al. (2025).
-- **Factor 2** separates spruce bark beetles (*I. typographus*, *P. chalcographus*, *I. duplicatus*, *I. acuminatus*; positive) from defoliators (*L. monacha*, *L. dispar*, oak defoliators; negative) and rises after 2015 — the "divergent trends" of the paper.
-- **Factor 1** appears to be a long-term trend axis: species the paper found increasing fastest load positively (*I. acuminatus* +16%/yr, fir borers +15%/yr), species found decreasing load negatively (Geometridae on oaks −16%/yr, *T. viridana* −9%/yr). This interpretation is tentative.
+- **Overall damage intensity** peaks in **2003–06**, after the 2003 drought.
+- **Factor 2** separates bark beetles (*I. typographus*, *P. chalcographus*, *Tomicus*; positive) from defoliators (negative) and is highest in 2019–21, during the large bark-beetle wave — the "divergent trends" of Hlásny et al. (2025).
+- **Factors 1 and 3** have no clear ecological interpretation yet (factor 1 mainly contrasts *Phaenops* with *I. acuminatus*). They may reflect regional reporting differences; covariates (host trees, climate) should help separate ecology from reporting.
 
-The model recovered these patterns on its own from incomplete data.
+### Next steps for the model
 
-### Limitations and next steps
-
-1. **Levels need covariates:** forest area and host-tree abundance per region (paper Appendix D) and VPD, so the model can scale damage to region size and climate.
-2. **Abiotic damage** (storm, drought, fire) when available: likely the strongest shared factors, and they are recorded more uniformly across countries.
-3. **Zeros:** a two-part (hurdle / zero-inflated) version separating "any damage?" from "how much?".
-4. **Uncertainty:** a Bayesian version of the same model (e.g. probabilistic matrix factorisation) to give each filled value an interval.
-5. **Gap-filled values** for all fillable cells are written to `data/processed/lfm_gap_filled_PROTOTYPE.csv` (not shared). They are not yet suitable for Europe-wide totals: host presence is unchecked and level errors are large.
-
-## Guild structure
-
-Guild/host lookup used: **`r unique(lookup$lookup_source)`** (borer vs defoliator from the file's indicator columns; conifer vs broadleaf from TREETYPE). Fill in `data/lookup/species_guild_TEMPLATE.csv`, save as `data/lookup/species_guild.csv` and rerun to use your classification.
-
-![](../outputs/figures/correlation_heatmap_clustered.png)
-
-```{r perm}
-perm |> transmute(grouping, version, `pairs within` = n_within, `pairs between` = n_between,
-                  `mean r within` = f2(mean_r_within), `mean r between` = f2(mean_r_between),
-                  difference = f2(diff_observed), `p (permutation)` = signif(p_perm_one_sided, 2))
-```
-
-Same-guild pairs correlate more strongly than cross-guild pairs in all three versions (9,999 label permutations, seed 20261008), including after removing Europe-wide year effects. Host type alone does not separate species. This agrees with the paper's conclusion of synchrony within, not between, feeding guilds.
-
-Clustering caveat: `r rd("clust")$n_missing_set_to_zero` species pairs without an interpretable r were set to r = 0 for clustering only. The matching n heatmap is `outputs/figures/n_coobserved_heatmap.png`.
-
-## Next step: gap-filling models
-
-Following the paper's framework (glmmTMB, `log(x+1)`, region random effects, AR(1), zero-inflation):
-
-```
-log(target + 1) ~ log(helper + 1) * year + VPD + host abundance
-                  + (1 | region) + ar1(year | region),  zi = ~ 1
-```
-
-1. **Baseline to beat:** region + year effects only (does the Europe-wide year signal already fill the gap?).
-2. Add *I. typographus* as helper, then the best consistent helper per target (tables above).
-3. Add VPD and host abundance (the paper's predictors).
-4. Validate by **leave-one-country-out prediction**, since gaps are whole countries.
+1. **Covariates:** forest area and host-tree abundance per region (paper Appendix D) and VPD, so damage can be scaled to region size and climate.
+2. **Two-part model:** "any damage?" and "how much?" separately; most recorded values are zeros (`r pct(100 * mean(tr$damage == 0))`).
+3. **Uncertainty:** a Bayesian version giving each filled value a range.
+4. **Abiotic damage** (storm, drought, fire) when available, likely the strongest shared factors.
+5. Gap-filled values (prototype, not for totals yet): `data/processed/lfm_gap_filled_PROTOTYPE.csv`.
 
 ## Open questions for Prof. Hlásny
 
-1. **Table 6:** are the values r² rather than r? Several underlying correlations are negative.
-2. **Dataset version:** our file has `r counts$n_regions` regions and `r counts$n_species` codes; the paper reports 82 spatial units and 50 species (Zenodo 10.5281/zenodo.15863174). Which should the PhD use?
-3. **Appendix B and D:** conversion factors, which Polish species were split from groups by fixed proportions, and host-tree abundance per region (fills the "impossible" class).
+1. **Table 6:** are the values r² rather than r?
+2. **Dataset version:** our file has `r counts$n_regions` regions and `r counts$n_species` codes; the paper reports 82 spatial units and 50 species (Zenodo 10.5281/zenodo.15863174).
+3. **Appendix B and D:** conversion factors, which Polish species were split from groups by fixed proportions, and host-tree abundance per region.
 4. **VPD per region** as used in the paper.
-5. **CZ values in multiples of 1/7** — known cause?
+5. **CZ values in multiples of 1/7:** known cause?
 6. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
-7. **German regions with only zeros** (DE9 Lower Saxony, DE3 Berlin, DE5 Bremen, DE6 Hamburg): not reported, or truly no damage?
 
 ## Files
 
-- Tables: `outputs/tables/` — `species_nuts_occurrence_ranking.xlsx` (also as `species_occurrence_ranking.csv`, `region_species_ranking.csv`, `occurrence_matrix_region_species.csv`), `pairwise_correlations.csv`, `pairwise_correlations_sensitivity_no_series_filter.csv`, `paper_table6_replication.csv`, `temporal_vs_spatial.csv`, `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`, `coverage_*.csv`, `guild_permutation_test.csv`, `transform_versions.csv`
+- Correlation metrics: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`
+- Transferability: `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`
+- Factor model: `lfm_cv_scores_by_model.csv`, `lfm_cv_scores_by_species.csv`, `lfm_factor_loadings.csv`
+- Occurrence: `species_nuts_occurrence_ranking.xlsx`; coverage: `coverage_*.csv`; Table 6 replication: `paper_table6_replication.csv`
 - Figures: `outputs/figures/`
-- Guild template: `data/lookup/species_guild_TEMPLATE.csv`

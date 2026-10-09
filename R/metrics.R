@@ -2,7 +2,7 @@
 # how much does each species tell us about every other species?).
 #
 # For every pair of species (all 1,176 pairs), using only region-years where
-# both are observed (series with >= 6 damage years; Hlasny et al. 2025 rule):
+# both are observed (all recorded values; zeros are real observations):
 #   same_year   : r of z_within (standardised within each region-species series)
 #   beyond_year : r of anomaly (each species' Europe-wide yearly mean removed),
 #                 i.e. the link that is not just shared bad years
@@ -12,8 +12,8 @@
 #                 are misleading because outbreaks last several years, so any
 #                 linked pair looks linked across years in both directions.
 #   lag_ba      : the same with A and B swapped
-#   co_occur    : r of damage > 0 indicators (phi), on all observed series
-#                 (no >= 6 filter), i.e. do the two tend to occur together?
+#   co_occur    : r of damage > 0 indicators (phi), i.e. do the two tend to
+#                 occur together?
 #
 # Uncertainty: 95% intervals from a region block bootstrap (whole regions are
 # resampled, 999 times), which respects autocorrelation within a region's
@@ -68,13 +68,13 @@ wide_on <- function(d, var, keys, species) {
   W
 }
 
-correlation_metrics <- function(tr, tr_nofilter, species, ts) {
-  rows <- dplyr::distinct(tr_nofilter, country, nuts_id, year) |> dplyr::arrange(nuts_id, year)
+correlation_metrics <- function(tr, species, ts) {
+  rows <- dplyr::distinct(tr, country, nuts_id, year) |> dplyr::arrange(nuts_id, year)
   keys <- paste(rows$nuts_id, rows$year)
   Z  <- wide_on(tr, "z_within", keys, species)
   A  <- wide_on(tr, "anomaly", keys, species)
   A1 <- wide_on(dplyr::mutate(tr, year = year - 1L), "anomaly", keys, species)  # value of year t+1
-  Pz <- wide_on(dplyr::mutate(tr_nofilter, pos = as.numeric(damage > 0)), "pos", keys, species)
+  Pz <- wide_on(dplyr::mutate(tr, pos = as.numeric(damage > 0)), "pos", keys, species)
   Pf <- wide_on(dplyr::mutate(tr, pos = as.numeric(damage > 0)), "pos", keys, species)
   g <- rows$nuts_id
 

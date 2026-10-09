@@ -288,7 +288,7 @@ plot_correlation_explainer <- function(tr, pc, examples) {
 # ---- Latent factor model figures -------------------------------------------
 
 # Model comparison: skill vs the species x year baseline and dynamics r
-plot_lfm_comparison <- function(score, grid, best_model) {
+plot_lfm_comparison <- function(score, grid, best_model, n_blocks) {
   d <- score |>
     dplyr::left_join(grid, by = "model") |>
     dplyr::filter(is.na(K) | lambda == 50 | (K == 0)) |>
@@ -316,7 +316,7 @@ plot_lfm_comparison <- function(score, grid, best_model) {
     ggplot2::scale_colour_manual(values = c(Baseline = "#9c9b97", `Factor model` = pal$seq[3],
                                             `Chosen model` = pal$guild[["defoliator"]]), name = NULL) +
     ggplot2::labs(x = NULL, y = NULL, title = "Does the factor model fill gaps better than simple rules?",
-                  subtitle = "Whole country x species blocks hidden and predicted (10-fold cross-validation, 108 blocks)",
+                  subtitle = paste0("Whole country x species blocks hidden and predicted (10-fold cross-validation, ", n_blocks, " blocks)"),
                   caption = "Error = mean squared error on log(damage + 1). r = correlation between predicted and real yearly series.") +
     theme_eu(9) +
     ggplot2::theme(legend.position = "top", legend.justification = "left",
@@ -401,7 +401,7 @@ plot_lfm_factors <- function(load, year_scores) {
     ggplot2::facet_wrap(~ name, ncol = 1, scales = "free_y") +
     ggplot2::labs(x = NULL, y = "Mean score across regions",
                   title = "Europe-wide yearly pattern",
-                  caption = "Overall intensity peaks in 2003-06 and 2018-19 (drought years).") +
+                  caption = "Factor scores averaged over all region-years with data.") +
     theme_eu(8) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
   list(loadings = p1, years = p2)
 }

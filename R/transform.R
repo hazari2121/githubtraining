@@ -12,8 +12,10 @@
 # z_within / detrended are NA for series with < 3 observations or no variation
 # (e.g. all-zero series), so such series drop out of correlations.
 #
-# Series filter (Hlasny et al. 2025, Sect. 2.5): region-species series with fewer
-# than 6 non-zero values are removed (min_nonzero = 6). min_nonzero = 0 keeps all.
+# Zeros are real observations (0 = monitored, no damage; confirmed Oct 2026), so
+# the main analysis keeps every observed value (min_nonzero = 0). The series
+# filter of Hlasny et al. (2025, Sect. 2.5), which drops region-species series
+# with fewer than 6 non-zero values, is kept as a sensitivity check (min_nonzero = 6).
 
 transform_versions <- tibble::tribble(
   ~version,     ~comparable_across_countries, ~note,
@@ -29,7 +31,7 @@ detrend_series <- function(y, t) {
   as.numeric(stats::resid(stats::lm(y ~ t)))
 }
 
-make_transforms <- function(cells, min_nonzero = 6) {
+make_transforms <- function(cells, min_nonzero = 0) {
   obs <- cells |>
     dplyr::filter(status %in% c("observed_positive", "observed_zero")) |>
     dplyr::group_by(country, nuts_id, species) |>
@@ -55,6 +57,6 @@ make_transforms <- function(cells, min_nonzero = 6) {
       anomaly = z_within - other_mean
     ) |>
     dplyr::ungroup() |>
-    dplyr::select(country, nuts_id, year, species, unit, damage, status, suspect_zero,
+    dplyr::select(country, nuts_id, year, species, unit, damage, status,
                   log_damage, z_within, detrended, diff, anomaly)
 }

@@ -62,18 +62,19 @@ list(
              format = "file"),
 
   # ---- Step 3: transformed versions ----------------------------------------
-  # Main: series with >= 6 non-zero values (Hlasny et al. 2025). Sensitivity: no filter.
-  tar_target(tr, make_transforms(cells, min_nonzero = 6)),
-  tar_target(tr_nofilter, make_transforms(cells, min_nonzero = 0)),
+  # Main: all observed values (0 = monitored, no damage). Sensitivity: the
+  # >= 6 non-zero series filter of Hlasny et al. (2025).
+  tar_target(tr, make_transforms(cells, min_nonzero = 0)),
+  tar_target(tr_paper6, make_transforms(cells, min_nonzero = 6)),
   tar_target(tr_csv, write_csv_out(tr, "data/processed/transformed_observed.csv"), format = "file"),
   tar_target(versions_csv, tab(transform_versions, "transform_versions.csv"), format = "file"),
   tar_target(all_species, sort(unique(cells$species))),
 
   # ---- Step 4: pairwise correlations ---------------------------------------
   tar_target(pw, pairwise_correlations(tr, all_species)),
-  tar_target(pw_nofilter, pairwise_correlations(tr_nofilter, all_species, versions = c("z_within", "anomaly"))),
+  tar_target(pw_paper6, pairwise_correlations(tr_paper6, all_species, versions = c("z_within", "anomaly"))),
   tar_target(pw_csv, tab(pw, "pairwise_correlations.csv"), format = "file"),
-  tar_target(pw_nofilter_csv, tab(pw_nofilter, "pairwise_correlations_sensitivity_no_series_filter.csv"), format = "file"),
+  tar_target(pw_paper6_csv, tab(pw_paper6, "pairwise_correlations_sensitivity_paper_filter6.csv"), format = "file"),
 
   # ---- Comparison with Hlasny et al. (2025) Table 6 -------------------------
   tar_target(paper_t6, europe_total_correlations(dmg)),
@@ -107,7 +108,7 @@ list(
                       "outputs/figures/top_pairs_by_country.png", 9, 7), format = "file"),
 
   # ---- Correlation metrics v3 (all pairs, bootstrap CIs, lags, co-occurrence) ----
-  tar_target(cm, correlation_metrics(tr, tr_nofilter, all_species, ts)),
+  tar_target(cm, correlation_metrics(tr, all_species, ts)),
   tar_target(cm_species, species_information(cm, species_meta)),
   tar_target(cm_lags, lag_pairs(cm)),
   tar_target(cm_csv, tab(cm, "correlation_metrics_all_pairs.csv"), format = "file"),
@@ -163,7 +164,7 @@ list(
   tar_target(lfm_load, lfm_loadings(lfm_fit_final, lfm_L, species_meta)),
   tar_target(lfm_year_scores, lfm_scores_by_year(lfm_fit_final, lfm_L)),
   tar_target(lfm_filled, lfm_fill(lfm_fit_final, lfm_L)),
-  tar_target(fig_lfm_comp, save_fig(plot_lfm_comparison(lfm_score, lfm_grid, lfm_best$model),
+  tar_target(fig_lfm_comp, save_fig(plot_lfm_comparison(lfm_score, lfm_grid, lfm_best$model, nrow(lfm_blocks)),
                                     "outputs/figures/lfm_model_comparison.png", 11, 5.5), format = "file"),
   tar_target(fig_lfm_sp, save_fig(plot_lfm_species(lfm_score_species, lfm_best$model, species_meta),
                                   "outputs/figures/lfm_skill_by_species.png", 8, 8), format = "file"),
@@ -175,16 +176,6 @@ list(
     c(save_fig(pp$loadings, "outputs/figures/lfm_factor_loadings.png", 8, 10),
       save_fig(pp$years, "outputs/figures/lfm_factor_years.png", 6, 6))
   }, format = "file"),
-  # Sensitivity: suspicious zero runs treated as missing; same CV design
-  tar_target(tr_zr, flag_zero_runs(tr)),
-  tar_target(zero_runs_csv, tab(dplyr::filter(tr_zr, suspicious_zero_run) |>
-                                  dplyr::count(country, nuts_id, species, name = "zero_years"),
-                                "suspicious_zero_runs.csv"), format = "file"),
-  tar_target(lfm_L_nz, build_lfm_matrix(cells, dplyr::filter(tr_zr, !suspicious_zero_run))),
-  tar_target(lfm_cv_nz, lfm_cv(lfm_L_nz, make_cv_blocks(lfm_L_nz, n_folds = 10),
-                               dplyr::filter(lfm_grid, model %in% c(lfm_best$model, "Factor model: K=0, lambda=20")))),
-  tar_target(lfm_score_nz, lfm_scores(lfm_cv_nz)),
-  tar_target(lfm_score_nz_csv, tab(lfm_score_nz, "lfm_cv_scores_sensitivity_zero_runs_missing.csv"), format = "file"),
   tar_target(lfm_score_csv, tab(lfm_score, "lfm_cv_scores_by_model.csv"), format = "file"),
   tar_target(lfm_score_sp_csv, tab(lfm_score_species, "lfm_cv_scores_by_species.csv"), format = "file"),
   tar_target(lfm_load_csv, tab(lfm_load, "lfm_factor_loadings.csv"), format = "file"),

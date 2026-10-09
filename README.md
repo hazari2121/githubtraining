@@ -22,9 +22,10 @@ Rscript -e 'targets::tar_make()'
 quarto render reports/report.qmd
 ```
 
-Status: Steps 1-7 done (inspection, missingness, transforms, pairwise
-correlations, temporal vs spatial, transferability, guild structure), version 2
-aligned with Hlasny et al. (2025, Global Change Biology): series with < 6
-non-zero values removed, CZ spruce bark-borer group treated as I. typographus,
-year-anomaly version added, and the paper's Table 6 replicated
-(`R/paper.R`). No gap-filling or imputation yet.
+Status: version 3. Zeros are real observations (0 = monitored, no damage;
+empty = not monitored), so all recorded values are used; the >= 6 damage-year
+filter of Hlasny et al. (2025) is a sensitivity check. Includes correlation
+metrics for all species pairs (bootstrap ranges, lead effects, co-occurrence),
+transferability across countries, the paper's Table 6 replication
+(`R/paper.R`), occurrence rankings, and a latent factor model prototype for
+gap-filling (`R/lfm.R`) tested by hiding whole country x species blocks.
