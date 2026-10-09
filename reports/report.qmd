@@ -155,6 +155,42 @@ pw |> filter(!low_n, !is.na(r_pearson)) |>
 
 For the `r nrow(za)` pairs with both estimates, median r falls from `r f2(median(za$z_within))` to `r f2(median(za$anomaly))` after removing each species' Europe-wide year signal; the two versions correlate `r f2(cor(za$z_within, za$anomaly))`. Of the `r sum(abs(za$z_within) >= .4)` pairs with |r| ≥ 0.4, `r sum(abs(za$z_within) >= .4 & abs(za$anomaly) >= .3)` keep |r| ≥ 0.3. For gap-filling this means a year effect learned from other countries explains part of the co-variation, but a helper species adds information beyond it — which the modelling step must test explicitly.
 
+## Correlation metrics v3: how much does each insect tell us about the others?
+
+Redone with the PhD aims in mind (disturbance agents fluctuate together; existing records carry information about missing ones). For **all `r nrow(rd("cm"))` pairs** of insect codes, using region-years where both are recorded (series with ≥ 6 damage years):
+
+- **Same year:** do they have bad years together? (r of within-series standardised damage)
+- **Beyond shared bad years:** still linked after removing each species' Europe-wide yearly signal? Separates a real link from both reacting to the same drought year.
+- **Lead effect:** does species A's bad year predict B's *next* year beyond B's own previous year (partial correlation, Granger-type)? Tests the "disturbances trigger each other" idea.
+- **Co-occurrence:** do they tend to have any damage in the same region-year?
+
+**Honest uncertainty.** 95% ranges come from a region block bootstrap (whole regions resampled 999 times), which respects the year-to-year dependence within each region that made earlier p-values too optimistic. Ranges are given only when ≥ 5 regions contribute.
+
+```{r cm-verdicts}
+rd("cm") |> count(link, name = "pairs") |>
+  mutate(link = factor(link, c("strong, beyond shared bad years", "strong, mostly shared bad years",
+                               "weak but real", "no clear link", "not enough data"))) |> arrange(link)
+```
+
+`r sum(!is.na(rd("cm")$same_year))` pairs could be measured at all and `r sum(!is.na(rd("cm")$same_year_lo))` have enough regions for a reliable range; the rest are never or rarely recorded together.
+
+![](../outputs/figures/cm_top_links.png)
+
+- The strongest links are among **bark beetles on the same host**: spruce (*I. typographus*, *P. chalcographus*, *I. duplicatus*), pine (*I. sexdentatus*, *Phaenops*, *Tomicus*, *I. acuminatus*) and fir (*Pityokteines*).
+- Some links are **mostly shared bad years** (blue far from orange, e.g. *I. duplicatus* with *I. typographus*); others **survive** removing them (blue ≈ orange, e.g. *I. typographus* with *P. chalcographus*, r = `r f2(rd("cm")$beyond_year[rd("cm")$species_a=="ips_typ" & rd("cm")$species_b=="pit_cha"])`), meaning a direct regional connection beyond the weather year.
+
+![](../outputs/figures/cm_links_per_species.png)
+
+The most informative insects are *I. typographus*, *Tomicus*, *Phaenops* and *Pityokteines*: each is clearly linked to 10–19 others. Defoliators are linked to fewer species, and mostly to each other.
+
+![](../outputs/figures/cm_lead_effects.png)
+
+**Lead effects:** `r sum(rd("cm_lags")$sure)` of `r sum(!is.na(rd("cm_lags")$lo))` testable ordered pairs pass, against about `r round(0.05*sum(!is.na(rd("cm_lags")$lo)))` expected by chance — so sequential effects exist in the data, but individual links should be treated as hypotheses. Examples include *I. cembrae* before *Tetropium* and *I. typographus* before *I. sexdentatus*. These are candidates for the "one disturbance predisposes the next" mechanism, to be revisited when storm and drought records are added.
+
+**Co-occurrence** (any damage in the same region-year) is modest (median r = `r f2(median(rd("cm")$co_occur, na.rm = TRUE))`) and only partly tracks the same-year link (r = `r f2(cor(rd("cm")$co_occur, rd("cm")$same_year, use = "complete"))`), so *whether* damage occurs and *how much* behave somewhat differently — support for a two-part model later.
+
+Full results: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`.
+
 ## Temporal vs spatial
 
 Temporal = pooled `z_within` r; spatial = r between region means of `log_damage`. Linked = |r| ≥ 0.3.

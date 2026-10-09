@@ -405,3 +405,91 @@ plot_lfm_factors <- function(load, year_scores) {
     theme_eu(8) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
   list(loadings = p1, years = p2)
 }
+
+# ---- Correlation metrics v3 figures ------------------------------------------
+
+# Strongest links with 95% bootstrap intervals: same-year r and r beyond
+# shared bad years, for pairs with a reliable interval (>= 5 regions)
+plot_cm_top <- function(cm, k = 25) {
+  top <- cm |>
+    dplyr::filter(!is.na(same_year_lo)) |>
+    dplyr::arrange(dplyr::desc(abs(same_year))) |>
+    dplyr::slice_head(n = k) |>
+    dplyr::mutate(pair = paste(species_a, "&", species_b))
+  d <- dplyr::bind_rows(
+    top |> dplyr::transmute(pair, what = "Same year", r = same_year, lo = same_year_lo, hi = same_year_hi),
+    top |> dplyr::transmute(pair, what = "Beyond shared bad years", r = beyond_year, lo = beyond_year_lo, hi = beyond_year_hi)
+  ) |>
+    dplyr::mutate(pair = factor(pair, rev(top$pair)), what = factor(what, c("Same year", "Beyond shared bad years")))
+  ggplot2::ggplot(d, ggplot2::aes(r, pair, colour = what)) +
+    ggplot2::geom_vline(xintercept = 0, colour = pal$ink2, linewidth = 0.3) +
+    ggplot2::geom_errorbarh(ggplot2::aes(xmin = lo, xmax = hi), height = 0, linewidth = 0.6,
+                            position = ggplot2::position_dodge(width = 0.6)) +
+    ggplot2::geom_point(size = 2.2, position = ggplot2::position_dodge(width = 0.6)) +
+    ggplot2::scale_colour_manual(values = c(`Same year` = pal$seq[4], `Beyond shared bad years` = pal$guild[["defoliator"]]),
+                                 name = NULL) +
+    ggplot2::scale_x_continuous(limits = c(-0.2, 1), breaks = seq(-0.2, 1, 0.2)) +
+    ggplot2::labs(x = "Correlation r (dot) with 95% range (line)", y = NULL,
+                  title = "Strongest links between insect species",
+                  subtitle = "Blue: do they have bad years together? Orange: still linked after removing Europe-wide bad years?",
+                  caption = "Ranges from resampling whole regions 999 times; only pairs observed together in at least 5 regions.") +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+# How much do the other species tell us about each species?
+plot_cm_species <- function(cms) {
+  d <- cms |>
+    dplyr::filter(strong_links + strong_but_shared_years + weak_links > 0) |>
+    dplyr::transmute(species, guild = dplyr::coalesce(guild, "other"),
+                     `Strong, beyond shared bad years` = strong_links,
+                     `Strong, mostly shared bad years` = strong_but_shared_years,
+                     `Weak but real` = weak_links) |>
+    tidyr::pivot_longer(-c(species, guild), names_to = "type", values_to = "n") |>
+    dplyr::mutate(type = factor(type, rev(c("Strong, beyond shared bad years", "Strong, mostly shared bad years", "Weak but real"))))
+  ord <- d |> dplyr::group_by(species) |>
+    dplyr::summarise(s = sum(n * c(3, 2, 1)[as.integer(factor(type, levels(d$type)[3:1]))]), t = sum(n)) |>
+    dplyr::arrange(t, s)
+  d$species <- factor(d$species, ord$species)
+  ggplot2::ggplot(d, ggplot2::aes(n, species, fill = type)) +
+    ggplot2::geom_col(width = 0.7, colour = pal$surface, linewidth = 0.3) +
+    ggplot2::facet_grid(guild ~ ., scales = "free_y", space = "free_y") +
+    ggplot2::scale_fill_manual(values = c(`Strong, beyond shared bad years` = pal$seq[5],
+                                          `Strong, mostly shared bad years` = pal$seq[3],
+                                          `Weak but real` = pal$seq[1]), name = NULL,
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
+    ggplot2::labs(x = "Number of other species clearly linked to it", y = NULL,
+                  title = "How much do other insects tell us about each insect?",
+                  subtitle = "Links whose 95% range excludes zero. Strong = |r| >= 0.3; 'beyond' = still |r| >= 0.2 after removing Europe-wide bad years.",
+                  caption = "Species with no clear link, or recorded too rarely together with others to test, are not shown.") +
+    theme_eu(8.5) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   strip.text.y = ggplot2::element_text(angle = 0, face = "bold"),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+# Lead effects: does one species' bad year predict another's next year,
+# beyond that species' own previous year?
+plot_cm_lags <- function(lags, k = 20) {
+  d <- lags |>
+    dplyr::filter(sure) |>
+    dplyr::arrange(dplyr::desc(abs(r))) |>
+    dplyr::slice_head(n = k) |>
+    dplyr::mutate(pair = paste(leader, "then", follower), dir = ifelse(r > 0, "more damage next year", "less damage next year"))
+  d$pair <- factor(d$pair, rev(d$pair))
+  ggplot2::ggplot(d, ggplot2::aes(r, pair, colour = dir)) +
+    ggplot2::geom_vline(xintercept = 0, colour = pal$ink2, linewidth = 0.3) +
+    ggplot2::geom_errorbarh(ggplot2::aes(xmin = lo, xmax = hi), height = 0, linewidth = 0.6) +
+    ggplot2::geom_point(size = 2.4) +
+    ggplot2::scale_colour_manual(values = c(`more damage next year` = pal$div_high, `less damage next year` = pal$div_low),
+                                 name = "A bad year for the first species means...") +
+    ggplot2::labs(x = "Partial correlation (dot) with 95% range (line)", y = NULL,
+                  title = "Does one insect's bad year come before another's?",
+                  subtitle = "First species in year t vs second species in year t+1, after accounting for the second species' own year t",
+                  caption = paste("Strongest links whose 95% range excludes zero; >= 5 regions. About 1 in 20 tested links",
+                                  "would pass by chance, so treat single links as hypotheses.")) +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}

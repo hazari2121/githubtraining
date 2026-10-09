@@ -106,6 +106,18 @@ list(
              save_fig(plot_top_pairs(dplyr::filter(ts, version == "z_within"), pc),
                       "outputs/figures/top_pairs_by_country.png", 9, 7), format = "file"),
 
+  # ---- Correlation metrics v3 (all pairs, bootstrap CIs, lags, co-occurrence) ----
+  tar_target(cm, correlation_metrics(tr, tr_nofilter, all_species, ts)),
+  tar_target(cm_species, species_information(cm, species_meta)),
+  tar_target(cm_lags, lag_pairs(cm)),
+  tar_target(cm_csv, tab(cm, "correlation_metrics_all_pairs.csv"), format = "file"),
+  tar_target(fig_cm_top, save_fig(plot_cm_top(cm), "outputs/figures/cm_top_links.png", 9, 8.5), format = "file"),
+  tar_target(fig_cm_species, save_fig(plot_cm_species(cm_species), "outputs/figures/cm_links_per_species.png", 8.5, 9.5),
+             format = "file"),
+  tar_target(fig_cm_lags, save_fig(plot_cm_lags(cm_lags), "outputs/figures/cm_lead_effects.png", 9, 7), format = "file"),
+  tar_target(cm_species_csv, tab(cm_species, "correlation_metrics_by_species.csv"), format = "file"),
+  tar_target(cm_lags_csv, tab(cm_lags, "correlation_metrics_lagged.csv"), format = "file"),
+
   # ---- Helper finder --------------------------------------------------------
   tar_target(hf, helper_finder(cells, ts, pw, species_meta)),
   tar_target(hf_best, helper_best(hf, k = 3)),
