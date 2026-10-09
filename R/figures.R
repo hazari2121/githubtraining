@@ -284,3 +284,124 @@ plot_correlation_explainer <- function(tr, pc, examples) {
                    strip.text = ggplot2::element_text(face = "bold", hjust = 0),
                    panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
 }
+
+# ---- Latent factor model figures -------------------------------------------
+
+# Model comparison: skill vs the species x year baseline and dynamics r
+plot_lfm_comparison <- function(score, grid, best_model) {
+  d <- score |>
+    dplyr::left_join(grid, by = "model") |>
+    dplyr::filter(is.na(K) | lambda == 50 | (K == 0)) |>
+    dplyr::mutate(
+      label = dplyr::case_when(
+        is.na(K) ~ sub("Baseline: ", "", model),
+        K == 0 ~ "Additive (region-year intensity, no factors)",
+        TRUE ~ paste0(K, " hidden factor", ifelse(K > 1, "s", ""))),
+      type = dplyr::case_when(is.na(K) ~ "Baseline", model == best_model ~ "Chosen model", TRUE ~ "Factor model"),
+      label = factor(label, rev(unique(label[order(type != "Baseline", K)])))
+    ) |>
+    tidyr::pivot_longer(c(skill_vs_year_baseline, dynamics_r), names_to = "metric") |>
+    dplyr::filter(!is.na(value)) |>
+    dplyr::mutate(metric = dplyr::recode(metric,
+      skill_vs_year_baseline = "Error reduction vs 'species x year' baseline",
+      dynamics_r = "Gets the ups and downs right (r)"))
+  ggplot2::ggplot(d, ggplot2::aes(value, label, colour = type)) +
+    ggplot2::geom_vline(xintercept = 0, colour = "#d9d8d4") +
+    ggplot2::geom_segment(ggplot2::aes(x = 0, xend = value, yend = label), linewidth = 0.6, alpha = 0.5) +
+    ggplot2::geom_point(size = 3) +
+    ggplot2::geom_text(ggplot2::aes(label = formatC(value, format = "f", digits = 2)),
+                       hjust = -0.4, size = 2.6, colour = pal$ink2) +
+    ggplot2::facet_wrap(~ metric, scales = "free_x") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.05, 0.25))) +
+    ggplot2::scale_colour_manual(values = c(Baseline = "#9c9b97", `Factor model` = pal$seq[3],
+                                            `Chosen model` = pal$guild[["defoliator"]]), name = NULL) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Does the factor model fill gaps better than simple rules?",
+                  subtitle = "Whole country x species blocks hidden and predicted (10-fold cross-validation, 108 blocks)",
+                  caption = "Error = mean squared error on log(damage + 1). r = correlation between predicted and real yearly series.") +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+# Per species: how well can the chosen model fill this species' gaps?
+plot_lfm_species <- function(score_sp, best_model, species_meta) {
+  d <- score_sp |>
+    dplyr::filter(model == best_model) |>
+    dplyr::left_join(dplyr::select(species_meta, species, guild = guild_from_file), by = "species") |>
+    dplyr::mutate(guild = dplyr::coalesce(guild, "other")) |>
+    dplyr::arrange(skill_vs_year_baseline) |>
+    dplyr::mutate(species = factor(species, species))
+  ggplot2::ggplot(d, ggplot2::aes(skill_vs_year_baseline, species, fill = guild)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::geom_vline(xintercept = 0, colour = pal$ink2, linewidth = 0.3) +
+    ggplot2::geom_text(ggplot2::aes(label = paste0("r = ", formatC(dynamics_r, format = "f", digits = 2)),
+                                    x = pmax(skill_vs_year_baseline, 0)), hjust = -0.15, size = 2.4,
+                       colour = pal$ink2) +
+    ggplot2::scale_fill_manual(values = pal$guild, name = "Guild") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.05, 0.2))) +
+    ggplot2::labs(x = "Error reduction vs 'species x year' baseline (right = model helps)", y = NULL,
+                  title = "Which insects can the factor model fill?",
+                  subtitle = "Chosen model, hidden country x species blocks. Label: r for the ups and downs.",
+                  caption = "Only species recorded in at least 2 countries can be tested.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left")
+}
+
+# Examples: real vs predicted for hidden series
+plot_lfm_examples <- function(cv, best_model, examples) {
+  d <- cv |>
+    dplyr::filter(model %in% c(best_model, "Baseline: species x year average")) |>
+    dplyr::inner_join(examples, by = c("nuts_id", "species")) |>
+    dplyr::mutate(model = dplyr::if_else(model == best_model, "Factor model prediction", "Species x year baseline"))
+  obs <- dplyr::distinct(d, title, year, observed)
+  ggplot2::ggplot(d, ggplot2::aes(year)) +
+    ggplot2::geom_line(data = obs, ggplot2::aes(y = observed, colour = "Real (hidden from the model)"), linewidth = 0.9) +
+    ggplot2::geom_line(ggplot2::aes(y = predicted, colour = model, linetype = model), linewidth = 0.7) +
+    ggplot2::facet_wrap(~ title, ncol = 3, scales = "free_y") +
+    ggplot2::scale_colour_manual(values = c(`Real (hidden from the model)` = pal$ink,
+                                            `Factor model prediction` = pal$guild[["defoliator"]],
+                                            `Species x year baseline` = "#9c9b97"), name = NULL) +
+    ggplot2::scale_linetype_manual(values = c(`Factor model prediction` = "solid",
+                                              `Species x year baseline` = "22"), guide = "none") +
+    ggplot2::labs(x = NULL, y = "log(damage + 1)", title = "Hidden series: real vs predicted",
+                  subtitle = "The model never saw these values; it predicted them from other species in the same region and the species elsewhere.") +
+    theme_eu(9) +
+    ggplot2::theme(legend.position = "top", legend.justification = "left",
+                   strip.text = ggplot2::element_text(face = "bold", hjust = 0),
+                   panel.grid.major.y = ggplot2::element_line(colour = "#f3f2ee", linewidth = 0.2))
+}
+
+# What the model learned: species loadings on the hidden factors, and the
+# Europe-wide yearly pattern of overall intensity and of each factor
+plot_lfm_factors <- function(load, year_scores) {
+  K <- sum(grepl("^F[0-9]+$", names(load)))
+  ld <- load |>
+    dplyr::mutate(guild = dplyr::coalesce(guild, "other")) |>
+    tidyr::pivot_longer(dplyr::matches("^F[0-9]+$"), names_to = "factor", values_to = "loading") |>
+    dplyr::group_by(species) |> dplyr::mutate(ord = loading[factor == "F2"]) |> dplyr::ungroup() |>
+    dplyr::arrange(guild, ord) |>
+    dplyr::mutate(species = factor(species, unique(species)),
+                  factor = paste("Factor", sub("F", "", factor)))
+  p1 <- ggplot2::ggplot(ld, ggplot2::aes(loading, species, fill = guild)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::geom_vline(xintercept = 0, colour = pal$ink2, linewidth = 0.3) +
+    ggplot2::facet_grid(guild ~ factor, scales = "free_y", space = "free_y") +
+    ggplot2::scale_fill_manual(values = pal$guild, guide = "none") +
+    ggplot2::labs(x = "Loading (how strongly the species follows the factor)", y = NULL,
+                  title = "What the hidden factors represent") +
+    theme_eu(8) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
+  ys <- year_scores |>
+    dplyr::group_by(year) |>
+    dplyr::summarise(dplyr::across(c(intensity, dplyr::matches("^F[0-9]+$")), mean), .groups = "drop") |>
+    tidyr::pivot_longer(-year) |>
+    dplyr::mutate(name = dplyr::recode(name, intensity = "Overall damage intensity",
+                                       !!!stats::setNames(paste("Factor", seq_len(K)), paste0("F", seq_len(K)))))
+  p2 <- ggplot2::ggplot(ys, ggplot2::aes(year, value)) +
+    ggplot2::geom_hline(yintercept = 0, colour = "#d9d8d4") +
+    ggplot2::geom_line(colour = pal$seq[4], linewidth = 0.9) +
+    ggplot2::facet_wrap(~ name, ncol = 1, scales = "free_y") +
+    ggplot2::labs(x = NULL, y = "Mean score across regions",
+                  title = "Europe-wide yearly pattern",
+                  caption = "Overall intensity peaks in 2003-06 and 2018-19 (drought years).") +
+    theme_eu(8) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+  list(loadings = p1, years = p2)
+}

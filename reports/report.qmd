@@ -250,6 +250,56 @@ hb1 <- rd("hf_best") |> group_by(target) |> slice_min(coalesce(helper_rank, 99L)
 
 These grades rank candidates; they do not yet show how well a helper actually predicts missing values. The next step tests that directly by leaving out whole countries.
 
+## Latent factor model (prototype)
+
+**Aim (PhD objective 1):** fill gaps using all available records at once, assuming damage across insect species is driven by a few shared hidden factors.
+
+**Model.** Table of region-years × species, values `log(damage + 1)`; series with < 6 damage years treated as missing. Each value = species level + overall damage intensity of that region-year + Σ (region-year score on factor k × species loading on factor k). Fitted by alternating ridge regression on observed cells only (code: `R/lfm.R`). With 0 factors it reduces to an additive model (region-year intensity + species level).
+
+**Honest test.** Whole country × species blocks were hidden (e.g. all Polish *Phaenops* records) and predicted from everything else, mimicking real gaps. 10-fold cross-validation over `r nrow(rd("lfm_blocks"))` blocks; only species recorded in ≥ 2 countries can be tested. Compared against three baselines: species average, species × year average (Europe-wide bad years) and the best single helper species.
+
+![](../outputs/figures/lfm_model_comparison.png)
+
+```{r lfm-scores}
+rd("lfm_score") |> left_join(rd("lfm_grid"), by = "model") |>
+  filter(is.na(K) | lambda == 50 | K == 0) |> arrange(rmse) |>
+  transmute(model, `RMSE (log scale)` = f2(rmse), `error reduction vs species×year` = f2(skill_vs_year_baseline),
+            `ups-and-downs r` = f2(dynamics_r))
+```
+
+**Results.**
+
+- The factor model reduces prediction error by **`r round(100*rd("lfm_best")$skill_vs_year_baseline)`%** compared with the species × year baseline and beats the best single helper, which is *worse* than simply using Europe-wide yearly averages. Using all species jointly is better than using one helper.
+- **Most of the gain comes from the region-year intensity term**; adding hidden factors helps only slightly (chosen model: `r rd("lfm_best")$model`, the simplest within 0.5% of the best). With the current data, species overlap between countries is limited (outside Germany few species are recorded together), so species-specific factors are hard to learn and transfer.
+- **Errors are still large** (RMSE ≈ 3.5 on the log scale). About half is the *level* of damage, worst for countries reporting one national figure (SI, RS, RO, BG): without forest area or host-tree abundance the model cannot tell a small region from a whole country. The other half is year-to-year variation.
+- **Suspicious zeros.** `r nrow(readr::read_csv("../outputs/tables/suspicious_zero_runs.csv", show_col_types = FALSE))` series (mostly DE and PL) drop from substantial damage to ≥ 4 years of exact zeros, often from the same year (PL: 2013), suggesting reporting changes. Treating them as missing changes the results little (RMSE `r f2(rd("lfm_score_nz")$rmse[rd("lfm_score_nz")$model == rd("lfm_best")$model])`, same ranking of models), so conclusions are robust to them.
+
+![](../outputs/figures/lfm_skill_by_species.png)
+
+![](../outputs/figures/lfm_examples.png)
+
+The examples are the *typical* (median) hidden series for six species, not the best ones. Several real series (black) show abrupt drops to zero that no model can predict.
+
+### What the model learned (objective 3 preview)
+
+![](../outputs/figures/lfm_factor_years.png)
+
+![](../outputs/figures/lfm_factor_loadings.png)
+
+- **Overall damage intensity** peaks in **2003–06 and 2018–19**, the two drought-related disturbance peaks described by Hlásny et al. (2025).
+- **Factor 2** separates spruce bark beetles (*I. typographus*, *P. chalcographus*, *I. duplicatus*, *I. acuminatus*; positive) from defoliators (*L. monacha*, *L. dispar*, oak defoliators; negative) and rises after 2015 — the "divergent trends" of the paper.
+- **Factor 1** appears to be a long-term trend axis: species the paper found increasing fastest load positively (*I. acuminatus* +16%/yr, fir borers +15%/yr), species found decreasing load negatively (Geometridae on oaks −16%/yr, *T. viridana* −9%/yr). This interpretation is tentative.
+
+The model recovered these patterns on its own from incomplete data.
+
+### Limitations and next steps
+
+1. **Levels need covariates:** forest area and host-tree abundance per region (paper Appendix D) and VPD, so the model can scale damage to region size and climate.
+2. **Abiotic damage** (storm, drought, fire) when available: likely the strongest shared factors, and they are recorded more uniformly across countries.
+3. **Zeros:** a two-part (hurdle / zero-inflated) version separating "any damage?" from "how much?".
+4. **Uncertainty:** a Bayesian version of the same model (e.g. probabilistic matrix factorisation) to give each filled value an interval.
+5. **Gap-filled values** for all fillable cells are written to `data/processed/lfm_gap_filled_PROTOTYPE.csv` (not shared). They are not yet suitable for Europe-wide totals: host presence is unchecked and level errors are large.
+
 ## Guild structure
 
 Guild/host lookup used: **`r unique(lookup$lookup_source)`** (borer vs defoliator from the file's indicator columns; conifer vs broadleaf from TREETYPE). Fill in `data/lookup/species_guild_TEMPLATE.csv`, save as `data/lookup/species_guild.csv` and rerun to use your classification.

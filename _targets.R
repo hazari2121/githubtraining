@@ -130,6 +130,54 @@ list(
   tar_target(fig_hf, save_fig(plot_helper_finder(hf_best, sp_rank),
                               "outputs/figures/helper_finder.png", 10, 10), format = "file"),
 
+  # ---- Latent factor model (prototype) --------------------------------------
+  tar_target(lfm_L, build_lfm_matrix(cells, tr)),
+  tar_target(lfm_blocks, make_cv_blocks(lfm_L, n_folds = 10)),
+  tar_target(lfm_grid, tidyr::expand_grid(K = c(0, 1, 2, 3, 4, 6), lambda = c(5, 20, 50, 100)) |>
+               dplyr::filter(!(K == 0 & lambda != 20)) |>
+               dplyr::mutate(model = paste0("Factor model: K=", K, ", lambda=", lambda))),
+  tar_target(lfm_cv_res, lfm_cv(lfm_L, lfm_blocks, lfm_grid)),
+  tar_target(lfm_score, lfm_scores(lfm_cv_res)),
+  # Parsimony rule: the simplest factor model (smallest K >= 1, then largest
+  # lambda) whose CV RMSE is within 0.5% of the best factor model.
+  tar_target(lfm_best, {
+    sc <- dplyr::filter(lfm_score, grepl("^Factor", model)) |> dplyr::left_join(lfm_grid, by = "model")
+    sc |> dplyr::filter(K >= 1, rmse <= min(rmse) * 1.005) |>
+      dplyr::arrange(K, dplyr::desc(lambda)) |> dplyr::slice(1)
+  }),
+  tar_target(lfm_score_species, lfm_scores(dplyr::filter(lfm_cv_res, model %in% c(
+    lfm_best$model, "Baseline: species x year average", "Baseline: best single helper")), by = "species")),
+  tar_target(lfm_fit_final, lfm_final(lfm_L, lfm_best$K, lfm_best$lambda)),
+  tar_target(lfm_load, lfm_loadings(lfm_fit_final, lfm_L, species_meta)),
+  tar_target(lfm_year_scores, lfm_scores_by_year(lfm_fit_final, lfm_L)),
+  tar_target(lfm_filled, lfm_fill(lfm_fit_final, lfm_L)),
+  tar_target(fig_lfm_comp, save_fig(plot_lfm_comparison(lfm_score, lfm_grid, lfm_best$model),
+                                    "outputs/figures/lfm_model_comparison.png", 11, 5.5), format = "file"),
+  tar_target(fig_lfm_sp, save_fig(plot_lfm_species(lfm_score_species, lfm_best$model, species_meta),
+                                  "outputs/figures/lfm_skill_by_species.png", 8, 8), format = "file"),
+  tar_target(fig_lfm_ex, save_fig(plot_lfm_examples(lfm_cv_res, lfm_best$model,
+                                    lfm_example_pick(lfm_cv_res, lfm_best$model, n = 6)),
+    "outputs/figures/lfm_examples.png", 11, 6.5), format = "file"),
+  tar_target(fig_lfm_fac, {
+    pp <- plot_lfm_factors(lfm_load, lfm_year_scores)
+    c(save_fig(pp$loadings, "outputs/figures/lfm_factor_loadings.png", 8, 10),
+      save_fig(pp$years, "outputs/figures/lfm_factor_years.png", 6, 6))
+  }, format = "file"),
+  # Sensitivity: suspicious zero runs treated as missing; same CV design
+  tar_target(tr_zr, flag_zero_runs(tr)),
+  tar_target(zero_runs_csv, tab(dplyr::filter(tr_zr, suspicious_zero_run) |>
+                                  dplyr::count(country, nuts_id, species, name = "zero_years"),
+                                "suspicious_zero_runs.csv"), format = "file"),
+  tar_target(lfm_L_nz, build_lfm_matrix(cells, dplyr::filter(tr_zr, !suspicious_zero_run))),
+  tar_target(lfm_cv_nz, lfm_cv(lfm_L_nz, make_cv_blocks(lfm_L_nz, n_folds = 10),
+                               dplyr::filter(lfm_grid, model %in% c(lfm_best$model, "Factor model: K=0, lambda=20")))),
+  tar_target(lfm_score_nz, lfm_scores(lfm_cv_nz)),
+  tar_target(lfm_score_nz_csv, tab(lfm_score_nz, "lfm_cv_scores_sensitivity_zero_runs_missing.csv"), format = "file"),
+  tar_target(lfm_score_csv, tab(lfm_score, "lfm_cv_scores_by_model.csv"), format = "file"),
+  tar_target(lfm_score_sp_csv, tab(lfm_score_species, "lfm_cv_scores_by_species.csv"), format = "file"),
+  tar_target(lfm_load_csv, tab(lfm_load, "lfm_factor_loadings.csv"), format = "file"),
+  tar_target(lfm_filled_csv, write_csv_out(lfm_filled, "data/processed/lfm_gap_filled_PROTOTYPE.csv"), format = "file"),
+
   # ---- Step 7: guild structure ---------------------------------------------
   tar_target(guild_template_csv,
              write_csv_out(guild_template(species_meta), "data/lookup/species_guild_TEMPLATE.csv"),
