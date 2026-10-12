@@ -622,3 +622,58 @@ plot_group_totals <- function(gt) {
     theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left",
                                  strip.text = ggplot2::element_text(face = "bold", hjust = 0))
 }
+
+# ---- gllvm (latent factor model, agent groups) --------------------------------
+
+plot_gllvm_cor <- function(Rp, Rt) {
+  tidy <- function(R, lab) {
+    if (is.null(R)) return(NULL)
+    tibble::as_tibble(R, rownames = "a") |> tidyr::pivot_longer(-a, names_to = "b", values_to = "r") |>
+      dplyr::mutate(model = lab)
+  }
+  d <- dplyr::bind_rows(tidy(Rp, "Presence: damage in the same places and years"),
+                        tidy(Rt, "Timing: bad years at the same time"))
+  ord <- sort(unique(d$a))
+  d <- d |> dplyr::mutate(a = factor(a, ord), b = factor(b, rev(ord)),
+                          lab = dplyr::if_else(a == b, "", formatC(r, format = "f", digits = 1)))
+  ggplot2::ggplot(d, ggplot2::aes(a, b, fill = r)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.5) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), size = 2.6, colour = pal$ink) +
+    ggplot2::facet_wrap(~ model) +
+    ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-1, 1), name = "correlation") +
+    ggplot2::labs(x = NULL, y = NULL, title = "Which insect groups go together? (gllvm latent factor model)",
+                  subtitle = "Correlation left after removing shared region and Europe-wide year effects",
+                  caption = "Red = go up together, blue = one up when the other is down. Recorded data only; groups reported by >= 3 countries.") +
+    theme_eu(9) + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 40, hjust = 1),
+                                 strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+plot_gllvm_years <- function(ys, ld) {
+  top <- ld |> dplyr::group_by(factor) |>
+    dplyr::summarise(lab = paste0("+ ", paste(group[order(-loading)][1:2], collapse = ", "),
+                                  "\n- ", paste(group[order(loading)][1:2], collapse = ", ")), .groups = "drop")
+  d <- ys |> dplyr::left_join(top, by = "factor") |> dplyr::mutate(facet = paste0(factor, "\n", lab))
+  ggplot2::ggplot(d, ggplot2::aes(year, score)) +
+    ggplot2::geom_hline(yintercept = 0, colour = pal$ink2, linewidth = 0.3) +
+    ggplot2::geom_line(colour = "#184f95", linewidth = 0.8) + ggplot2::geom_point(colour = "#184f95", size = 1.4) +
+    ggplot2::facet_wrap(~ facet, ncol = 1, scales = "free_y") +
+    ggplot2::labs(x = NULL, y = "mean factor score", title = "Timing factors over time",
+                  subtitle = "High = years when the '+' groups had worse damage than usual relative to the '-' groups",
+                  caption = "Average over regions of each region-year's factor score (timing model).") +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(hjust = 0, size = 8))
+}
+
+plot_gllvm_vp <- function(vp) {
+  ggplot2::ggplot(vp, ggplot2::aes(share, group, fill = component)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::facet_wrap(~ model) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(100 * x, "%"), expand = c(0, 0)) +
+    ggplot2::scale_fill_manual(values = c(`region (shared by all groups)` = "#9c9b97",
+                                          `year (Europe-wide, shared by all groups)` = "#eda100",
+                                          `latent factor 1` = "#184f95", `latent factor 2` = "#5b8fd6",
+                                          `latent factor 3` = "#a9c6ec"), name = NULL) +
+    ggplot2::labs(x = "share of explained variation", y = NULL, title = "What drives each group's variation?",
+                  caption = "Timing model has no region effect: each series is measured around its own average.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left",
+                                 strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}

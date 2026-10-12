@@ -275,6 +275,28 @@ list(
   tar_target(g_totals_csv, tab(g_totals, "europe_totals_by_agent_group_PRELIMINARY.csv"), format = "file"),
   tar_target(g_harm_csv, write_csv_out(g_harm, "data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv"), format = "file"),
 
+  # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
+  tar_target(gl_data, gllvm_data(g_cells)),
+  tar_target(gl_pres_fits, gllvm_fit_set(gl_data, "presence")),
+  tar_target(gl_time_fits, gllvm_fit_set(gl_data, "timing")),
+  tar_target(gl_ic, dplyr::bind_rows(gllvm_ic(gl_pres_fits, "presence"), gllvm_ic(gl_time_fits, "timing"))),
+  tar_target(gl_pres, gllvm_best(gl_pres_fits, dplyr::filter(gl_ic, model == "presence"))),
+  tar_target(gl_time, gllvm_best(gl_time_fits, dplyr::filter(gl_ic, model == "timing"))),
+  tar_target(gl_cor_pres, gllvm_rescor(gl_pres)),
+  tar_target(gl_cor_time, gllvm_rescor(gl_time)),
+  tar_target(gl_years, gllvm_year_scores(gl_time, attr(gl_time_fits, "years"))),
+  tar_target(gl_load, gllvm_loadings(gl_time)),
+  tar_target(gl_vp, dplyr::bind_rows(dplyr::mutate(gllvm_vp(gl_pres), model = "presence"),
+                                     dplyr::mutate(gllvm_vp(gl_time), model = "timing"))),
+  tar_target(gl_check, gllvm_vs_pairwise(gl_cor_time, gl_data)),
+  tar_target(gl_ic_csv, tab(gl_ic, "gllvm_model_choice.csv"), format = "file"),
+  tar_target(gl_load_csv, tab(gl_load, "gllvm_timing_loadings.csv"), format = "file"),
+  tar_target(gl_vp_csv, tab(gl_vp, "gllvm_variance_partitioning.csv"), format = "file"),
+  tar_target(gl_check_csv, tab(gl_check, "gllvm_vs_pairwise_correlation.csv"), format = "file"),
+  tar_target(fig_gl_cor, save_fig(plot_gllvm_cor(gl_cor_pres, gl_cor_time), "outputs/figures/gllvm_group_correlations.png", 12, 6.5), format = "file"),
+  tar_target(fig_gl_years, save_fig(plot_gllvm_years(gl_years, gl_load), "outputs/figures/gllvm_timing_factors.png", 8, 7), format = "file"),
+  tar_target(fig_gl_vp, save_fig(plot_gllvm_vp(gl_vp), "outputs/figures/gllvm_variance_partitioning.png", 10, 5), format = "file"),
+
   # ---- Step 7: guild structure ---------------------------------------------
   tar_target(guild_template_csv,
              write_csv_out(guild_template(species_meta), "data/lookup/species_guild_TEMPLATE.csv"),
