@@ -1,6 +1,6 @@
 ---
 title: "EU-ForDAM: cross-species structure of forest insect damage"
-subtitle: "Version 3: zeros confirmed as real observations; groundwork for harmonising and gap-filling (PhD objective 1)"
+subtitle: "Version 4: host-tree data added to classification and gap-filling (PhD objective 1)"
 date: today
 format:
   html:
@@ -50,7 +50,7 @@ Source: `EUForDam_REW3.xlsx`, sheet `EUForDam_REW`: `r counts$n_rows` rows, `r c
 - **Damage = `value1`**, analysed as `log(x + 1)` as in the paper. `value2` is the same damage in a second unit (area vs volume), reported by DE, BG, FI, RO and LT (paper Sect. 2.2).
 - **CZ:** sub-region rows summed to NUTS2. The CZ spruce bark-borer group (`CambXyl_con&BB_con&SM`) is treated as *I. typographus*, following the paper's rule for groups dominated by one species. Other group codes are kept as their own units.
 - **Units** are fixed per insect (defoliators ha, borers m³), but NUTS level differs by country (national for 11 countries), so damage *levels* are not comparable across countries. Correlations use within-series standardised values (`z_within`), which are.
-- **Host absent ("impossible")** is still a placeholder; it needs host-tree abundance per region (paper Appendix D).
+- **Host trees** come from the forest appendix of Hlásny et al. (2025) (`Appendix_NUTS_Forests_12.xlsx`): area (ha) of spruce, pine, oak, fir and of all conifers/broadleaves per region. A cell is **impossible** when it is not monitored and the insect's host tree has zero area there ("-" in the table read as absent). Recorded damage on that host overrides "absent". Larch and minor broadleaf hosts are not in the table, so their presence cannot be checked. Code fixes: CR→HR, SL→SI, DEB+DEC summed; CZ01, DE5, DE6 have no host row; BG/LT volumes look 1000× too small, so only areas are used.
 
 ## Coverage and occurrence
 
@@ -171,7 +171,7 @@ worst <- d |> distinct(country, nuts_id, species, lvl) |> group_by(country) |>
 
 - Chosen model: **`r lbest$model`** (simplest within 0.5% of the best). It reduces error by **`r pct(100 * lbest$skill_vs_year_baseline)`** versus insect × year averages; the best single helper reduces it by `r pct(100 * skill("Baseline: best single helper"))`. Using all insects together works better than using one.
 - **Most of the gain comes from the region-year intensity term:** the purely additive model (no hidden factors) is almost as good (`r pct(100 * skill("Factor model: K=0, lambda=20"))`). With the current data, few insects are recorded together outside Germany, so insect-specific factors are hard to learn and transfer.
-- **Errors are still large** (RMSE ≈ `r f2(lbest$rmse)` on the log scale). About `r pct(100 * level_share)` of the error is the *level* of damage, largest for `r paste(head(worst$country, 4), collapse = ", ")`. Without forest area or host-tree abundance the model cannot tell a small region from a whole country. The rest is year-to-year variation.
+- **Errors are still large** (RMSE ≈ `r f2(lbest$rmse)` on the log scale). About `r pct(100 * level_share)` of the error is the *level* of damage, largest for `r paste(head(worst$country, 4), collapse = ", ")`. This one-part model has no forest area, so it cannot tell a small region from a whole country (host area is added in the two-part model below). The rest is year-to-year variation.
 
 ![](../outputs/figures/lfm_skill_by_species.png)
 
@@ -191,7 +191,7 @@ The examples are the *typical* (median) hidden series for six insects, not the b
 
 ### Next steps for the model
 
-1. **Covariates:** forest area and host-tree abundance per region (paper Appendix D) and VPD, so damage can be scaled to region size and climate.
+1. **Covariates:** host-tree area (done, below) and VPD per region (still needed).
 2. **Two-part model:** "any damage?" and "how much?" separately; most recorded values are zeros (`r pct(100 * mean(tr$damage == 0))`).
 3. **Uncertainty:** a Bayesian version giving each filled value a range.
 4. **Abiotic damage** (storm, drought, fire) when available, likely the strongest shared factors.
@@ -202,6 +202,7 @@ The examples are the *typical* (median) hidden series for six insects, not the b
 ```{r hurdle-setup}
 hs <- rd("h_part_scores"); hc <- rd("h_cmp")$summary; hconf <- rd("h_conf"); hf <- rd("h_filled")
 b1 <- rd("h_best1"); b2 <- rd("h_best2"); ht <- rd("h_totals")
+hh <- rd("hh_cmp")$summary; hst <- rd("host_status")
 p1base <- hs$auc[hs$model == "P1 baseline: insect rate"]
 p2base <- hs$rmse_log[hs$model == "P2 baseline: insect x year mean"]
 ityp_obs <- sum(ht$observed[ht$species == "ips_typ"])
@@ -222,18 +223,28 @@ Filled value = probability of any damage × expected amount if damaged.
 ![](../outputs/figures/hurdle_vs_one_part.png)
 
 ```{r hurdle-compare}
-hc |> transmute(model, `RMSE log(damage+1)` = f2(rmse_log), `real zeros called zero` = pct(100 * zeros_called_zero),
+hh |> transmute(model, `real zeros called zero` = pct(100 * zeros_called_zero), `AUC any damage` = f2(auc_any),
                 `typical error of block totals (× off)` = f2(exp(median_abs_log_ratio_totals)),
                 `block totals within 2×` = pct(100 * share_totals_within_2x))
 ```
 
-The two-part model is much better at what Europe-wide totals need: it recognises real zeros (`r pct(100 * hc$zeros_called_zero[2])` vs `r pct(100 * hc$zeros_called_zero[1])`) and gets hidden block totals within 2× twice as often. Its cell-level log error is slightly higher, because it hedges between "no damage" and "damage" rather than guessing a middle value.
+The two-part model is much better at what Europe-wide totals need: it recognises real zeros (`r pct(100 * hh$zeros_called_zero[2])` vs `r pct(100 * hh$zeros_called_zero[1])`) and gets hidden block totals within 2× twice as often.
 
-**Main limitation.** Within an insect, the model often cannot tell *which* never-monitored places have damage: only `r sum(hconf$confidence == "works")` insects pass the confidence rule (beats the insect × year baseline and AUC ≥ 0.7), `r sum(hconf$confidence == "weak")` are weak, and `r sum(hconf$confidence == "untested")` cannot be tested because they are recorded in one country only. Other insects say little about whether an insect is *present* in a new country; host-tree abundance is the missing information.
+### Adding host trees
+
+Host information enters in three ways: (1) cells with the host tree absent are set to zero; (2) "any damage?" also sees the log host area, with one slope per insect; (3) "how much?" models damage per 1000 ha of host forest and multiplies back by the region's host area (where area is unknown, the plain amount is used).
+
+```{r host-status}
+hst |> count(host_status, name = "region × insect pairs") |> arrange(desc(`region × insect pairs`))
+```
+
+Host trees help the amounts, not the presence: typical block-total error drops from `r f2(exp(hh$median_abs_log_ratio_totals[2]))`× to `r f2(exp(hh$median_abs_log_ratio_totals[3]))`× off, and block totals within 2× rise from `r pct(100 * hh$share_totals_within_2x[2])` to `r pct(100 * hh$share_totals_within_2x[3])`. Separating damage from no damage does not improve (AUC `r f2(hh$auc_any[2])` vs `r f2(hh$auc_any[3])`), because spruce, pine and oak grow in almost every region, so "host present" rarely rules anything out. Host absence removes `r format(sum(hf$value_type == "zero: host tree absent"), big.mark = ",")` cells, mostly oak insects in Finland.
+
+**Main limitation.** Within an insect, the model often cannot tell *which* never-monitored places have damage: only `r sum(hconf$confidence == "works")` insects pass the confidence rule (beats the insect × year baseline and AUC ≥ 0.7), `r sum(hconf$confidence == "weak")` are weak, and `r sum(hconf$confidence == "untested")` cannot be tested because they are recorded in one country only. Host trees tell where an insect *could* be, not whether it is there; the insect's known distribution range (e.g. EPPO / literature) is the missing information.
 
 ### The harmonised dataset
 
-Every region-year-insect cell is labelled observed, filled (with confidence and an 80% range for the amount if damaged), or not fillable (nothing at all recorded in that region-year). Host presence is "unknown" for every filled cell until host-tree data is available. File: `data/processed/eufordam_harmonised_PRELIMINARY.csv` (not shared).
+Every region-year-insect cell is labelled observed, zero because the host tree is absent, filled (with confidence, host status, and an 80% range for the amount if damaged), or not fillable (nothing at all recorded in that region-year). File: `data/processed/eufordam_harmonised_PRELIMINARY.csv` (not shared).
 
 ```{r hurdle-cells}
 hf |> mutate(status = case_when(value_type == "filled" ~ paste0("filled (", confidence, ")"), TRUE ~ value_type)) |>
@@ -246,21 +257,23 @@ hf |> mutate(status = case_when(value_type == "filled" ~ paste0("filled (", conf
 
 ![](../outputs/figures/europe_totals_composition.png)
 
-For *I. typographus*, recorded almost everywhere, the observed total (`r formatC(ityp_obs / 1e6, format = "f", digits = 0)` million m³, 2000–2022) is close to the 587 million m³ in Hlásny et al. (2025, Table 2), and filling adds almost nothing. For most other insects, filled values would make up half or more of the total, sometimes several times the observed damage, because the model spreads each insect into every country that never monitored it. Until host-tree data removes impossible cells, these totals should not be used.
+For *I. typographus*, recorded almost everywhere, the observed total (`r formatC(ityp_obs / 1e6, format = "f", digits = 0)` million m³, 2000–2022) is close to the 587 million m³ in Hlásny et al. (2025, Table 2), and filling adds almost nothing. For most other insects, filled values would make up half or more of the total, sometimes several times the observed damage, because the model spreads each insect into every country with its host tree that never monitored it. Host trees do not fix this: the host is present almost everywhere. Group codes reported by one country only (e.g. the CZ group `CambXyl_con&BB_con&SM`, filled at about 12× its observed total) should not be filled into other countries at all. These totals should not be used yet.
 
 ## Open questions for Prof. Hlásny
 
 1. **Table 6:** are the values r² rather than r?
 2. **Dataset version:** our file has `r counts$n_regions` regions and `r counts$n_species` codes; the paper reports 82 spatial units and 50 species (Zenodo 10.5281/zenodo.15863174).
-3. **Appendix B and D:** conversion factors, which Polish species were split from groups by fixed proportions, and host-tree abundance per region.
-4. **VPD per region** as used in the paper.
-5. **CZ values in multiples of 1/7:** known cause?
-6. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
+3. **Appendix B:** conversion factors, and which Polish species were split from groups by fixed proportions.
+4. **Host-tree table:** does "-" mean the tree is absent or not reported? Are BG and LT volumes in 1000 m³? Is there area for larch, birch and poplar?
+5. **VPD per region** as used in the paper.
+6. **CZ values in multiples of 1/7:** known cause?
+7. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
 
 ## Files
 
 - Correlation metrics: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`
 - Transferability: `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`
+- Host trees: `host_area_by_region.csv`, `host_status_region_insect.csv`, `gapfill_models_compared_with_hosts.csv`
 - Two-part model: `hurdle_cv_part_scores.csv`, `hurdle_vs_one_part.csv`, `hurdle_confidence_by_species.csv`, `europe_totals_observed_plus_filled_PRELIMINARY.csv`
 - Factor model: `lfm_cv_scores_by_model.csv`, `lfm_cv_scores_by_species.csv`, `lfm_factor_loadings.csv`
 - Occurrence: `species_nuts_occurrence_ranking.xlsx`; coverage: `coverage_*.csv`; Table 6 replication: `paper_table6_replication.csv`
