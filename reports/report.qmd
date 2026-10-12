@@ -1,6 +1,6 @@
 ---
 title: "EU-ForDAM: cross-species structure of forest insect damage"
-subtitle: "Version 4: host-tree data added to classification and gap-filling (PhD objective 1)"
+subtitle: "Version 5: harmonising by gap type and agent group, with host trees (PhD objective 1)"
 date: today
 format:
   html:
@@ -38,9 +38,10 @@ cms_tot <- cms |> mutate(total = strong_links + strong_but_shared_years + weak_l
 1. **Insects carry information about each other.** Of `r nrow(cm)` insect pairs, `r sum(!is.na(cm$same_year))` can be measured; `r sum(cm$link == "strong, beyond shared bad years")` show a strong link that survives removing Europe-wide bad years, and `r sum(cm$link == "strong, mostly shared bad years")` more are strong mainly because of shared bad years.
 2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
 3. **A latent factor model fills gaps `r pct(100 * lbest$skill_vs_year_baseline)` better than Europe-wide yearly averages**, tested by hiding whole country × species blocks. It also beats the best single helper species.
-4. **A two-part version (any damage? / how much?) gets hidden totals right twice as often** and recognises real zeros, but cannot yet tell whether an insect is present in a country that never monitored it. Host-tree data is the key missing input; Europe-wide totals are preliminary.
-5. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
-6. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
+4. **A two-part version (any damage? / how much?) gets hidden totals right twice as often** and recognises real zeros. Host-tree area improves amounts slightly but not presence, since host trees grow almost everywhere.
+5. **Most gaps are insects a country never reports, not missing years.** Records are complete inside each reported series; the only missing years are before AT, PL and FI start. Harmonising by agent group (guild × host tree) and back-casting early years gives Europe-wide totals that rest almost entirely on observed data. Never-reported damage is shown separately, not added.
+6. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
+7. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
 
 ## Data and decisions
 
@@ -259,6 +260,53 @@ hf |> mutate(status = case_when(value_type == "filled" ~ paste0("filled (", conf
 
 For *I. typographus*, recorded almost everywhere, the observed total (`r formatC(ityp_obs / 1e6, format = "f", digits = 0)` million m³, 2000–2022) is close to the 587 million m³ in Hlásny et al. (2025, Table 2), and filling adds almost nothing. For most other insects, filled values would make up half or more of the total, sometimes several times the observed damage, because the model spreads each insect into every country with its host tree that never monitored it. Host trees do not fix this: the host is present almost everywhere. Group codes reported by one country only (e.g. the CZ group `CambXyl_con&BB_con&SM`, filled at about 12× its observed total) should not be filled into other countries at all. These totals should not be used yet.
 
+## Harmonising by gap type and agent group
+
+```{r groups-setup}
+gt <- rd("gap_tab"); bcs <- rd("bc_scores"); gcmp <- rd("g_cmp")$summary; gconf <- rd("g_conf")
+gtot <- rd("g_totals"); gh <- rd("g_harm"); grp <- rd("groups")
+gshare <- function(level_, gap_) gt$share[gt$level == level_ & gt$gap == gap_]
+```
+
+**Most insect-level "gaps" are not missing records.** Splitting every empty cell by *why* it is empty:
+
+```{r gap-types}
+gt |> select(level, gap, cells) |> tidyr::pivot_wider(names_from = level, values_from = cells, values_fill = 0) |>
+  arrange(desc(insect))
+```
+
+At insect level, `r pct(100 * gshare("insect", "never reported by this country"))` of cells are insects a country **never reports**: a difference in reporting schemes, not a gap in a record. Inside the years a country reports an insect, the record is essentially complete. The only real missing years are **before a series starts** (AT from 2002, PL from 2003, FI from 2012). The earlier models filled the first kind, and could not fill the second.
+
+**Agent groups.** Insects are combined into `r n_distinct(grp$group)` provisional groups (guild × host tree, e.g. "borers on spruce"). The group value is the sum of the recorded insects. At group level the share of never-reported cells falls to `r pct(100 * gshare("agent group", "never reported by this country"))`, and `r pct(100 * gshare("agent group", "recorded"))` of cells are recorded (`r pct(100 * gshare("insect", "recorded"))` at insect level).
+
+**Treatment by gap type:**
+
+| Gap | Treatment |
+|---|---|
+| Host absent | zero |
+| Before the series starts | back-cast: the series' own level in its first 5 recorded years |
+| Never reported by this country | two-part model with host trees; shown separately as *possible unreported damage*, **not added to totals** |
+| Nothing recorded in the region-year | left empty |
+
+**Back-casting test.** For countries recorded from 2000, we hid the first 2, 3 or 12 years of the whole country (mimicking AT, PL and FI) and predicted them.
+
+```{r backcast}
+bcs |> transmute(level, `years hidden` = n_hide, series, `RMSE carry back` = f2(rmse_carry_back),
+                 `RMSE + change in other countries` = f2(rmse_backcast))
+```
+
+Adding the year-to-year change seen in other countries makes the back-cast *worse*, so the simpler carry-back is used. Errors are large (RMSE ≈ 2 on the log scale, i.e. often several times off for a single year). Back-cast years give a typical level, not that year's outbreak.
+
+**Presence at group level** is easier to predict than at insect level (hidden-block AUC `r f2(gcmp$auc_any[3])` with host trees, vs `r f2(hh$auc_any[3])` for insects). The model passes the confidence rule for `r paste(gconf$species[gconf$confidence == "works"], collapse = ", ")`, the main groups. It is weak for the rest; for borers on oak the AUC is below 0.5.
+
+![](../outputs/figures/group_status_map.png)
+
+![](../outputs/figures/group_totals.png)
+
+**Harmonised Europe-wide totals** (observed + back-cast) are dominated by observed data for every group. Borers on spruce: `r formatC(sum(gtot$harmonised_total[gtot$group == "borers on spruce"]) / 1e6, format = "f", digits = 0)` million m³, 2000–2022, of which `r pct(100 * sum(gtot$back_cast[gtot$group == "borers on spruce"]) / sum(gtot$harmonised_total[gtot$group == "borers on spruce"]))` back-cast. The orange "possible unreported" bars are large for defoliators on spruce and borers on larch; they are guesses for countries that may not have the problem at all, so they stay out of the totals. File: `data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv` (not shared).
+
+**To confirm with Prof. Hlásny:** the grouping (`outputs/tables/agent_groups_PROVISIONAL.csv`), and whether "never reported" should be treated as "not a problem there" (zero), "unknown" (current choice), or filled.
+
 ## Open questions for Prof. Hlásny
 
 1. **Table 6:** are the values r² rather than r?
@@ -268,11 +316,13 @@ For *I. typographus*, recorded almost everywhere, the observed total (`r formatC
 5. **VPD per region** as used in the paper.
 6. **CZ values in multiples of 1/7:** known cause?
 7. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
+8. **Agent groups and never-reported gaps:** is the guild × host grouping right, and should "never reported" mean zero, unknown, or be filled?
 
 ## Files
 
 - Correlation metrics: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`
 - Transferability: `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`
+- Gap types and groups: `gap_types_insect_vs_group.csv`, `agent_groups_PROVISIONAL.csv`, `backcast_test_scores.csv`, `group_gapfill_models_compared.csv`, `group_confidence.csv`, `europe_totals_by_agent_group_PRELIMINARY.csv`
 - Host trees: `host_area_by_region.csv`, `host_status_region_insect.csv`, `gapfill_models_compared_with_hosts.csv`
 - Two-part model: `hurdle_cv_part_scores.csv`, `hurdle_vs_one_part.csv`, `hurdle_confidence_by_species.csv`, `europe_totals_observed_plus_filled_PRELIMINARY.csv`
 - Factor model: `lfm_cv_scores_by_model.csv`, `lfm_cv_scores_by_species.csv`, `lfm_factor_loadings.csv`

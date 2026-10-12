@@ -1,0 +1,50 @@
+species,unit,host_tree,guild,host,group
+CambXyl_con&BB_con&BO,m3,Pinus sylvestris,borer,pine,borers on pine
+CambXyl_con&BB_con&SM,m3,Picea abies,borer,spruce,borers on spruce
+CambXyl_con&BO,m3,Pinus sylvestris,borer,pine,borers on pine
+CambXyl_con&MD,m3,Larix decidua,borer,larch,borers on larch
+Def_dec,ha,Aesculus spp.,defoliator,other broadleaves,defoliators on other broadleaves
+Def_dec&DB,ha,Quercus spp.,defoliator,oak,defoliators on oak
+agr_big,m3,Quercus spp.,borer,oak,borers on oak
+agr_vir,m3,Quercus spp.,borer,oak,borers on oak
+bup_pin,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+cep_spp,ha,Picea abies,defoliator,spruce,defoliators on spruce
+clo_ana,ha,"Populus, Salix ?",defoliator,other broadleaves,defoliators on other broadleaves
+den_mic,m3,Picea abies,borer,spruce,borers on spruce
+den_pin,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+dip_sp,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+era_def,ha,Quercus spp.,defoliator,oak,defoliators on oak
+geo_db,ha,Quercus spp.,defoliator,oak,defoliators on oak
+ips_acu,m3,Pinus sylvestris,borer,pine,borers on pine
+ips_ami,m3,Picea abies,borer,spruce,borers on spruce
+ips_cem,m3,Larix decidua,borer,larch,borers on larch
+ips_dup,m3,Picea abies,borer,spruce,borers on spruce
+ips_sex,m3,Pinus sylvestris,borer,pine,borers on pine
+ips_typ,m3,Picea abies,borer,spruce,borers on spruce
+lym_dis,ha,Quercus spp.,defoliator,oak,defoliators on oak
+lym_mon,ha,Picea abies,defoliator,spruce,defoliators on spruce
+mel_spp,ha,Quercus spp.,defoliator,oak,defoliators on oak
+neo_ser,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+ope_spp,ha,Quercus spp.,defoliator,oak,defoliators on oak
+pan_fla,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+pha_cya,m3,Pinus sylvestris,borer,pine,borers on pine
+pis_pin,m3,Pinus sylvestris,borer,pine,borers on pine
+pit_bid,m3,Pinus sylvestris,borer,pine,borers on pine
+pit_cha,m3,Picea abies,borer,spruce,borers on spruce
+pit_spp,m3,Abies alba,borer,fir,borers on fir
+pol_pol,m3,Picea abies,borer,spruce,borers on spruce
+pri_abi,ha,Picea abies,defoliator,spruce,defoliators on spruce
+sap_car,m3,"Populus, Salix",borer,other broadleaves,borers on other broadleaves
+sco_int,m3,Quercus spp.,borer,oak,borers on oak
+sco_rat,m3,Betula spp.,borer,other broadleaves,borers on other broadleaves
+sco_sco,m3,Ulmus spp.,borer,other broadleaves,borers on other broadleaves
+tet_gab,m3,Larix decidua,borer,larch,borers on larch
+tet_spp,m3,Picea abies,borer,spruce,borers on spruce
+tha_pit,ha,Pinus sylvestris,defoliator,pine,defoliators on pine
+tha_pro,ha,Quercus spp.,defoliator,oak,defoliators on oak
+tom_spp,m3,Pinus sylvestris,borer,pine,borers on pine
+tor_vir,ha,Quercus spp.,defoliator,oak,defoliators on oak
+uro_sir_spp,m3,Picea abies,borer,spruce,borers on spruce
+xyl_lin,m3,Picea abies,borer,spruce,borers on spruce
+xyl_spp,m3,Quercus spp.,borer,oak,borers on oak
+zei_gri,ha,Picea abies,defoliator,spruce,defoliators on spruce

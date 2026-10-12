@@ -572,3 +572,52 @@ plot_totals_composition <- function(totals, k = 20) {
                   caption = "Cells where the host tree is absent are set to zero. Larch and minor broadleaf hosts cannot be checked (not in the host table).") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left")
 }
+
+# ---- Agent-group harmonisation -------------------------------------------------
+
+group_cols <- c(`observed` = "#184f95", `back-cast` = "#5b8fd6", `filled: works` = "#008300",
+                `filled: weak` = "#eda100", `filled: untested` = "#9c9b97",
+                `zero: host absent` = "#8a5a44", `not fillable` = "#e6e5e1")
+
+plot_group_status <- function(gh) {
+  d <- gh |>
+    dplyr::mutate(status = dplyr::case_when(
+      value_type %in% c("observed damage", "observed zero") ~ "observed",
+      grepl("^back-cast", value_type) ~ "back-cast",
+      grepl("^filled", value_type) ~ paste0("filled: ", confidence),
+      value_type == "zero: host tree absent" ~ "zero: host absent",
+      TRUE ~ "not fillable")) |>
+    dplyr::count(country, group, status) |>
+    dplyr::group_by(country, group) |> dplyr::slice_max(n, n = 1, with_ties = FALSE) |> dplyr::ungroup() |>
+    dplyr::mutate(status = factor(status, names(group_cols)), country = factor(country, rev(sort(unique(country)))))
+  ggplot2::ggplot(d, ggplot2::aes(group, country, fill = status)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.6) +
+    ggplot2::scale_fill_manual(values = group_cols, name = NULL, drop = FALSE) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Harmonised by agent group: what is observed, back-cast and filled",
+                  subtitle = "Each tile = most common status of that country x group's region-years, 2000-2022",
+                  caption = "Back-cast = years before a country's series starts. Filled = group never reported by that country (kept out of totals).") +
+    theme_eu(9) +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 35, hjust = 1), legend.position = "top", legend.justification = "left")
+}
+
+plot_group_totals <- function(gt) {
+  d <- gt |>
+    dplyr::group_by(group, unit) |>
+    dplyr::summarise(Observed = sum(observed), `Back-cast early years` = sum(back_cast),
+                     `Possible unreported (never-reported countries)` = sum(filled_never_reported), .groups = "drop") |>
+    dplyr::mutate(lab = paste0(group, " (", unit, ")")) |>
+    tidyr::pivot_longer(c(Observed, `Back-cast early years`, `Possible unreported (never-reported countries)`), names_to = "source") |>
+    dplyr::mutate(source = factor(source, rev(c("Observed", "Back-cast early years", "Possible unreported (never-reported countries)"))))
+  ord <- d |> dplyr::filter(source == "Observed") |> dplyr::arrange(value) |> dplyr::pull(lab)
+  ggplot2::ggplot(d, ggplot2::aes(value / 1e6, factor(lab, ord), fill = source)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::facet_wrap(~ unit, scales = "free", ncol = 1) +
+    ggplot2::scale_fill_manual(values = c(Observed = "#184f95", `Back-cast early years` = "#5b8fd6",
+                                          `Possible unreported (never-reported countries)` = "#eda100"),
+                               name = NULL, guide = ggplot2::guide_legend(reverse = TRUE)) +
+    ggplot2::labs(x = "Million (m3 or ha), 2000-2022", y = NULL, title = "Europe-wide damage by agent group",
+                  subtitle = "Harmonised total = observed + back-cast. Orange = model guess for countries that never report the group.",
+                  caption = "Grouping provisional (guild x host tree). Defoliator areas may overlap between insects.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left",
+                                 strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}

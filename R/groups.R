@@ -152,7 +152,10 @@ backcast_scores <- function(bcv) {
       .groups = "drop")
 }
 
-# Back-cast every real "before the series starts" gap of L (any length)
+# Back-cast every real "before the series starts" gap of L (any length).
+# The test (backcast_cv) showed that adding the change seen in other countries
+# does NOT beat carrying the series' own early level back, so the simpler
+# carry-back is used; its test error gives the 80% range.
 backcast_fill <- function(L, gt, ref_n = 5) {
   todo <- gt |> dplyr::filter(gap == "before the series starts") |>
     dplyr::distinct(country, nuts_id, species, first)
@@ -161,7 +164,7 @@ backcast_fill <- function(L, gt, ref_n = 5) {
     if (is.na(s)) return(NULL)
     p <- backcast_predict(L$Y, L$rows, ri, s, 2000:(first - 1), first:(first + ref_n - 1))
     tibble::tibble(country = country, nuts_id = nuts_id, species = species,
-                   year = p$year, backcast_log = p$backcast)
+                   year = p$year, backcast_log = p$carry_back)
   })
 }
 
@@ -170,7 +173,7 @@ backcast_fill <- function(L, gt, ref_n = 5) {
 # and replaces cells before a series starts with back-casts.
 group_harmonised <- function(filled, gt, bc, bc_scores, z = stats::qnorm(0.9)) {
   # 80% range from the back-cast test error (log scale), by length of the gap
-  sd_bc <- max(bc_scores$rmse_backcast)
+  sd_bc <- max(bc_scores$rmse_carry_back)
   filled |>
     dplyr::left_join(dplyr::select(gt, nuts_id, year, species, gap), by = c("nuts_id", "year", "species")) |>
     dplyr::left_join(bc, by = c("country", "nuts_id", "species", "year")) |>
@@ -188,7 +191,7 @@ group_harmonised <- function(filled, gt, bc, bc_scores, z = stats::qnorm(0.9)) {
       amount_if_damaged = dplyr::if_else(use_bc, NA_real_, amount_if_damaged),
       amount_lo80 = dplyr::if_else(use_bc, pmax(expm1(backcast_log - z * sd_bc), 0), amount_lo80),
       amount_hi80 = dplyr::if_else(use_bc, expm1(backcast_log + z * sd_bc), amount_hi80),
-      amount_basis = dplyr::if_else(use_bc, "own level + change in other countries", amount_basis)
+      amount_basis = dplyr::if_else(use_bc, "series' own level in its first 5 years", amount_basis)
     ) |>
     dplyr::rename(group = species) |>
     dplyr::select(-use_bc, -backcast_log, -gap_type)

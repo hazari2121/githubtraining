@@ -268,6 +268,8 @@ list(
   tar_target(g_bc, backcast_fill(g_L, g_gt)),
   tar_target(g_harm, group_harmonised(g_fill0, g_gt, g_bc, dplyr::filter(bc_scores, level == "agent group"))),
   tar_target(g_totals, group_totals(g_harm)),
+  tar_target(fig_g_status, save_fig(plot_group_status(g_harm), "outputs/figures/group_status_map.png", 9, 6.5), format = "file"),
+  tar_target(fig_g_totals, save_fig(plot_group_totals(g_totals), "outputs/figures/group_totals.png", 10, 7), format = "file"),
   tar_target(g_cmp_csv, tab(g_cmp$summary, "group_gapfill_models_compared.csv"), format = "file"),
   tar_target(g_conf_csv, tab(g_conf, "group_confidence.csv"), format = "file"),
   tar_target(g_totals_csv, tab(g_totals, "europe_totals_by_agent_group_PRELIMINARY.csv"), format = "file"),
