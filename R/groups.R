@@ -171,6 +171,9 @@ backcast_fill <- function(L, gt, ref_n = 5) {
 # ---- Harmonised group-level dataset -------------------------------------------
 # Starts from host_fill() output (observed / host absent / factor-model fill)
 # and replaces cells before a series starts with back-casts.
+# Never-reported country x group combinations: decision (Oct 2026) is that a
+# group a country never reports is "no problem there" -> damage 0. The model's
+# guess for those cells is kept in `model_guess` as a sensitivity check only.
 group_harmonised <- function(filled, gt, bc, bc_scores, z = stats::qnorm(0.9)) {
   # 80% range from the back-cast test error (log scale), by length of the gap
   sd_bc <- max(bc_scores$rmse_carry_back)
@@ -179,13 +182,18 @@ group_harmonised <- function(filled, gt, bc, bc_scores, z = stats::qnorm(0.9)) {
     dplyr::left_join(bc, by = c("country", "nuts_id", "species", "year")) |>
     dplyr::mutate(
       use_bc = gap == "before the series starts" & !is.na(backcast_log),
+      never = gap == "never reported by this country" & value_type != "zero: host tree absent",
+      model_guess = dplyr::if_else(never & value_type == "filled", damage, NA_real_),
       value_type = dplyr::case_when(
         use_bc ~ "back-cast (before the series starts)",
         gap == "before the series starts" ~ "not fillable (no donor countries)",
-        value_type == "filled" & gap == "never reported by this country" ~ "filled: never reported by this country",
+        never ~ "zero: never reported (assumed no damage)",
         value_type == "filled" ~ "filled: missing year in a reported series",
         TRUE ~ value_type),
       damage = dplyr::if_else(use_bc, pmax(expm1(backcast_log), 0), damage),
+      damage = dplyr::if_else(never, 0, damage),
+      dplyr::across(c(p_any, amount_if_damaged, amount_lo80, amount_hi80, amount_basis, confidence),
+                    ~ dplyr::if_else(never, NA, .x)),
       damage = dplyr::if_else(grepl("^not fillable", value_type), NA_real_, damage),
       p_any = dplyr::if_else(use_bc, NA_real_, p_any),
       amount_if_damaged = dplyr::if_else(use_bc, NA_real_, amount_if_damaged),
@@ -194,7 +202,7 @@ group_harmonised <- function(filled, gt, bc, bc_scores, z = stats::qnorm(0.9)) {
       amount_basis = dplyr::if_else(use_bc, "series' own level in its first 5 years", amount_basis)
     ) |>
     dplyr::rename(group = species) |>
-    dplyr::select(-use_bc, -backcast_log, -gap_type)
+    dplyr::select(-use_bc, -never, -backcast_log, -gap_type)
 }
 
 # Europe-wide totals per group and year, split by where the numbers come from
@@ -205,7 +213,7 @@ group_totals <- function(gh) {
       observed = sum(damage[value_type %in% c("observed damage", "observed zero")]),
       back_cast = sum(damage[value_type == "back-cast (before the series starts)"]),
       filled_missing_year = sum(damage[value_type == "filled: missing year in a reported series"], na.rm = TRUE),
-      filled_never_reported = sum(damage[value_type == "filled: never reported by this country"], na.rm = TRUE),
+      model_guess_never_reported = sum(model_guess, na.rm = TRUE),   # sensitivity only, not in totals
       .groups = "drop") |>
     dplyr::mutate(harmonised_total = observed + back_cast + filled_missing_year)
 }

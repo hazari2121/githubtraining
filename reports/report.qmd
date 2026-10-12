@@ -39,7 +39,7 @@ cms_tot <- cms |> mutate(total = strong_links + strong_but_shared_years + weak_l
 2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
 3. **A latent factor model fills gaps `r pct(100 * lbest$skill_vs_year_baseline)` better than Europe-wide yearly averages**, tested by hiding whole country × species blocks. It also beats the best single helper species.
 4. **A two-part version (any damage? / how much?) gets hidden totals right twice as often** and recognises real zeros. Host-tree area improves amounts slightly but not presence, since host trees grow almost everywhere.
-5. **Most gaps are insects a country never reports, not missing years.** Records are complete inside each reported series; the only missing years are before AT, PL and FI start. Harmonising by agent group (guild × host tree) and back-casting early years gives Europe-wide totals that rest almost entirely on observed data. Never-reported damage is shown separately, not added.
+5. **Most gaps are insects a country never reports, not missing years.** Records are complete inside each reported series; the only missing years are before AT, PL and FI start. Harmonising by agent group (guild × host tree) and back-casting early years gives Europe-wide totals that rest almost entirely on observed data. A group a country never reports is counted as no damage (decided Oct 2026); this matters only for defoliators on spruce and borers on larch.
 6. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
 7. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
 
@@ -285,7 +285,8 @@ At insect level, `r pct(100 * gshare("insect", "never reported by this country")
 |---|---|
 | Host absent | zero |
 | Before the series starts | back-cast: the series' own level in its first 5 recorded years |
-| Never reported by this country | two-part model with host trees; shown separately as *possible unreported damage*, **not added to totals** |
+| Never reported by this country | **zero** ("no problem there", decided Oct 2026). The model's guess is kept only as a sensitivity check |
+| Missing year inside a reported series | two-part model with host trees (1 cell at group level) |
 | Nothing recorded in the region-year | left empty |
 
 **Back-casting test.** For countries recorded from 2000, we hid the first 2, 3 or 12 years of the whole country (mimicking AT, PL and FI) and predicted them.
@@ -303,9 +304,15 @@ Adding the year-to-year change seen in other countries makes the back-cast *wors
 
 ![](../outputs/figures/group_totals.png)
 
-**Harmonised Europe-wide totals** (observed + back-cast) are dominated by observed data for every group. Borers on spruce: `r formatC(sum(gtot$harmonised_total[gtot$group == "borers on spruce"]) / 1e6, format = "f", digits = 0)` million m³, 2000–2022, of which `r pct(100 * sum(gtot$back_cast[gtot$group == "borers on spruce"]) / sum(gtot$harmonised_total[gtot$group == "borers on spruce"]))` back-cast. The orange "possible unreported" bars are large for defoliators on spruce and borers on larch; they are guesses for countries that may not have the problem at all, so they stay out of the totals. File: `data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv` (not shared).
+```{r group-cells}
+gh |> count(value_type, name = "cells") |> mutate(share = pct(100 * cells / sum(cells))) |> arrange(desc(cells))
+```
 
-**To confirm with Prof. Hlásny:** the grouping (`outputs/tables/agent_groups_PROVISIONAL.csv`), and whether "never reported" should be treated as "not a problem there" (zero), "unknown" (current choice), or filled.
+**Harmonised Europe-wide totals** (observed + back-cast, never-reported = 0) rest almost entirely on observed data. Borers on spruce: `r formatC(sum(gtot$harmonised_total[gtot$group == "borers on spruce"]) / 1e6, format = "f", digits = 0)` million m³, 2000–2022, of which `r pct(100 * sum(gtot$back_cast[gtot$group == "borers on spruce"]) / sum(gtot$harmonised_total[gtot$group == "borers on spruce"]))` back-cast.
+
+**Sensitivity of the "never reported = 0" choice.** The orange bars show what the model would add if never-reported meant "unknown" instead. The choice hardly matters for borers on spruce (every country reports them), or for pine and oak defoliators. It matters a lot for **defoliators on spruce** and **borers on larch**, where the model's guess is larger than everything observed. Those two group totals depend on the assumption and should be presented with that caveat. File: `data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv` (not shared).
+
+**To confirm with Prof. Hlásny:** the grouping (`outputs/tables/agent_groups_PROVISIONAL.csv`), and the "never reported = no damage" rule.
 
 ## Open questions for Prof. Hlásny
 
@@ -316,7 +323,7 @@ Adding the year-to-year change seen in other countries makes the back-cast *wors
 5. **VPD per region** as used in the paper.
 6. **CZ values in multiples of 1/7:** known cause?
 7. **Other group codes:** should any besides the CZ spruce group be mapped to a dominant species?
-8. **Agent groups and never-reported gaps:** is the guild × host grouping right, and should "never reported" mean zero, unknown, or be filled?
+8. **Agent groups:** is the guild × host grouping right, and does he agree that a group a country never reports means no damage there (our current rule)?
 
 ## Files
 
