@@ -4,8 +4,8 @@
 #   observed_positive : value reported, > 0
 #   observed_zero     : value reported, = 0  (treated as real; never filled)
 #   not_monitored     : value NA, or no row for that country-species-year
-#   impossible        : host tree absent from region. TODO: needs host-tree maps;
-#                       column `host_absent` is a placeholder (all NA) for now.
+#   impossible        : not monitored and host tree absent from the region; set
+#                       afterwards by apply_host_status() (R/hosts.R).
 #
 # Coding confirmed by the data provider (Oct 2026): 0 = monitored, no damage;
 # empty = not monitored.
@@ -20,8 +20,7 @@ classify_cells <- function(dmg, years = 2000:2022) {
         is.na(damage) ~ "not_monitored",
         damage == 0   ~ "observed_zero",
         TRUE          ~ "observed_positive"
-      ),
-      host_absent = NA  # TODO: fill from host-tree maps -> status "impossible"
+      )
     )
 }
 
@@ -35,7 +34,7 @@ coverage_summary <- function(cells, by) {
       pct_observed_positive = 100 * mean(status == "observed_positive"),
       pct_observed_zero     = 100 * mean(status == "observed_zero"),
       pct_not_monitored     = 100 * mean(status == "not_monitored"),
-      pct_impossible        = NA_real_,  # TODO: needs host-tree maps
+      pct_impossible        = 100 * mean(status == "impossible"),  # not monitored + host absent
       .groups = "drop"
     )
 }

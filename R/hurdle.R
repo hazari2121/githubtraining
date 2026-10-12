@@ -16,7 +16,9 @@ sigmoid <- function(x) 1 / (1 + exp(-x))
 # Logistic low-rank model fitted by gradient descent (Adam) on recorded cells.
 #   logit P[i, s] = a[s] + b[i] + U[i, ] . V[s, ]
 # Ridge penalties: lambda on U and V, lambda_b on the row intensity b.
-logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed = 20261012) {
+# Optional covariate matrix X (same shape as B, e.g. log host area) enters with
+# one slope per insect: + c[s] * X[i, s] (ridge penalty 1 on c).
+logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed = 20261012, X = NULL) {
   set.seed(seed)
   M <- !is.na(B); Bz <- B; Bz[!M] <- 0
   n <- nrow(B); p <- ncol(B)
@@ -25,17 +27,19 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
   U <- matrix(stats::rnorm(n * K, sd = 0.01), n, K)
   V <- matrix(stats::rnorm(p * K, sd = 0.01), p, K)
   # Adam state
-  pars <- list(a = a, b = b, U = U, V = V)
+  pars <- list(a = a, b = b, U = U, V = V, c = rep(0, p))
+  if (is.null(X)) X <- matrix(0, n, p)
   m <- lapply(pars, function(x) x * 0); v <- m
   b1 <- 0.9; b2 <- 0.999; eps <- 1e-8
   for (t in seq_len(n_iter)) {
-    eta <- outer(pars$b, pars$a, "+") + if (K > 0) pars$U %*% t(pars$V) else 0
+    eta <- outer(pars$b, pars$a, "+") + X * rep(pars$c, each = n) + if (K > 0) pars$U %*% t(pars$V) else 0
     G <- (sigmoid(eta) - Bz) * M                     # d loss / d eta on recorded cells
     grads <- list(
       a = colSums(G),
       b = rowSums(G) + 2 * lambda_b * pars$b,
       U = if (K > 0) G %*% pars$V + 2 * lambda * pars$U else pars$U,
-      V = if (K > 0) t(G) %*% pars$U + 2 * lambda * pars$V else pars$V
+      V = if (K > 0) t(G) %*% pars$U + 2 * lambda * pars$V else pars$V,
+      c = colSums(G * X) + 2 * pars$c
     )
     for (nm in names(pars)) {
       m[[nm]] <- b1 * m[[nm]] + (1 - b1) * grads[[nm]]
@@ -43,12 +47,13 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
       pars[[nm]] <- pars[[nm]] - lr * (m[[nm]] / (1 - b1^t)) / (sqrt(v[[nm]] / (1 - b2^t)) + eps)
     }
   }
-  pars$K <- K; pars$empty_rows <- which(rowSums(M) == 0)
+  pars$K <- K; pars$X <- X; pars$empty_rows <- which(rowSums(M) == 0)
   pars
 }
 
 logit_predict <- function(fit) {
-  P <- sigmoid(outer(fit$b, fit$a, "+") + if (fit$K > 0) fit$U %*% t(fit$V) else 0)
+  n <- length(fit$b)
+  P <- sigmoid(outer(fit$b, fit$a, "+") + fit$X * rep(fit$c, each = n) + if (fit$K > 0) fit$U %*% t(fit$V) else 0)
   P[fit$empty_rows, ] <- NA
   P
 }
