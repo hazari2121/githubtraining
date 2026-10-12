@@ -225,6 +225,54 @@ list(
   tar_target(h_totals_csv, tab(h_totals, "europe_totals_observed_plus_filled_PRELIMINARY.csv"), format = "file"),
   tar_target(h_filled_csv, write_csv_out(h_filled, "data/processed/eufordam_harmonised_PRELIMINARY.csv"), format = "file"),
 
+  # ---- Harmonisation by gap type, at insect and agent-group level -------------
+  # Gap types: recorded / host absent / never reported by this country /
+  # before the series starts / missing year inside the series.
+  tar_target(groups, agent_groups(species_meta, guild_lookup)),
+  tar_target(groups_csv, tab(groups, "agent_groups_PROVISIONAL.csv"), format = "file"),
+  tar_target(g_raw, group_cells(cells, groups) |> dplyr::rename(species = group)),
+  tar_target(g_meta, group_meta(groups)),
+  tar_target(g_host, host_status_table(g_raw, g_meta, host_long)),
+  tar_target(g_cells, apply_host_status(g_raw, g_host)),
+  tar_target(gap_tab, dplyr::bind_rows(gap_summary(cells_host, "insect"), gap_summary(g_cells, "agent group"))),
+  tar_target(gap_tab_csv, tab(gap_tab, "gap_types_insect_vs_group.csv"), format = "file"),
+  tar_target(g_gt, gap_types(g_cells)),
+  tar_target(g_L, build_lfm_matrix(g_cells, group_tr(dplyr::rename(g_cells, group = species)))),
+  tar_target(g_blocks, make_cv_blocks(g_L, n_folds = 10)),
+  tar_target(g_grid1, tidyr::expand_grid(K = c(0, 1, 2), lambda = c(1, 10)) |>
+               dplyr::mutate(model = paste0("any-damage model: K=", K, ", lambda=", lambda))),
+  tar_target(g_grid2, tidyr::expand_grid(K = c(0, 1, 2), lambda = c(5, 20, 50)) |>
+               dplyr::mutate(model = paste0("amount model: K=", K, ", lambda=", lambda))),
+  tar_target(g_cv, hurdle_cv(g_L, g_blocks, g_grid1, g_grid2, list(K = 1, lambda = 20))),
+  tar_target(g_part_scores, hurdle_part_scores(g_cv)),
+  tar_target(g_best1, g_part_scores |> dplyr::filter(grepl("^any-damage", model)) |>
+               dplyr::arrange(log_loss) |> dplyr::slice(1) |> dplyr::left_join(g_grid1, by = "model")),
+  tar_target(g_best2, g_part_scores |> dplyr::filter(grepl("^amount", model)) |>
+               dplyr::arrange(rmse_log) |> dplyr::slice(1) |> dplyr::left_join(g_grid2, by = "model")),
+  tar_target(g_hL, host_scaled_L(g_L, g_host)),
+  tar_target(g_absent, host_absent_matrix(g_L, g_host)),
+  tar_target(g_hcv, host_cv(g_L, g_hL, g_absent, g_blocks, g_cv, g_best1, g_best2)),
+  tar_target(g_cmp, host_compare(g_hcv, g_best1$model, g_best2$model, g_host)),
+  tar_target(g_hfinal0, hurdle_final(g_L, g_best1$K, g_best1$lambda, g_best2$K, g_best2$lambda)),
+  tar_target(g_final, host_final(g_L, g_hL, g_hfinal0, g_best1, g_best2)),
+  tar_target(g_conf, host_confidence(g_cmp$by_species, g_L$species)),
+  tar_target(g_fill0, host_fill(g_L, g_final, g_absent, g_conf, g_cells, g_host,
+                                dplyr::rename(dplyr::select(g_meta, species, unit), species = species))),
+  # back-casting the years before a series starts (AT, PL, FI start late)
+  tar_target(bc_cv_insect, backcast_cv(lfm_L)),
+  tar_target(bc_cv_group, backcast_cv(g_L)),
+  tar_target(bc_scores, dplyr::bind_rows(
+    dplyr::mutate(backcast_scores(bc_cv_insect), level = "insect"),
+    dplyr::mutate(backcast_scores(bc_cv_group), level = "agent group"))),
+  tar_target(bc_scores_csv, tab(bc_scores, "backcast_test_scores.csv"), format = "file"),
+  tar_target(g_bc, backcast_fill(g_L, g_gt)),
+  tar_target(g_harm, group_harmonised(g_fill0, g_gt, g_bc, dplyr::filter(bc_scores, level == "agent group"))),
+  tar_target(g_totals, group_totals(g_harm)),
+  tar_target(g_cmp_csv, tab(g_cmp$summary, "group_gapfill_models_compared.csv"), format = "file"),
+  tar_target(g_conf_csv, tab(g_conf, "group_confidence.csv"), format = "file"),
+  tar_target(g_totals_csv, tab(g_totals, "europe_totals_by_agent_group_PRELIMINARY.csv"), format = "file"),
+  tar_target(g_harm_csv, write_csv_out(g_harm, "data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv"), format = "file"),
+
   # ---- Step 7: guild structure ---------------------------------------------
   tar_target(guild_template_csv,
              write_csv_out(guild_template(species_meta), "data/lookup/species_guild_TEMPLATE.csv"),
