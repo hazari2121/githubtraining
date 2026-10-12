@@ -1,0 +1,19 @@
+part,model,auc,brier,log_loss,rmse_log
+1: any damage?,P1 baseline: insect rate,0.5212214814253393,0.3124794592462112,1.148240930113878,NA
+1: any damage?,P1 baseline: insect x year rate,0.5379856987264626,0.3252567400826834,1.416887854350646,NA
+1: any damage?,"any-damage model: K=0, lambda=1",0.7155980944368933,0.2278447587917257,0.8873517836233352,NA
+1: any damage?,"any-damage model: K=0, lambda=10",0.7155980944368933,0.2278447587917257,0.8873517836233352,NA
+1: any damage?,"any-damage model: K=2, lambda=1",0.666095227535789,0.27563879513677725,1.1574215933264702,NA
+1: any damage?,"any-damage model: K=2, lambda=10",0.7155929164387227,0.22784285318075626,0.8873341089124808,NA
+1: any damage?,"any-damage model: K=4, lambda=1",0.6414893011085321,0.29565130719154836,1.2367570158708987,NA
+1: any damage?,"any-damage model: K=4, lambda=10",0.7155968504865687,0.2278428561163228,0.8873366551372482,NA
+"2: how much, if damaged?",P2 baseline: insect x year mean,NA,NA,NA,2.9919588861671906
+"2: how much, if damaged?","amount model: K=0, lambda=20",NA,NA,NA,2.608812640051795
+"2: how much, if damaged?","amount model: K=0, lambda=50",NA,NA,NA,2.608812640051795
+"2: how much, if damaged?","amount model: K=0, lambda=100",NA,NA,NA,2.608812640051795
+"2: how much, if damaged?","amount model: K=2, lambda=20",NA,NA,NA,2.536337312611675
+"2: how much, if damaged?","amount model: K=2, lambda=50",NA,NA,NA,2.5606324079805036
+"2: how much, if damaged?","amount model: K=2, lambda=100",NA,NA,NA,2.6088126499158486
+"2: how much, if damaged?","amount model: K=4, lambda=20",NA,NA,NA,2.551008452792323
+"2: how much, if damaged?","amount model: K=4, lambda=50",NA,NA,NA,2.5601397236726062
+"2: how much, if damaged?","amount model: K=4, lambda=100",NA,NA,NA,2.608812647559852

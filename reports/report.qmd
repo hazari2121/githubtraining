@@ -38,8 +38,9 @@ cms_tot <- cms |> mutate(total = strong_links + strong_but_shared_years + weak_l
 1. **Insects carry information about each other.** Of `r nrow(cm)` insect pairs, `r sum(!is.na(cm$same_year))` can be measured; `r sum(cm$link == "strong, beyond shared bad years")` show a strong link that survives removing Europe-wide bad years, and `r sum(cm$link == "strong, mostly shared bad years")` more are strong mainly because of shared bad years.
 2. **The strongest links are among bark beetles on conifers** (spruce, pine, fir, larch), often on the same host tree, and same-guild species correlate more than cross-guild species (permutation test), matching Hlásny et al. (2025).
 3. **A latent factor model fills gaps `r pct(100 * lbest$skill_vs_year_baseline)` better than Europe-wide yearly averages**, tested by hiding whole country × species blocks. It also beats the best single helper species.
-4. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
-5. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
+4. **A two-part version (any damage? / how much?) gets hidden totals right twice as often** and recognises real zeros, but cannot yet tell whether an insect is present in a country that never monitored it. Host-tree data is the key missing input; Europe-wide totals are preliminary.
+5. **Transfer between countries is the bottleneck:** `r sum(tz$transferability == "insufficient data")` of `r nrow(tz)` pairs are recorded together in fewer than two countries, so it cannot be checked whether their link holds elsewhere.
+6. **Our processing reproduces the paper's Table 6** exactly, but only when its values are read as r², not r (see below).
 
 ## Data and decisions
 
@@ -196,6 +197,57 @@ The examples are the *typical* (median) hidden series for six insects, not the b
 4. **Abiotic damage** (storm, drought, fire) when available, likely the strongest shared factors.
 5. Gap-filled values (prototype, not for totals yet): `data/processed/lfm_gap_filled_PROTOTYPE.csv`.
 
+## Two-part gap-filling and a first harmonised dataset (preliminary)
+
+```{r hurdle-setup}
+hs <- rd("h_part_scores"); hc <- rd("h_cmp")$summary; hconf <- rd("h_conf"); hf <- rd("h_filled")
+b1 <- rd("h_best1"); b2 <- rd("h_best2"); ht <- rd("h_totals")
+p1base <- hs$auc[hs$model == "P1 baseline: insect rate"]
+p2base <- hs$rmse_log[hs$model == "P2 baseline: insect x year mean"]
+ityp_obs <- sum(ht$observed[ht$species == "ips_typ"])
+```
+
+**Why two parts.** `r pct(100 * mean(tr$damage == 0))` of recorded values are zeros, and almost all fillable gaps (`r format(sum(hf$gap_type == "country never monitored this insect", na.rm = TRUE), big.mark = ",")` of `r format(sum(hf$value_type == "filled"), big.mark = ",")` cells) are countries that never monitored the insect, so the first question for a gap is whether the insect occurs at all. The model therefore answers two questions:
+
+1. **Any damage?** A logistic factor model on all recorded values (damage = 1, recorded zero = 0) gives a probability.
+2. **How much, if damaged?** The linear factor model fitted to damage values only.
+
+Filled value = probability of any damage × expected amount if damaged.
+
+**Test** (same hidden country × insect blocks as above):
+
+- *Any damage?* — `r b1$model`: AUC `r f2(b1$auc)` (insect-rate baseline `r f2(p1base)`). Adding hidden factors does not help this part; the region-year intensity carries the information.
+- *How much?* — `r b2$model`: RMSE `r f2(b2$rmse_log)` on the log scale, versus `r f2(p2base)` for insect × year means.
+
+![](../outputs/figures/hurdle_vs_one_part.png)
+
+```{r hurdle-compare}
+hc |> transmute(model, `RMSE log(damage+1)` = f2(rmse_log), `real zeros called zero` = pct(100 * zeros_called_zero),
+                `typical error of block totals (× off)` = f2(exp(median_abs_log_ratio_totals)),
+                `block totals within 2×` = pct(100 * share_totals_within_2x))
+```
+
+The two-part model is much better at what Europe-wide totals need: it recognises real zeros (`r pct(100 * hc$zeros_called_zero[2])` vs `r pct(100 * hc$zeros_called_zero[1])`) and gets hidden block totals within 2× twice as often. Its cell-level log error is slightly higher, because it hedges between "no damage" and "damage" rather than guessing a middle value.
+
+**Main limitation.** Within an insect, the model often cannot tell *which* never-monitored places have damage: only `r sum(hconf$confidence == "works")` insects pass the confidence rule (beats the insect × year baseline and AUC ≥ 0.7), `r sum(hconf$confidence == "weak")` are weak, and `r sum(hconf$confidence == "untested")` cannot be tested because they are recorded in one country only. Other insects say little about whether an insect is *present* in a new country; host-tree abundance is the missing information.
+
+### The harmonised dataset
+
+Every region-year-insect cell is labelled observed, filled (with confidence and an 80% range for the amount if damaged), or not fillable (nothing at all recorded in that region-year). Host presence is "unknown" for every filled cell until host-tree data is available. File: `data/processed/eufordam_harmonised_PRELIMINARY.csv` (not shared).
+
+```{r hurdle-cells}
+hf |> mutate(status = case_when(value_type == "filled" ~ paste0("filled (", confidence, ")"), TRUE ~ value_type)) |>
+  count(status, name = "cells") |> mutate(share = pct(100 * cells / sum(cells))) |> arrange(desc(cells))
+```
+
+![](../outputs/figures/harmonised_status_map.png)
+
+### Europe-wide totals: not yet trustworthy
+
+![](../outputs/figures/europe_totals_composition.png)
+
+For *I. typographus*, recorded almost everywhere, the observed total (`r formatC(ityp_obs / 1e6, format = "f", digits = 0)` million m³, 2000–2022) is close to the 587 million m³ in Hlásny et al. (2025, Table 2), and filling adds almost nothing. For most other insects, filled values would make up half or more of the total, sometimes several times the observed damage, because the model spreads each insect into every country that never monitored it. Until host-tree data removes impossible cells, these totals should not be used.
+
 ## Open questions for Prof. Hlásny
 
 1. **Table 6:** are the values r² rather than r?
@@ -209,6 +261,7 @@ The examples are the *typical* (median) hidden series for six insects, not the b
 
 - Correlation metrics: `outputs/tables/correlation_metrics_all_pairs.csv`, `correlation_metrics_by_species.csv`, `correlation_metrics_lagged.csv`
 - Transferability: `per_country_correlations.csv`, `leave_one_country_out.csv`, `transferability_summary.csv`
+- Two-part model: `hurdle_cv_part_scores.csv`, `hurdle_vs_one_part.csv`, `hurdle_confidence_by_species.csv`, `europe_totals_observed_plus_filled_PRELIMINARY.csv`
 - Factor model: `lfm_cv_scores_by_model.csv`, `lfm_cv_scores_by_species.csv`, `lfm_factor_loadings.csv`
 - Occurrence: `species_nuts_occurrence_ranking.xlsx`; coverage: `coverage_*.csv`; Table 6 replication: `paper_table6_replication.csv`
 - Figures: `outputs/figures/`

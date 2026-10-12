@@ -493,3 +493,80 @@ plot_cm_lags <- function(lags, k = 20) {
     ggplot2::theme(legend.position = "top", legend.justification = "left",
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
 }
+
+# ---- Two-part model figures ----------------------------------------------------
+
+status_cols <- c(`observed` = "#184f95", `filled: works` = "#008300", `filled: weak` = "#eda100",
+                 `filled: untested` = "#9c9b97", `not fillable` = "#e6e5e1")
+
+plot_hurdle_compare <- function(summary) {
+  d <- summary |>
+    dplyr::transmute(model,
+      `Real zeros called 'probably no damage'` = zeros_called_zero,
+      `Block totals within 2x of the truth` = share_totals_within_2x) |>
+    tidyr::pivot_longer(-model, names_to = "metric") |>
+    dplyr::mutate(model = factor(model, c("One-part factor model", "Two-part factor model")))
+  ggplot2::ggplot(d, ggplot2::aes(value, model, fill = model)) +
+    ggplot2::geom_col(width = 0.6) +
+    ggplot2::geom_text(ggplot2::aes(label = paste0(round(100 * value), "%")), hjust = -0.2, size = 3.2, colour = pal$ink) +
+    ggplot2::facet_wrap(~ metric, ncol = 1) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(100 * x, "%"), limits = c(0, 1), expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::scale_fill_manual(values = c(`One-part factor model` = "#9c9b97", `Two-part factor model` = pal$guild[["defoliator"]]), guide = "none") +
+    ggplot2::labs(x = NULL, y = NULL, title = "Two-part vs one-part gap-filling",
+                  subtitle = "Hidden country x insect blocks, predicted and compared with the real values",
+                  caption = "Block total = predicted vs real total damage of one hidden country x insect x year.") +
+    theme_eu(10) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+# Harmonised dataset at a glance: country x insect, coloured by the dominant
+# status of its region-year cells
+plot_harmonised_status <- function(filled, sp_order) {
+  d <- filled |>
+    dplyr::mutate(status = dplyr::case_when(
+      value_type %in% c("observed damage", "observed zero") ~ "observed",
+      value_type == "filled" ~ paste0("filled: ", confidence),
+      TRUE ~ "not fillable")) |>
+    dplyr::count(country, species, status) |>
+    dplyr::group_by(country, species) |>
+    dplyr::slice_max(n, n = 1, with_ties = FALSE) |>
+    dplyr::ungroup() |>
+    dplyr::mutate(species = factor(species, sp_order),
+                  status = factor(status, names(status_cols)),
+                  country = factor(country, rev(sort(unique(country)))))
+  ggplot2::ggplot(d, ggplot2::aes(species, country, fill = status)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.5) +
+    ggplot2::scale_fill_manual(values = status_cols, name = NULL, drop = FALSE) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Harmonised dataset: what is observed and what is filled",
+                  subtitle = "Each tile shows the most common status of that country x insect's region-years",
+                  caption = paste("Filled confidence from the hidden-block test: works = beats the baseline and separates damage from no damage;",
+                                  "\nweak = does not; untested = insect recorded in one country only. Host presence is not yet checked for any filled cell.")) +
+    theme_eu(8) +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5),
+                   legend.position = "top", legend.justification = "left")
+}
+
+# How much of each insect's Europe-wide total would come from filled values
+plot_totals_composition <- function(totals, k = 20) {
+  d <- totals |>
+    dplyr::group_by(species, unit) |>
+    dplyr::summarise(observed = sum(observed), `filled: works` = sum(filled_works),
+                     `filled: weak` = sum(filled_weak), `filled: untested` = sum(filled_untested), .groups = "drop") |>
+    dplyr::slice_max(observed, n = k) |>
+    dplyr::mutate(lab = paste0(species, "  (observed ", formatC(observed / 1e6, format = "f", digits = 1), " M ", unit, ")"))
+  ord <- d |> dplyr::arrange(observed) |> dplyr::pull(lab)
+  d <- d |>
+    tidyr::pivot_longer(c(observed, `filled: works`, `filled: weak`, `filled: untested`), names_to = "source") |>
+    dplyr::group_by(lab) |> dplyr::mutate(share = value / sum(value)) |> dplyr::ungroup() |>
+    dplyr::mutate(lab = factor(lab, ord), source = factor(source, rev(c("observed", "filled: works", "filled: weak", "filled: untested"))))
+  ggplot2::ggplot(d, ggplot2::aes(share, lab, fill = source)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::geom_vline(xintercept = 0.5, colour = pal$surface, linewidth = 0.4) +
+    ggplot2::scale_fill_manual(values = status_cols[c("observed", "filled: works", "filled: weak", "filled: untested")], name = NULL,
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(100 * x, "%"), expand = c(0, 0)) +
+    ggplot2::labs(x = "Share of Europe-wide total 2000-2022", y = NULL,
+                  title = "How much of each insect's Europe-wide total would be filled in?",
+                  subtitle = "20 insects with the largest observed damage. Large orange/grey shares = totals not yet trustworthy.",
+                  caption = "Filled values assume the insect could occur wherever it was not monitored; host-tree data is needed to remove impossible cells.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left")
+}

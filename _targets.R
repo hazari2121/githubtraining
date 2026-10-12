@@ -181,6 +181,33 @@ list(
   tar_target(lfm_load_csv, tab(lfm_load, "lfm_factor_loadings.csv"), format = "file"),
   tar_target(lfm_filled_csv, write_csv_out(lfm_filled, "data/processed/lfm_gap_filled_PROTOTYPE.csv"), format = "file"),
 
+  # ---- Two-part (hurdle) factor model and gap-filled dataset -----------------
+  tar_target(h_grid1, tidyr::expand_grid(K = c(0, 2, 4), lambda = c(1, 10)) |>
+               dplyr::mutate(model = paste0("any-damage model: K=", K, ", lambda=", lambda))),
+  tar_target(h_grid2, tidyr::expand_grid(K = c(0, 2, 4), lambda = c(20, 50, 100)) |>
+               dplyr::mutate(model = paste0("amount model: K=", K, ", lambda=", lambda))),
+  tar_target(h_cv, hurdle_cv(lfm_L, lfm_blocks, h_grid1, h_grid2, list(K = lfm_best$K, lambda = lfm_best$lambda))),
+  tar_target(h_part_scores, hurdle_part_scores(h_cv)),
+  tar_target(h_best1, h_part_scores |> dplyr::filter(part == "1: any damage?", grepl("^any-damage", model)) |>
+               dplyr::arrange(log_loss) |> dplyr::slice(1) |> dplyr::left_join(h_grid1, by = "model")),
+  tar_target(h_best2, h_part_scores |> dplyr::filter(part == "2: how much, if damaged?", grepl("^amount", model)) |>
+               dplyr::arrange(rmse_log) |> dplyr::slice(1) |> dplyr::left_join(h_grid2, by = "model")),
+  tar_target(h_cmp, hurdle_compare(h_cv, h_best1$model, h_best2$model)),
+  tar_target(h_final, hurdle_final(lfm_L, h_best1$K, h_best1$lambda, h_best2$K, h_best2$lambda)),
+  tar_target(h_conf, hurdle_confidence(h_cmp$by_species, lfm_L$species)),
+  tar_target(h_filled, hurdle_fill(lfm_L, h_final, h_conf, cells, dplyr::select(species_meta, species, unit))),
+  tar_target(h_totals, hurdle_totals(h_filled)),
+  tar_target(fig_h_cmp, save_fig(plot_hurdle_compare(h_cmp$summary), "outputs/figures/hurdle_vs_one_part.png", 8, 4.5), format = "file"),
+  tar_target(fig_h_status, save_fig(plot_harmonised_status(h_filled, sp_rank$species),
+                                    "outputs/figures/harmonised_status_map.png", 12, 5.5), format = "file"),
+  tar_target(fig_h_totals, save_fig(plot_totals_composition(h_totals), "outputs/figures/europe_totals_composition.png", 10, 7),
+             format = "file"),
+  tar_target(h_part_scores_csv, tab(h_part_scores, "hurdle_cv_part_scores.csv"), format = "file"),
+  tar_target(h_cmp_csv, tab(h_cmp$summary, "hurdle_vs_one_part.csv"), format = "file"),
+  tar_target(h_conf_csv, tab(h_conf, "hurdle_confidence_by_species.csv"), format = "file"),
+  tar_target(h_totals_csv, tab(h_totals, "europe_totals_observed_plus_filled_PRELIMINARY.csv"), format = "file"),
+  tar_target(h_filled_csv, write_csv_out(h_filled, "data/processed/eufordam_harmonised_PRELIMINARY.csv"), format = "file"),
+
   # ---- Step 7: guild structure ---------------------------------------------
   tar_target(guild_template_csv,
              write_csv_out(guild_template(species_meta), "data/lookup/species_guild_TEMPLATE.csv"),
