@@ -4,8 +4,10 @@
 # tends to fluctuate together, so the existing records carry information about
 # the missing ones", insect code vs insect code (all 49 codes, 1,176 pairs).
 #
-# Data: value1; 0 = monitored, no damage; empty = not monitored. Codes exactly
-# as reported (the CZ spruce bark-borer group is NOT merged into ips_typ).
+# Data: value1 (value2 = the same damage in another unit, not used); 0 =
+# monitored, no damage; empty / not reported = unknown (never treated as 0).
+# Codes as reported, except the CZ spruce bark-borer group, counted as ips_typ
+# as in Hlasny et al. (2025) (decision Oct 2026).
 # Only region-years where both codes are recorded. Each region-code series is
 # standardised against its own mean (z_within) so regions of any size compare.
 # Pearson r with 95% ranges from resampling whole regions (999 times).
@@ -21,7 +23,6 @@
 # loco_correlations(), transferability_summary() (R/correlate.R);
 # Q5: hierarchy_pair_test() (R/hierarchy.R).
 
-no_recode <- function() group_to_species[0, ]
 
 # One clean table, one row per pair
 cm_basic_table <- function(cm, hier) {

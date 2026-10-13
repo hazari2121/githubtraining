@@ -30,8 +30,8 @@ The thesis rests on one premise: *damage from different agents tends to fluctuat
 
 ## How
 
-- **Pairs:** all `r n_distinct(c(t$species_a, t$species_b))` insect codes as reported (species, genus codes and aggregate groups), `r format(nrow(t), big.mark = ",")` pairs.
-- **Data:** `value1`; 0 = monitored, no damage; empty = not monitored. Only region-years where both codes are recorded.
+- **Pairs:** all `r n_distinct(c(t$species_a, t$species_b))` insect codes (species, genus codes and aggregate groups), `r format(nrow(t), big.mark = ",")` pairs. As in Hlasny et al. (2025), the Czech spruce bark-borer group is counted as *I. typographus*.
+- **Data:** `value1` (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, never treated as 0. Only region-years where both codes are recorded.
 - **Scale:** log(1 + damage), each region's series measured against its own mean, so large and small regions are comparable.
 - **Measure:** Pearson r (−1 = opposite, 0 = no link, +1 = always together), with a 95% range from resampling whole regions 999 times. A link is **clear** when the range excludes 0.
 
@@ -58,7 +58,7 @@ t |> count(link, name = "pairs") |>
 - `r sum(!is.na(t$Q1_same_year_r))` pairs can be measured; `r sum(t$link %in% c(strong, "weak but real"))` have a clear link.
 - `r sum(t$link == strong[1])` pairs are strongly linked **even after removing Europe-wide bad years** (Q2): their link is not just shared weather.
 - The links concentrate in the **borers on conifers** block (top left of the matrix). Borers on broadleaves also link to them; defoliators link mainly among themselves; borers and defoliators rarely link.
-- A few clear **negative** links (blue): e.g. *Pristiphora abietina* with the spruce bark-borer group and *I. duplicatus* (one high when the other is low).
+- A few clear **negative** links (blue): e.g. *Pristiphora abietina* with *I. duplicatus* (one high when the other is low).
 
 ![](../outputs/figures/CM_basic_2_links_per_insect.png)
 
@@ -81,7 +81,7 @@ s <- filter(t, link %in% strong)
 s |> count(Q4_holds_across_countries, name = "strong pairs") |> mutate(share = pct(100 * `strong pairs` / sum(`strong pairs`)))
 ```
 
-Of the `r nrow(s)` strong pairs, `r sum(s$Q4_holds_across_countries == "consistent")` hold consistently in every country where they can be checked, `r sum(s$Q4_holds_across_countries == "inconsistent")` differ between countries, and `r sum(s$Q4_holds_across_countries == "insufficient data")` are recorded together in fewer than two countries, so this cannot be checked. This matters for gap-filling, which uses links learnt in one country to fill another. Example of a consistent link: *I. typographus* with *Pityokteines* spp. (AT, DE, HR, SI); example of an inconsistent one: *I. typographus* with *Pityogenes chalcographus* (strong in DE, AT, SI; near zero or negative in LT, SK, IT).
+Of the `r nrow(s)` strong pairs, `r sum(s$Q4_holds_across_countries == "consistent")` hold consistently in every country where they can be checked, `r sum(s$Q4_holds_across_countries == "inconsistent")` differ between countries, and `r sum(s$Q4_holds_across_countries == "insufficient data")` are recorded together in fewer than two countries, so this cannot be checked. This matters for gap-filling, which uses links learnt in one country to fill another. Example of a consistent link: *I. typographus* with *Pityokteines* spp. (AT, CZ, DE, HR, SI); example of an inconsistent one: *I. typographus* with *Pityogenes chalcographus* (strong in DE, AT, SI; near zero or negative in LT, SK, IT).
 
 ## Q5: do the links follow host trees and feeding type?
 
@@ -97,7 +97,7 @@ Insects in the **same broad group** (borers / defoliators on conifers / broadlea
 
 1. **The premise holds, partly.** About a fifth of measurable pairs are clearly linked, strongest among bark and wood borers on conifers. These insects carry information about each other; most other pairs do not.
 2. **Most strong links are more than shared bad years** (Q1 vs Q2): `r sum(t$link == strong[1])` of `r sum(t$link %in% strong)` strong pairs stay linked after removing Europe-wide bad years; the other `r sum(t$link == strong[2])` are mainly years that were bad everywhere. Shared drivers (drought, storms) acting regionally are a likely source; adding those data later should explain part of the links (objective 3).
-3. **Transfer between countries is the limiting factor.** Many strong links cannot be checked in a second country; where they can, about 6 in 10 hold. Gap-filling should rely most on consistent links (objective 1).
+3. **Transfer between countries is the limiting factor.** Many strong links cannot be checked in a second country; where they can, `r round(100 * sum(s$Q4_holds_across_countries == 'consistent') / sum(s$Q4_holds_across_countries != 'insufficient data'))`% hold. Gap-filling should rely most on consistent links (objective 1).
 4. **Feeding type matters more than host tree:** borers move with borers, defoliators with defoliators.
 
 ## Files

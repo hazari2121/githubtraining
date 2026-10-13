@@ -131,8 +131,8 @@ list(
   tar_target(cm_species_csv, tab(cm_species, "correlation_metrics_by_species.csv"), format = "file"),
   tar_target(cm_lags_csv, tab(cm_lags, "correlation_metrics_lagged.csv"), format = "file"),
 
-  # ---- Correlation metrics, back to basics (codes as reported, Q1-Q5) -------
-  tar_target(cb_dmg, prepare_damage(long, species_meta, recode = no_recode())),
+  # ---- Correlation metrics, back to basics (paper's CZ rule, Q1-Q5) ---------
+  tar_target(cb_dmg, prepare_damage(long, species_meta)),   # CZ spruce group -> ips_typ, as in the paper
   tar_target(cb_cells, classify_cells(cb_dmg)),
   tar_target(cb_tr, make_transforms(cb_cells, min_nonzero = 0)),
   tar_target(cb_species, sort(unique(cb_cells$species))),

@@ -707,7 +707,7 @@ plot_occurrence_ranking_v2 <- function(occ2) {
                   subtitle = "EU-ForDAM insect codes as reported, ranked by the number of NUTS units where they caused damage",
                   caption = paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
                                   "\nAggregate groups combine several insects, and their content can differ between countries.",
-                                  "\nCodes as reported: the CZ spruce bark-borer group (CambXyl_con&BB_con&SM) is not merged into ips_typ.")) +
+                                  "\nAs in Hlasny et al. (2025), the CZ spruce bark-borer group (CambXyl_con&BB_con&SM) is counted as ips_typ.")) +
     theme_eu(8.5) +
     ggplot2::theme(legend.position = "bottom", legend.box = "vertical", legend.box.just = "left",
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
@@ -828,7 +828,7 @@ plot_cm_basic_matrix <- function(cm, hier, ord) {
     ggplot2::labs(x = NULL, y = NULL, title = "Which insects have bad years together? (all codes vs all codes)",
                   subtitle = "Coloured = clear link (95% range excludes 0). Grey dot = tested, no clear link. Blank = never recorded together",
                   caption = paste("Lines separate the 4 broad groups: borers on conifers | borers on broadleaves | defoliators on conifers | defoliators on broadleaves.",
-                                  "\nCodes as reported; region series standardised against their own mean; ranges from resampling whole regions 999 times.")) +
+                                  "\nCZ spruce bark-borer group counted as ips_typ (as in the paper); region series standardised against their own mean; ranges from resampling whole regions 999 times.")) +
     theme_eu(7.5) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5),
                    panel.grid = ggplot2::element_blank(), legend.position = "right")

@@ -119,8 +119,8 @@ write_ranking_xlsx <- function(sp_rank, reg_rank, occ, path) {
 }
 
 # ---- Species-NUTS occurrence ranking, version 2 (Oct 2026) --------------------
-# Built directly from the raw long table, codes exactly as reported (the CZ
-# spruce bark-borer group is NOT merged into ips_typ here).
+# Built directly from the raw long table, codes as reported except the CZ
+# spruce bark-borer group, counted as ips_typ as in Hlasny et al. (2025).
 #   occurs in a NUTS unit = damage (value1) > 0 in at least one year 2000-2022
 # Code type:
 #   aggregate group : codes combining several insects ("&") and Def_dec (all
@@ -132,8 +132,10 @@ code_type <- function(species) {
   dplyr::if_else(grepl("&", species) | species == "Def_dec", "aggregate group", "single insect")
 }
 
-occurrence_ranking_v2 <- function(long, species_meta) {
+occurrence_ranking_v2 <- function(long, species_meta, recode = group_to_species) {
   long |>
+    dplyr::left_join(dplyr::select(recode, country, species = from, to), by = c("country", "species")) |>
+    dplyr::mutate(species = dplyr::coalesce(to, species)) |>
     dplyr::filter(!is.na(damage)) |>
     dplyr::group_by(species, country, nuts_id) |>
     dplyr::summarise(occurs = any(damage > 0), .groups = "drop") |>
