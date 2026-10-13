@@ -712,3 +712,52 @@ plot_occurrence_ranking_v2 <- function(occ2) {
     ggplot2::theme(legend.position = "bottom", legend.box = "vertical", legend.box.just = "left",
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
 }
+
+# ---- Correlations along the hierarchy ------------------------------------------
+
+# Heatmap of same-year r between groups at one level (lower triangle); the
+# number is r, bold when its 95% range excludes 0.
+plot_hier_heatmap <- function(hier_cm, hier, level, title) {
+  d <- dplyr::filter(hier_cm, level == !!level)
+  ord <- hier |> dplyr::distinct(level1, g = .data[[level]]) |>
+    dplyr::arrange(factor(level1, c("borers on conifers", "borers on broadleaves",
+                                    "defoliators on conifers", "defoliators on broadleaves")), g) |>
+    dplyr::pull(g) |> unique()
+  both <- dplyr::bind_rows(d, dplyr::rename(d, species_a = species_b, species_b = species_a)) |>
+    dplyr::mutate(ia = match(species_a, ord), ib = match(species_b, ord)) |>
+    dplyr::filter(ia > ib) |>
+    dplyr::mutate(a = factor(species_a, rev(ord)), b = factor(species_b, ord),
+                  lab = formatC(same_year, format = "f", digits = 2),
+                  face = dplyr::if_else(same_year_sure, "bold", "plain"))
+  ggplot2::ggplot(both, ggplot2::aes(b, a, fill = same_year)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.8) +
+    ggplot2::geom_text(ggplot2::aes(label = lab, fontface = face), size = 3, colour = pal$ink) +
+    ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.6, 0.6),
+                                  oob = scales::squish, name = "r (same year)") +
+    ggplot2::labs(x = NULL, y = NULL, title = title,
+                  subtitle = "Do the groups have bad years together? Pooled over all regions where both are recorded",
+                  caption = "Bold = 95% range (whole regions resampled 999 times) excludes zero.\nGroup value = sum of its recorded insect codes per region-year.") +
+    theme_eu(9) + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 35, hjust = 1),
+                                 panel.grid = ggplot2::element_blank())
+}
+
+# Mean correlation of insect pairs by how close they are in the hierarchy,
+# against random group labels
+plot_hier_test <- function(hier_test) {
+  d <- hier_test |>
+    dplyr::mutate(metric = dplyr::recode(metric, same_year = "Bad years together (same year)",
+                                         beyond_year = "Beyond Europe-wide bad years"),
+                  pair_class = factor(pair_class, c("same host-tree group (level 2)",
+                                                    "same broad group only (level 1)", "different broad groups")),
+                  lab = paste0("n = ", n_pairs, ", p = ", formatC(p_value, format = "f", digits = 3)))
+  ggplot2::ggplot(d, ggplot2::aes(mean_r, pair_class)) +
+    ggplot2::geom_col(fill = "#184f95", width = 0.6) +
+    ggplot2::geom_point(ggplot2::aes(x = mean_r_random), shape = 124, size = 7, colour = pal$guild[["defoliator"]]) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), x = 0.005, hjust = 0, colour = "white", size = 2.8) +
+    ggplot2::facet_wrap(~ metric, ncol = 1) +
+    ggplot2::labs(x = "Mean correlation of insect pairs", y = NULL,
+                  title = "Are insects in the same group more correlated?",
+                  subtitle = "Insect pairs grouped by the closest level they share. Orange mark = average with random group labels",
+                  caption = "p = share of 999 random relabellings with a mean at least as high as observed.") +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}

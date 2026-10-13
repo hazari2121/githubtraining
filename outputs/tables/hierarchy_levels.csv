@@ -1,0 +1,50 @@
+species,unit,level1,level2
+CambXyl_con&BB_con&BO,m3,borers on conifers,borers on pine
+CambXyl_con&BB_con&SM,m3,borers on conifers,borers on spruce
+CambXyl_con&BO,m3,borers on conifers,borers on pine
+CambXyl_con&MD,m3,borers on conifers,borers on other conifers
+Def_dec,ha,defoliators on broadleaves,defoliators on broadleaves
+Def_dec&DB,ha,defoliators on broadleaves,defoliators on broadleaves
+agr_big,m3,borers on broadleaves,borers on broadleaves
+agr_vir,m3,borers on broadleaves,borers on broadleaves
+bup_pin,ha,defoliators on conifers,defoliators on pine
+cep_spp,ha,defoliators on conifers,defoliators on spruce
+clo_ana,ha,defoliators on broadleaves,defoliators on broadleaves
+den_mic,m3,borers on conifers,borers on spruce
+den_pin,ha,defoliators on conifers,defoliators on pine
+dip_sp,ha,defoliators on conifers,defoliators on pine
+era_def,ha,defoliators on broadleaves,defoliators on broadleaves
+geo_db,ha,defoliators on broadleaves,defoliators on broadleaves
+ips_acu,m3,borers on conifers,borers on pine
+ips_ami,m3,borers on conifers,borers on spruce
+ips_cem,m3,borers on conifers,borers on other conifers
+ips_dup,m3,borers on conifers,borers on spruce
+ips_sex,m3,borers on conifers,borers on pine
+ips_typ,m3,borers on conifers,borers on spruce
+lym_dis,ha,defoliators on broadleaves,defoliators on broadleaves
+lym_mon,ha,defoliators on conifers,defoliators on spruce
+mel_spp,ha,defoliators on broadleaves,defoliators on broadleaves
+neo_ser,ha,defoliators on conifers,defoliators on pine
+ope_spp,ha,defoliators on broadleaves,defoliators on broadleaves
+pan_fla,ha,defoliators on conifers,defoliators on pine
+pha_cya,m3,borers on conifers,borers on pine
+pis_pin,m3,borers on conifers,borers on pine
+pit_bid,m3,borers on conifers,borers on pine
+pit_cha,m3,borers on conifers,borers on spruce
+pit_spp,m3,borers on conifers,borers on fir
+pol_pol,m3,borers on conifers,borers on spruce
+pri_abi,ha,defoliators on conifers,defoliators on spruce
+sap_car,m3,borers on broadleaves,borers on broadleaves
+sco_int,m3,borers on broadleaves,borers on broadleaves
+sco_rat,m3,borers on broadleaves,borers on broadleaves
+sco_sco,m3,borers on broadleaves,borers on broadleaves
+tet_gab,m3,borers on conifers,borers on other conifers
+tet_spp,m3,borers on conifers,borers on spruce
+tha_pit,ha,defoliators on conifers,defoliators on pine
+tha_pro,ha,defoliators on broadleaves,defoliators on broadleaves
+tom_spp,m3,borers on conifers,borers on pine
+tor_vir,ha,defoliators on broadleaves,defoliators on broadleaves
+uro_sir_spp,m3,borers on conifers,borers on spruce
+xyl_lin,m3,borers on conifers,borers on other conifers
+xyl_spp,m3,borers on broadleaves,borers on broadleaves
+zei_gri,ha,defoliators on conifers,defoliators on spruce

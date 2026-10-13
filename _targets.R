@@ -279,6 +279,24 @@ list(
   tar_target(g_totals_csv, tab(g_totals, "europe_totals_by_agent_group_PRELIMINARY.csv"), format = "file"),
   tar_target(g_harm_csv, write_csv_out(g_harm, "data/processed/eufordam_harmonised_agent_groups_PRELIMINARY.csv"), format = "file"),
 
+  # ---- Correlations along the hierarchy (4 broad groups / host-tree groups) --
+  tar_target(hier, hierarchy_table(species_meta)),
+  tar_target(hier_csv, tab(hier, "hierarchy_levels.csv"), format = "file"),
+  tar_target(hier_cm, dplyr::bind_rows(level_correlations(cells, hier, "level1"),
+                                       level_correlations(cells, hier, "level2"))),
+  tar_target(hier_europe, dplyr::bind_rows(hier_europe_correlations(cells, hier, "level1"),
+                                           hier_europe_correlations(cells, hier, "level2"))),
+  tar_target(hier_test, dplyr::bind_rows(hierarchy_pair_test(cm, hier, "same_year"),
+                                         hierarchy_pair_test(cm, hier, "beyond_year"))),
+  tar_target(hier_cm_csv, tab(dplyr::left_join(hier_cm, hier_europe, by = c("level", "species_a", "species_b")),
+                              "correlation_metrics_hierarchy_levels.csv"), format = "file"),
+  tar_target(hier_test_csv, tab(hier_test, "correlation_hierarchy_test.csv"), format = "file"),
+  tar_target(fig_hier_l1, save_fig(plot_hier_heatmap(hier_cm, hier, "level1", "Correlation between the 4 broad groups (as in Hlasny et al. 2025)"),
+                                   "outputs/figures/hierarchy_level1_correlations.png", 7, 5.5), format = "file"),
+  tar_target(fig_hier_l2, save_fig(plot_hier_heatmap(hier_cm, hier, "level2", "Correlation between host-tree groups"),
+                                   "outputs/figures/hierarchy_level2_correlations.png", 9, 7.5), format = "file"),
+  tar_target(fig_hier_test, save_fig(plot_hier_test(hier_test), "outputs/figures/hierarchy_pair_test.png", 8, 5.5), format = "file"),
+
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),
   tar_target(gl_pres_fits, gllvm_fit_set(gl_data, "presence")),
