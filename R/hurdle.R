@@ -18,7 +18,10 @@ sigmoid <- function(x) 1 / (1 + exp(-x))
 # Ridge penalties: lambda on U and V, lambda_b on the row intensity b.
 # Optional covariate matrix X (same shape as B, e.g. log host area) enters with
 # one slope per insect: + c[s] * X[i, s] (ridge penalty 1 on c).
-logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed = 20261012, X = NULL) {
+# Optional soft hierarchy as in lfm_fit(): with `group` and tau > 0, each
+# species' level a[s] and loadings V[s, ] are pulled towards its group mean.
+logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed = 20261012, X = NULL,
+                      group = NULL, tau = 0) {
   set.seed(seed)
   M <- !is.na(B); Bz <- B; Bz[!M] <- 0
   n <- nrow(B); p <- ncol(B)
@@ -29,6 +32,9 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
   # Adam state
   pars <- list(a = a, b = b, U = U, V = V, c = rep(0, p))
   if (is.null(X)) X <- matrix(0, n, p)
+  hier <- !is.null(group) && tau > 0
+  gmean <- function(x) { x <- as.matrix(x); for (g in unique(group)) { i <- group == g
+    x[i, ] <- matrix(colMeans(x[i, , drop = FALSE]), sum(i), ncol(x), byrow = TRUE) }; x }
   m <- lapply(pars, function(x) x * 0); v <- m
   b1 <- 0.9; b2 <- 0.999; eps <- 1e-8
   for (t in seq_len(n_iter)) {
@@ -41,6 +47,10 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
       V = if (K > 0) t(G) %*% pars$U + 2 * lambda * pars$V else pars$V,
       c = colSums(G * X) + 2 * pars$c
     )
+    if (hier) {
+      grads$a <- grads$a + 2 * tau * (pars$a - as.numeric(gmean(pars$a)))
+      if (K > 0) grads$V <- grads$V + 2 * tau * (pars$V - gmean(pars$V))
+    }
     for (nm in names(pars)) {
       m[[nm]] <- b1 * m[[nm]] + (1 - b1) * grads[[nm]]
       v[[nm]] <- b2 * v[[nm]] + (1 - b2) * grads[[nm]]^2

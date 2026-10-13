@@ -761,3 +761,48 @@ plot_hier_test <- function(hier_test) {
                   caption = "p = share of 999 random relabellings with a mean at least as high as observed.") +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
 }
+
+# ---- Option 3 (guild hint) vs plain two-part model ------------------------------
+
+plot_hint_strength <- function(overall, chosen = 50) {
+  d <- overall |>
+    dplyr::transmute(tau, `Presence: AUC (0.5 = guessing, 1 = perfect)` = auc_any,
+                     `Real zeros called 'no damage'` = zeros_called_zero,
+                     `Hidden totals within 2x` = totals_within_2x,
+                     `Species passing the reliability rule (of 33)` = species_works / species_tested) |>
+    tidyr::pivot_longer(-tau) |>
+    dplyr::mutate(x = factor(tau, sort(unique(tau))))
+  ggplot2::ggplot(d, ggplot2::aes(x, value, group = name)) +
+    ggplot2::geom_line(colour = "#184f95", linewidth = 0.8) +
+    ggplot2::geom_point(ggplot2::aes(colour = tau == chosen | tau == 0), size = 2.6) +
+    ggplot2::scale_colour_manual(values = c(`TRUE` = pal$guild[["defoliator"]], `FALSE` = "#184f95"), guide = "none") +
+    ggplot2::facet_wrap(~ name, scales = "free_y", ncol = 2) +
+    ggplot2::labs(x = "Strength of the guild hint (0 = plain model we had before)", y = NULL,
+                  title = "Does the guild hint improve gap-filling?",
+                  subtitle = paste0("Same hidden country x insect blocks for every version. Orange = plain model (0) and chosen strength (", chosen, ")"),
+                  caption = "Hint = each insect's level and links pulled towards the average of its broad group (borers/defoliators on conifers/broadleaves).") +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+plot_hint_species <- function(by_species, hier, chosen = 50) {
+  d <- by_species |> dplyr::filter(tau %in% c(0, chosen)) |>
+    dplyr::select(tau, species, auc_any) |>
+    tidyr::pivot_wider(names_from = tau, values_from = auc_any, names_prefix = "t") |>
+    dplyr::rename(plain = t0, hint = !!paste0("t", chosen)) |>
+    dplyr::filter(!is.na(plain), !is.na(hint)) |>
+    dplyr::left_join(dplyr::select(hier, species, level1), by = "species") |>
+    dplyr::arrange(hint) |> dplyr::mutate(species = factor(species, species))
+  ggplot2::ggplot(d) +
+    ggplot2::geom_vline(xintercept = c(0.5, 0.7), colour = pal$ink2, linewidth = 0.3, linetype = c("solid", "dashed")) +
+    ggplot2::geom_segment(ggplot2::aes(x = plain, xend = hint, y = species, yend = species), colour = "#c9c3b4", linewidth = 1) +
+    ggplot2::geom_point(ggplot2::aes(plain, species), shape = 1, size = 2.4, colour = pal$ink2) +
+    ggplot2::geom_point(ggplot2::aes(hint, species, colour = level1), size = 2.6) +
+    ggplot2::scale_colour_manual(values = c(`borers on conifers` = "#184f95", `borers on broadleaves` = "#5b8fd6",
+                                            `defoliators on conifers` = "#eb6834", `defoliators on broadleaves` = "#f2a33a"),
+                                 name = "Broad group") +
+    ggplot2::labs(x = "Presence prediction for hidden blocks (AUC; 0.5 = guessing, dashed = 0.7)", y = NULL,
+                  title = "Per insect: plain model (hollow) vs guild hint (filled)",
+                  subtitle = paste0("Insects recorded in at least 2 countries, so they can be tested. Hint strength ", chosen),
+                  caption = "AUC = how well the model ranks hidden region-years with damage above those without.") +
+    theme_eu(8.5) + ggplot2::theme(legend.position = "bottom")
+}

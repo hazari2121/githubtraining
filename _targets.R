@@ -297,6 +297,16 @@ list(
                                    "outputs/figures/hierarchy_level2_correlations.png", 9, 7.5), format = "file"),
   tar_target(fig_hier_test, save_fig(plot_hier_test(hier_test), "outputs/figures/hierarchy_pair_test.png", 8, 5.5), format = "file"),
 
+  # ---- Option 3: two-part model with a guild hint vs plain ---------------------
+  tar_target(hm_group, hier$level1[match(lfm_L$species, hier$species)]),
+  tar_target(hm_cv, hier_model_cv(lfm_L, lfm_blocks, hm_group, h_best1$K, h_best1$lambda,
+                                  h_best2$K, h_best2$lambda, taus = c(0, 5, 20, 50, 100, 300, 1000))),
+  tar_target(hm_scores, hier_model_scores(hm_cv)),
+  tar_target(hm_overall_csv, tab(hm_scores$overall, "guild_hint_vs_plain_overall.csv"), format = "file"),
+  tar_target(hm_species_csv, tab(hm_scores$by_species, "guild_hint_vs_plain_by_species.csv"), format = "file"),
+  tar_target(fig_hm_strength, save_fig(plot_hint_strength(hm_scores$overall, 50), "outputs/figures/guild_hint_strength.png", 9, 6.5), format = "file"),
+  tar_target(fig_hm_species, save_fig(plot_hint_species(hm_scores$by_species, hier, 50), "outputs/figures/guild_hint_by_species.png", 8, 8.5), format = "file"),
+
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),
   tar_target(gl_pres_fits, gllvm_fit_set(gl_data, "presence")),

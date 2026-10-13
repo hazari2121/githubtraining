@@ -28,7 +28,13 @@ build_lfm_matrix <- function(cells, tr) {
 }
 
 # Fit the model on the observed (non-NA) cells of Y.
-lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed = 20261009) {
+# Optional soft hierarchy ("guild hint"): `group` gives each species' group;
+# with tau > 0 each species' level and loadings are pulled towards its group's
+# average (penalty tau * ||v_s - group mean||^2) instead of only towards 0.
+# Species with much data follow their own pattern; species with little data
+# lean on their group. tau = 0 gives exactly the plain model.
+lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed = 20261009,
+                    group = NULL, tau = 0) {
   set.seed(seed)
   n <- nrow(Y); p <- ncol(Y); M <- !is.na(Y)
   mu <- colMeans(Y, na.rm = TRUE); mu[is.na(mu)] <- 0
@@ -41,6 +47,11 @@ lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed =
   empty_rows <- which(rowSums(M) == 0)
   pen_row <- diag(c(lambda_c, rep(lambda, K)), K + 1)
   pen_col <- diag(c(1e-8, rep(lambda, K)), K + 1)
+  hier <- !is.null(group) && tau > 0
+  if (hier) {
+    pen_col <- pen_col + diag(tau, K + 1)
+    gi <- split(seq_len(p), group)
+  }
   prev <- Inf
   for (it in seq_len(n_iter)) {
     for (g in groups) {
@@ -52,11 +63,17 @@ lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed =
       cc[g] <- B[1, ]
       if (K > 0) U[g, ] <- t(B[-1, , drop = FALSE])
     }
+    if (hier) {   # group means of level and loadings (current values)
+      Th <- cbind(mu, V)
+      for (gg in gi) Th[gg, ] <- matrix(colMeans(Th[gg, , drop = FALSE]), length(gg), K + 1, byrow = TRUE)
+    }
     for (s in seq_len(p)) {
       rr <- M[, s]
       if (!any(rr)) next
       X <- cbind(1, U[rr, , drop = FALSE])
-      b <- solve(crossprod(X) + pen_col, crossprod(X, Y[rr, s] - cc[rr]))
+      rhs <- crossprod(X, Y[rr, s] - cc[rr])
+      if (hier) rhs <- rhs + tau * Th[s, ]
+      b <- solve(crossprod(X) + pen_col, rhs)
       mu[s] <- b[1]
       if (K > 0) V[s, ] <- b[-1]
     }
