@@ -61,7 +61,7 @@ Of `r format(nrow(cells), big.mark = ",")` region-year-insect cells, `r pct(100*
 
 ![](../outputs/figures/species_occupancy_monitored_vs_occurring.png)
 
-The flat step at 15 units in the *monitored* panel is Germany's 15 NUTS1 units: many insects are monitored only there. The gap between the panels shows where an insect is monitored but never found.
+Insects are ranked by the number of NUTS units where they caused damage (filled dot); the hollow dot shows how many units reported them at all, so the gap is where an insect is monitored but never found. Many hollow dots sit at 15: Germany's 15 NUTS1 units, where many insects are monitored only there.
 
 ![](../outputs/figures/occurrence_map_region_species.png)
 

@@ -61,7 +61,7 @@ list(
   tar_target(fig_occupancy, save_fig(plot_occupancy_curve(sp_rank),
                                      "outputs/figures/species_occupancy_curve.png", 7.5, 9.5), format = "file"),
   tar_target(fig_occupancy_both, save_fig(plot_occupancy_curves_monitored(sp_rank),
-                                          "outputs/figures/species_occupancy_monitored_vs_occurring.png", 12, 9.5),
+                                          "outputs/figures/species_occupancy_monitored_vs_occurring.png", 9, 10.5),
              format = "file"),
   tar_target(fig_occ_map, save_fig(plot_occurrence_map(rs_summary, sp_rank),
                                    "outputs/figures/occurrence_map_region_species.png", 11, 14), format = "file"),
