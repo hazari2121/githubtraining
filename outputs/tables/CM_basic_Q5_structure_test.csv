@@ -1,0 +1,7 @@
+metric,pair_class,n_pairs,mean_r,mean_r_random,p_value
+same_year,different broad groups,702,0.06624513996102473,0.08322010203194552,0.994
+same_year,same broad group only (level 1),162,0.16112484080267322,0.0826807096377907,0.002
+same_year,same host-tree group (level 2),143,0.07789255202744684,0.08309328623141188,0.623
+beyond_year,different broad groups,673,0.06741858995819863,0.07607996627623717,0.952
+beyond_year,same broad group only (level 1),162,0.09536476014810832,0.07471309787711736,0.14
+beyond_year,same host-tree group (level 2),134,0.0942017568358894,0.07532397085278729,0.1

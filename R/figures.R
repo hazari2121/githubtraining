@@ -806,3 +806,30 @@ plot_hint_species <- function(by_species, hier, chosen = 50) {
                   caption = "AUC = how well the model ranks hidden region-years with damage above those without.") +
     theme_eu(8.5) + ggplot2::theme(legend.position = "bottom")
 }
+
+# ---- Correlation metrics, back to basics ---------------------------------------
+
+# All codes vs all codes: same-year r (Q1). Coloured only where the 95% range
+# excludes zero; grey dot = tested, no clear link; blank = never recorded together.
+plot_cm_basic_matrix <- function(cm, hier, ord) {
+  both <- dplyr::bind_rows(cm, dplyr::rename(cm, species_a = species_b, species_b = species_a)) |>
+    dplyr::mutate(a = factor(species_a, rev(ord)), b = factor(species_b, ord),
+                  show = dplyr::if_else(same_year_sure, same_year, NA_real_))
+  cuts <- hier |> dplyr::mutate(i = match(species, ord)) |> dplyr::group_by(level1) |>
+    dplyr::summarise(last = max(i)) |> dplyr::filter(last < length(ord)) |> dplyr::pull(last)
+  n <- length(ord)
+  ggplot2::ggplot(both, ggplot2::aes(b, a)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = show), colour = "white", linewidth = 0.2) +
+    ggplot2::geom_point(data = dplyr::filter(both, !is.na(same_year), !same_year_sure), size = 0.4, colour = "#9c9b97") +
+    ggplot2::geom_vline(xintercept = cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
+    ggplot2::geom_hline(yintercept = n - cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
+    ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.8, 0.8),
+                                  oob = scales::squish, na.value = "transparent", name = "r (same year)") +
+    ggplot2::labs(x = NULL, y = NULL, title = "Which insects have bad years together? (all codes vs all codes)",
+                  subtitle = "Coloured = clear link (95% range excludes 0). Grey dot = tested, no clear link. Blank = never recorded together",
+                  caption = paste("Lines separate the 4 broad groups: borers on conifers | borers on broadleaves | defoliators on conifers | defoliators on broadleaves.",
+                                  "\nCodes as reported; region series standardised against their own mean; ranges from resampling whole regions 999 times.")) +
+    theme_eu(7.5) +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5),
+                   panel.grid = ggplot2::element_blank(), legend.position = "right")
+}
