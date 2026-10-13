@@ -833,3 +833,44 @@ plot_cm_basic_matrix <- function(cm, hier, ord) {
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5),
                    panel.grid = ggplot2::element_blank(), legend.position = "right")
 }
+
+# ---- Gap-filling: three methods head to head ----------------------------------
+
+gf_cols <- c(`simple average` = "#9c9b97", `partner method` = "#5b8fd6", `factor model` = "#184f95")
+
+plot_gapfill_overall <- function(overall) {
+  d <- overall |>
+    dplyr::transmute(method,
+      `Error per cell (log scale, lower = better)` = error_log,
+      `Telling damage from no damage (AUC, 0.5 = guessing)` = damage_vs_none_auc,
+      `Hidden totals within 2x of the truth` = totals_within_2x,
+      `Typical error of a hidden total (x off, lower = better)` = typical_total_error_x) |>
+    tidyr::pivot_longer(-method) |>
+    dplyr::mutate(lab = dplyr::if_else(grepl("within", name), paste0(round(100 * value), "%"),
+                                       formatC(value, format = "f", digits = 2)))
+  ggplot2::ggplot(d, ggplot2::aes(value, method, fill = method)) +
+    ggplot2::geom_col(width = 0.65) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), hjust = -0.15, size = 3.2, colour = pal$ink) +
+    ggplot2::facet_wrap(~ name, scales = "free_x", ncol = 2) +
+    ggplot2::scale_fill_manual(values = gf_cols, guide = "none") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.25))) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Gap-filling: which method fills hidden values best?",
+                  subtitle = "Real reported values hidden (whole country x insect blocks) and predicted from the rest",
+                  caption = "Simple average = insect's yearly mean. Partner method = linked insects in the same region-year.\nFactor model = two-part latent factor model with group level hint.") +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+plot_gapfill_species <- function(by_species) {
+  ord <- by_species |> dplyr::filter(method == "factor model") |>
+    dplyr::arrange(dplyr::desc(gain_vs_simple)) |> dplyr::pull(species)
+  d <- by_species |> dplyr::mutate(species = factor(species, rev(ord)))
+  ggplot2::ggplot(d, ggplot2::aes(error_log, species)) +
+    ggplot2::geom_line(ggplot2::aes(group = species), colour = "#e6e5e1", linewidth = 1.2) +
+    ggplot2::geom_point(ggplot2::aes(colour = method), size = 2.5) +
+    ggplot2::geom_point(data = dplyr::filter(d, method == best), shape = 1, size = 4.5, colour = pal$ink) +
+    ggplot2::scale_colour_manual(values = gf_cols, name = NULL) +
+    ggplot2::labs(x = "Error per hidden cell (log scale, lower = better)", y = NULL,
+                  title = "Best gap-filling method per insect", subtitle = "Ring = best method for that insect",
+                  caption = "Insects recorded in at least 2 countries (others cannot be tested).") +
+    theme_eu(8.5) + ggplot2::theme(legend.position = "top", legend.justification = "left")
+}
