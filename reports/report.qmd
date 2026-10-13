@@ -61,7 +61,7 @@ Of `r format(nrow(cells), big.mark = ",")` region-year-insect cells, `r pct(100*
 
 ![](../outputs/figures/species_nuts_occurrence_ranking.png)
 
-Every insect code as reported (single species, genus/family codes and aggregate groups), ranked by the number of NUTS units where it caused damage (at least one year with damage > 0). Colour = guild, shape = code type. Codes are kept as reported, so the CZ spruce bark-borer group is its own aggregate code here rather than part of *I. typographus*. Table: `outputs/tables/species_nuts_occurrence_ranking_v2.csv`.
+Every insect code as reported, ranked by the number of NUTS units where it caused damage (at least one year with damage > 0). Colour = guild; squares mark aggregate groups (several insects lumped together, content can differ between countries), circles single insects (species or genus). Codes are kept as reported, so the CZ spruce bark-borer group is its own aggregate code here rather than part of *I. typographus*. Table: `outputs/tables/species_nuts_occurrence_ranking_v2.csv`.
 
 ![](../outputs/figures/occurrence_map_region_species.png)
 

@@ -690,21 +690,23 @@ plot_occurrence_ranking_v2 <- function(occ2) {
   d <- occ2 |>
     dplyr::arrange(n_units_with_damage, dplyr::desc(species)) |>
     dplyr::mutate(species = factor(species, species),
-                  code_type = factor(code_type, c("species", "genus / family", "aggregate group")))
+                  code_type = factor(code_type, c("single insect", "aggregate group")))
   ggplot2::ggplot(d, ggplot2::aes(n_units_with_damage, species)) +
     ggplot2::geom_segment(ggplot2::aes(x = 0, xend = n_units_with_damage, yend = species, colour = guild),
                           linewidth = 0.5, alpha = 0.35) +
     ggplot2::geom_point(ggplot2::aes(colour = guild, shape = code_type), size = 2.6, stroke = 1) +
     ggplot2::geom_text(ggplot2::aes(label = n_units_with_damage), hjust = 0, nudge_x = 1.2, size = 2.5, colour = pal$ink2) +
     ggplot2::scale_colour_manual(values = pal$guild, name = "Guild") +
-    ggplot2::scale_shape_manual(values = c(species = 16, `genus / family` = 17, `aggregate group` = 15),
+    ggplot2::scale_shape_manual(values = c(`single insect` = 16, `aggregate group` = 15),
+                                labels = c(`single insect` = "single insect (species or genus)",
+                                           `aggregate group` = "aggregate group (several insects lumped together)"),
                                 name = "Code type", drop = FALSE) +
     ggplot2::scale_x_continuous(limits = c(0, n_units), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0.02))) +
     ggplot2::labs(x = "Number of NUTS units with damage (at least one year with damage > 0, 2000-2022)", y = NULL,
                   title = "Species-NUTS occurrence ranking",
                   subtitle = "EU-ForDAM insect codes as reported, ranked by the number of NUTS units where they caused damage",
                   caption = paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
-                                  "\nAggregate groups combine several insects; genus/family codes cover all species of that taxon.",
+                                  "\nAggregate groups combine several insects, and their content can differ between countries.",
                                   "\nCodes as reported: the CZ spruce bark-borer group (CambXyl_con&BB_con&SM) is not merged into ips_typ.")) +
     theme_eu(8.5) +
     ggplot2::theme(legend.position = "bottom", legend.box = "vertical", legend.box.just = "left",

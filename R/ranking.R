@@ -123,16 +123,13 @@ write_ranking_xlsx <- function(sp_rank, reg_rank, occ, path) {
 # spruce bark-borer group is NOT merged into ips_typ here).
 #   occurs in a NUTS unit = damage (value1) > 0 in at least one year 2000-2022
 # Code type:
-#   aggregate group    : codes combining several groups ("&") and Def_dec
-#                        (all defoliators on broadleaves)
-#   genus / family     : codes ending in _sp / _spp, and geo_db (Geometridae)
-#   species            : everything else (genus_species abbreviations)
+#   aggregate group : codes combining several insects ("&") and Def_dec (all
+#                     defoliators on broadleaves); content can differ between
+#                     countries, so not comparable as one insect
+#   single insect   : species codes and genus-level codes (_sp / _spp), which
+#                     countries report as one insect
 code_type <- function(species) {
-  dplyr::case_when(
-    grepl("&", species) | species == "Def_dec" ~ "aggregate group",
-    grepl("_spp?$", species) | species == "geo_db" ~ "genus / family",
-    TRUE ~ "species"
-  )
+  dplyr::if_else(grepl("&", species) | species == "Def_dec", "aggregate group", "single insect")
 }
 
 occurrence_ranking_v2 <- function(long, species_meta) {
