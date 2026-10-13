@@ -33,8 +33,10 @@ build_lfm_matrix <- function(cells, tr) {
 # average (penalty tau * ||v_s - group mean||^2) instead of only towards 0.
 # Species with much data follow their own pattern; species with little data
 # lean on their group. tau = 0 gives exactly the plain model.
+# tau sets the pull on the level; tau_links (default = tau) the pull on the
+# loadings, so the two parts of the hint can be tested separately.
 lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed = 20261009,
-                    group = NULL, tau = 0) {
+                    group = NULL, tau = 0, tau_links = tau) {
   set.seed(seed)
   n <- nrow(Y); p <- ncol(Y); M <- !is.na(Y)
   mu <- colMeans(Y, na.rm = TRUE); mu[is.na(mu)] <- 0
@@ -47,9 +49,10 @@ lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed =
   empty_rows <- which(rowSums(M) == 0)
   pen_row <- diag(c(lambda_c, rep(lambda, K)), K + 1)
   pen_col <- diag(c(1e-8, rep(lambda, K)), K + 1)
-  hier <- !is.null(group) && tau > 0
+  hier <- !is.null(group) && (tau > 0 || tau_links > 0)
   if (hier) {
-    pen_col <- pen_col + diag(tau, K + 1)
+    tvec <- c(tau, rep(tau_links, K))
+    pen_col <- pen_col + diag(tvec, K + 1)
     gi <- split(seq_len(p), group)
   }
   prev <- Inf
@@ -72,7 +75,7 @@ lfm_fit <- function(Y, K, lambda, lambda_c = 1, n_iter = 200, tol = 1e-6, seed =
       if (!any(rr)) next
       X <- cbind(1, U[rr, , drop = FALSE])
       rhs <- crossprod(X, Y[rr, s] - cc[rr])
-      if (hier) rhs <- rhs + tau * Th[s, ]
+      if (hier) rhs <- rhs + tvec * Th[s, ]
       b <- solve(crossprod(X) + pen_col, rhs)
       mu[s] <- b[1]
       if (K > 0) V[s, ] <- b[-1]

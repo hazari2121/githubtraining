@@ -21,7 +21,7 @@ sigmoid <- function(x) 1 / (1 + exp(-x))
 # Optional soft hierarchy as in lfm_fit(): with `group` and tau > 0, each
 # species' level a[s] and loadings V[s, ] are pulled towards its group mean.
 logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed = 20261012, X = NULL,
-                      group = NULL, tau = 0) {
+                      group = NULL, tau = 0, tau_links = tau) {
   set.seed(seed)
   M <- !is.na(B); Bz <- B; Bz[!M] <- 0
   n <- nrow(B); p <- ncol(B)
@@ -32,7 +32,7 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
   # Adam state
   pars <- list(a = a, b = b, U = U, V = V, c = rep(0, p))
   if (is.null(X)) X <- matrix(0, n, p)
-  hier <- !is.null(group) && tau > 0
+  hier <- !is.null(group) && (tau > 0 || tau_links > 0)
   gmean <- function(x) { x <- as.matrix(x); for (g in unique(group)) { i <- group == g
     x[i, ] <- matrix(colMeans(x[i, , drop = FALSE]), sum(i), ncol(x), byrow = TRUE) }; x }
   m <- lapply(pars, function(x) x * 0); v <- m
@@ -49,7 +49,7 @@ logit_fit <- function(B, K, lambda, lambda_b = 1, n_iter = 600, lr = 0.05, seed 
     )
     if (hier) {
       grads$a <- grads$a + 2 * tau * (pars$a - as.numeric(gmean(pars$a)))
-      if (K > 0) grads$V <- grads$V + 2 * tau * (pars$V - gmean(pars$V))
+      if (K > 0) grads$V <- grads$V + 2 * tau_links * (pars$V - gmean(pars$V))
     }
     for (nm in names(pars)) {
       m[[nm]] <- b1 * m[[nm]] + (1 - b1) * grads[[nm]]

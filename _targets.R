@@ -299,13 +299,30 @@ list(
 
   # ---- Option 3: two-part model with a guild hint vs plain ---------------------
   tar_target(hm_group, hier$level1[match(lfm_L$species, hier$species)]),
+  # versions: strength of the hint on level (tau) and links (tau_links);
+  # "level only" / "links only" switch one part off (ablation)
+  tar_target(hm_settings, dplyr::bind_rows(
+    tibble::tibble(tau = c(0, 5, 20, 50, 100, 300, 1000)) |>
+      dplyr::mutate(tau_links = tau, label = paste0("t", tau)),
+    tibble::tibble(label = c("level only (50)", "links only (50)"), tau = c(50, 0), tau_links = c(0, 50)))),
   tar_target(hm_cv, hier_model_cv(lfm_L, lfm_blocks, hm_group, h_best1$K, h_best1$lambda,
-                                  h_best2$K, h_best2$lambda, taus = c(0, 5, 20, 50, 100, 300, 1000))),
-  tar_target(hm_scores, hier_model_scores(hm_cv)),
+                                  h_best2$K, h_best2$lambda, settings = hm_settings)),
+  tar_target(hm_nested, hier_nested_select(hm_cv, paste0("t", c(0, 5, 20, 50, 100, 300, 1000)))),
+  tar_target(hm_scores, {
+    sc <- hier_model_scores(dplyr::bind_rows(dplyr::select(hm_cv, -tau_links), dplyr::select(hm_nested, -chosen_part1, -chosen_part2, -tau_links)))
+    lab <- c(t0 = "plain (no hint)", nested = "hint, strength chosen without the test fold (strict)",
+             `level only (50)` = "hint on level only (50)", `links only (50)` = "hint on links only (50)")
+    sc$overall <- sc$overall |> dplyr::mutate(tau = suppressWarnings(as.numeric(sub("^t", "", version))),
+      model = dplyr::coalesce(lab[version], paste0("guild hint, strength ", tau)), .before = 1)
+    sc$by_species <- sc$by_species |> dplyr::mutate(tau = suppressWarnings(as.numeric(sub("^t", "", version))))
+    sc
+  }),
+  tar_target(hm_nested_choice, dplyr::distinct(hm_nested, fold, chosen_part1, chosen_part2)),
+  tar_target(hm_nested_choice_csv, tab(hm_nested_choice, "guild_hint_nested_choice_by_fold.csv"), format = "file"),
   tar_target(hm_overall_csv, tab(hm_scores$overall, "guild_hint_vs_plain_overall.csv"), format = "file"),
   tar_target(hm_species_csv, tab(hm_scores$by_species, "guild_hint_vs_plain_by_species.csv"), format = "file"),
-  tar_target(fig_hm_strength, save_fig(plot_hint_strength(hm_scores$overall, 50), "outputs/figures/guild_hint_strength.png", 9, 6.5), format = "file"),
-  tar_target(fig_hm_species, save_fig(plot_hint_species(hm_scores$by_species, hier, 50), "outputs/figures/guild_hint_by_species.png", 8, 8.5), format = "file"),
+  tar_target(fig_hm_strength, save_fig(plot_hint_strength(dplyr::filter(hm_scores$overall, !is.na(tau)), 50), "outputs/figures/guild_hint_strength.png", 9, 6.5), format = "file"),
+  tar_target(fig_hm_species, save_fig(plot_hint_species(dplyr::filter(hm_scores$by_species, !is.na(tau)), hier, 50), "outputs/figures/guild_hint_by_species.png", 8, 8.5), format = "file"),
 
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),
