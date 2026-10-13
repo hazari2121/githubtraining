@@ -769,7 +769,7 @@ plot_hint_strength <- function(overall, chosen = 50) {
     dplyr::transmute(tau, `Presence: AUC (0.5 = guessing, 1 = perfect)` = auc_any,
                      `Real zeros called 'no damage'` = zeros_called_zero,
                      `Hidden totals within 2x` = totals_within_2x,
-                     `Species passing the reliability rule (of 33)` = species_works / species_tested) |>
+                     `Share of tested species passing the reliability rule` = species_works / species_tested) |>
     tidyr::pivot_longer(-tau) |>
     dplyr::mutate(x = factor(tau, sort(unique(tau))))
   ggplot2::ggplot(d, ggplot2::aes(x, value, group = name)) +
