@@ -117,3 +117,38 @@ write_ranking_xlsx <- function(sp_rank, reg_rank, occ, path) {
                            region_ranking = reg_rank, occurrence_matrix = occ), path)
   path
 }
+
+# ---- Species-NUTS occurrence ranking, version 2 (Oct 2026) --------------------
+# Built directly from the raw long table, codes exactly as reported (the CZ
+# spruce bark-borer group is NOT merged into ips_typ here).
+#   occurs in a NUTS unit = damage (value1) > 0 in at least one year 2000-2022
+# Code type:
+#   aggregate group    : codes combining several groups ("&") and Def_dec
+#                        (all defoliators on broadleaves)
+#   genus / family     : codes ending in _sp / _spp, and geo_db (Geometridae)
+#   species            : everything else (genus_species abbreviations)
+code_type <- function(species) {
+  dplyr::case_when(
+    grepl("&", species) | species == "Def_dec" ~ "aggregate group",
+    grepl("_spp?$", species) | species == "geo_db" ~ "genus / family",
+    TRUE ~ "species"
+  )
+}
+
+occurrence_ranking_v2 <- function(long, species_meta) {
+  long |>
+    dplyr::filter(!is.na(damage)) |>
+    dplyr::group_by(species, country, nuts_id) |>
+    dplyr::summarise(occurs = any(damage > 0), .groups = "drop") |>
+    dplyr::group_by(species) |>
+    dplyr::summarise(n_units_with_damage = sum(occurs),
+                     n_units_reported = dplyr::n(),
+                     n_countries_with_damage = dplyr::n_distinct(country[occurs]),
+                     .groups = "drop") |>
+    dplyr::left_join(dplyr::select(species_meta, species, guild = guild_from_file, host_tree, unit),
+                     by = "species") |>
+    dplyr::mutate(code_type = code_type(species)) |>
+    dplyr::arrange(dplyr::desc(n_units_with_damage), species) |>
+    dplyr::mutate(rank = rank(-n_units_with_damage, ties.method = "min")) |>
+    dplyr::relocate(rank, species, code_type, guild, host_tree, unit)
+}

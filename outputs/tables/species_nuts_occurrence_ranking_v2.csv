@@ -1,0 +1,50 @@
+rank,species,code_type,guild,host_tree,unit,n_units_with_damage,n_units_reported,n_countries_with_damage
+1,ips_typ,species,borer,Picea abies,m3,64,69,15
+2,pha_cya,species,borer,Pinus sylvestris,m3,44,50,5
+3,tom_spp,genus / family,borer,Pinus sylvestris,m3,42,50,5
+4,ips_acu,species,borer,Pinus sylvestris,m3,34,43,6
+5,lym_mon,species,defoliator,Picea abies,ha,32,41,4
+6,dip_sp,genus / family,defoliator,Pinus sylvestris,ha,31,42,4
+7,tor_vir,species,defoliator,Quercus spp.,ha,30,35,5
+8,agr_big,species,borer,Quercus spp.,m3,28,32,2
+8,geo_db,genus / family,defoliator,Quercus spp.,ha,28,36,6
+8,lym_dis,species,defoliator,Quercus spp.,ha,28,39,10
+11,mel_spp,genus / family,defoliator,Quercus spp.,ha,26,32,2
+12,pit_cha,species,borer,Picea abies,m3,24,28,6
+13,pan_fla,species,defoliator,Pinus sylvestris,ha,23,41,4
+14,bup_pin,species,defoliator,Pinus sylvestris,ha,22,32,2
+15,Def_dec&DB,aggregate group,defoliator,Quercus spp.,ha,21,32,3
+15,den_pin,species,defoliator,Pinus sylvestris,ha,21,33,3
+15,pit_spp,genus / family,borer,Abies alba,m3,21,34,5
+18,tet_gab,species,borer,Larix decidua,m3,18,32,3
+19,ips_sex,species,borer,Pinus sylvestris,m3,17,24,3
+20,sco_int,species,borer,Quercus spp.,m3,16,23,2
+21,pri_abi,species,defoliator,Picea abies,ha,15,23,2
+22,CambXyl_con&BB_con&BO,aggregate group,borer,Pinus sylvestris,m3,12,25,3
+22,sco_rat,species,borer,Betula spp.,m3,12,24,3
+24,era_def,species,defoliator,Quercus spp.,ha,11,15,1
+24,ips_cem,species,borer,Larix decidua,m3,11,15,1
+24,xyl_spp,genus / family,borer,Quercus spp.,m3,11,15,1
+27,CambXyl_con&BB_con&SM,aggregate group,borer,Picea abies,m3,10,23,2
+27,ips_dup,species,borer,Picea abies,m3,10,10,3
+27,tha_pro,species,defoliator,Quercus spp.,ha,10,15,1
+27,xyl_lin,species,borer,Picea abies,m3,10,15,1
+31,CambXyl_con&MD,aggregate group,borer,Larix decidua,m3,9,23,2
+31,agr_vir,species,borer,Quercus spp.,m3,9,15,1
+31,ope_spp,genus / family,defoliator,Quercus spp.,ha,9,15,1
+31,pol_pol,species,borer,Picea abies,m3,9,9,2
+35,pis_pin,species,borer,Pinus sylvestris,m3,8,16,2
+35,tet_spp,genus / family,borer,Picea abies,m3,8,15,1
+35,zei_gri,species,defoliator,Picea abies,ha,8,23,2
+38,cep_spp,genus / family,defoliator,Picea abies,ha,7,8,1
+39,sco_sco,species,borer,Ulmus spp.,m3,6,16,2
+40,neo_ser,species,defoliator,Pinus sylvestris,ha,5,24,3
+40,pit_bid,species,borer,Pinus sylvestris,m3,5,15,1
+42,uro_sir_spp,genus / family,borer,Picea abies,m3,4,15,1
+43,CambXyl_con&BO,aggregate group,borer,Pinus sylvestris,m3,3,16,2
+43,den_mic,species,borer,Picea abies,m3,3,24,3
+43,tha_pit,species,defoliator,Pinus sylvestris,ha,3,17,3
+46,Def_dec,aggregate group,defoliator,Aesculus spp.,ha,2,15,1
+46,ips_ami,species,borer,Picea abies,m3,2,15,1
+48,clo_ana,species,defoliator,"Populus, Salix ?",ha,1,1,1
+48,sap_car,species,borer,"Populus, Salix",m3,1,15,1
