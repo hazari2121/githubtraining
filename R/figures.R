@@ -428,8 +428,10 @@ plot_cm_top <- function(cm, k = 25) {
     ggplot2::geom_point(size = 2.2, position = ggplot2::position_dodge(width = 0.6)) +
     ggplot2::scale_colour_manual(values = c(`Same year` = pal$seq[4], `Beyond shared bad years` = pal$guild[["defoliator"]]),
                                  name = NULL) +
-    ggplot2::scale_x_continuous(limits = c(-0.2, 1), breaks = seq(-0.2, 1, 0.2)) +
-    ggplot2::labs(x = "Correlation r (dot) with 95% range (line)", y = NULL,
+    # axis covers every dot and range, so negative links are not cut off
+    ggplot2::scale_x_continuous(limits = c(min(-0.2, floor(min(d$lo, d$r, na.rm = TRUE) * 5) / 5), 1),
+                                breaks = seq(-1, 1, 0.2)) +
+    ggplot2::labs(x = "Correlation r (dot) with 95% range (line). Negative = one up when the other is down", y = NULL,
                   title = "Strongest links between insect species",
                   subtitle = "Blue: do they have bad years together? Orange: still linked after removing Europe-wide bad years?",
                   caption = "Ranges from resampling whole regions 999 times; only pairs observed together in at least 5 regions.") +
