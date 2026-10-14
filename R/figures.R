@@ -949,3 +949,41 @@ plot_gapfill_v2 <- function(sc) {
                   caption = "Memory = region's other insects last year. Neighbours = same insect in nearby regions of other countries.\nReporting effect = country's level for the insect group. Tweedie = distribution for zero-heavy data.") +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
 }
+
+# ---- Correlation metrics: one verdict per pair --------------------------------
+
+verdict_cols <- c(usable = "#008300", promising = "#86b6ef", unreliable = "#eda100",
+                  weak = "#c9c8c3", `no link` = "#e6e5e1", `not enough data` = "#f5f4f1")
+
+plot_cm_verdict <- function(v) {
+  d <- dplyr::count(v, verdict, .drop = FALSE)
+  ggplot2::ggplot(d, ggplot2::aes(n, forcats::fct_rev(verdict), fill = verdict)) +
+    ggplot2::geom_col(width = 0.65, colour = "#9c9b97", linewidth = 0.2) +
+    ggplot2::geom_text(ggplot2::aes(label = n), hjust = -0.2, size = 3.4) +
+    ggplot2::scale_fill_manual(values = verdict_cols, guide = "none") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.12))) +
+    ggplot2::labs(x = "insect pairs", y = NULL, title = "Can one insect's records tell us about another's?",
+                  subtitle = paste0("All ", nrow(v), " pairs of insect codes in EU-ForDAM, one verdict each"),
+                  caption = paste("usable = strong link (r >= 0.3, sure) that holds in every country checked | promising = strong, seen in one country only",
+                                  "\nunreliable = strong but differs between countries | weak = sure but r < 0.3 | not enough data = rarely recorded together")) +
+    theme_eu(9)
+}
+
+# The pairs we can lean on: same-year r with 95% range, and r after removing
+# Europe-wide bad years (open circle)
+plot_cm_usable <- function(v) {
+  d <- dplyr::filter(v, verdict == "usable") |>
+    dplyr::mutate(pair = paste(species_a, "-", species_b), pair = forcats::fct_reorder(pair, r))
+  ggplot2::ggplot(d, ggplot2::aes(y = pair)) +
+    ggplot2::geom_vline(xintercept = 0, colour = "#9c9b97") +
+    ggplot2::geom_errorbarh(ggplot2::aes(xmin = r_lo, xmax = r_hi), height = 0, colour = "#86b6ef") +
+    ggplot2::geom_point(ggplot2::aes(x = r), colour = "#008300", size = 2.2) +
+    ggplot2::geom_point(ggplot2::aes(x = r_without_europe_wide_years), shape = 21, colour = pal$ink, size = 2) +
+    ggplot2::geom_text(ggplot2::aes(x = 0.95, label = countries), hjust = 1, size = 2.6, colour = pal$ink2) +
+    ggplot2::scale_x_continuous(limits = c(min(0, d$r_lo) - 0.05, 0.95)) +
+    ggplot2::labs(x = "r (same year, within region)", y = NULL,
+                  title = "The usable links: insects that move together in every country checked",
+                  subtitle = "Green dot = r, bar = 95% range; open circle = r after removing years bad all over Europe; right = countries",
+                  caption = "Open circle close to the green dot = the link is regional, not just shared European bad years.") +
+    theme_eu(8.5)
+}

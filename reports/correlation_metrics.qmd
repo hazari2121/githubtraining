@@ -1,6 +1,6 @@
 ---
 title: "EU-ForDAM: correlation metrics, insect vs insect"
-subtitle: "Does damage from different agents fluctuate together? (basis for objectives 1-3)"
+subtitle: "Do the existing records carry information about the missing ones?"
 date: today
 format:
   html:
@@ -18,90 +18,75 @@ library(dplyr)
 library(targets)
 store <- "../_targets"
 rd <- function(x) tar_read_raw(x, store = store)
-f2 <- function(x) formatC(x, format = "f", digits = 2)
 pct <- function(x) paste0(round(x), "%")
-t <- rd("cb_table"); info <- rd("cb_info"); lags <- rd("cb_lags"); q5 <- rd("cb_q5")
-strong <- c("strong, beyond shared bad years", "strong, mostly shared bad years")
+v <- rd("cb_verdict"); q5 <- rd("cb_q5")
+u <- filter(v, verdict == "usable")
+measurable <- filter(v, verdict != "not enough data")
+strong <- c("usable", "promising", "unreliable")
 ```
 
-## Why
+## Why these metrics
 
-The thesis rests on one premise: *damage from different agents tends to fluctuate together, so the existing records carry information about the missing ones.* This section tests that premise directly, for every pair of insect codes in EU-ForDAM.
+The thesis rests on one sentence: *damage from different agents tends to fluctuate together, so the existing records carry information about the missing ones.* The correlation metrics test that sentence, pair by pair, for all `r n_distinct(c(v$species_a, v$species_b))` insect codes (`r format(nrow(v), big.mark = ",")` pairs). Each question below serves one objective:
 
-## How
-
-- **Pairs:** all `r n_distinct(c(t$species_a, t$species_b))` insect codes (species, genus codes and aggregate groups), `r format(nrow(t), big.mark = ",")` pairs. As in Hlasny et al. (2025), the Czech spruce bark-borer group is counted as *I. typographus*.
-- **Data:** `value1` (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, never treated as 0. Only region-years where both codes are recorded.
-- **Scale:** log(1 + damage), each region's series measured against its own mean, so large and small regions are comparable.
-- **Measure:** Pearson r (−1 = opposite, 0 = no link, +1 = always together), with a 95% range from resampling whole regions 999 times. A link is **clear** when the range excludes 0.
-
-Five questions per pair:
-
-| | Question | Metric |
+| Question | Metric | Objective |
 |---|---|---|
-| Q1 | Do they have bad years together? | same-year r |
-| Q2 | Still linked after removing Europe-wide bad years? | r after removing each code's Europe-wide yearly mean |
-| Q3 | Does one come first? | A in year t vs B in year t+1, beyond B's own persistence |
-| Q4 | Does the link hold in each country? | r per country; consistent = same sign, similar size, no country flips it |
-| Q5 | Do linked insects share a broad group or host tree? | mean r by shared group vs 999 random relabellings |
+| 1. Does insect A have bad years when insect B does, in the same region? | same-year r, within region | the premise |
+| 2. Does that link hold in every country? | r per country | 1, gap-filling (links learnt in one country fill gaps in another) |
+| 3. Is it regional, or just years bad all over Europe? Does one come first? | r after removing Europe-wide years; A this year vs B next year | 3, drivers and anticipation |
+| 4. Do linked insects share feeding type or host tree? | share of strong links within vs between groups | 2, damage across agents and host trees |
 
-## Q1 and Q2: which insects fluctuate together?
+**How r is measured.** `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, left out. Damage on a log(1 + x) scale, each region's series compared with its own average, so a large and a small region count the same. Only region-years where both insects were recorded. The 95% range comes from resampling whole regions 999 times; a link is *sure* when the range excludes 0, *strong* when also r ≥ 0.3. As in Hlásný et al. (2025), the Czech spruce bark-borer group is counted as *I. typographus*.
 
-![](../outputs/figures/CM_basic_1_matrix.png)
+## The answer in one figure
 
-```{r q12}
-t |> count(link, name = "pairs") |>
-  mutate(link = factor(link, c(strong, "weak but real", "no clear link", "not enough data"))) |>
-  arrange(link) |> mutate(share = pct(100 * pairs / sum(pairs)))
+![](../outputs/figures/CM_verdict.png)
+
+```{r verdict}
+v |> count(verdict, name = "pairs", .drop = FALSE) |>
+  mutate(share = pct(100 * pairs / sum(pairs)),
+         meaning = c("strong, and holds in every country checked: lean on it",
+                     "strong, but only seen in one country: cannot check yet",
+                     "strong, but differs between countries: do not transfer",
+                     "sure but small (r < 0.3)",
+                     "no detectable link",
+                     "recorded together too rarely to measure"))
 ```
 
-- `r sum(!is.na(t$Q1_same_year_r))` pairs can be measured; `r sum(t$link %in% c(strong, "weak but real"))` have a clear link.
-- `r sum(t$link == strong[1])` pairs are strongly linked **even after removing Europe-wide bad years** (Q2): their link is not just shared weather.
-- The links concentrate in the **borers on conifers** block (top left of the matrix). Borers on broadleaves also link to them; defoliators link mainly among themselves; borers and defoliators rarely link.
-- A few clear **negative** links (blue): e.g. *Pristiphora abietina* with *I. duplicatus* (one high when the other is low).
+## 1 and 2: the links we can use
 
-![](../outputs/figures/CM_basic_2_links_per_insect.png)
+![](../outputs/figures/CM_usable_pairs.png)
 
-Most connected insects (number of strong links beyond shared bad years): `r paste0(head(info$species, 6), " (", head(info$strong_links, 6), ")", collapse = ", ")`.
+- **`r nrow(u)` pairs are usable**: strong, and the same direction and similar size in every country where they are recorded together. These are what gap-filling can lean on.
+- `r sum(v$verdict == "promising")` more are strong but seen in one country only; they may be real but cannot be checked yet. `r sum(v$verdict == "unreliable")` are strong in one place and not in another.
+- Almost all are positive (bad years together). One clear negative: *Pityokteines* spp. with *Pristiphora abietina*.
 
-## Q3: does one come first?
+## 3: regional or Europe-wide, and does one come first?
 
-```{r q3}
-nl <- nrow(lags); ns <- sum(lags$sure)
+- `r sum(!u$mostly_europe_wide_years)` of the `r nrow(u)` usable links stay strong after removing years that were bad all over Europe (open circles near the green dots). So most links are **regional**, not just shared European weather. Regional drivers (local drought, storms) are the likely cause and are what the driver data should test (objective 3).
+- In `r sum(u$lead != "none clear")` of the `r nrow(u)` usable pairs, one insect's bad year also tends to come before the other's in the next year. This is weaker and less certain than the same-year link, but it is the first hint that damage can be **anticipated** from the records (`outputs/tables/CM_pairs_verdict.csv`, column `lead`).
+
+## 4: feeding type matters, host tree adds little
+
+```{r groups}
+measurable |>
+  mutate(pair = if_else(group_a == group_b, "same broad group", "different broad groups")) |>
+  group_by(pair) |>
+  summarise(`measurable pairs` = n(), `strong links` = sum(verdict %in% strong),
+            `share strong` = pct(100 * mean(verdict %in% strong)), usable = sum(verdict == "usable"))
 ```
 
-Of `r format(nl, big.mark = ",")` directional tests (A this year, B next year), `r ns` are clear, about `r round(ns / (0.05 * nl), 1)` times the `r round(0.05 * nl)` expected by chance. Lead effects exist but are weaker and less certain than same-year links; most involve few regions (5-10). Strongest: `r paste0(head(lags$leader[lags$sure], 3), " then ", head(lags$follower[lags$sure], 3), collapse = "; ")`. Full list: `outputs/tables/CM_basic_Q3_lead_effects.csv`.
-
-## Q4: does a link hold across countries?
-
-![](../outputs/figures/CM_basic_3_across_countries.png)
-
-```{r q4}
-s <- filter(t, link %in% strong)
-s |> count(Q4_holds_across_countries, name = "strong pairs") |> mutate(share = pct(100 * `strong pairs` / sum(`strong pairs`)))
-```
-
-Of the `r nrow(s)` strong pairs, `r sum(s$Q4_holds_across_countries == "consistent")` hold consistently in every country where they can be checked, `r sum(s$Q4_holds_across_countries == "inconsistent")` differ between countries, and `r sum(s$Q4_holds_across_countries == "insufficient data")` are recorded together in fewer than two countries, so this cannot be checked. This matters for gap-filling, which uses links learnt in one country to fill another. Example of a consistent link: *I. typographus* with *Pityokteines* spp. (AT, CZ, DE, HR, SI); example of an inconsistent one: *I. typographus* with *Pityogenes chalcographus* (strong in DE, AT, SI; near zero or negative in LT, SK, IT).
-
-## Q5: do the links follow host trees and feeding type?
-
-```{r q5}
-q5 |> mutate(metric = recode(metric, same_year = "same year", beyond_year = "beyond shared bad years"),
-             across(c(mean_r, mean_r_random), f2), p_value = formatC(p_value, format = "f", digits = 3)) |>
-  select(metric, `pairs that share` = pair_class, n_pairs, mean_r, `mean r, random labels` = mean_r_random, p_value)
-```
-
-Insects in the **same broad group** (borers / defoliators on conifers / broadleaves) have bad years together more than chance (p = `r formatC(q5$p_value[q5$metric == "same_year" & grepl("level 1", q5$pair_class)], format = "f", digits = 3)`). Sharing the **same host tree** adds nothing beyond that. After removing Europe-wide bad years, no grouping clearly beats chance.
+Broad groups: borers / defoliators on conifers / broadleaves. Pairs in the **same broad group** are about four times as likely to be strongly linked. Most usable links are among **borers on conifers** (bark beetles on spruce and pine); most others are borers on conifers with borers on broadleaves, or defoliators of pine with each other. A permutation test confirms the group effect (p = `r formatC(q5$p_value[q5$metric == "same_year" & grepl("level 1", q5$pair_class)], format = "f", digits = 3)`); sharing the same host tree adds nothing beyond it.
 
 ## What it means for the thesis
 
-1. **The premise holds, partly.** About a fifth of measurable pairs are clearly linked, strongest among bark and wood borers on conifers. These insects carry information about each other; most other pairs do not.
-2. **Most strong links are more than shared bad years** (Q1 vs Q2): `r sum(t$link == strong[1])` of `r sum(t$link %in% strong)` strong pairs stay linked after removing Europe-wide bad years; the other `r sum(t$link == strong[2])` are mainly years that were bad everywhere. Shared drivers (drought, storms) acting regionally are a likely source; adding those data later should explain part of the links (objective 3).
-3. **Transfer between countries is the limiting factor.** Many strong links cannot be checked in a second country; where they can, `r round(100 * sum(s$Q4_holds_across_countries == 'consistent') / sum(s$Q4_holds_across_countries != 'insufficient data'))`% hold. Gap-filling should rely most on consistent links (objective 1).
-4. **Feeding type matters more than host tree:** borers move with borers, defoliators with defoliators.
+1. **The premise holds for a core of insects, not for all.** About `r pct(100 * mean(measurable$verdict %in% strong))` of measurable pairs are strongly linked, mostly within feeding groups. For those insects, the records of one do carry information about the other.
+2. **Gap-filling (objective 1)** should lean on the `r nrow(u)` usable links and treat the rest with caution. The factor model does this automatically: it learns the shared patterns from all insects at once.
+3. **Drivers and anticipation (objective 3):** most links are regional, not Europe-wide, and some insects lead others by a year. Both point to regional drivers worth testing once the drought and storm data are in.
+4. **Limit:** many links can only be seen in one or two countries (mostly DE and CZ). More countries reporting more insects is what would firm this up.
 
 ## Files
 
-- All pairs, all five questions: `outputs/tables/CM_basic_all_pairs.csv`
-- Per insect: `CM_basic_per_insect.csv`; lead effects: `CM_basic_Q3_lead_effects.csv`; per country: `CM_basic_Q4_per_country.csv`; structure test: `CM_basic_Q5_structure_test.csv`
-- Figures: `outputs/figures/CM_basic_1_matrix.png`, `CM_basic_2_links_per_insect.png`, `CM_basic_3_across_countries.png`
+- One row per pair, plain verdict: `outputs/tables/CM_pairs_verdict.csv`
+- Full detail (ranges, per-country r): `CM_basic_all_pairs.csv`, `CM_basic_Q4_per_country.csv`, `CM_basic_Q3_lead_effects.csv`
+- Figures: `outputs/figures/CM_verdict.png`, `CM_usable_pairs.png`; the full matrix of all pairs: `CM_basic_1_matrix.png`

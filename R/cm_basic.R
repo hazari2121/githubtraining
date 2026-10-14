@@ -59,3 +59,32 @@ cm_basic_order <- function(hier) {
                    level2, species) |>
     dplyr::pull(species)
 }
+
+
+# One plain verdict per pair, answering "can we lean on this link to fill gaps?"
+#   strong  = clear same-year link (95% range excludes 0) with |r| >= 0.3
+#   usable     : strong, and same sign / similar size in every country checked (>= 2)
+#   promising  : strong, but recorded together in < 2 countries, so untested
+#   unreliable : strong, but the link differs between countries
+#   weak       : clear but |r| < 0.3
+#   no link / not enough data
+verdict_levels <- c("usable", "promising", "unreliable", "weak", "no link", "not enough data")
+
+cm_verdict <- function(t) {
+  strong <- c("strong, beyond shared bad years", "strong, mostly shared bad years")
+  t |>
+    dplyr::mutate(verdict = dplyr::case_when(
+      link == "not enough data" ~ "not enough data",
+      link == "no clear link" ~ "no link",
+      link == "weak but real" ~ "weak",
+      link %in% strong & Q4_holds_across_countries == "consistent" ~ "usable",
+      link %in% strong & Q4_holds_across_countries == "insufficient data" ~ "promising",
+      link %in% strong ~ "unreliable"),
+      verdict = factor(verdict, verdict_levels),
+      # TRUE when the link is mostly years that were bad all over Europe
+      mostly_europe_wide_years = link == "strong, mostly shared bad years") |>
+    dplyr::select(species_a, species_b, group_a, group_b, verdict,
+                  r = Q1_same_year_r, r_lo = Q1_lo, r_hi = Q1_hi,
+                  r_without_europe_wide_years = Q2_beyond_shared_years_r, mostly_europe_wide_years,
+                  countries = Q4_countries, lead = Q3_lead, n_region_years, n_regions, n_countries)
+}
