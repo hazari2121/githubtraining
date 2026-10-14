@@ -60,7 +60,7 @@ Agent-level pair tables include Benjamini–Hochberg q-values.
   bark-beetle wave), not year-to-year co-movement.
 - **Strongest robust links** (still high after differencing): *Ips typographus*
   – *Pityogenes chalcographus* (0.73), *I. cembrae* – *P. chalcographus* (0.53) and
-  *Tortrix viridana* – *Operophtera* spp. (0.45). Same host and same guild, as the paper reports.
+  *Tortrix viridana* – *Operophtera* spp. (0.45). All within one guild (bark beetles or oak defoliators), in line with the paper.
 - **Reporting artefacts**: `CambXyl_con&BB_con&SM` (aggregate spruce bark
   beetles) is negatively correlated with `ips_typ` and `pit_cha` after
   differencing. In Germany, regions report either the species or the aggregate,
