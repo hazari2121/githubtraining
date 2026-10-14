@@ -927,3 +927,25 @@ plot_gapfill_totals <- function(tot, k = 20) {
                   caption = "Filled amounts are typically several times off for a single region (hide-and-predict test); use with the confidence labels.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left")
 }
+
+plot_gapfill_v2 <- function(sc) {
+  d <- sc |>
+    dplyr::transmute(method,
+      `Error per cell (log scale, lower = better)` = error_log,
+      `Telling damage from no damage (AUC)` = damage_vs_none_auc,
+      `Hidden totals within 2x of the truth` = totals_within_2x,
+      `Typical error of a hidden total (x off, lower = better)` = typical_total_error_x) |>
+    tidyr::pivot_longer(-method) |>
+    dplyr::mutate(lab = dplyr::if_else(grepl("within", name), paste0(round(100 * value), "%"), formatC(value, format = "f", digits = 2)),
+                  base = method == "factor model (v1)", method = factor(method, rev(levels(sc$method))))
+  ggplot2::ggplot(d, ggplot2::aes(value, method, fill = base)) +
+    ggplot2::geom_col(width = 0.65) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), hjust = -0.15, size = 3, colour = pal$ink) +
+    ggplot2::facet_wrap(~ name, scales = "free_x", ncol = 2) +
+    ggplot2::scale_fill_manual(values = c(`TRUE` = "#184f95", `FALSE` = "#9c9b97"), guide = "none") +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.3))) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Does memory, neighbours or a country reporting effect improve gap-filling?",
+                  subtitle = "Second stage on top of the factor model (blue); same hidden blocks; second stage fitted on the other folds",
+                  caption = "Memory = region's other insects last year. Neighbours = same insect in nearby regions of other countries.\nReporting effect = country's level for the insect group. Tweedie = distribution for zero-heavy data.") +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}

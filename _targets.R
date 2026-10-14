@@ -378,6 +378,18 @@ list(
   tar_target(fig_gf_totals, save_fig(plot_gapfill_totals(gf_totals), "outputs/figures/GF_4_totals_reported_vs_filled.png", 10, 7),
              format = "file"),
 
+  # ---- Gap-filling v2: memory, neighbours, reporting effect, Tweedie --------
+  tar_target(nuts_points, c("data/external/nutspt_0.json", "data/external/nutspt_1.json",
+                            "data/external/nutspt_2.json", "data/external/nutspt_3.json"), format = "file"),
+  tar_target(region_pos, { nuts_points; region_positions(dplyr::distinct(lfm_L$rows, country, nuts_id)) }),
+  tar_target(region_pos_csv, tab(region_pos, "region_positions.csv"), format = "file"),
+  tar_target(v2_cv, gapfill_v2_cv(lfm_L, lfm_blocks, hm_group, h_best1$K, h_best1$lambda, h_best2$K, h_best2$lambda,
+                                  host_status, region_pos)),
+  tar_target(v2_pred, gapfill_v2_predict(v2_cv)),
+  tar_target(v2_scores, gapfill_v2_scores(v2_pred)),
+  tar_target(v2_scores_csv, tab(v2_scores, "GF_v2_extras_scores.csv"), format = "file"),
+  tar_target(fig_v2, save_fig(plot_gapfill_v2(v2_scores), "outputs/figures/GF_5_v2_extras.png", 11, 7.5), format = "file"),
+
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),
   tar_target(gl_pres_fits, gllvm_fit_set(gl_data, "presence")),
