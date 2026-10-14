@@ -1,0 +1,1177 @@
+species_a,species_b,group_a,group_b,verdict,r,n_countries_tested,skill,skill_beyond_year,helped_share,countries_tested,predictive
+CambXyl_con&BB_con&BO,CambXyl_con&BB_con&SM,borers on conifers,borers on conifers,no link,0.40042944557789645,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,CambXyl_con&BO,borers on conifers,borers on conifers,no link,-0.015700260870400468,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,CambXyl_con&MD,borers on conifers,borers on conifers,no link,-0.07276338550706798,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,Def_dec,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,Def_dec&DB,borers on conifers,defoliators on broadleaves,no link,0.15476225866383506,2,-0.167037866810261,0.0031649293508543286,0,"AT,DE",misleads
+CambXyl_con&BB_con&BO,agr_big,borers on conifers,borers on broadleaves,no link,-0.059048366597316694,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,agr_vir,borers on conifers,borers on broadleaves,no link,0.003370578998842854,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,bup_pin,borers on conifers,defoliators on conifers,no link,0.6177253516644907,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,cep_spp,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,clo_ana,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,den_mic,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,den_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,dip_sp,borers on conifers,defoliators on conifers,no link,0.011583588251076467,2,-0.08693626223619288,-0.023220982373311383,0,"AT,DE",misleads
+CambXyl_con&BB_con&BO,era_def,borers on conifers,defoliators on broadleaves,no link,-0.21755077437398868,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,geo_db,borers on conifers,defoliators on broadleaves,no link,0.0581314550260122,2,-0.16856802353154277,-0.009664922461188885,0,"DE,HR",misleads
+CambXyl_con&BB_con&BO,ips_acu,borers on conifers,borers on conifers,no link,-0.20007759886663357,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ips_ami,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ips_cem,borers on conifers,borers on conifers,no link,0.02424894799108295,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ips_dup,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ips_sex,borers on conifers,borers on conifers,no link,-0.2755842068346394,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ips_typ,borers on conifers,borers on conifers,weak,0.2566538490750496,3,0.04827092223713847,0.08046494151459826,0.6666666666666666,"AT,DE,HR",predicts a little
+CambXyl_con&BB_con&BO,lym_dis,borers on conifers,defoliators on broadleaves,weak,0.22208914189214224,3,0.047793673532262604,0.05250332597315599,1,"AT,DE,HR",predicts a little
+CambXyl_con&BB_con&BO,lym_mon,borers on conifers,defoliators on conifers,no link,0.7936260747343145,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,mel_spp,borers on conifers,defoliators on broadleaves,no link,0.3266384348023231,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,neo_ser,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,ope_spp,borers on conifers,defoliators on broadleaves,no link,-0.18464281038198482,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,pan_fla,borers on conifers,defoliators on conifers,no link,0.8048371230685313,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,pha_cya,borers on conifers,borers on conifers,weak,0.2739529177734577,2,0.06898937337016653,0.07898061699117676,1,"AT,DE",predicts well
+CambXyl_con&BB_con&BO,pis_pin,borers on conifers,borers on conifers,no link,0.4323093313081473,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,pit_bid,borers on conifers,borers on conifers,no link,-0.22156513687916324,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,pit_cha,borers on conifers,borers on conifers,no link,0.22251242611474137,2,0.022493052082709353,0.03698405162760188,0.5,"AT,DE",predicts a little
+CambXyl_con&BB_con&BO,pit_spp,borers on conifers,borers on conifers,no link,0.24899967534917553,3,-0.0249101944369039,0.028415754977456298,0.6666666666666666,"AT,DE,HR",no help
+CambXyl_con&BB_con&BO,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,pri_abi,borers on conifers,defoliators on conifers,no link,0.11332176360300306,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,sco_int,borers on conifers,borers on broadleaves,no link,0.3654961652028063,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,sco_rat,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,sco_sco,borers on conifers,borers on broadleaves,no link,0.2817473930476846,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,tet_gab,borers on conifers,borers on conifers,no link,0.07339287631937812,2,-3.697893373995065e-4,0.00431944829232267,0.5,"AT,DE",no help
+CambXyl_con&BB_con&BO,tet_spp,borers on conifers,borers on conifers,no link,0.1939588055413299,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,tha_pit,borers on conifers,defoliators on conifers,no link,-0.6217247719356802,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.10777719946167566,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,tom_spp,borers on conifers,borers on conifers,usable,0.5390441793261151,2,0.27424110318647876,0.2063142166234665,1,"AT,DE",predicts well
+CambXyl_con&BB_con&BO,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.07555506164483235,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,uro_sir_spp,borers on conifers,borers on conifers,no link,0.20163660776972783,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,xyl_lin,borers on conifers,borers on conifers,no link,-0.38622899102215574,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,xyl_spp,borers on conifers,borers on broadleaves,no link,0.018922301649942113,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&BO,zei_gri,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,CambXyl_con&BO,borers on conifers,borers on conifers,no link,0.21620744598922761,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,CambXyl_con&MD,borers on conifers,borers on conifers,no link,0.5425991896891499,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,Def_dec,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,Def_dec&DB,borers on conifers,defoliators on broadleaves,no link,0.44845796712858993,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,agr_big,borers on conifers,borers on broadleaves,no link,-0.31814835511866024,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,agr_vir,borers on conifers,borers on broadleaves,no link,0.24630907020242818,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,bup_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,cep_spp,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,clo_ana,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,den_mic,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,den_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,dip_sp,borers on conifers,defoliators on conifers,no link,-0.26143808090395076,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,era_def,borers on conifers,defoliators on broadleaves,no link,-0.24549439001010348,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,geo_db,borers on conifers,defoliators on broadleaves,no link,0.04182563996401112,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_acu,borers on conifers,borers on conifers,no link,-0.051170256560591244,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_ami,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_cem,borers on conifers,borers on conifers,no link,-0.5963053050449754,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_dup,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_sex,borers on conifers,borers on conifers,no link,-0.24389783284653566,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ips_typ,borers on conifers,borers on conifers,no link,-0.6208701363135091,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,lym_dis,borers on conifers,defoliators on broadleaves,no link,0.08992415101059414,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,lym_mon,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,mel_spp,borers on conifers,defoliators on broadleaves,no link,0.22253800186976816,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,neo_ser,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,ope_spp,borers on conifers,defoliators on broadleaves,no link,-0.15383990674347625,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pan_fla,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pha_cya,borers on conifers,borers on conifers,no link,-0.15684754186581196,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pis_pin,borers on conifers,borers on conifers,no link,-0.2679619886936452,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pit_bid,borers on conifers,borers on conifers,no link,-0.18611254646236183,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pit_cha,borers on conifers,borers on conifers,no link,-0.6155328156771573,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pit_spp,borers on conifers,borers on conifers,no link,-0.19485959984782372,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,pri_abi,borers on conifers,defoliators on conifers,no link,-0.3345684224604586,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,sco_int,borers on conifers,borers on broadleaves,no link,0.6154330250403487,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,sco_rat,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,sco_sco,borers on conifers,borers on broadleaves,no link,-0.2676943929006886,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tet_gab,borers on conifers,borers on conifers,no link,-0.41562211067990973,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tet_spp,borers on conifers,borers on conifers,no link,-0.13533920230271942,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.3129135890893612,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tom_spp,borers on conifers,borers on conifers,no link,0.12721567842373077,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.21414762490728567,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.18611254646236183,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,xyl_lin,borers on conifers,borers on conifers,no link,-0.34003444818021533,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,xyl_spp,borers on conifers,borers on broadleaves,no link,-0.3103685696707953,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BB_con&SM,zei_gri,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,CambXyl_con&MD,borers on conifers,borers on conifers,no link,0.4085899793736814,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,Def_dec,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,Def_dec&DB,borers on conifers,defoliators on broadleaves,no link,-0.14624997885919855,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,agr_big,borers on conifers,borers on broadleaves,no link,-0.48523093396203837,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,agr_vir,borers on conifers,borers on broadleaves,no link,-0.21028859099322655,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,bup_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,cep_spp,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,clo_ana,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,den_mic,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,den_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,dip_sp,borers on conifers,defoliators on conifers,no link,-0.2197696264453036,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,era_def,borers on conifers,defoliators on broadleaves,no link,-0.17031205440760822,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,geo_db,borers on conifers,defoliators on broadleaves,no link,0.07504624600914299,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_acu,borers on conifers,borers on conifers,no link,-0.14309502033855018,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_ami,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_cem,borers on conifers,borers on conifers,no link,0.0690729314005082,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_dup,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_sex,borers on conifers,borers on conifers,no link,-0.16923579078471165,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ips_typ,borers on conifers,borers on conifers,no link,0.18233600948312736,2,0.025914129582404133,0.0011182351332953422,1,"DE,SI",predicts a little
+CambXyl_con&BO,lym_dis,borers on conifers,defoliators on broadleaves,no link,-0.22368969366303829,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,lym_mon,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,mel_spp,borers on conifers,defoliators on broadleaves,no link,-0.0670962167597237,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,neo_ser,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,ope_spp,borers on conifers,defoliators on broadleaves,no link,-0.19373954305906851,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pan_fla,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pha_cya,borers on conifers,borers on conifers,no link,-0.2775604572294517,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pis_pin,borers on conifers,borers on conifers,no link,-0.1818665055313,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pit_bid,borers on conifers,borers on conifers,no link,-0.126315074110525,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pit_cha,borers on conifers,borers on conifers,no link,0.19946240844398355,2,-0.013103845499165212,-3.4968010456837284e-4,0.5,"DE,SI",no help
+CambXyl_con&BO,pit_spp,borers on conifers,borers on conifers,no link,0.34232828647433744,2,0.09560601601198648,0.004617719579596891,1,"DE,SI",predicts well
+CambXyl_con&BO,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,pri_abi,borers on conifers,defoliators on conifers,no link,-0.22707246707132053,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,sco_int,borers on conifers,borers on broadleaves,no link,0.4226891249451951,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,sco_rat,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,sco_sco,borers on conifers,borers on broadleaves,no link,-0.18168488756377726,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tet_gab,borers on conifers,borers on conifers,no link,-0.15084846095658896,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tet_spp,borers on conifers,borers on conifers,no link,-0.06629566544783358,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.2753810185803453,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tom_spp,borers on conifers,borers on conifers,no link,-0.2999851652308982,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.11718395903150548,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.126315074110525,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,xyl_lin,borers on conifers,borers on conifers,no link,0.36282935360827007,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,xyl_spp,borers on conifers,borers on broadleaves,no link,0.25422927671137563,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&BO,zei_gri,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,Def_dec,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,Def_dec&DB,borers on conifers,defoliators on broadleaves,no link,-0.03172351110377995,2,-0.06466894807226975,5.564541358936692e-4,0,"CZ,DE",misleads
+CambXyl_con&MD,agr_big,borers on conifers,borers on broadleaves,no link,-0.5679302367098098,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,agr_vir,borers on conifers,borers on broadleaves,no link,0.23955636739227198,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,bup_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,cep_spp,borers on conifers,defoliators on conifers,no link,-0.08729467552807127,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,clo_ana,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,den_mic,borers on conifers,borers on conifers,no link,-0.019165484321685695,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,den_pin,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,dip_sp,borers on conifers,defoliators on conifers,no link,-0.15203047166365852,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,era_def,borers on conifers,defoliators on broadleaves,no link,-0.41447166147635073,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,geo_db,borers on conifers,defoliators on broadleaves,no link,0.2470975298187842,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,ips_acu,borers on conifers,borers on conifers,unreliable,0.39856366387056996,2,-0.3772667416951101,-0.004113110910792361,0,"CZ,DE",misleads
+CambXyl_con&MD,ips_ami,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,ips_cem,borers on conifers,borers on conifers,no link,-0.5080285918640388,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,ips_dup,borers on conifers,borers on conifers,promising,0.32381019760645086,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,ips_sex,borers on conifers,borers on conifers,weak,0.2621792154650376,2,-0.44489030549509145,-0.0020390325276864463,0,"CZ,DE",misleads
+CambXyl_con&MD,ips_typ,borers on conifers,borers on conifers,unreliable,0.3074949946386806,2,-0.4023105921416672,5.25494010646721e-4,0,"CZ,DE",misleads
+CambXyl_con&MD,lym_dis,borers on conifers,defoliators on broadleaves,no link,-0.06913806778621184,2,-0.024929063962856768,-0.0038473201676367808,0.5,"CZ,DE",no help
+CambXyl_con&MD,lym_mon,borers on conifers,defoliators on conifers,no link,-7.701405872143058e-4,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,mel_spp,borers on conifers,defoliators on broadleaves,no link,-0.37181353861969174,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,neo_ser,borers on conifers,defoliators on conifers,no link,-0.1385423290230635,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,ope_spp,borers on conifers,defoliators on broadleaves,no link,-0.27135129003727565,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pan_fla,borers on conifers,defoliators on conifers,no link,0.23224287580754416,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pha_cya,borers on conifers,borers on conifers,weak,0.25558267964124454,2,-0.6284492775091275,-0.001796631701675544,0,"CZ,DE",misleads
+CambXyl_con&MD,pis_pin,borers on conifers,borers on conifers,no link,-0.4132447049303443,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pit_bid,borers on conifers,borers on conifers,no link,-0.287018411535239,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pit_cha,borers on conifers,borers on conifers,no link,-0.43752968401052406,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pit_spp,borers on conifers,borers on conifers,unreliable,0.3868752957230249,2,0.006535783489591718,-0.0011729047298292272,0.5,"CZ,DE",predicts a little
+CambXyl_con&MD,pol_pol,borers on conifers,borers on conifers,no link,0.2217338760347831,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,pri_abi,borers on conifers,defoliators on conifers,weak,-0.24169837052052556,2,-0.029084353384305928,-5.82122954120301e-5,0.5,"CZ,DE",no help
+CambXyl_con&MD,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,sco_int,borers on conifers,borers on broadleaves,usable,0.33711950666930385,2,0.11330773699240371,0.008144402519918992,1,"CZ,DE",predicts well
+CambXyl_con&MD,sco_rat,borers on conifers,borers on broadleaves,promising,0.3842897970706356,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,sco_sco,borers on conifers,borers on broadleaves,no link,-0.41283202496390564,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,tet_gab,borers on conifers,borers on conifers,no link,-0.28844313453319853,2,-0.12133007815709007,5.988473111022685e-4,0.5,"CZ,DE",misleads
+CambXyl_con&MD,tet_spp,borers on conifers,borers on conifers,no link,-0.3141758054767339,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.6669559593540159,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,tom_spp,borers on conifers,borers on conifers,weak,0.2396955642856203,2,-0.735853479447474,-0.00101789631539706,0,"CZ,DE",misleads
+CambXyl_con&MD,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.1878748028105495,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.287018411535239,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,xyl_lin,borers on conifers,borers on conifers,no link,0.4395034611066269,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,xyl_spp,borers on conifers,borers on broadleaves,no link,0.3834003930964955,NA,NA,NA,NA,NA,cannot test
+CambXyl_con&MD,zei_gri,borers on conifers,defoliators on conifers,no link,-0.0335578961466258,NA,NA,NA,NA,NA,cannot test
+Def_dec,Def_dec&DB,defoliators on broadleaves,defoliators on broadleaves,no link,0.005859444997207841,NA,NA,NA,NA,NA,cannot test
+Def_dec,agr_big,defoliators on broadleaves,borers on broadleaves,no link,0.041005586539887035,NA,NA,NA,NA,NA,cannot test
+Def_dec,agr_vir,defoliators on broadleaves,borers on broadleaves,no link,-0.06411037315974936,NA,NA,NA,NA,NA,cannot test
+Def_dec,bup_pin,defoliators on broadleaves,defoliators on conifers,no link,-0.002263108920180249,NA,NA,NA,NA,NA,cannot test
+Def_dec,cep_spp,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,clo_ana,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,den_mic,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,den_pin,defoliators on broadleaves,defoliators on conifers,no link,-0.08850993486026422,NA,NA,NA,NA,NA,cannot test
+Def_dec,dip_sp,defoliators on broadleaves,defoliators on conifers,no link,-0.15123501397980835,NA,NA,NA,NA,NA,cannot test
+Def_dec,era_def,defoliators on broadleaves,defoliators on broadleaves,no link,-0.04545454545454545,NA,NA,NA,NA,NA,cannot test
+Def_dec,geo_db,defoliators on broadleaves,defoliators on broadleaves,no link,0.1840790011792562,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_acu,defoliators on broadleaves,borers on conifers,no link,-0.05066524086339646,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_ami,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_cem,defoliators on broadleaves,borers on conifers,no link,-0.19007771378048055,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_dup,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_sex,defoliators on broadleaves,borers on conifers,no link,-0.05989375640280196,NA,NA,NA,NA,NA,cannot test
+Def_dec,ips_typ,defoliators on broadleaves,borers on conifers,no link,0.06621435755806492,NA,NA,NA,NA,NA,cannot test
+Def_dec,lym_dis,defoliators on broadleaves,defoliators on broadleaves,no link,-0.1584249882659077,NA,NA,NA,NA,NA,cannot test
+Def_dec,lym_mon,defoliators on broadleaves,defoliators on conifers,no link,-0.05536062331372908,NA,NA,NA,NA,NA,cannot test
+Def_dec,mel_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.1150527484178654,NA,NA,NA,NA,NA,cannot test
+Def_dec,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,-0.17030598012606962,NA,NA,NA,NA,NA,cannot test
+Def_dec,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.0991952608416622,NA,NA,NA,NA,NA,cannot test
+Def_dec,pan_fla,defoliators on broadleaves,defoliators on conifers,no link,0.4349557387080115,NA,NA,NA,NA,NA,cannot test
+Def_dec,pha_cya,defoliators on broadleaves,borers on conifers,no link,0.014916770907577396,NA,NA,NA,NA,NA,cannot test
+Def_dec,pis_pin,defoliators on broadleaves,borers on conifers,no link,0.047935607440218034,NA,NA,NA,NA,NA,cannot test
+Def_dec,pit_bid,defoliators on broadleaves,borers on conifers,no link,-0.0031573234898099527,NA,NA,NA,NA,NA,cannot test
+Def_dec,pit_cha,defoliators on broadleaves,borers on conifers,no link,-0.08651135198533992,NA,NA,NA,NA,NA,cannot test
+Def_dec,pit_spp,defoliators on broadleaves,borers on conifers,no link,-0.06473165280672023,NA,NA,NA,NA,NA,cannot test
+Def_dec,pol_pol,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,pri_abi,defoliators on broadleaves,defoliators on conifers,no link,0.034752146176104705,NA,NA,NA,NA,NA,cannot test
+Def_dec,sap_car,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,sco_int,defoliators on broadleaves,borers on broadleaves,no link,0.0391640041483102,NA,NA,NA,NA,NA,cannot test
+Def_dec,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,0.16704155744010196,NA,NA,NA,NA,NA,cannot test
+Def_dec,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,-0.09494059709301478,NA,NA,NA,NA,NA,cannot test
+Def_dec,tet_gab,defoliators on broadleaves,borers on conifers,no link,-0.05760786018903338,NA,NA,NA,NA,NA,cannot test
+Def_dec,tet_spp,defoliators on broadleaves,borers on conifers,no link,-0.20132639388006474,NA,NA,NA,NA,NA,cannot test
+Def_dec,tha_pit,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec,tha_pro,defoliators on broadleaves,defoliators on broadleaves,no link,0.024091422145301643,NA,NA,NA,NA,NA,cannot test
+Def_dec,tom_spp,defoliators on broadleaves,borers on conifers,no link,-0.2917135929147534,NA,NA,NA,NA,NA,cannot test
+Def_dec,tor_vir,defoliators on broadleaves,defoliators on broadleaves,no link,-0.009021902171087948,NA,NA,NA,NA,NA,cannot test
+Def_dec,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,-0.1125868223752524,NA,NA,NA,NA,NA,cannot test
+Def_dec,xyl_lin,defoliators on broadleaves,borers on conifers,no link,-0.15882600672809638,NA,NA,NA,NA,NA,cannot test
+Def_dec,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,-0.04790893656529612,NA,NA,NA,NA,NA,cannot test
+Def_dec,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,-0.09766853508096923,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,agr_big,defoliators on broadleaves,borers on broadleaves,weak,0.19581356008786657,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,agr_vir,defoliators on broadleaves,borers on broadleaves,no link,0.160435637316341,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,bup_pin,defoliators on broadleaves,defoliators on conifers,no link,0.2651966072469017,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,cep_spp,defoliators on broadleaves,defoliators on conifers,no link,0.0623217714086977,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,clo_ana,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,den_mic,defoliators on broadleaves,borers on conifers,no link,0.44936409809977634,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,den_pin,defoliators on broadleaves,defoliators on conifers,no link,-0.10327541499752042,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,dip_sp,defoliators on broadleaves,defoliators on conifers,no link,0.16396749339264585,2,-0.0755378694409945,0.01310578900455639,0.5,"AT,DE",misleads
+Def_dec&DB,era_def,defoliators on broadleaves,defoliators on broadleaves,promising,-0.4011728810889084,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,geo_db,defoliators on broadleaves,defoliators on broadleaves,weak,-0.276865879437037,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,ips_acu,defoliators on broadleaves,borers on conifers,no link,0.04818574082146784,2,-0.03478082384209635,-0.0518447704076308,0,"CZ,DE",no help
+Def_dec&DB,ips_ami,defoliators on broadleaves,borers on conifers,no link,-0.1482438477178945,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,ips_cem,defoliators on broadleaves,borers on conifers,no link,0.14678734690646594,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,ips_dup,defoliators on broadleaves,borers on conifers,weak,-0.25020303855968506,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,ips_sex,defoliators on broadleaves,borers on conifers,no link,4.4870607188378695e-4,2,-9.347655338223237e-4,-0.02123394359069608,0,"CZ,DE",no help
+Def_dec&DB,ips_typ,defoliators on broadleaves,borers on conifers,no link,-0.08836681490827927,3,-0.03545057797257001,0.0028751540577365287,0.3333333333333333,"AT,CZ,DE",no help
+Def_dec&DB,lym_dis,defoliators on broadleaves,defoliators on broadleaves,weak,0.17696083288010994,3,-0.02125859657727469,0.004928411261771126,0.6666666666666666,"AT,CZ,DE",no help
+Def_dec&DB,lym_mon,defoliators on broadleaves,defoliators on conifers,no link,0.14194234738112996,2,0.018908544351915912,-0.018900040467431545,1,"CZ,DE",predicts a little
+Def_dec&DB,mel_spp,defoliators on broadleaves,defoliators on broadleaves,no link,0.08193908555152642,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,0.05722014899959021,2,-0.08732009855955081,0.0015298280807236608,0,"CZ,DE",misleads
+Def_dec&DB,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.10950511630780273,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,pan_fla,defoliators on broadleaves,defoliators on conifers,no link,0.28042437011146454,2,0.07572128714212634,-0.0043415543024118985,1,"CZ,DE",predicts well
+Def_dec&DB,pha_cya,defoliators on broadleaves,borers on conifers,no link,0.09601879435748371,3,-0.01317946778992174,-0.007538310968875805,0.6666666666666666,"AT,CZ,DE",no help
+Def_dec&DB,pis_pin,defoliators on broadleaves,borers on conifers,no link,0.2510610297675176,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,pit_bid,defoliators on broadleaves,borers on conifers,no link,-0.0435202252672427,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,pit_cha,defoliators on broadleaves,borers on conifers,no link,0.07875534760857462,2,-0.012990248378568658,-0.030743673807698713,0,"AT,DE",no help
+Def_dec&DB,pit_spp,defoliators on broadleaves,borers on conifers,weak,-0.15589839616354878,3,0.021113333774384624,-0.0027009391674170935,1,"AT,CZ,DE",predicts a little
+Def_dec&DB,pol_pol,defoliators on broadleaves,borers on conifers,no link,-0.028681736429911037,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,pri_abi,defoliators on broadleaves,defoliators on conifers,weak,0.21947170134934643,2,-0.09607131494521903,-0.0014085987825540602,0,"CZ,DE",misleads
+Def_dec&DB,sap_car,defoliators on broadleaves,borers on broadleaves,no link,0.3990765396574864,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,sco_int,defoliators on broadleaves,borers on broadleaves,no link,0.006714383265588024,2,-0.007936908081083827,8.03188563123558e-4,0,"CZ,DE",no help
+Def_dec&DB,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,-0.06150605990333788,2,0.0030538968138671407,-0.05698833988274021,1,"CZ,DE",predicts a little
+Def_dec&DB,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,0.017143124488312525,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,tet_gab,defoliators on broadleaves,borers on conifers,no link,0.05257446473063327,3,-0.004606019715896359,-0.003184792679207238,0.6666666666666666,"AT,CZ,DE",no help
+Def_dec&DB,tet_spp,defoliators on broadleaves,borers on conifers,no link,0.15548884580632624,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,tha_pit,defoliators on broadleaves,defoliators on conifers,no link,0.4899013852018552,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,tha_pro,defoliators on broadleaves,defoliators on broadleaves,weak,0.1639678493720578,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,tom_spp,defoliators on broadleaves,borers on conifers,no link,0.05980389685733547,3,-0.020652296368502077,-0.01153300466355045,0,"AT,CZ,DE",no help
+Def_dec&DB,tor_vir,defoliators on broadleaves,defoliators on broadleaves,promising,-0.38151204577929937,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,0.08141405594730934,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,xyl_lin,defoliators on broadleaves,borers on conifers,no link,-0.09314944036378515,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,0.13987329415948246,NA,NA,NA,NA,NA,cannot test
+Def_dec&DB,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,-0.09056968796497658,2,0.00814424721620699,-0.00776174315917344,1,"CZ,DE",predicts a little
+agr_big,agr_vir,borers on broadleaves,borers on broadleaves,promising,0.4023832540310443,NA,NA,NA,NA,NA,cannot test
+agr_big,bup_pin,borers on broadleaves,defoliators on conifers,weak,0.23914367957071236,2,-0.0791131894099597,0.021626414071978295,0,"DE,PL",misleads
+agr_big,cep_spp,borers on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_big,clo_ana,borers on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_big,den_mic,borers on broadleaves,borers on conifers,no link,0.24910932455580456,NA,NA,NA,NA,NA,cannot test
+agr_big,den_pin,borers on broadleaves,defoliators on conifers,weak,0.17634488713423768,2,0.017181274550358894,0.013540494502659373,0.5,"DE,PL",predicts a little
+agr_big,dip_sp,borers on broadleaves,defoliators on conifers,weak,0.19068414044471008,2,0.03619500509065354,0.013488347207750273,1,"DE,PL",predicts a little
+agr_big,era_def,borers on broadleaves,defoliators on broadleaves,no link,0.016872835582134572,NA,NA,NA,NA,NA,cannot test
+agr_big,geo_db,borers on broadleaves,defoliators on broadleaves,no link,0.06485766920984902,2,-0.09649864690571297,-0.05384471285005432,0,"DE,PL",misleads
+agr_big,ips_acu,borers on broadleaves,borers on conifers,no link,-0.08324653033002702,2,-0.5237582399680465,-0.3035592954465429,0,"DE,PL",misleads
+agr_big,ips_ami,borers on broadleaves,borers on conifers,no link,0.3081380685253343,NA,NA,NA,NA,NA,cannot test
+agr_big,ips_cem,borers on broadleaves,borers on conifers,promising,0.3015366518934127,NA,NA,NA,NA,NA,cannot test
+agr_big,ips_dup,borers on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_big,ips_sex,borers on broadleaves,borers on conifers,promising,0.3202276000503943,NA,NA,NA,NA,NA,cannot test
+agr_big,ips_typ,borers on broadleaves,borers on conifers,weak,0.21841834072505428,2,0.028544586949399764,0.043366109516934315,0.5,"DE,PL",predicts a little
+agr_big,lym_dis,borers on broadleaves,defoliators on broadleaves,no link,0.1718260569772289,NA,NA,NA,NA,NA,cannot test
+agr_big,lym_mon,borers on broadleaves,defoliators on conifers,no link,0.03586357942828582,2,-0.02346178791316067,-0.015971665220256837,0,"DE,PL",no help
+agr_big,mel_spp,borers on broadleaves,defoliators on broadleaves,weak,0.14844897898179013,2,0.013166047799677338,0.016444544644776515,0.5,"DE,PL",predicts a little
+agr_big,neo_ser,borers on broadleaves,defoliators on conifers,no link,0.15933046984177585,NA,NA,NA,NA,NA,cannot test
+agr_big,ope_spp,borers on broadleaves,defoliators on broadleaves,no link,0.027201630958977815,NA,NA,NA,NA,NA,cannot test
+agr_big,pan_fla,borers on broadleaves,defoliators on conifers,no link,0.028126834762366708,2,-0.028749618627017526,8.741179906601726e-5,0,"DE,PL",no help
+agr_big,pha_cya,borers on broadleaves,borers on conifers,usable,0.3929146419422751,2,0.1542983380406442,0.12182985473693808,1,"DE,PL",predicts well
+agr_big,pis_pin,borers on broadleaves,borers on conifers,promising,0.4044548598037905,NA,NA,NA,NA,NA,cannot test
+agr_big,pit_bid,borers on broadleaves,borers on conifers,promising,0.3062203632781392,NA,NA,NA,NA,NA,cannot test
+agr_big,pit_cha,borers on broadleaves,borers on conifers,weak,0.24553837228852635,NA,NA,NA,NA,NA,cannot test
+agr_big,pit_spp,borers on broadleaves,borers on conifers,no link,-0.004985416969537053,NA,NA,NA,NA,NA,cannot test
+agr_big,pol_pol,borers on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_big,pri_abi,borers on broadleaves,defoliators on conifers,no link,-0.116906913128948,NA,NA,NA,NA,NA,cannot test
+agr_big,sap_car,borers on broadleaves,borers on broadleaves,no link,0.25395933013360983,NA,NA,NA,NA,NA,cannot test
+agr_big,sco_int,borers on broadleaves,borers on broadleaves,promising,0.3583582539819958,NA,NA,NA,NA,NA,cannot test
+agr_big,sco_rat,borers on broadleaves,borers on broadleaves,no link,0.6533638926742446,NA,NA,NA,NA,NA,cannot test
+agr_big,sco_sco,borers on broadleaves,borers on broadleaves,no link,0.25211305451952576,NA,NA,NA,NA,NA,cannot test
+agr_big,tet_gab,borers on broadleaves,borers on conifers,weak,0.28818159823377065,NA,NA,NA,NA,NA,cannot test
+agr_big,tet_spp,borers on broadleaves,borers on conifers,no link,0.061878490187534836,NA,NA,NA,NA,NA,cannot test
+agr_big,tha_pit,borers on broadleaves,defoliators on conifers,no link,0.22386911130466447,NA,NA,NA,NA,NA,cannot test
+agr_big,tha_pro,borers on broadleaves,defoliators on broadleaves,no link,0.0620513058985319,NA,NA,NA,NA,NA,cannot test
+agr_big,tom_spp,borers on broadleaves,borers on conifers,usable,0.33320232030004104,2,0.08227143189172936,0.08152028898311314,1,"DE,PL",predicts well
+agr_big,tor_vir,borers on broadleaves,defoliators on broadleaves,weak,0.16928675351966008,2,-0.0029996075194973493,0.010212904555407243,0.5,"DE,PL",no help
+agr_big,uro_sir_spp,borers on broadleaves,borers on conifers,no link,0.22612088080254372,NA,NA,NA,NA,NA,cannot test
+agr_big,xyl_lin,borers on broadleaves,borers on conifers,no link,0.0606327788079029,NA,NA,NA,NA,NA,cannot test
+agr_big,xyl_spp,borers on broadleaves,borers on broadleaves,no link,0.09401765810216339,NA,NA,NA,NA,NA,cannot test
+agr_big,zei_gri,borers on broadleaves,defoliators on conifers,no link,0.006149642809086199,NA,NA,NA,NA,NA,cannot test
+agr_vir,bup_pin,borers on broadleaves,defoliators on conifers,no link,-0.15322996158086244,NA,NA,NA,NA,NA,cannot test
+agr_vir,cep_spp,borers on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_vir,clo_ana,borers on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_vir,den_mic,borers on broadleaves,borers on conifers,no link,0.7693546402599964,NA,NA,NA,NA,NA,cannot test
+agr_vir,den_pin,borers on broadleaves,defoliators on conifers,no link,-0.11679159435643065,NA,NA,NA,NA,NA,cannot test
+agr_vir,dip_sp,borers on broadleaves,defoliators on conifers,no link,-0.023275853826580244,NA,NA,NA,NA,NA,cannot test
+agr_vir,era_def,borers on broadleaves,defoliators on broadleaves,no link,0.09436195187295861,NA,NA,NA,NA,NA,cannot test
+agr_vir,geo_db,borers on broadleaves,defoliators on broadleaves,weak,-0.17486371436479012,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_acu,borers on broadleaves,borers on conifers,promising,0.4701470767696961,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_ami,borers on broadleaves,borers on conifers,no link,-0.06261931301983985,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_cem,borers on broadleaves,borers on conifers,weak,0.2848920006194881,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_dup,borers on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_sex,borers on broadleaves,borers on conifers,weak,0.25127795465337566,NA,NA,NA,NA,NA,cannot test
+agr_vir,ips_typ,borers on broadleaves,borers on conifers,weak,0.29213200593072136,NA,NA,NA,NA,NA,cannot test
+agr_vir,lym_dis,borers on broadleaves,defoliators on broadleaves,promising,0.36464002527305583,NA,NA,NA,NA,NA,cannot test
+agr_vir,lym_mon,borers on broadleaves,defoliators on conifers,weak,-0.17507862178476968,NA,NA,NA,NA,NA,cannot test
+agr_vir,mel_spp,borers on broadleaves,defoliators on broadleaves,no link,0.11997315562944859,NA,NA,NA,NA,NA,cannot test
+agr_vir,neo_ser,borers on broadleaves,defoliators on conifers,no link,0.24284748902538117,NA,NA,NA,NA,NA,cannot test
+agr_vir,ope_spp,borers on broadleaves,defoliators on broadleaves,no link,0.0646994334318808,NA,NA,NA,NA,NA,cannot test
+agr_vir,pan_fla,borers on broadleaves,defoliators on conifers,no link,-0.1259169781486554,NA,NA,NA,NA,NA,cannot test
+agr_vir,pha_cya,borers on broadleaves,borers on conifers,promising,0.40813548237545116,NA,NA,NA,NA,NA,cannot test
+agr_vir,pis_pin,borers on broadleaves,borers on conifers,no link,0.1481390221526748,NA,NA,NA,NA,NA,cannot test
+agr_vir,pit_bid,borers on broadleaves,borers on conifers,no link,0.4054515066097496,NA,NA,NA,NA,NA,cannot test
+agr_vir,pit_cha,borers on broadleaves,borers on conifers,weak,0.17793386462787442,NA,NA,NA,NA,NA,cannot test
+agr_vir,pit_spp,borers on broadleaves,borers on conifers,no link,0.08617441261279489,NA,NA,NA,NA,NA,cannot test
+agr_vir,pol_pol,borers on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+agr_vir,pri_abi,borers on broadleaves,defoliators on conifers,weak,-0.21430461722681685,NA,NA,NA,NA,NA,cannot test
+agr_vir,sap_car,borers on broadleaves,borers on broadleaves,no link,0.47273607767830916,NA,NA,NA,NA,NA,cannot test
+agr_vir,sco_int,borers on broadleaves,borers on broadleaves,no link,0.2533880052668425,NA,NA,NA,NA,NA,cannot test
+agr_vir,sco_rat,borers on broadleaves,borers on broadleaves,no link,0.44660997739058744,NA,NA,NA,NA,NA,cannot test
+agr_vir,sco_sco,borers on broadleaves,borers on broadleaves,no link,0.009041036574031498,NA,NA,NA,NA,NA,cannot test
+agr_vir,tet_gab,borers on broadleaves,borers on conifers,no link,0.20557875517291666,NA,NA,NA,NA,NA,cannot test
+agr_vir,tet_spp,borers on broadleaves,borers on conifers,no link,0.08333191916871574,NA,NA,NA,NA,NA,cannot test
+agr_vir,tha_pit,borers on broadleaves,defoliators on conifers,no link,0.4819421532933191,NA,NA,NA,NA,NA,cannot test
+agr_vir,tha_pro,borers on broadleaves,defoliators on broadleaves,weak,0.22867607226968842,NA,NA,NA,NA,NA,cannot test
+agr_vir,tom_spp,borers on broadleaves,borers on conifers,no link,0.17343652188604344,NA,NA,NA,NA,NA,cannot test
+agr_vir,tor_vir,borers on broadleaves,defoliators on broadleaves,no link,-0.023473080572688366,NA,NA,NA,NA,NA,cannot test
+agr_vir,uro_sir_spp,borers on broadleaves,borers on conifers,no link,0.12944890142742785,NA,NA,NA,NA,NA,cannot test
+agr_vir,xyl_lin,borers on broadleaves,borers on conifers,no link,-0.1922649887915832,NA,NA,NA,NA,NA,cannot test
+agr_vir,xyl_spp,borers on broadleaves,borers on broadleaves,weak,-0.1170737818533673,NA,NA,NA,NA,NA,cannot test
+agr_vir,zei_gri,borers on broadleaves,defoliators on conifers,no link,-0.13775445706015418,NA,NA,NA,NA,NA,cannot test
+bup_pin,cep_spp,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+bup_pin,clo_ana,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+bup_pin,den_mic,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+bup_pin,den_pin,defoliators on conifers,defoliators on conifers,usable,0.36819042668057694,2,0.12784523225576705,0.04741317765505604,1,"DE,PL",predicts well
+bup_pin,dip_sp,defoliators on conifers,defoliators on conifers,usable,0.31976033256971936,2,0.10138256332075402,0.043805955218690684,1,"DE,PL",predicts well
+bup_pin,era_def,defoliators on conifers,defoliators on broadleaves,no link,-0.06018925444776836,NA,NA,NA,NA,NA,cannot test
+bup_pin,geo_db,defoliators on conifers,defoliators on broadleaves,weak,0.1837680358682625,2,-0.03488169488452986,0.017542169801895047,0,"DE,PL",no help
+bup_pin,ips_acu,defoliators on conifers,borers on conifers,weak,-0.2346991825263723,2,-0.08621986007016824,-0.041056315542914446,0,"DE,PL",misleads
+bup_pin,ips_ami,defoliators on conifers,borers on conifers,no link,0.2325004055948246,NA,NA,NA,NA,NA,cannot test
+bup_pin,ips_cem,defoliators on conifers,borers on conifers,no link,0.2035466331704299,NA,NA,NA,NA,NA,cannot test
+bup_pin,ips_dup,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+bup_pin,ips_sex,defoliators on conifers,borers on conifers,weak,0.25145974022469053,NA,NA,NA,NA,NA,cannot test
+bup_pin,ips_typ,defoliators on conifers,borers on conifers,no link,0.08722043139296448,2,-0.03212098169980604,-0.01750392539476553,0,"DE,PL",no help
+bup_pin,lym_dis,defoliators on conifers,defoliators on broadleaves,no link,0.19149794648436289,NA,NA,NA,NA,NA,cannot test
+bup_pin,lym_mon,defoliators on conifers,defoliators on conifers,usable,0.3136177982309187,2,0.09470324311664147,0.028815714706963425,1,"DE,PL",predicts well
+bup_pin,mel_spp,defoliators on conifers,defoliators on broadleaves,weak,0.22899176132458166,2,0.05048770274931247,0.02875196949393377,1,"DE,PL",predicts well
+bup_pin,neo_ser,defoliators on conifers,defoliators on conifers,no link,-0.1060048844379545,NA,NA,NA,NA,NA,cannot test
+bup_pin,ope_spp,defoliators on conifers,defoliators on broadleaves,no link,0.2109041046958048,NA,NA,NA,NA,NA,cannot test
+bup_pin,pan_fla,defoliators on conifers,defoliators on conifers,usable,0.37370528267476955,2,0.09339377978947483,0.09529654409698496,1,"DE,PL",predicts well
+bup_pin,pha_cya,defoliators on conifers,borers on conifers,weak,0.24656345209279046,2,0.05685603004409934,0.004582374943643663,1,"DE,PL",predicts well
+bup_pin,pis_pin,defoliators on conifers,borers on conifers,no link,0.2748315377423307,NA,NA,NA,NA,NA,cannot test
+bup_pin,pit_bid,defoliators on conifers,borers on conifers,no link,0.11893758063975918,NA,NA,NA,NA,NA,cannot test
+bup_pin,pit_cha,defoliators on conifers,borers on conifers,weak,0.2882006577656623,NA,NA,NA,NA,NA,cannot test
+bup_pin,pit_spp,defoliators on conifers,borers on conifers,no link,-0.10279297904618881,NA,NA,NA,NA,NA,cannot test
+bup_pin,pol_pol,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+bup_pin,pri_abi,defoliators on conifers,defoliators on conifers,no link,0.11207858376349693,NA,NA,NA,NA,NA,cannot test
+bup_pin,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.23988087104031094,NA,NA,NA,NA,NA,cannot test
+bup_pin,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.09181098423318342,NA,NA,NA,NA,NA,cannot test
+bup_pin,sco_rat,defoliators on conifers,borers on broadleaves,no link,-0.058508791031153064,NA,NA,NA,NA,NA,cannot test
+bup_pin,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.11569773106173332,NA,NA,NA,NA,NA,cannot test
+bup_pin,tet_gab,defoliators on conifers,borers on conifers,promising,0.3561664914978123,NA,NA,NA,NA,NA,cannot test
+bup_pin,tet_spp,defoliators on conifers,borers on conifers,no link,0.18382826153365703,NA,NA,NA,NA,NA,cannot test
+bup_pin,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.6439950439766439,NA,NA,NA,NA,NA,cannot test
+bup_pin,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,0.06135750591113279,NA,NA,NA,NA,NA,cannot test
+bup_pin,tom_spp,defoliators on conifers,borers on conifers,weak,0.2763126195280879,2,0.06860983816946908,-0.008952449114107086,1,"DE,PL",predicts well
+bup_pin,tor_vir,defoliators on conifers,defoliators on broadleaves,weak,0.16669179263283912,2,0.025354586570546345,0.0019211461546800868,1,"DE,PL",predicts a little
+bup_pin,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.03649087514490206,NA,NA,NA,NA,NA,cannot test
+bup_pin,xyl_lin,defoliators on conifers,borers on conifers,weak,0.29680306723036703,NA,NA,NA,NA,NA,cannot test
+bup_pin,xyl_spp,defoliators on conifers,borers on broadleaves,weak,0.28698121489114825,NA,NA,NA,NA,NA,cannot test
+bup_pin,zei_gri,defoliators on conifers,defoliators on conifers,no link,0.05686098573937332,NA,NA,NA,NA,NA,cannot test
+cep_spp,clo_ana,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,den_mic,defoliators on conifers,borers on conifers,no link,-0.10852937104017223,NA,NA,NA,NA,NA,cannot test
+cep_spp,den_pin,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,dip_sp,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,era_def,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,geo_db,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_acu,defoliators on conifers,borers on conifers,no link,-0.1323541372395329,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_ami,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_cem,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_dup,defoliators on conifers,borers on conifers,weak,-0.26750068839798585,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_sex,defoliators on conifers,borers on conifers,no link,-0.18201932465111778,NA,NA,NA,NA,NA,cannot test
+cep_spp,ips_typ,defoliators on conifers,borers on conifers,promising,-0.3086505720179531,NA,NA,NA,NA,NA,cannot test
+cep_spp,lym_dis,defoliators on conifers,defoliators on broadleaves,no link,-0.048900388515316244,NA,NA,NA,NA,NA,cannot test
+cep_spp,lym_mon,defoliators on conifers,defoliators on conifers,no link,0.14391281355955865,NA,NA,NA,NA,NA,cannot test
+cep_spp,mel_spp,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,neo_ser,defoliators on conifers,defoliators on conifers,no link,-0.05881882010846213,NA,NA,NA,NA,NA,cannot test
+cep_spp,ope_spp,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,pan_fla,defoliators on conifers,defoliators on conifers,no link,-0.2632700447611223,NA,NA,NA,NA,NA,cannot test
+cep_spp,pha_cya,defoliators on conifers,borers on conifers,no link,-0.08165632095752541,NA,NA,NA,NA,NA,cannot test
+cep_spp,pis_pin,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,pit_bid,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,pit_cha,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,pit_spp,defoliators on conifers,borers on conifers,promising,-0.30151873422441144,NA,NA,NA,NA,NA,cannot test
+cep_spp,pol_pol,defoliators on conifers,borers on conifers,no link,0.01702239275412908,NA,NA,NA,NA,NA,cannot test
+cep_spp,pri_abi,defoliators on conifers,defoliators on conifers,promising,0.4241814920248439,NA,NA,NA,NA,NA,cannot test
+cep_spp,sap_car,defoliators on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.13321963715066498,NA,NA,NA,NA,NA,cannot test
+cep_spp,sco_rat,defoliators on conifers,borers on broadleaves,weak,-0.2803473165745918,NA,NA,NA,NA,NA,cannot test
+cep_spp,sco_sco,defoliators on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,tet_gab,defoliators on conifers,borers on conifers,no link,0.30764492106557895,NA,NA,NA,NA,NA,cannot test
+cep_spp,tet_spp,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,tha_pit,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,tha_pro,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,tom_spp,defoliators on conifers,borers on conifers,no link,-0.18084574632645886,NA,NA,NA,NA,NA,cannot test
+cep_spp,tor_vir,defoliators on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,uro_sir_spp,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,xyl_lin,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,xyl_spp,defoliators on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+cep_spp,zei_gri,defoliators on conifers,defoliators on conifers,no link,0.03014999269485231,NA,NA,NA,NA,NA,cannot test
+clo_ana,den_mic,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,den_pin,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,dip_sp,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,era_def,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,geo_db,defoliators on broadleaves,defoliators on broadleaves,no link,-0.3995241449660467,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_acu,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_ami,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_cem,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_dup,defoliators on broadleaves,borers on conifers,no link,0.5583304608419918,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_sex,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,ips_typ,defoliators on broadleaves,borers on conifers,no link,-0.3055440512168623,NA,NA,NA,NA,NA,cannot test
+clo_ana,lym_dis,defoliators on broadleaves,defoliators on broadleaves,no link,0.018086008169012586,NA,NA,NA,NA,NA,cannot test
+clo_ana,lym_mon,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,mel_spp,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,neo_ser,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,ope_spp,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pan_fla,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pha_cya,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pis_pin,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pit_bid,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pit_cha,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pit_spp,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pol_pol,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,pri_abi,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,sap_car,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,sco_int,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,sco_rat,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,sco_sco,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tet_gab,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tet_spp,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tha_pit,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tha_pro,defoliators on broadleaves,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tom_spp,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,tor_vir,defoliators on broadleaves,defoliators on broadleaves,no link,-0.5616943032115271,NA,NA,NA,NA,NA,cannot test
+clo_ana,uro_sir_spp,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,xyl_lin,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,xyl_spp,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+clo_ana,zei_gri,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,den_pin,borers on conifers,defoliators on conifers,no link,0.4329575969819365,NA,NA,NA,NA,NA,cannot test
+den_mic,dip_sp,borers on conifers,defoliators on conifers,no link,0.18673725823522513,NA,NA,NA,NA,NA,cannot test
+den_mic,era_def,borers on conifers,defoliators on broadleaves,no link,-0.11215048658060106,NA,NA,NA,NA,NA,cannot test
+den_mic,geo_db,borers on conifers,defoliators on broadleaves,no link,-0.27284088622532837,NA,NA,NA,NA,NA,cannot test
+den_mic,ips_acu,borers on conifers,borers on conifers,no link,0.005844293675881043,2,-0.0011364090441177144,-4.440892098500626e-16,0,"CZ,LT",no help
+den_mic,ips_ami,borers on conifers,borers on conifers,no link,-0.16489564030321066,NA,NA,NA,NA,NA,cannot test
+den_mic,ips_cem,borers on conifers,borers on conifers,no link,0.2775572961866366,NA,NA,NA,NA,NA,cannot test
+den_mic,ips_dup,borers on conifers,borers on conifers,no link,-0.4087510131576323,NA,NA,NA,NA,NA,cannot test
+den_mic,ips_sex,borers on conifers,borers on conifers,no link,-0.12639434103572164,NA,NA,NA,NA,NA,cannot test
+den_mic,ips_typ,borers on conifers,borers on conifers,no link,-0.1161791207461158,3,-0.04815406152062485,-0.02231125514591059,0.6666666666666666,"CZ,DE,LT",no help
+den_mic,lym_dis,borers on conifers,defoliators on broadleaves,no link,0.27699953281394063,NA,NA,NA,NA,NA,cannot test
+den_mic,lym_mon,borers on conifers,defoliators on conifers,no link,-0.20031172025825586,NA,NA,NA,NA,NA,cannot test
+den_mic,mel_spp,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,neo_ser,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,ope_spp,borers on conifers,defoliators on broadleaves,no link,-0.11206835021885247,NA,NA,NA,NA,NA,cannot test
+den_mic,pan_fla,borers on conifers,defoliators on conifers,no link,-0.02412422073911762,NA,NA,NA,NA,NA,cannot test
+den_mic,pha_cya,borers on conifers,borers on conifers,no link,-0.10591108390854956,3,0.002155020140347408,0.002754468789947895,0.3333333333333333,"CZ,DE,LT",no help
+den_mic,pis_pin,borers on conifers,borers on conifers,no link,0.2296257921084678,NA,NA,NA,NA,NA,cannot test
+den_mic,pit_bid,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,pit_cha,borers on conifers,borers on conifers,no link,0.12967312900881206,2,0.015271739036333831,0,1,"DE,LT",predicts a little
+den_mic,pit_spp,borers on conifers,borers on conifers,no link,0.0650932592453634,NA,NA,NA,NA,NA,cannot test
+den_mic,pol_pol,borers on conifers,borers on conifers,no link,-0.2456644615835504,2,0.018813869977213682,-2.220446049250313e-16,0.5,"CZ,LT",predicts a little
+den_mic,pri_abi,borers on conifers,defoliators on conifers,no link,0.4021470672164959,NA,NA,NA,NA,NA,cannot test
+den_mic,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,sco_int,borers on conifers,borers on broadleaves,no link,0.006152597081615267,2,-0.007952037031394132,3.3306690738754696e-16,0,"CZ,DE",no help
+den_mic,sco_rat,borers on conifers,borers on broadleaves,no link,-0.02221613819249527,2,-0.14825134035008403,-2.220446049250313e-16,0,"CZ,LT",misleads
+den_mic,sco_sco,borers on conifers,borers on broadleaves,no link,-0.09456034591249297,2,0.008150390237082195,-4.440892098500626e-16,1,"DE,LT",predicts a little
+den_mic,tet_gab,borers on conifers,borers on conifers,no link,0.22979319190479602,NA,NA,NA,NA,NA,cannot test
+den_mic,tet_spp,borers on conifers,borers on conifers,no link,0.3388119209471302,NA,NA,NA,NA,NA,cannot test
+den_mic,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_mic,tha_pro,borers on conifers,defoliators on broadleaves,no link,-0.04545454545454546,NA,NA,NA,NA,NA,cannot test
+den_mic,tom_spp,borers on conifers,borers on conifers,no link,-0.009566237449802648,3,-0.01495050448163493,-0.006713763150580476,0,"CZ,DE,LT",no help
+den_mic,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.052440742082064465,2,-0.01311767560850452,-2.220446049250313e-16,0,"DE,LT",no help
+den_mic,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.045454545454545456,NA,NA,NA,NA,NA,cannot test
+den_mic,xyl_lin,borers on conifers,borers on conifers,no link,-0.03725343431019633,NA,NA,NA,NA,NA,cannot test
+den_mic,xyl_spp,borers on conifers,borers on broadleaves,no link,-0.0825349731013383,NA,NA,NA,NA,NA,cannot test
+den_mic,zei_gri,borers on conifers,defoliators on conifers,no link,-0.0968452048716532,NA,NA,NA,NA,NA,cannot test
+den_pin,dip_sp,defoliators on conifers,defoliators on conifers,unreliable,0.3076445644869295,3,0.09259434215076423,0.059824458765183386,0.6666666666666666,"DE,LT,PL",predicts a little
+den_pin,era_def,defoliators on conifers,defoliators on broadleaves,no link,0.05236952535273219,NA,NA,NA,NA,NA,cannot test
+den_pin,geo_db,defoliators on conifers,defoliators on broadleaves,weak,0.2637857055493073,3,0.04093206571742769,0.02344923257779552,0.3333333333333333,"DE,LT,PL",no help
+den_pin,ips_acu,defoliators on conifers,borers on conifers,no link,-0.13684989761595842,3,-0.030868571437696612,-0.012799904886316993,0,"DE,LT,PL",no help
+den_pin,ips_ami,defoliators on conifers,borers on conifers,no link,0.15747503237031577,NA,NA,NA,NA,NA,cannot test
+den_pin,ips_cem,defoliators on conifers,borers on conifers,weak,0.21790087112659803,NA,NA,NA,NA,NA,cannot test
+den_pin,ips_dup,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_pin,ips_sex,defoliators on conifers,borers on conifers,no link,0.013074940840131617,NA,NA,NA,NA,NA,cannot test
+den_pin,ips_typ,defoliators on conifers,borers on conifers,no link,0.11541634996122327,3,0.013319700798811174,0.01686062377116815,1,"DE,LT,PL",predicts a little
+den_pin,lym_dis,defoliators on conifers,defoliators on broadleaves,no link,0.1815382838314081,2,0.004763148396885297,0.004212288621717963,0.5,"DE,LT",predicts a little
+den_pin,lym_mon,defoliators on conifers,defoliators on conifers,unreliable,0.4432021899808284,3,0.1786326844805215,0.12258851234874635,0.6666666666666666,"DE,LT,PL",predicts a little
+den_pin,mel_spp,defoliators on conifers,defoliators on broadleaves,no link,0.10756913145244507,2,0.0072195890665003315,-0.002472396444456626,0.5,"DE,PL",predicts a little
+den_pin,neo_ser,defoliators on conifers,defoliators on conifers,no link,-0.13074981768605018,NA,NA,NA,NA,NA,cannot test
+den_pin,ope_spp,defoliators on conifers,defoliators on broadleaves,no link,0.3229249694011392,NA,NA,NA,NA,NA,cannot test
+den_pin,pan_fla,defoliators on conifers,defoliators on conifers,usable,0.30165047017685614,3,0.09016189730174184,0.07607950417657339,0.6666666666666666,"DE,LT,PL",predicts a little
+den_pin,pha_cya,defoliators on conifers,borers on conifers,no link,0.09301882664157693,3,0.007311163110351515,-0.00618105276743508,0.6666666666666666,"DE,LT,PL",predicts a little
+den_pin,pis_pin,defoliators on conifers,borers on conifers,no link,0.10567655850645563,2,-0.0208729505508245,0.0013256107280480434,0.5,"DE,LT",no help
+den_pin,pit_bid,defoliators on conifers,borers on conifers,no link,0.27182503700044225,NA,NA,NA,NA,NA,cannot test
+den_pin,pit_cha,defoliators on conifers,borers on conifers,no link,0.2026225356910675,2,0.03864354300191131,0.0015302728440960145,1,"DE,LT",predicts a little
+den_pin,pit_spp,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+den_pin,pol_pol,defoliators on conifers,borers on conifers,no link,0.24962873584533693,NA,NA,NA,NA,NA,cannot test
+den_pin,pri_abi,defoliators on conifers,defoliators on conifers,no link,0.028537371259221175,NA,NA,NA,NA,NA,cannot test
+den_pin,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.15177611257650636,NA,NA,NA,NA,NA,cannot test
+den_pin,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.04374446867728745,NA,NA,NA,NA,NA,cannot test
+den_pin,sco_rat,defoliators on conifers,borers on broadleaves,no link,0.24020833554626667,2,0.05746706258675871,0.0012854116624265721,1,"DE,LT",predicts well
+den_pin,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.15484514219113038,2,-0.07649475389009619,-0.003308056414031979,0,"DE,LT",misleads
+den_pin,tet_gab,defoliators on conifers,borers on conifers,no link,0.007299186530976299,NA,NA,NA,NA,NA,cannot test
+den_pin,tet_spp,defoliators on conifers,borers on conifers,no link,0.017661322080644484,NA,NA,NA,NA,NA,cannot test
+den_pin,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.46113821271489674,NA,NA,NA,NA,NA,cannot test
+den_pin,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,0.1272038513434976,NA,NA,NA,NA,NA,cannot test
+den_pin,tom_spp,defoliators on conifers,borers on conifers,weak,0.17421542865867715,3,0.02927239633790879,1.6283619693624463e-4,1,"DE,LT,PL",predicts a little
+den_pin,tor_vir,defoliators on conifers,defoliators on broadleaves,weak,0.15219879073042472,3,-0.05646169229240727,-0.0102310335543494,0.6666666666666666,"DE,LT,PL",misleads
+den_pin,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.43376798937257055,NA,NA,NA,NA,NA,cannot test
+den_pin,xyl_lin,defoliators on conifers,borers on conifers,promising,0.3812946579062535,NA,NA,NA,NA,NA,cannot test
+den_pin,xyl_spp,defoliators on conifers,borers on broadleaves,no link,0.09399678264424874,NA,NA,NA,NA,NA,cannot test
+den_pin,zei_gri,defoliators on conifers,defoliators on conifers,no link,-0.19018198491410837,NA,NA,NA,NA,NA,cannot test
+dip_sp,era_def,defoliators on conifers,defoliators on broadleaves,no link,0.1591774437182982,NA,NA,NA,NA,NA,cannot test
+dip_sp,geo_db,defoliators on conifers,defoliators on broadleaves,no link,0.05532400856922286,3,-0.02325549929120241,-0.003192909624077034,0,"DE,LT,PL",no help
+dip_sp,ips_acu,defoliators on conifers,borers on conifers,no link,-0.10843114053192929,3,-0.04845825959377881,-0.016183569435799683,0,"DE,LT,PL",no help
+dip_sp,ips_ami,defoliators on conifers,borers on conifers,no link,-0.1699389648885799,NA,NA,NA,NA,NA,cannot test
+dip_sp,ips_cem,defoliators on conifers,borers on conifers,weak,0.2490732508163989,NA,NA,NA,NA,NA,cannot test
+dip_sp,ips_dup,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+dip_sp,ips_sex,defoliators on conifers,borers on conifers,no link,0.15934506299637471,NA,NA,NA,NA,NA,cannot test
+dip_sp,ips_typ,defoliators on conifers,borers on conifers,no link,-0.0024260127310789235,4,-0.029404724077498612,-0.011154113834658475,0,"AT,DE,LT,PL",no help
+dip_sp,lym_dis,defoliators on conifers,defoliators on broadleaves,no link,0.13297797258670588,3,-0.10048786083955652,-0.006375650132989685,0.6666666666666666,"AT,DE,LT",misleads
+dip_sp,lym_mon,defoliators on conifers,defoliators on conifers,weak,0.1547481938926923,3,0.018450612170676006,0.011015328772810418,0.6666666666666666,"DE,LT,PL",predicts a little
+dip_sp,mel_spp,defoliators on conifers,defoliators on broadleaves,weak,0.11513310156260939,2,0.013074743464711158,0.010409589833396238,1,"DE,PL",predicts a little
+dip_sp,neo_ser,defoliators on conifers,defoliators on conifers,no link,-0.10710353437588324,NA,NA,NA,NA,NA,cannot test
+dip_sp,ope_spp,defoliators on conifers,defoliators on broadleaves,weak,0.2881808207142827,NA,NA,NA,NA,NA,cannot test
+dip_sp,pan_fla,defoliators on conifers,defoliators on conifers,weak,0.18667030701110984,3,0.0029273641089696545,-0.0032951430061942677,0.3333333333333333,"DE,LT,PL",no help
+dip_sp,pha_cya,defoliators on conifers,borers on conifers,no link,0.08201789389156428,4,0.00482502935278295,2.9811699293413874e-4,0.5,"AT,DE,LT,PL",predicts a little
+dip_sp,pis_pin,defoliators on conifers,borers on conifers,no link,0.05761189915703429,2,-0.08543260706837175,-3.6048075451078354e-4,0,"DE,LT",misleads
+dip_sp,pit_bid,defoliators on conifers,borers on conifers,weak,0.2463474132188226,NA,NA,NA,NA,NA,cannot test
+dip_sp,pit_cha,defoliators on conifers,borers on conifers,no link,0.08552085824605755,3,-0.081673728627214,-0.055833153993671836,0,"AT,DE,LT",misleads
+dip_sp,pit_spp,defoliators on conifers,borers on conifers,no link,0.032521619847465565,2,-0.07307751737389934,-0.026789289881705258,0,"AT,DE",misleads
+dip_sp,pol_pol,defoliators on conifers,borers on conifers,no link,7.0041247750066e-4,NA,NA,NA,NA,NA,cannot test
+dip_sp,pri_abi,defoliators on conifers,defoliators on conifers,no link,0.023111305207663784,NA,NA,NA,NA,NA,cannot test
+dip_sp,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.10575206068332288,NA,NA,NA,NA,NA,cannot test
+dip_sp,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.15109109782587538,NA,NA,NA,NA,NA,cannot test
+dip_sp,sco_rat,defoliators on conifers,borers on broadleaves,no link,0.14451192010930736,2,-0.1886766378532614,-0.029951825951393563,0,"DE,LT",misleads
+dip_sp,sco_sco,defoliators on conifers,borers on broadleaves,no link,-0.006217285596628248,2,-0.006979622251495066,6.197925058348819e-5,0,"DE,LT",no help
+dip_sp,tet_gab,defoliators on conifers,borers on conifers,no link,0.03203975641790537,2,-0.064438899355308,-0.006166426415501469,0,"AT,DE",misleads
+dip_sp,tet_spp,defoliators on conifers,borers on conifers,no link,0.10697811275640033,NA,NA,NA,NA,NA,cannot test
+dip_sp,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.31652171728521383,NA,NA,NA,NA,NA,cannot test
+dip_sp,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,-0.09162562254979881,NA,NA,NA,NA,NA,cannot test
+dip_sp,tom_spp,defoliators on conifers,borers on conifers,weak,0.1260182866798072,4,0.011682677801031383,-0.005976225053966999,0.75,"AT,DE,LT,PL",predicts a little
+dip_sp,tor_vir,defoliators on conifers,defoliators on broadleaves,weak,0.15538439077046834,3,0.016243237573502767,0.0072458959775942855,0.6666666666666666,"DE,LT,PL",predicts a little
+dip_sp,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.2947148988368689,NA,NA,NA,NA,NA,cannot test
+dip_sp,xyl_lin,defoliators on conifers,borers on conifers,weak,0.18762955158591144,NA,NA,NA,NA,NA,cannot test
+dip_sp,xyl_spp,defoliators on conifers,borers on broadleaves,no link,0.135597709708527,NA,NA,NA,NA,NA,cannot test
+dip_sp,zei_gri,defoliators on conifers,defoliators on conifers,no link,-0.09256578997880191,NA,NA,NA,NA,NA,cannot test
+era_def,geo_db,defoliators on broadleaves,defoliators on broadleaves,weak,-0.2447686658809204,NA,NA,NA,NA,NA,cannot test
+era_def,ips_acu,defoliators on broadleaves,borers on conifers,no link,-0.053793562124768136,NA,NA,NA,NA,NA,cannot test
+era_def,ips_ami,defoliators on broadleaves,borers on conifers,no link,0.34190697442748985,NA,NA,NA,NA,NA,cannot test
+era_def,ips_cem,defoliators on broadleaves,borers on conifers,no link,-0.036534098354328616,NA,NA,NA,NA,NA,cannot test
+era_def,ips_dup,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+era_def,ips_sex,defoliators on broadleaves,borers on conifers,no link,0.02646434831589846,NA,NA,NA,NA,NA,cannot test
+era_def,ips_typ,defoliators on broadleaves,borers on conifers,no link,-0.023404776614628576,NA,NA,NA,NA,NA,cannot test
+era_def,lym_dis,defoliators on broadleaves,defoliators on broadleaves,no link,-0.04584204992755515,NA,NA,NA,NA,NA,cannot test
+era_def,lym_mon,defoliators on broadleaves,defoliators on conifers,no link,0.0726468312654702,NA,NA,NA,NA,NA,cannot test
+era_def,mel_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.07351158784335307,NA,NA,NA,NA,NA,cannot test
+era_def,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,-0.045454545454545456,NA,NA,NA,NA,NA,cannot test
+era_def,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,0.21384212948273226,NA,NA,NA,NA,NA,cannot test
+era_def,pan_fla,defoliators on broadleaves,defoliators on conifers,weak,-0.12173103787943793,NA,NA,NA,NA,NA,cannot test
+era_def,pha_cya,defoliators on broadleaves,borers on conifers,no link,-0.044034042514077734,NA,NA,NA,NA,NA,cannot test
+era_def,pis_pin,defoliators on broadleaves,borers on conifers,no link,0.0586753233526046,NA,NA,NA,NA,NA,cannot test
+era_def,pit_bid,defoliators on broadleaves,borers on conifers,no link,0.15069251600998462,NA,NA,NA,NA,NA,cannot test
+era_def,pit_cha,defoliators on broadleaves,borers on conifers,no link,-0.03471135733896092,NA,NA,NA,NA,NA,cannot test
+era_def,pit_spp,defoliators on broadleaves,borers on conifers,no link,-0.06945931476538518,NA,NA,NA,NA,NA,cannot test
+era_def,pol_pol,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+era_def,pri_abi,defoliators on broadleaves,defoliators on conifers,no link,0.03589811178666344,NA,NA,NA,NA,NA,cannot test
+era_def,sap_car,defoliators on broadleaves,borers on broadleaves,no link,-0.2561351893660142,NA,NA,NA,NA,NA,cannot test
+era_def,sco_int,defoliators on broadleaves,borers on broadleaves,no link,-0.052425331023245474,NA,NA,NA,NA,NA,cannot test
+era_def,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,-0.043856698431753084,NA,NA,NA,NA,NA,cannot test
+era_def,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,0.12399104923770464,NA,NA,NA,NA,NA,cannot test
+era_def,tet_gab,defoliators on broadleaves,borers on conifers,no link,0.07327966378548946,NA,NA,NA,NA,NA,cannot test
+era_def,tet_spp,defoliators on broadleaves,borers on conifers,no link,0.08333227306625438,NA,NA,NA,NA,NA,cannot test
+era_def,tha_pit,defoliators on broadleaves,defoliators on conifers,no link,-0.5340941073139082,NA,NA,NA,NA,NA,cannot test
+era_def,tha_pro,defoliators on broadleaves,defoliators on broadleaves,no link,0.08243819006645746,NA,NA,NA,NA,NA,cannot test
+era_def,tom_spp,defoliators on broadleaves,borers on conifers,no link,0.05501238273656167,NA,NA,NA,NA,NA,cannot test
+era_def,tor_vir,defoliators on broadleaves,defoliators on broadleaves,promising,0.3904364654787419,NA,NA,NA,NA,NA,cannot test
+era_def,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,-0.11916955122736426,NA,NA,NA,NA,NA,cannot test
+era_def,xyl_lin,defoliators on broadleaves,borers on conifers,no link,0.004492547465887175,NA,NA,NA,NA,NA,cannot test
+era_def,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,-0.05174667231566433,NA,NA,NA,NA,NA,cannot test
+era_def,zei_gri,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+geo_db,ips_acu,defoliators on broadleaves,borers on conifers,weak,-0.2757627659723428,4,0.01416840131242414,0.012725799211073419,0.5,"BG,DE,LT,PL",predicts a little
+geo_db,ips_ami,defoliators on broadleaves,borers on conifers,no link,-0.08509664615990228,NA,NA,NA,NA,NA,cannot test
+geo_db,ips_cem,defoliators on broadleaves,borers on conifers,weak,-0.21961812680275922,NA,NA,NA,NA,NA,cannot test
+geo_db,ips_dup,defoliators on broadleaves,borers on conifers,no link,-0.3392287054820189,NA,NA,NA,NA,NA,cannot test
+geo_db,ips_sex,defoliators on broadleaves,borers on conifers,weak,-0.14995425224255626,1,-0.07193177179158239,-0.03896456829052375,0,BG,cannot test
+geo_db,ips_typ,defoliators on broadleaves,borers on conifers,no link,0.02252462690770797,6,-0.011669625582013898,-0.0024888870638759553,0.3333333333333333,"BG,DE,HR,LT,PL,RO",no help
+geo_db,lym_dis,defoliators on broadleaves,defoliators on broadleaves,no link,-0.05931197946278122,5,-0.02783392123481332,-0.004425772607707268,0.2,"BG,DE,HR,LT,RO",no help
+geo_db,lym_mon,defoliators on broadleaves,defoliators on conifers,weak,0.15804249450192134,3,-0.043643546952327084,-0.03613231621938762,0,"DE,LT,PL",no help
+geo_db,mel_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.027702887217370725,2,-0.02076063635780212,-0.048357019413172386,0,"DE,PL",no help
+geo_db,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,-0.22132577607165868,1,-0.04749977248257786,0,0,BG,cannot test
+geo_db,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,-0.22258703927661513,NA,NA,NA,NA,NA,cannot test
+geo_db,pan_fla,defoliators on broadleaves,defoliators on conifers,no link,0.047800925053061875,3,0.00051810249941619535,-1.5943101370741175e-4,0.6666666666666666,"DE,LT,PL",predicts a little
+geo_db,pha_cya,defoliators on broadleaves,borers on conifers,no link,0.027595245249431237,3,-0.022020690643846708,0.0033147140329117253,0,"DE,LT,PL",no help
+geo_db,pis_pin,defoliators on broadleaves,borers on conifers,no link,-0.10455002524624174,2,-0.24893899898669591,-0.002453397339701624,0,"DE,LT",misleads
+geo_db,pit_bid,defoliators on broadleaves,borers on conifers,no link,-0.20434885599028016,NA,NA,NA,NA,NA,cannot test
+geo_db,pit_cha,defoliators on broadleaves,borers on conifers,no link,-0.05655794378574977,2,-0.2626506163494753,-2.4478922803017333e-4,0,"DE,LT",misleads
+geo_db,pit_spp,defoliators on broadleaves,borers on conifers,no link,-0.03469115653502927,2,-0.006083144292991172,5.526729668521302e-4,0,"DE,HR",no help
+geo_db,pol_pol,defoliators on broadleaves,borers on conifers,no link,0.4747352618651723,NA,NA,NA,NA,NA,cannot test
+geo_db,pri_abi,defoliators on broadleaves,defoliators on conifers,no link,-0.06861765075404705,NA,NA,NA,NA,NA,cannot test
+geo_db,sap_car,defoliators on broadleaves,borers on broadleaves,no link,-0.06575211977248926,NA,NA,NA,NA,NA,cannot test
+geo_db,sco_int,defoliators on broadleaves,borers on broadleaves,no link,0.09313275207361599,NA,NA,NA,NA,NA,cannot test
+geo_db,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,0.20291615973181779,2,0.040588813076949504,0.005124819060938202,1,"DE,LT",predicts a little
+geo_db,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,-0.11860037420234268,2,0.014001764403145711,8.40336331799918e-5,1,"DE,LT",predicts a little
+geo_db,tet_gab,defoliators on broadleaves,borers on conifers,no link,-0.0767731636572564,NA,NA,NA,NA,NA,cannot test
+geo_db,tet_spp,defoliators on broadleaves,borers on conifers,weak,-0.18460802428708342,NA,NA,NA,NA,NA,cannot test
+geo_db,tha_pit,defoliators on broadleaves,defoliators on conifers,no link,0.2675037506267358,3,-0.008713221105810742,0.018694130587140423,0.6666666666666666,"BG,DE,HR",no help
+geo_db,tha_pro,defoliators on broadleaves,defoliators on broadleaves,no link,-0.028072191270748635,NA,NA,NA,NA,NA,cannot test
+geo_db,tom_spp,defoliators on broadleaves,borers on conifers,no link,0.1166576310820372,3,-0.033802756609565776,-0.007240624908583904,0.3333333333333333,"DE,LT,PL",no help
+geo_db,tor_vir,defoliators on broadleaves,defoliators on broadleaves,weak,0.13656241160943658,5,-0.0033213517815509075,-0.03231375776502743,0.8,"BG,DE,LT,PL,RO",no help
+geo_db,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,0.024990919622671498,NA,NA,NA,NA,NA,cannot test
+geo_db,xyl_lin,defoliators on broadleaves,borers on conifers,no link,0.12209721654557396,NA,NA,NA,NA,NA,cannot test
+geo_db,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,-0.05460910622914823,NA,NA,NA,NA,NA,cannot test
+geo_db,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,-0.11970291279339365,NA,NA,NA,NA,NA,cannot test
+ips_acu,ips_ami,borers on conifers,borers on conifers,no link,-0.041114849524094416,NA,NA,NA,NA,NA,cannot test
+ips_acu,ips_cem,borers on conifers,borers on conifers,promising,0.4043776576322786,NA,NA,NA,NA,NA,cannot test
+ips_acu,ips_dup,borers on conifers,borers on conifers,usable,0.5118176598021795,2,0.2611228654881783,0.003028629637860658,1,"CZ,SK",predicts well
+ips_acu,ips_sex,borers on conifers,borers on conifers,usable,0.4483831596781036,3,0.16285240075572294,0.15253469940241937,1,"BG,CZ,DE",predicts well
+ips_acu,ips_typ,borers on conifers,borers on conifers,usable,0.3132291187938481,6,0.024319810025979827,-0.06177518962768702,0.8333333333333334,"BG,CZ,DE,LT,PL,SK",predicts a little
+ips_acu,lym_dis,borers on conifers,defoliators on broadleaves,weak,0.1966668850355266,5,0.02443534668016123,0.010729441975625753,0.6,"BG,CZ,DE,LT,SK",predicts a little
+ips_acu,lym_mon,borers on conifers,defoliators on conifers,no link,-0.020210825790474996,4,-0.001305712608654197,-0.0020890473729786585,0.25,"CZ,DE,LT,PL",no help
+ips_acu,mel_spp,borers on conifers,defoliators on broadleaves,no link,9.433930643531444e-4,2,-0.0125124422160936,-0.002878606880813761,0,"DE,PL",no help
+ips_acu,neo_ser,borers on conifers,defoliators on conifers,no link,-0.02205625024723737,3,-0.06188636328890973,-0.005973973394036491,0,"BG,CZ,DE",misleads
+ips_acu,ope_spp,borers on conifers,defoliators on broadleaves,no link,0.14791303269738298,NA,NA,NA,NA,NA,cannot test
+ips_acu,pan_fla,borers on conifers,defoliators on conifers,no link,-0.017401633371073554,4,-0.058543026032493284,-0.020514187622657998,0,"CZ,DE,LT,PL",misleads
+ips_acu,pha_cya,borers on conifers,borers on conifers,no link,0.13237658800296717,4,-0.2500829751144438,-0.18779183713101122,0.5,"CZ,DE,LT,PL",misleads
+ips_acu,pis_pin,borers on conifers,borers on conifers,usable,0.35840602764970364,2,0.12255966313542999,0.012808480651005594,1,"DE,LT",predicts well
+ips_acu,pit_bid,borers on conifers,borers on conifers,promising,0.5893332407556338,NA,NA,NA,NA,NA,cannot test
+ips_acu,pit_cha,borers on conifers,borers on conifers,unreliable,0.30598208011882894,3,-0.012666440694417691,0.005730789242325951,0.6666666666666666,"DE,LT,SK",no help
+ips_acu,pit_spp,borers on conifers,borers on conifers,unreliable,0.46105709158335173,2,-0.19800695756361297,-0.033499754923697944,0,"CZ,DE",misleads
+ips_acu,pol_pol,borers on conifers,borers on conifers,no link,0.28957731621901056,2,-0.048642973064511263,0.010216374361045166,0.5,"CZ,LT",no help
+ips_acu,pri_abi,borers on conifers,defoliators on conifers,no link,-0.12094874978760113,2,-0.021343979330149532,0.017095859505459,0,"CZ,DE",no help
+ips_acu,sap_car,borers on conifers,borers on broadleaves,no link,0.34539864813295723,NA,NA,NA,NA,NA,cannot test
+ips_acu,sco_int,borers on conifers,borers on broadleaves,usable,0.31747639352144724,2,0.09417910807434815,0.0474863457731054,1,"CZ,DE",predicts well
+ips_acu,sco_rat,borers on conifers,borers on broadleaves,usable,0.3670454702313205,3,0.0926439743084001,0.0884087894967377,0.6666666666666666,"CZ,DE,LT",predicts a little
+ips_acu,sco_sco,borers on conifers,borers on broadleaves,no link,3.8587904247209203e-4,2,-0.36781889888010233,-0.01560539982384479,0,"DE,LT",misleads
+ips_acu,tet_gab,borers on conifers,borers on conifers,weak,0.22997599810460187,2,-0.15850359369990397,-0.00519435710657179,0,"CZ,DE",misleads
+ips_acu,tet_spp,borers on conifers,borers on conifers,no link,0.03620360375343028,NA,NA,NA,NA,NA,cannot test
+ips_acu,tha_pit,borers on conifers,defoliators on conifers,no link,0.3570891304862017,1,0.11655883712722825,-2.220446049250313e-16,1,BG,cannot test
+ips_acu,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.06406159707957278,NA,NA,NA,NA,NA,cannot test
+ips_acu,tom_spp,borers on conifers,borers on conifers,no link,0.1197432113994354,4,-0.41873726352750174,-0.20013296852799267,0.5,"CZ,DE,LT,PL",misleads
+ips_acu,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.09811449433660957,4,-0.03758295880847928,-0.0010863804081884254,0,"BG,DE,LT,PL",no help
+ips_acu,uro_sir_spp,borers on conifers,borers on conifers,no link,0.14974305906121788,NA,NA,NA,NA,NA,cannot test
+ips_acu,xyl_lin,borers on conifers,borers on conifers,no link,-0.03336637612581675,NA,NA,NA,NA,NA,cannot test
+ips_acu,xyl_spp,borers on conifers,borers on broadleaves,no link,0.03803983299095406,NA,NA,NA,NA,NA,cannot test
+ips_acu,zei_gri,borers on conifers,defoliators on conifers,no link,-0.08139074699949432,2,-0.02573220667818865,-0.001207537178154583,0.5,"CZ,DE",no help
+ips_ami,ips_cem,borers on conifers,borers on conifers,no link,-0.005332224534492878,NA,NA,NA,NA,NA,cannot test
+ips_ami,ips_dup,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_ami,ips_sex,borers on conifers,borers on conifers,no link,-0.06668262929957959,NA,NA,NA,NA,NA,cannot test
+ips_ami,ips_typ,borers on conifers,borers on conifers,no link,-0.13570534654602873,NA,NA,NA,NA,NA,cannot test
+ips_ami,lym_dis,borers on conifers,defoliators on broadleaves,no link,-0.13235301453945433,NA,NA,NA,NA,NA,cannot test
+ips_ami,lym_mon,borers on conifers,defoliators on conifers,no link,-0.26067803201986134,NA,NA,NA,NA,NA,cannot test
+ips_ami,mel_spp,borers on conifers,defoliators on broadleaves,no link,-0.17267375081949468,NA,NA,NA,NA,NA,cannot test
+ips_ami,neo_ser,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_ami,ope_spp,borers on conifers,defoliators on broadleaves,no link,0.5319562092489521,NA,NA,NA,NA,NA,cannot test
+ips_ami,pan_fla,borers on conifers,defoliators on conifers,no link,0.12092384780681295,NA,NA,NA,NA,NA,cannot test
+ips_ami,pha_cya,borers on conifers,borers on conifers,no link,-0.14741145945235332,NA,NA,NA,NA,NA,cannot test
+ips_ami,pis_pin,borers on conifers,borers on conifers,no link,0.1643202189393955,NA,NA,NA,NA,NA,cannot test
+ips_ami,pit_bid,borers on conifers,borers on conifers,no link,0.027711524102041963,NA,NA,NA,NA,NA,cannot test
+ips_ami,pit_cha,borers on conifers,borers on conifers,no link,0.07346028329919875,NA,NA,NA,NA,NA,cannot test
+ips_ami,pit_spp,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_ami,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_ami,pri_abi,borers on conifers,defoliators on conifers,no link,0.14869694535119574,NA,NA,NA,NA,NA,cannot test
+ips_ami,sap_car,borers on conifers,borers on broadleaves,no link,-0.058827447453991225,NA,NA,NA,NA,NA,cannot test
+ips_ami,sco_int,borers on conifers,borers on broadleaves,no link,0.22680942530306233,NA,NA,NA,NA,NA,cannot test
+ips_ami,sco_rat,borers on conifers,borers on broadleaves,no link,0.15274117389643582,NA,NA,NA,NA,NA,cannot test
+ips_ami,sco_sco,borers on conifers,borers on broadleaves,no link,0.3575384771325581,NA,NA,NA,NA,NA,cannot test
+ips_ami,tet_gab,borers on conifers,borers on conifers,no link,0.2830422997424196,NA,NA,NA,NA,NA,cannot test
+ips_ami,tet_spp,borers on conifers,borers on conifers,no link,-0.11020898297785141,NA,NA,NA,NA,NA,cannot test
+ips_ami,tha_pit,borers on conifers,defoliators on conifers,no link,-0.23975398474086962,NA,NA,NA,NA,NA,cannot test
+ips_ami,tha_pro,borers on conifers,defoliators on broadleaves,no link,-0.035764258743985505,NA,NA,NA,NA,NA,cannot test
+ips_ami,tom_spp,borers on conifers,borers on conifers,no link,-0.07414805479336577,NA,NA,NA,NA,NA,cannot test
+ips_ami,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.3188396202796396,NA,NA,NA,NA,NA,cannot test
+ips_ami,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.16489564030321066,NA,NA,NA,NA,NA,cannot test
+ips_ami,xyl_lin,borers on conifers,borers on conifers,no link,0.3835526025622549,NA,NA,NA,NA,NA,cannot test
+ips_ami,xyl_spp,borers on conifers,borers on broadleaves,no link,0.2110998605754242,NA,NA,NA,NA,NA,cannot test
+ips_ami,zei_gri,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_cem,ips_dup,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_cem,ips_sex,borers on conifers,borers on conifers,promising,0.36730916595009067,NA,NA,NA,NA,NA,cannot test
+ips_cem,ips_typ,borers on conifers,borers on conifers,promising,0.5628439496475026,NA,NA,NA,NA,NA,cannot test
+ips_cem,lym_dis,borers on conifers,defoliators on broadleaves,weak,0.24787380718169388,NA,NA,NA,NA,NA,cannot test
+ips_cem,lym_mon,borers on conifers,defoliators on conifers,no link,0.0740770553209341,NA,NA,NA,NA,NA,cannot test
+ips_cem,mel_spp,borers on conifers,defoliators on broadleaves,no link,0.13842853847036135,NA,NA,NA,NA,NA,cannot test
+ips_cem,neo_ser,borers on conifers,defoliators on conifers,no link,0.21391879719449855,NA,NA,NA,NA,NA,cannot test
+ips_cem,ope_spp,borers on conifers,defoliators on broadleaves,weak,0.19609558506538374,NA,NA,NA,NA,NA,cannot test
+ips_cem,pan_fla,borers on conifers,defoliators on conifers,no link,0.17215975678270967,NA,NA,NA,NA,NA,cannot test
+ips_cem,pha_cya,borers on conifers,borers on conifers,promising,0.501503437783238,NA,NA,NA,NA,NA,cannot test
+ips_cem,pis_pin,borers on conifers,borers on conifers,promising,0.42083512509871746,NA,NA,NA,NA,NA,cannot test
+ips_cem,pit_bid,borers on conifers,borers on conifers,promising,0.5050950140642676,NA,NA,NA,NA,NA,cannot test
+ips_cem,pit_cha,borers on conifers,borers on conifers,promising,0.5794674466791996,NA,NA,NA,NA,NA,cannot test
+ips_cem,pit_spp,borers on conifers,borers on conifers,no link,0.3874720404102154,NA,NA,NA,NA,NA,cannot test
+ips_cem,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_cem,pri_abi,borers on conifers,defoliators on conifers,no link,0.03719055316979803,NA,NA,NA,NA,NA,cannot test
+ips_cem,sap_car,borers on conifers,borers on broadleaves,no link,0.346239912168909,NA,NA,NA,NA,NA,cannot test
+ips_cem,sco_int,borers on conifers,borers on broadleaves,no link,0.14802038054405475,NA,NA,NA,NA,NA,cannot test
+ips_cem,sco_rat,borers on conifers,borers on broadleaves,no link,0.35525391499078646,NA,NA,NA,NA,NA,cannot test
+ips_cem,sco_sco,borers on conifers,borers on broadleaves,no link,0.09250077641770556,NA,NA,NA,NA,NA,cannot test
+ips_cem,tet_gab,borers on conifers,borers on conifers,promising,0.40139010006928144,NA,NA,NA,NA,NA,cannot test
+ips_cem,tet_spp,borers on conifers,borers on conifers,promising,0.30918644201167683,NA,NA,NA,NA,NA,cannot test
+ips_cem,tha_pit,borers on conifers,defoliators on conifers,no link,0.1851310882907218,NA,NA,NA,NA,NA,cannot test
+ips_cem,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.08897845839668189,NA,NA,NA,NA,NA,cannot test
+ips_cem,tom_spp,borers on conifers,borers on conifers,promising,0.32566979690656916,NA,NA,NA,NA,NA,cannot test
+ips_cem,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.06991147851734973,NA,NA,NA,NA,NA,cannot test
+ips_cem,uro_sir_spp,borers on conifers,borers on conifers,no link,0.2577401890352104,NA,NA,NA,NA,NA,cannot test
+ips_cem,xyl_lin,borers on conifers,borers on conifers,weak,0.2911769923497923,NA,NA,NA,NA,NA,cannot test
+ips_cem,xyl_spp,borers on conifers,borers on broadleaves,promising,0.3436019344431189,NA,NA,NA,NA,NA,cannot test
+ips_cem,zei_gri,borers on conifers,defoliators on conifers,no link,-0.15296503764945543,NA,NA,NA,NA,NA,cannot test
+ips_dup,ips_sex,borers on conifers,borers on conifers,promising,0.48819117600825906,NA,NA,NA,NA,NA,cannot test
+ips_dup,ips_typ,borers on conifers,borers on conifers,unreliable,0.6975451525059526,3,0.1395872639534459,0.023983516982008846,0.6666666666666666,"CZ,RO,SK",predicts a little
+ips_dup,lym_dis,borers on conifers,defoliators on broadleaves,no link,0.15564972812567052,3,-0.6429440419199912,-0.01861757506655648,0,"CZ,RO,SK",misleads
+ips_dup,lym_mon,borers on conifers,defoliators on conifers,no link,-0.1283818841158283,NA,NA,NA,NA,NA,cannot test
+ips_dup,mel_spp,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,neo_ser,borers on conifers,defoliators on conifers,no link,-0.39445704818924987,NA,NA,NA,NA,NA,cannot test
+ips_dup,ope_spp,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,pan_fla,borers on conifers,defoliators on conifers,no link,0.32904230358377695,NA,NA,NA,NA,NA,cannot test
+ips_dup,pha_cya,borers on conifers,borers on conifers,promising,0.3887651601013897,NA,NA,NA,NA,NA,cannot test
+ips_dup,pis_pin,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,pit_bid,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,pit_cha,borers on conifers,borers on conifers,no link,-0.16718987394725757,NA,NA,NA,NA,NA,cannot test
+ips_dup,pit_spp,borers on conifers,borers on conifers,promising,0.6416633164268658,NA,NA,NA,NA,NA,cannot test
+ips_dup,pol_pol,borers on conifers,borers on conifers,no link,0.12934763165336186,NA,NA,NA,NA,NA,cannot test
+ips_dup,pri_abi,borers on conifers,defoliators on conifers,promising,-0.5704777170785686,NA,NA,NA,NA,NA,cannot test
+ips_dup,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,sco_int,borers on conifers,borers on broadleaves,no link,0.12352900798641978,NA,NA,NA,NA,NA,cannot test
+ips_dup,sco_rat,borers on conifers,borers on broadleaves,promising,0.3479730093302379,NA,NA,NA,NA,NA,cannot test
+ips_dup,sco_sco,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,tet_gab,borers on conifers,borers on conifers,no link,-0.31806627958700223,NA,NA,NA,NA,NA,cannot test
+ips_dup,tet_spp,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,tha_pro,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,tom_spp,borers on conifers,borers on conifers,promising,0.5594019061776835,NA,NA,NA,NA,NA,cannot test
+ips_dup,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.23181160141943202,NA,NA,NA,NA,NA,cannot test
+ips_dup,uro_sir_spp,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,xyl_lin,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,xyl_spp,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ips_dup,zei_gri,borers on conifers,defoliators on conifers,no link,0.07410008759150935,NA,NA,NA,NA,NA,cannot test
+ips_sex,ips_typ,borers on conifers,borers on conifers,unreliable,0.48403908056210027,3,0.21044378192762303,0.11543121038955195,0.6666666666666666,"BG,CZ,DE",predicts a little
+ips_sex,lym_dis,borers on conifers,defoliators on broadleaves,no link,0.15579491352646513,3,0.006245242705936849,-0.008182223514481723,0.6666666666666666,"BG,CZ,DE",predicts a little
+ips_sex,lym_mon,borers on conifers,defoliators on conifers,no link,-0.03529447098492091,2,7.59939243959562e-4,-5.155182314575679e-4,0.5,"CZ,DE",predicts a little
+ips_sex,mel_spp,borers on conifers,defoliators on broadleaves,no link,0.04173545796708475,NA,NA,NA,NA,NA,cannot test
+ips_sex,neo_ser,borers on conifers,defoliators on conifers,no link,0.10248287218136404,3,-0.05750431774712017,0.00368251932995578,0.3333333333333333,"BG,CZ,DE",misleads
+ips_sex,ope_spp,borers on conifers,defoliators on broadleaves,weak,0.2470822073336677,NA,NA,NA,NA,NA,cannot test
+ips_sex,pan_fla,borers on conifers,defoliators on conifers,no link,0.06658466053827775,2,-0.04277804381619954,-0.001294316933947215,0.5,"CZ,DE",no help
+ips_sex,pha_cya,borers on conifers,borers on conifers,usable,0.5083318670172224,2,0.24874174939343097,0.23751973937856297,1,"CZ,DE",predicts well
+ips_sex,pis_pin,borers on conifers,borers on conifers,promising,0.3714874913521598,NA,NA,NA,NA,NA,cannot test
+ips_sex,pit_bid,borers on conifers,borers on conifers,promising,0.5263323495026262,NA,NA,NA,NA,NA,cannot test
+ips_sex,pit_cha,borers on conifers,borers on conifers,promising,0.3465202285444606,NA,NA,NA,NA,NA,cannot test
+ips_sex,pit_spp,borers on conifers,borers on conifers,unreliable,0.38042587343109124,2,-0.07711701305557184,0.044153537779637375,0,"CZ,DE",misleads
+ips_sex,pol_pol,borers on conifers,borers on conifers,no link,0.09170300005728516,NA,NA,NA,NA,NA,cannot test
+ips_sex,pri_abi,borers on conifers,defoliators on conifers,no link,-0.09098833630814482,2,-0.09652277623041505,-0.01634225196543926,0,"CZ,DE",misleads
+ips_sex,sap_car,borers on conifers,borers on broadleaves,no link,0.3689403717139749,NA,NA,NA,NA,NA,cannot test
+ips_sex,sco_int,borers on conifers,borers on broadleaves,weak,0.20122306073413296,2,0.04029466005305127,0.012474078865693405,1,"CZ,DE",predicts a little
+ips_sex,sco_rat,borers on conifers,borers on broadleaves,usable,0.35142625797883975,2,0.11674034085590979,0.051596947743853705,1,"CZ,DE",predicts well
+ips_sex,sco_sco,borers on conifers,borers on broadleaves,no link,0.18170088989717512,NA,NA,NA,NA,NA,cannot test
+ips_sex,tet_gab,borers on conifers,borers on conifers,no link,0.16917015453721057,2,-0.20117766977409834,-0.016227228712652364,0,"CZ,DE",misleads
+ips_sex,tet_spp,borers on conifers,borers on conifers,no link,0.09239498025767841,NA,NA,NA,NA,NA,cannot test
+ips_sex,tha_pit,borers on conifers,defoliators on conifers,no link,0.2667011231882058,1,-0.1279835863930472,1.1102230246251565e-16,0,BG,cannot test
+ips_sex,tha_pro,borers on conifers,defoliators on broadleaves,no link,-0.04488240693743447,NA,NA,NA,NA,NA,cannot test
+ips_sex,tom_spp,borers on conifers,borers on conifers,usable,0.4735130068663596,2,0.1692830296825597,0.2164510530829189,1,"CZ,DE",predicts well
+ips_sex,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.02004120679986864,1,-4.988989314156367e-4,-0.009497908547598133,0,BG,cannot test
+ips_sex,uro_sir_spp,borers on conifers,borers on conifers,no link,0.1909167036277084,NA,NA,NA,NA,NA,cannot test
+ips_sex,xyl_lin,borers on conifers,borers on conifers,no link,0.08162039870238538,NA,NA,NA,NA,NA,cannot test
+ips_sex,xyl_spp,borers on conifers,borers on broadleaves,weak,0.24107923944678716,NA,NA,NA,NA,NA,cannot test
+ips_sex,zei_gri,borers on conifers,defoliators on conifers,no link,-0.10343016619441693,2,0.0034254662158069715,4.412833935518723e-5,1,"CZ,DE",predicts a little
+ips_typ,lym_dis,borers on conifers,defoliators on broadleaves,weak,0.24855116461298588,10,0.04433616084213876,0.03500079868766437,0.5,"AT,BG,CZ,DE,HR,HU,LT,RO,RS,SK",predicts a little
+ips_typ,lym_mon,borers on conifers,defoliators on conifers,no link,0.02313540347925277,4,-0.00998783804036596,-0.0012008079515541947,0.25,"CZ,DE,LT,PL",no help
+ips_typ,mel_spp,borers on conifers,defoliators on broadleaves,no link,0.010766657902572162,2,-0.0015157814950208515,-0.002308276876584525,0,"DE,PL",no help
+ips_typ,neo_ser,borers on conifers,defoliators on conifers,no link,-0.14974531554375956,3,-0.046573255405243597,-0.006264927021041089,0.6666666666666666,"BG,CZ,DE",no help
+ips_typ,ope_spp,borers on conifers,defoliators on broadleaves,no link,0.11863863460231239,NA,NA,NA,NA,NA,cannot test
+ips_typ,pan_fla,borers on conifers,defoliators on conifers,weak,0.18252690628935667,4,0.03175687467935062,0.03670956141929982,0.75,"CZ,DE,LT,PL",predicts a little
+ips_typ,pha_cya,borers on conifers,borers on conifers,usable,0.3319830959491541,5,0.07961910650364734,0.09060372671543904,0.8,"AT,CZ,DE,LT,PL",predicts well
+ips_typ,pis_pin,borers on conifers,borers on conifers,unreliable,0.3235043924296048,2,-0.16835072551107455,-0.0048989177292355635,0,"DE,LT",misleads
+ips_typ,pit_bid,borers on conifers,borers on conifers,promising,0.5315507408812948,NA,NA,NA,NA,NA,cannot test
+ips_typ,pit_cha,borers on conifers,borers on conifers,unreliable,0.645974459727935,6,0.3836999714414787,0.34474875177321795,0.5,"AT,DE,IT,LT,SI,SK",predicts a little
+ips_typ,pit_spp,borers on conifers,borers on conifers,usable,0.5286213888659772,5,0.2542382276049783,0.15382427698579038,0.8,"AT,CZ,DE,HR,SI",predicts well
+ips_typ,pol_pol,borers on conifers,borers on conifers,no link,0.19355938120872257,2,-0.08084934442693381,0.002701654778978324,0.5,"CZ,LT",misleads
+ips_typ,pri_abi,borers on conifers,defoliators on conifers,weak,-0.2681434956355257,2,-0.07108074512958029,0.009791273785459409,0.5,"CZ,DE",misleads
+ips_typ,sap_car,borers on conifers,borers on broadleaves,no link,0.36186041108726574,NA,NA,NA,NA,NA,cannot test
+ips_typ,sco_int,borers on conifers,borers on broadleaves,weak,0.20111081122093652,2,0.03655495539125975,-0.01109356528860328,1,"CZ,DE",predicts a little
+ips_typ,sco_rat,borers on conifers,borers on broadleaves,usable,0.41405897755919985,3,0.16930840873851205,0.1014247188505778,0.6666666666666666,"CZ,DE,LT",predicts a little
+ips_typ,sco_sco,borers on conifers,borers on broadleaves,no link,-0.03032269583950967,2,-0.02358951534527054,-0.004953544717374969,0.5,"DE,LT",no help
+ips_typ,tet_gab,borers on conifers,borers on conifers,weak,0.1897234436180047,3,-5.07434912386362e-4,-0.007867726279540577,0.6666666666666666,"AT,CZ,DE",no help
+ips_typ,tet_spp,borers on conifers,borers on conifers,no link,0.1518982847509325,NA,NA,NA,NA,NA,cannot test
+ips_typ,tha_pit,borers on conifers,defoliators on conifers,no link,-0.12998119933084806,3,-0.26306383730622307,-0.01867215522268495,0.3333333333333333,"BG,DE,HR",misleads
+ips_typ,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.05994628894858977,NA,NA,NA,NA,NA,cannot test
+ips_typ,tom_spp,borers on conifers,borers on conifers,weak,0.27488646287240986,5,0.040970661959138566,0.08999819523337349,0.6,"AT,CZ,DE,LT,PL",predicts a little
+ips_typ,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.04805932838652716,5,1.5769915029562043e-4,0.010341172951369049,0.6,"BG,DE,LT,PL,RO",predicts a little
+ips_typ,uro_sir_spp,borers on conifers,borers on conifers,no link,0.20419035898138796,NA,NA,NA,NA,NA,cannot test
+ips_typ,xyl_lin,borers on conifers,borers on conifers,no link,0.1486321035438791,NA,NA,NA,NA,NA,cannot test
+ips_typ,xyl_spp,borers on conifers,borers on broadleaves,promising,0.3060653837916277,NA,NA,NA,NA,NA,cannot test
+ips_typ,zei_gri,borers on conifers,defoliators on conifers,no link,-0.056634448063355484,2,-0.027598076238855018,1.4557326844466534e-4,0.5,"CZ,DE",no help
+lym_dis,lym_mon,defoliators on broadleaves,defoliators on conifers,no link,0.06242313431798265,3,-0.009558773208761417,-0.031554922184482415,0.3333333333333333,"CZ,DE,LT",no help
+lym_dis,mel_spp,defoliators on broadleaves,defoliators on broadleaves,no link,0.09597843222882448,NA,NA,NA,NA,NA,cannot test
+lym_dis,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,0.08413804906744832,3,-0.017185169010105028,-0.01730861679652107,0.3333333333333333,"BG,CZ,DE",no help
+lym_dis,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,0.13572171802283703,NA,NA,NA,NA,NA,cannot test
+lym_dis,pan_fla,defoliators on broadleaves,defoliators on conifers,no link,0.23933594974640196,3,0.04929418970685018,0.05449015656008005,0.6666666666666666,"CZ,DE,LT",predicts a little
+lym_dis,pha_cya,defoliators on broadleaves,borers on conifers,weak,0.2299865635285942,4,0.04954305146305649,0.032335993254293705,1,"AT,CZ,DE,LT",predicts a little
+lym_dis,pis_pin,defoliators on broadleaves,borers on conifers,weak,0.2824255637257937,2,0.06558262348984722,0.0018772754468368014,1,"DE,LT",predicts well
+lym_dis,pit_bid,defoliators on broadleaves,borers on conifers,no link,0.1751403150041175,NA,NA,NA,NA,NA,cannot test
+lym_dis,pit_cha,defoliators on broadleaves,borers on conifers,weak,0.1976419245862337,4,0.02038723533242237,0.002954802002949397,0.75,"AT,DE,LT,SK",predicts a little
+lym_dis,pit_spp,defoliators on broadleaves,borers on conifers,weak,0.2184224341170629,4,0.02923164138481016,0.005924627064422872,0.75,"AT,CZ,DE,HR",predicts a little
+lym_dis,pol_pol,defoliators on broadleaves,borers on conifers,no link,0.05209333963908175,2,-0.10563604102312651,-6.319761104875976e-4,0.5,"CZ,LT",misleads
+lym_dis,pri_abi,defoliators on broadleaves,defoliators on conifers,weak,-0.11953292512374628,2,0.01397481289060365,0.002679718493379335,1,"CZ,DE",predicts a little
+lym_dis,sap_car,defoliators on broadleaves,borers on broadleaves,no link,-0.1022659723615388,NA,NA,NA,NA,NA,cannot test
+lym_dis,sco_int,defoliators on broadleaves,borers on broadleaves,no link,0.006532228451070593,2,-0.004542866485953256,-0.004826299838257331,0,"CZ,DE",no help
+lym_dis,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,0.07124037271093261,3,-0.03774177578212856,-0.023359089794696475,0.3333333333333333,"CZ,DE,LT",no help
+lym_dis,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,0.15718529002986967,2,-0.08969314874527123,-0.010138984455356992,0,"DE,LT",misleads
+lym_dis,tet_gab,defoliators on broadleaves,borers on conifers,no link,0.0640905097595749,3,-0.01509695944542222,-0.021095965408290507,0,"AT,CZ,DE",no help
+lym_dis,tet_spp,defoliators on broadleaves,borers on conifers,no link,0.16804547214768528,NA,NA,NA,NA,NA,cannot test
+lym_dis,tha_pit,defoliators on broadleaves,defoliators on conifers,no link,-0.011600778087988343,3,-0.05066027985830046,-0.023729107460534138,0,"BG,DE,HR",misleads
+lym_dis,tha_pro,defoliators on broadleaves,defoliators on broadleaves,weak,0.24772176627645368,NA,NA,NA,NA,NA,cannot test
+lym_dis,tom_spp,defoliators on broadleaves,borers on conifers,weak,0.2627527930819277,4,0.04928289026726318,0.05683290533792262,0.75,"AT,CZ,DE,LT",predicts a little
+lym_dis,tor_vir,defoliators on broadleaves,defoliators on broadleaves,no link,-0.05611534097677585,4,-0.07084353693680168,-0.051338382521548764,0,"BG,DE,LT,RO",misleads
+lym_dis,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,0.1704052472932392,NA,NA,NA,NA,NA,cannot test
+lym_dis,xyl_lin,defoliators on broadleaves,borers on conifers,no link,-0.09262171471154892,NA,NA,NA,NA,NA,cannot test
+lym_dis,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,0.04286681876578998,NA,NA,NA,NA,NA,cannot test
+lym_dis,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,0.06364662224101415,2,-0.0044536051681549615,0.002454326945277252,0.5,"CZ,DE",no help
+lym_mon,mel_spp,defoliators on conifers,defoliators on broadleaves,weak,0.12958396461892052,2,0.014982626307627478,0.012683761820655892,1,"DE,PL",predicts a little
+lym_mon,neo_ser,defoliators on conifers,defoliators on conifers,no link,0.12219839482146622,2,0.013771704135189022,-5.051526098287518e-4,1,"CZ,DE",predicts a little
+lym_mon,ope_spp,defoliators on conifers,defoliators on broadleaves,weak,0.2378431017438669,NA,NA,NA,NA,NA,cannot test
+lym_mon,pan_fla,defoliators on conifers,defoliators on conifers,usable,0.3137447090653971,4,0.0680884346888857,0.016800822800027038,0.5,"CZ,DE,LT,PL",predicts a little
+lym_mon,pha_cya,defoliators on conifers,borers on conifers,no link,0.03424321386197566,4,-0.002462983985795697,-0.010979800066849732,0,"CZ,DE,LT,PL",no help
+lym_mon,pis_pin,defoliators on conifers,borers on conifers,no link,0.1276608085806043,2,-0.3139378645433677,-0.006970025221950893,0,"DE,LT",misleads
+lym_mon,pit_bid,defoliators on conifers,borers on conifers,no link,-0.05958419817413302,NA,NA,NA,NA,NA,cannot test
+lym_mon,pit_cha,defoliators on conifers,borers on conifers,no link,0.136279183998604,2,-0.05059291565245094,-0.0021731624444407682,0,"DE,LT",misleads
+lym_mon,pit_spp,defoliators on conifers,borers on conifers,weak,-0.24046379357533265,2,0.04876265579835681,0.024243465645215845,1,"CZ,DE",predicts a little
+lym_mon,pol_pol,defoliators on conifers,borers on conifers,no link,0.025929446931220828,2,-0.0350653310449589,-0.0028150220003120285,0,"CZ,LT",no help
+lym_mon,pri_abi,defoliators on conifers,defoliators on conifers,weak,0.19788204969515147,2,0.006386841775418817,0.004465856003477375,0.5,"CZ,DE",predicts a little
+lym_mon,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.2849030264603879,NA,NA,NA,NA,NA,cannot test
+lym_mon,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.04000021516017061,2,-0.036335327786749305,-0.014573312903716884,0,"CZ,DE",no help
+lym_mon,sco_rat,defoliators on conifers,borers on broadleaves,no link,-0.033410835174173474,3,-0.005425043790767248,-0.0134080411902604,0.6666666666666666,"CZ,DE,LT",no help
+lym_mon,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.18368714760379748,2,-0.1073911418749558,3.881453063074858e-4,0,"DE,LT",misleads
+lym_mon,tet_gab,defoliators on conifers,borers on conifers,no link,0.002082855323614126,2,-6.428156689035625e-4,-1.7832139387863322e-4,0,"CZ,DE",no help
+lym_mon,tet_spp,defoliators on conifers,borers on conifers,weak,0.2933750115784773,NA,NA,NA,NA,NA,cannot test
+lym_mon,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.45812713815045525,NA,NA,NA,NA,NA,cannot test
+lym_mon,tha_pro,defoliators on conifers,defoliators on broadleaves,weak,0.22890753998842775,NA,NA,NA,NA,NA,cannot test
+lym_mon,tom_spp,defoliators on conifers,borers on conifers,no link,0.044027961841267255,4,-0.005660216674309604,-0.010987602396822949,0,"CZ,DE,LT,PL",no help
+lym_mon,tor_vir,defoliators on conifers,defoliators on broadleaves,weak,0.11814031501611885,3,-0.016257542539471093,-0.004931096648697064,0.3333333333333333,"DE,LT,PL",no help
+lym_mon,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.0466252264243432,NA,NA,NA,NA,NA,cannot test
+lym_mon,xyl_lin,defoliators on conifers,borers on conifers,no link,0.08258686148283656,NA,NA,NA,NA,NA,cannot test
+lym_mon,xyl_spp,defoliators on conifers,borers on broadleaves,no link,0.1195009147257254,NA,NA,NA,NA,NA,cannot test
+lym_mon,zei_gri,defoliators on conifers,defoliators on conifers,no link,0.04206584395751018,2,-0.32628050241656714,1.8425483745099225e-4,0,"CZ,DE",misleads
+mel_spp,neo_ser,defoliators on broadleaves,defoliators on conifers,no link,-0.12106473765154466,NA,NA,NA,NA,NA,cannot test
+mel_spp,ope_spp,defoliators on broadleaves,defoliators on broadleaves,no link,0.03399786445962709,NA,NA,NA,NA,NA,cannot test
+mel_spp,pan_fla,defoliators on broadleaves,defoliators on conifers,weak,0.19558617869370232,2,0.022141651659707162,0.04426349397744689,1,"DE,PL",predicts a little
+mel_spp,pha_cya,defoliators on broadleaves,borers on conifers,weak,0.12520730313614978,2,0.007834885710891304,-5.082117996966229e-4,0.5,"DE,PL",predicts a little
+mel_spp,pis_pin,defoliators on broadleaves,borers on conifers,no link,0.19127499112975718,NA,NA,NA,NA,NA,cannot test
+mel_spp,pit_bid,defoliators on broadleaves,borers on conifers,no link,-0.05982057628450395,NA,NA,NA,NA,NA,cannot test
+mel_spp,pit_cha,defoliators on broadleaves,borers on conifers,no link,-0.0808327025076635,NA,NA,NA,NA,NA,cannot test
+mel_spp,pit_spp,defoliators on broadleaves,borers on conifers,no link,0.14578869059689398,NA,NA,NA,NA,NA,cannot test
+mel_spp,pol_pol,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+mel_spp,pri_abi,defoliators on broadleaves,defoliators on conifers,no link,0.1836602168951483,NA,NA,NA,NA,NA,cannot test
+mel_spp,sap_car,defoliators on broadleaves,borers on broadleaves,no link,0.07614457387190585,NA,NA,NA,NA,NA,cannot test
+mel_spp,sco_int,defoliators on broadleaves,borers on broadleaves,no link,0.03274659932177143,NA,NA,NA,NA,NA,cannot test
+mel_spp,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,0.057681480233476454,NA,NA,NA,NA,NA,cannot test
+mel_spp,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,-0.10135336539474932,NA,NA,NA,NA,NA,cannot test
+mel_spp,tet_gab,defoliators on broadleaves,borers on conifers,no link,0.15704488950845902,NA,NA,NA,NA,NA,cannot test
+mel_spp,tet_spp,defoliators on broadleaves,borers on conifers,promising,0.3689755364368466,NA,NA,NA,NA,NA,cannot test
+mel_spp,tha_pit,defoliators on broadleaves,defoliators on conifers,no link,-0.30624404663563387,NA,NA,NA,NA,NA,cannot test
+mel_spp,tha_pro,defoliators on broadleaves,defoliators on broadleaves,no link,0.16625123070372314,NA,NA,NA,NA,NA,cannot test
+mel_spp,tom_spp,defoliators on broadleaves,borers on conifers,no link,0.14831006526860172,2,0.02181890328039504,0.02408210319181059,1,"DE,PL",predicts a little
+mel_spp,tor_vir,defoliators on broadleaves,defoliators on broadleaves,no link,-0.013023978666001603,2,-0.0018159472122423193,-0.001007592348976294,0,"DE,PL",no help
+mel_spp,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,0.17705501703533644,NA,NA,NA,NA,NA,cannot test
+mel_spp,xyl_lin,defoliators on broadleaves,borers on conifers,no link,-7.821162001359268e-4,NA,NA,NA,NA,NA,cannot test
+mel_spp,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,-0.017471893717549987,NA,NA,NA,NA,NA,cannot test
+mel_spp,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,0.14383660286916528,NA,NA,NA,NA,NA,cannot test
+neo_ser,ope_spp,defoliators on conifers,defoliators on broadleaves,no link,0.2608398767546145,NA,NA,NA,NA,NA,cannot test
+neo_ser,pan_fla,defoliators on conifers,defoliators on conifers,no link,-0.06386657507055891,2,0.0034856844507266116,-1.169980650479463e-4,1,"CZ,DE",predicts a little
+neo_ser,pha_cya,defoliators on conifers,borers on conifers,no link,0.07923805408676056,2,-0.039811524792235264,0.007532696951064288,0,"CZ,DE",no help
+neo_ser,pis_pin,defoliators on conifers,borers on conifers,no link,0.028240597159295108,NA,NA,NA,NA,NA,cannot test
+neo_ser,pit_bid,defoliators on conifers,borers on conifers,no link,0.24915579607054422,NA,NA,NA,NA,NA,cannot test
+neo_ser,pit_cha,defoliators on conifers,borers on conifers,no link,0.06409917451486274,NA,NA,NA,NA,NA,cannot test
+neo_ser,pit_spp,defoliators on conifers,borers on conifers,no link,-0.26836271181038623,NA,NA,NA,NA,NA,cannot test
+neo_ser,pol_pol,defoliators on conifers,borers on conifers,no link,0.1421798470928714,NA,NA,NA,NA,NA,cannot test
+neo_ser,pri_abi,defoliators on conifers,defoliators on conifers,no link,0.34350764690467256,2,0.11795505295125608,-0.0032138790670239725,1,"CZ,DE",predicts well
+neo_ser,sap_car,defoliators on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+neo_ser,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.04836315575315628,2,-0.056730605364116116,-0.009018527784147912,0,"CZ,DE",misleads
+neo_ser,sco_rat,defoliators on conifers,borers on broadleaves,no link,-0.035561846500657655,2,-0.007898420796317307,7.060774548702797e-4,0,"CZ,DE",no help
+neo_ser,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.24111443417023712,NA,NA,NA,NA,NA,cannot test
+neo_ser,tet_gab,defoliators on conifers,borers on conifers,no link,-0.010692954811966159,2,-0.0047006452629805295,0.0013915501178154432,0,"CZ,DE",no help
+neo_ser,tet_spp,defoliators on conifers,borers on conifers,no link,-0.17030598012606962,NA,NA,NA,NA,NA,cannot test
+neo_ser,tha_pit,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+neo_ser,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,0.2701441526624266,NA,NA,NA,NA,NA,cannot test
+neo_ser,tom_spp,defoliators on conifers,borers on conifers,no link,0.047834806387392716,2,-0.16177864744988657,-0.016034386149922808,0,"CZ,DE",misleads
+neo_ser,tor_vir,defoliators on conifers,defoliators on broadleaves,no link,0.10948696306080286,1,-0.006747439206886474,0.008280868898914218,0,BG,cannot test
+neo_ser,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.15045390445454052,NA,NA,NA,NA,NA,cannot test
+neo_ser,xyl_lin,defoliators on conifers,borers on conifers,no link,0.08057980581614524,NA,NA,NA,NA,NA,cannot test
+neo_ser,xyl_spp,defoliators on conifers,borers on broadleaves,no link,0.1396057422978602,NA,NA,NA,NA,NA,cannot test
+neo_ser,zei_gri,defoliators on conifers,defoliators on conifers,no link,-0.0476576999545067,2,-0.10031648386407044,8.691876382360686e-4,0,"CZ,DE",misleads
+ope_spp,pan_fla,defoliators on broadleaves,defoliators on conifers,no link,-0.012231036206837355,NA,NA,NA,NA,NA,cannot test
+ope_spp,pha_cya,defoliators on broadleaves,borers on conifers,no link,0.12213133145403925,NA,NA,NA,NA,NA,cannot test
+ope_spp,pis_pin,defoliators on broadleaves,borers on conifers,no link,0.10255921585612508,NA,NA,NA,NA,NA,cannot test
+ope_spp,pit_bid,defoliators on broadleaves,borers on conifers,no link,0.3015953913947821,NA,NA,NA,NA,NA,cannot test
+ope_spp,pit_cha,defoliators on broadleaves,borers on conifers,no link,0.12655918559733276,NA,NA,NA,NA,NA,cannot test
+ope_spp,pit_spp,defoliators on broadleaves,borers on conifers,no link,0.03947941719645301,NA,NA,NA,NA,NA,cannot test
+ope_spp,pol_pol,defoliators on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ope_spp,pri_abi,defoliators on broadleaves,defoliators on conifers,no link,0.05579603096651908,NA,NA,NA,NA,NA,cannot test
+ope_spp,sap_car,defoliators on broadleaves,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ope_spp,sco_int,defoliators on broadleaves,borers on broadleaves,no link,-0.07300850908550445,NA,NA,NA,NA,NA,cannot test
+ope_spp,sco_rat,defoliators on broadleaves,borers on broadleaves,no link,-0.08381725113691679,NA,NA,NA,NA,NA,cannot test
+ope_spp,sco_sco,defoliators on broadleaves,borers on broadleaves,no link,0.2514751074719057,NA,NA,NA,NA,NA,cannot test
+ope_spp,tet_gab,defoliators on broadleaves,borers on conifers,no link,0.11395038540058705,NA,NA,NA,NA,NA,cannot test
+ope_spp,tet_spp,defoliators on broadleaves,borers on conifers,no link,0.03576993202787229,NA,NA,NA,NA,NA,cannot test
+ope_spp,tha_pit,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+ope_spp,tha_pro,defoliators on broadleaves,defoliators on broadleaves,no link,0.13057213234747828,NA,NA,NA,NA,NA,cannot test
+ope_spp,tom_spp,defoliators on broadleaves,borers on conifers,no link,0.1649355936162675,NA,NA,NA,NA,NA,cannot test
+ope_spp,tor_vir,defoliators on broadleaves,defoliators on broadleaves,promising,0.5102158892514843,NA,NA,NA,NA,NA,cannot test
+ope_spp,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,-0.13170583075763934,NA,NA,NA,NA,NA,cannot test
+ope_spp,xyl_lin,defoliators on broadleaves,borers on conifers,no link,0.003398576897489748,NA,NA,NA,NA,NA,cannot test
+ope_spp,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,0.024234432424789756,NA,NA,NA,NA,NA,cannot test
+ope_spp,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,0.12688204890511523,NA,NA,NA,NA,NA,cannot test
+pan_fla,pha_cya,defoliators on conifers,borers on conifers,no link,0.10302006627359132,4,0.008562429509185399,0.007809152192831403,0.75,"CZ,DE,LT,PL",predicts a little
+pan_fla,pis_pin,defoliators on conifers,borers on conifers,no link,0.15477961051706823,2,0.01735291772642278,-8.4914925383206e-5,0.5,"DE,LT",predicts a little
+pan_fla,pit_bid,defoliators on conifers,borers on conifers,no link,0.16326578955205245,NA,NA,NA,NA,NA,cannot test
+pan_fla,pit_cha,defoliators on conifers,borers on conifers,no link,0.206512251004872,2,0.02973447634572568,6.941235420407921e-4,0.5,"DE,LT",predicts a little
+pan_fla,pit_spp,defoliators on conifers,borers on conifers,no link,0.10266729905675964,2,-0.032214203680825726,-8.881784197001252e-16,0,"CZ,DE",no help
+pan_fla,pol_pol,defoliators on conifers,borers on conifers,no link,0.12702264782734599,2,0.014772033466401213,-4.440892098500626e-16,1,"CZ,LT",predicts a little
+pan_fla,pri_abi,defoliators on conifers,defoliators on conifers,weak,0.23321401772048966,2,-0.11188618718060339,-0.004844703148809026,0,"CZ,DE",misleads
+pan_fla,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.16148790635021953,NA,NA,NA,NA,NA,cannot test
+pan_fla,sco_int,defoliators on conifers,borers on broadleaves,no link,-0.04695601087530223,2,-0.2079232175666994,-0.002075531119849483,0,"CZ,DE",misleads
+pan_fla,sco_rat,defoliators on conifers,borers on broadleaves,no link,-0.1160457869139796,3,-0.041140931597071884,-0.004157952547900079,0,"CZ,DE,LT",no help
+pan_fla,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.03204202659778427,2,-0.017153813751937586,-0.0012110901158219889,0,"DE,LT",no help
+pan_fla,tet_gab,defoliators on conifers,borers on conifers,no link,0.10717903070164547,2,-0.026589505763360943,-9.449439267061877e-6,0,"CZ,DE",no help
+pan_fla,tet_spp,defoliators on conifers,borers on conifers,no link,0.44632066952455196,NA,NA,NA,NA,NA,cannot test
+pan_fla,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.47239412810897125,NA,NA,NA,NA,NA,cannot test
+pan_fla,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,-0.026133601559517453,NA,NA,NA,NA,NA,cannot test
+pan_fla,tom_spp,defoliators on conifers,borers on conifers,weak,0.1984667455410152,4,0.029261667647804912,0.02622853431203942,0.75,"CZ,DE,LT,PL",predicts a little
+pan_fla,tor_vir,defoliators on conifers,defoliators on broadleaves,weak,0.13589926750302703,3,0.013272394470046467,-0.0059671061939452485,1,"DE,LT,PL",predicts a little
+pan_fla,uro_sir_spp,defoliators on conifers,borers on conifers,no link,-0.09349088024409397,NA,NA,NA,NA,NA,cannot test
+pan_fla,xyl_lin,defoliators on conifers,borers on conifers,promising,0.40239394906106984,NA,NA,NA,NA,NA,cannot test
+pan_fla,xyl_spp,defoliators on conifers,borers on broadleaves,weak,0.26045022010175806,NA,NA,NA,NA,NA,cannot test
+pan_fla,zei_gri,defoliators on conifers,defoliators on conifers,no link,0.2894964075144088,2,-0.2245623085189925,-2.220446049250313e-16,0,"CZ,DE",misleads
+pha_cya,pis_pin,borers on conifers,borers on conifers,usable,0.38143548702689134,2,0.14178101964865597,0.0086350900367822,1,"DE,LT",predicts well
+pha_cya,pit_bid,borers on conifers,borers on conifers,promising,0.6044388237191045,NA,NA,NA,NA,NA,cannot test
+pha_cya,pit_cha,borers on conifers,borers on conifers,usable,0.3495793541687242,3,0.1030724999891216,0.09376212969521824,1,"AT,DE,LT",predicts well
+pha_cya,pit_spp,borers on conifers,borers on conifers,weak,0.2562962553260354,3,0.021718279244300476,0.027384021521557944,0.3333333333333333,"AT,CZ,DE",no help
+pha_cya,pol_pol,borers on conifers,borers on conifers,no link,0.13614999139408854,2,-0.0880387729705423,-0.0018790202021763402,0.5,"CZ,LT",misleads
+pha_cya,pri_abi,borers on conifers,defoliators on conifers,no link,-0.14454814615347625,2,-0.01984940677663305,0.011415330146532177,0.5,"CZ,DE",no help
+pha_cya,sap_car,borers on conifers,borers on broadleaves,no link,0.4897466971970208,NA,NA,NA,NA,NA,cannot test
+pha_cya,sco_int,borers on conifers,borers on broadleaves,weak,0.24601577831480403,2,0.04418009792694988,0.0538635959990611,1,"CZ,DE",predicts a little
+pha_cya,sco_rat,borers on conifers,borers on broadleaves,usable,0.34923850849324495,3,0.11120181717058342,0.07793704977009563,1,"CZ,DE,LT",predicts well
+pha_cya,sco_sco,borers on conifers,borers on broadleaves,no link,0.03647298611798391,2,-0.019406867241942294,-5.273471093685256e-4,0,"DE,LT",no help
+pha_cya,tet_gab,borers on conifers,borers on conifers,no link,0.14516863960167734,3,-0.07103747679327266,-0.04073515193842514,0,"AT,CZ,DE",misleads
+pha_cya,tet_spp,borers on conifers,borers on conifers,no link,0.145875328322962,NA,NA,NA,NA,NA,cannot test
+pha_cya,tha_pit,borers on conifers,defoliators on conifers,no link,0.38795166376655693,NA,NA,NA,NA,NA,cannot test
+pha_cya,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.12957864961418486,NA,NA,NA,NA,NA,cannot test
+pha_cya,tom_spp,borers on conifers,borers on conifers,weak,0.2878472325700574,5,0.062300345574374916,0.07567512930243891,0.8,"AT,CZ,DE,LT,PL",predicts well
+pha_cya,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.018753908372652946,3,-0.0030772641903884512,-6.834437179987773e-4,0.6666666666666666,"DE,LT,PL",no help
+pha_cya,uro_sir_spp,borers on conifers,borers on conifers,no link,0.21537837496359108,NA,NA,NA,NA,NA,cannot test
+pha_cya,xyl_lin,borers on conifers,borers on conifers,no link,0.026680925184946237,NA,NA,NA,NA,NA,cannot test
+pha_cya,xyl_spp,borers on conifers,borers on broadleaves,weak,0.2864029749936338,NA,NA,NA,NA,NA,cannot test
+pha_cya,zei_gri,borers on conifers,defoliators on conifers,no link,-0.039492033826317004,2,-0.08659633185114157,-0.002791009717654891,0.5,"CZ,DE",misleads
+pis_pin,pit_bid,borers on conifers,borers on conifers,promising,0.4183824476545878,NA,NA,NA,NA,NA,cannot test
+pis_pin,pit_cha,borers on conifers,borers on conifers,usable,0.43155102237460574,2,0.12658636622952446,0.023281580631882237,1,"DE,LT",predicts well
+pis_pin,pit_spp,borers on conifers,borers on conifers,no link,0.16778578762789031,NA,NA,NA,NA,NA,cannot test
+pis_pin,pol_pol,borers on conifers,borers on conifers,no link,0.5437025759288647,NA,NA,NA,NA,NA,cannot test
+pis_pin,pri_abi,borers on conifers,defoliators on conifers,no link,0.17203170432508988,NA,NA,NA,NA,NA,cannot test
+pis_pin,sap_car,borers on conifers,borers on broadleaves,no link,0.08203379930183087,NA,NA,NA,NA,NA,cannot test
+pis_pin,sco_int,borers on conifers,borers on broadleaves,no link,0.22537551920105753,NA,NA,NA,NA,NA,cannot test
+pis_pin,sco_rat,borers on conifers,borers on broadleaves,no link,0.36348986828610524,2,0.12425629647525216,0.03528660113493376,1,"DE,LT",predicts well
+pis_pin,sco_sco,borers on conifers,borers on broadleaves,no link,0.2600752836446467,2,-0.014469816784854261,-0.007138117496871876,0.5,"DE,LT",no help
+pis_pin,tet_gab,borers on conifers,borers on conifers,promising,0.44438769006133133,NA,NA,NA,NA,NA,cannot test
+pis_pin,tet_spp,borers on conifers,borers on conifers,no link,0.32143307968465457,NA,NA,NA,NA,NA,cannot test
+pis_pin,tha_pit,borers on conifers,defoliators on conifers,no link,-0.15133556560130884,NA,NA,NA,NA,NA,cannot test
+pis_pin,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.1018585202072589,NA,NA,NA,NA,NA,cannot test
+pis_pin,tom_spp,borers on conifers,borers on conifers,unreliable,0.47459157788404155,2,0.06971697745016925,0.032722255927309485,1,"DE,LT",predicts well
+pis_pin,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.14612201449204124,2,-0.030941433435733634,8.559999510552307e-4,0.5,"DE,LT",no help
+pis_pin,uro_sir_spp,borers on conifers,borers on conifers,no link,-0.006111886103271918,NA,NA,NA,NA,NA,cannot test
+pis_pin,xyl_lin,borers on conifers,borers on conifers,no link,0.21742164189690152,NA,NA,NA,NA,NA,cannot test
+pis_pin,xyl_spp,borers on conifers,borers on broadleaves,promising,0.3833883761546389,NA,NA,NA,NA,NA,cannot test
+pis_pin,zei_gri,borers on conifers,defoliators on conifers,no link,0.04548936441277936,NA,NA,NA,NA,NA,cannot test
+pit_bid,pit_cha,borers on conifers,borers on conifers,promising,0.4343617702834948,NA,NA,NA,NA,NA,cannot test
+pit_bid,pit_spp,borers on conifers,borers on conifers,no link,0.18027932399395025,NA,NA,NA,NA,NA,cannot test
+pit_bid,pol_pol,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pit_bid,pri_abi,borers on conifers,defoliators on conifers,no link,0.05320308063758207,NA,NA,NA,NA,NA,cannot test
+pit_bid,sap_car,borers on conifers,borers on broadleaves,no link,0.2762426839708649,NA,NA,NA,NA,NA,cannot test
+pit_bid,sco_int,borers on conifers,borers on broadleaves,weak,0.22852493148438127,NA,NA,NA,NA,NA,cannot test
+pit_bid,sco_rat,borers on conifers,borers on broadleaves,no link,0.4613483122109086,NA,NA,NA,NA,NA,cannot test
+pit_bid,sco_sco,borers on conifers,borers on broadleaves,no link,0.2080301339631069,NA,NA,NA,NA,NA,cannot test
+pit_bid,tet_gab,borers on conifers,borers on conifers,no link,0.2958822072737022,NA,NA,NA,NA,NA,cannot test
+pit_bid,tet_spp,borers on conifers,borers on conifers,no link,-0.006668287204101228,NA,NA,NA,NA,NA,cannot test
+pit_bid,tha_pit,borers on conifers,defoliators on conifers,no link,0.20749572935287808,NA,NA,NA,NA,NA,cannot test
+pit_bid,tha_pro,borers on conifers,defoliators on broadleaves,no link,-0.01783327705465471,NA,NA,NA,NA,NA,cannot test
+pit_bid,tom_spp,borers on conifers,borers on conifers,promising,0.3980823426219632,NA,NA,NA,NA,NA,cannot test
+pit_bid,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.29529278227271977,NA,NA,NA,NA,NA,cannot test
+pit_bid,uro_sir_spp,borers on conifers,borers on conifers,no link,0.11832848278078659,NA,NA,NA,NA,NA,cannot test
+pit_bid,xyl_lin,borers on conifers,borers on conifers,no link,0.1729300942397273,NA,NA,NA,NA,NA,cannot test
+pit_bid,xyl_spp,borers on conifers,borers on broadleaves,weak,0.2921792341093277,NA,NA,NA,NA,NA,cannot test
+pit_bid,zei_gri,borers on conifers,defoliators on conifers,no link,-0.3778711320327924,NA,NA,NA,NA,NA,cannot test
+pit_cha,pit_spp,borers on conifers,borers on conifers,usable,0.31562567503059846,3,0.054652081309796596,0.019706068283780853,0.6666666666666666,"AT,DE,SI",predicts a little
+pit_cha,pol_pol,borers on conifers,borers on conifers,no link,0.6183597328246233,NA,NA,NA,NA,NA,cannot test
+pit_cha,pri_abi,borers on conifers,defoliators on conifers,no link,-0.010128895184766005,NA,NA,NA,NA,NA,cannot test
+pit_cha,sap_car,borers on conifers,borers on broadleaves,no link,0.16067892468251915,NA,NA,NA,NA,NA,cannot test
+pit_cha,sco_int,borers on conifers,borers on broadleaves,no link,0.13824810076219993,NA,NA,NA,NA,NA,cannot test
+pit_cha,sco_rat,borers on conifers,borers on broadleaves,no link,0.3255521694996514,2,0.10303559954119246,0.02333950931339812,1,"DE,LT",predicts well
+pit_cha,sco_sco,borers on conifers,borers on broadleaves,no link,0.06076952557841103,2,0.0018562838759118572,-0.00428372459351567,0.5,"DE,LT",predicts a little
+pit_cha,tet_gab,borers on conifers,borers on conifers,weak,0.2113280107582787,2,0.03784287367836925,0.012632956353314295,1,"AT,DE",predicts a little
+pit_cha,tet_spp,borers on conifers,borers on conifers,no link,0.14433685344952601,NA,NA,NA,NA,NA,cannot test
+pit_cha,tha_pit,borers on conifers,defoliators on conifers,no link,0.415623705184031,NA,NA,NA,NA,NA,cannot test
+pit_cha,tha_pro,borers on conifers,defoliators on broadleaves,no link,-0.03795836670418357,NA,NA,NA,NA,NA,cannot test
+pit_cha,tom_spp,borers on conifers,borers on conifers,unreliable,0.3371010577556004,3,0.1049235204197233,0.09912586844684379,1,"AT,DE,LT",predicts well
+pit_cha,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.11812625782433,2,-0.15361281775506197,0.0028479527835687524,0.5,"DE,LT",misleads
+pit_cha,uro_sir_spp,borers on conifers,borers on conifers,no link,0.17764580846896885,NA,NA,NA,NA,NA,cannot test
+pit_cha,xyl_lin,borers on conifers,borers on conifers,no link,0.11529754035762718,NA,NA,NA,NA,NA,cannot test
+pit_cha,xyl_spp,borers on conifers,borers on broadleaves,weak,0.22615246625169083,NA,NA,NA,NA,NA,cannot test
+pit_cha,zei_gri,borers on conifers,defoliators on conifers,no link,-0.08515120707103326,NA,NA,NA,NA,NA,cannot test
+pit_spp,pol_pol,borers on conifers,borers on conifers,no link,0.130965943995909,NA,NA,NA,NA,NA,cannot test
+pit_spp,pri_abi,borers on conifers,defoliators on conifers,usable,-0.3893076355577473,2,0.10999793679156777,0.05440840525289703,0.5,"CZ,DE",predicts a little
+pit_spp,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pit_spp,sco_int,borers on conifers,borers on broadleaves,weak,0.2044168697000314,2,0.013728954116205672,0.014657676800938213,0.5,"CZ,DE",predicts a little
+pit_spp,sco_rat,borers on conifers,borers on broadleaves,promising,0.4080050912537393,NA,NA,NA,NA,NA,cannot test
+pit_spp,sco_sco,borers on conifers,borers on broadleaves,no link,-0.24660806558417117,NA,NA,NA,NA,NA,cannot test
+pit_spp,tet_gab,borers on conifers,borers on conifers,no link,0.09343213981213513,3,-0.030472456209049037,-0.014943693252842394,0.6666666666666666,"AT,CZ,DE",no help
+pit_spp,tet_spp,borers on conifers,borers on conifers,no link,0.1830318375862749,NA,NA,NA,NA,NA,cannot test
+pit_spp,tha_pit,borers on conifers,defoliators on conifers,no link,0.0395373576969938,NA,NA,NA,NA,NA,cannot test
+pit_spp,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.16531744195920015,NA,NA,NA,NA,NA,cannot test
+pit_spp,tom_spp,borers on conifers,borers on conifers,unreliable,0.3528813147678372,3,-0.04246886385458959,0.074584617560294,0.6666666666666666,"AT,CZ,DE",no help
+pit_spp,tor_vir,borers on conifers,defoliators on broadleaves,no link,-0.09425909217331976,NA,NA,NA,NA,NA,cannot test
+pit_spp,uro_sir_spp,borers on conifers,borers on conifers,no link,0.18953046743086874,NA,NA,NA,NA,NA,cannot test
+pit_spp,xyl_lin,borers on conifers,borers on conifers,no link,0.24674766441230933,NA,NA,NA,NA,NA,cannot test
+pit_spp,xyl_spp,borers on conifers,borers on broadleaves,no link,0.24118365152927246,NA,NA,NA,NA,NA,cannot test
+pit_spp,zei_gri,borers on conifers,defoliators on conifers,no link,-0.020617565990020396,NA,NA,NA,NA,NA,cannot test
+pol_pol,pri_abi,borers on conifers,defoliators on conifers,no link,-0.037121419679986355,NA,NA,NA,NA,NA,cannot test
+pol_pol,sap_car,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,sco_int,borers on conifers,borers on broadleaves,no link,0.17847978028893166,NA,NA,NA,NA,NA,cannot test
+pol_pol,sco_rat,borers on conifers,borers on broadleaves,no link,0.20927121449987235,2,0.018443273252921832,0.0058255057239881,1,"CZ,LT",predicts a little
+pol_pol,sco_sco,borers on conifers,borers on broadleaves,no link,0.1292409422107587,NA,NA,NA,NA,NA,cannot test
+pol_pol,tet_gab,borers on conifers,borers on conifers,no link,-0.2513555305339332,NA,NA,NA,NA,NA,cannot test
+pol_pol,tet_spp,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,tha_pit,borers on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,tha_pro,borers on conifers,defoliators on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,tom_spp,borers on conifers,borers on conifers,no link,0.12900187849990705,2,-0.5162893073176851,-0.0015414014836723222,0.5,"CZ,LT",misleads
+pol_pol,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.3738754014462137,NA,NA,NA,NA,NA,cannot test
+pol_pol,uro_sir_spp,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,xyl_lin,borers on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,xyl_spp,borers on conifers,borers on broadleaves,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+pol_pol,zei_gri,borers on conifers,defoliators on conifers,weak,-0.1448021470525006,NA,NA,NA,NA,NA,cannot test
+pri_abi,sap_car,defoliators on conifers,borers on broadleaves,no link,-0.06689979691855438,NA,NA,NA,NA,NA,cannot test
+pri_abi,sco_int,defoliators on conifers,borers on broadleaves,weak,-0.16232401174226802,2,0.02135643243047658,0.0035998309289749786,1,"CZ,DE",predicts a little
+pri_abi,sco_rat,defoliators on conifers,borers on broadleaves,weak,-0.22199405349296994,2,-0.029050504132618116,-0.03893823383872874,0.5,"CZ,DE",no help
+pri_abi,sco_sco,defoliators on conifers,borers on broadleaves,no link,0.2963606629380736,NA,NA,NA,NA,NA,cannot test
+pri_abi,tet_gab,defoliators on conifers,borers on conifers,weak,0.22921920994177877,2,-0.021289985167794123,0.007067213981571174,0.5,"CZ,DE",no help
+pri_abi,tet_spp,defoliators on conifers,borers on conifers,no link,0.04941210102977778,NA,NA,NA,NA,NA,cannot test
+pri_abi,tha_pit,defoliators on conifers,defoliators on conifers,no link,-0.2726532185868306,NA,NA,NA,NA,NA,cannot test
+pri_abi,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,-0.05983429407536036,NA,NA,NA,NA,NA,cannot test
+pri_abi,tom_spp,defoliators on conifers,borers on conifers,no link,-0.054403767694148085,2,-0.25036293776889984,-0.0352158627210446,0,"CZ,DE",misleads
+pri_abi,tor_vir,defoliators on conifers,defoliators on broadleaves,no link,0.09161002773430094,NA,NA,NA,NA,NA,cannot test
+pri_abi,uro_sir_spp,defoliators on conifers,borers on conifers,no link,0.0416870208408851,NA,NA,NA,NA,NA,cannot test
+pri_abi,xyl_lin,defoliators on conifers,borers on conifers,no link,0.15406291978712452,NA,NA,NA,NA,NA,cannot test
+pri_abi,xyl_spp,defoliators on conifers,borers on broadleaves,weak,0.1359588825238368,NA,NA,NA,NA,NA,cannot test
+pri_abi,zei_gri,defoliators on conifers,defoliators on conifers,no link,-0.17291216853200186,2,-0.19109737532641735,1.1176772331555895e-4,0,"CZ,DE",misleads
+sap_car,sco_int,borers on broadleaves,borers on broadleaves,no link,0.19236201758772603,NA,NA,NA,NA,NA,cannot test
+sap_car,sco_rat,borers on broadleaves,borers on broadleaves,no link,0.2536007562385222,NA,NA,NA,NA,NA,cannot test
+sap_car,sco_sco,borers on broadleaves,borers on broadleaves,no link,-0.2247083218876505,NA,NA,NA,NA,NA,cannot test
+sap_car,tet_gab,borers on broadleaves,borers on conifers,no link,0.3376767787549809,NA,NA,NA,NA,NA,cannot test
+sap_car,tet_spp,borers on broadleaves,borers on conifers,no link,-0.07479526688260059,NA,NA,NA,NA,NA,cannot test
+sap_car,tha_pit,borers on broadleaves,defoliators on conifers,no link,0.30712838660682645,NA,NA,NA,NA,NA,cannot test
+sap_car,tha_pro,borers on broadleaves,defoliators on broadleaves,no link,-0.24827081762145595,NA,NA,NA,NA,NA,cannot test
+sap_car,tom_spp,borers on broadleaves,borers on conifers,no link,0.07976752604516332,NA,NA,NA,NA,NA,cannot test
+sap_car,tor_vir,borers on broadleaves,defoliators on broadleaves,no link,-0.21548151620876924,NA,NA,NA,NA,NA,cannot test
+sap_car,uro_sir_spp,borers on broadleaves,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+sap_car,xyl_lin,borers on broadleaves,borers on conifers,no link,-0.2883484644918905,NA,NA,NA,NA,NA,cannot test
+sap_car,xyl_spp,borers on broadleaves,borers on broadleaves,no link,-0.15711827670663825,NA,NA,NA,NA,NA,cannot test
+sap_car,zei_gri,borers on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+sco_int,sco_rat,borers on broadleaves,borers on broadleaves,usable,0.43571267708369443,2,0.1880922595482255,0.15614518384216913,1,"CZ,DE",predicts well
+sco_int,sco_sco,borers on broadleaves,borers on broadleaves,no link,0.05727300257621063,NA,NA,NA,NA,NA,cannot test
+sco_int,tet_gab,borers on broadleaves,borers on conifers,no link,0.14150656647921508,2,-0.22877296434279515,-0.01948131437266709,0,"CZ,DE",misleads
+sco_int,tet_spp,borers on broadleaves,borers on conifers,weak,-0.1633641873350131,NA,NA,NA,NA,NA,cannot test
+sco_int,tha_pit,borers on broadleaves,defoliators on conifers,no link,0.08789146246312574,NA,NA,NA,NA,NA,cannot test
+sco_int,tha_pro,borers on broadleaves,defoliators on broadleaves,weak,0.127151222308722,NA,NA,NA,NA,NA,cannot test
+sco_int,tom_spp,borers on broadleaves,borers on conifers,weak,0.1513395669561561,2,0.017257612539577916,-0.0027433148471687208,1,"CZ,DE",predicts a little
+sco_int,tor_vir,borers on broadleaves,defoliators on broadleaves,no link,0.03106633550703826,NA,NA,NA,NA,NA,cannot test
+sco_int,uro_sir_spp,borers on broadleaves,borers on conifers,no link,0.12056864515565222,NA,NA,NA,NA,NA,cannot test
+sco_int,xyl_lin,borers on broadleaves,borers on conifers,no link,-0.007317605651569363,NA,NA,NA,NA,NA,cannot test
+sco_int,xyl_spp,borers on broadleaves,borers on broadleaves,no link,0.13494794262307708,NA,NA,NA,NA,NA,cannot test
+sco_int,zei_gri,borers on broadleaves,defoliators on conifers,no link,-0.005026221841110531,2,-0.009453045474628885,-2.1653415391509334e-4,0,"CZ,DE",no help
+sco_rat,sco_sco,borers on broadleaves,borers on broadleaves,no link,0.046619093233399515,2,-0.045693747948450936,-0.018799237448714923,0,"DE,LT",no help
+sco_rat,tet_gab,borers on broadleaves,borers on conifers,no link,0.05771493817705466,2,-0.10359262896163601,-0.0051585527267679065,0,"CZ,DE",misleads
+sco_rat,tet_spp,borers on broadleaves,borers on conifers,no link,-0.31027070725386074,NA,NA,NA,NA,NA,cannot test
+sco_rat,tha_pit,borers on broadleaves,defoliators on conifers,no link,0.3376629381122109,NA,NA,NA,NA,NA,cannot test
+sco_rat,tha_pro,borers on broadleaves,defoliators on broadleaves,no link,0.2139351897881134,NA,NA,NA,NA,NA,cannot test
+sco_rat,tom_spp,borers on broadleaves,borers on conifers,usable,0.3645841960605989,3,0.10225703752738946,0.10506474705813351,0.6666666666666666,"CZ,DE,LT",predicts a little
+sco_rat,tor_vir,borers on broadleaves,defoliators on broadleaves,no link,0.2995362181624372,2,0.0896102872456449,0.007985052536052084,1,"DE,LT",predicts well
+sco_rat,uro_sir_spp,borers on broadleaves,borers on conifers,no link,0.3039489097315388,NA,NA,NA,NA,NA,cannot test
+sco_rat,xyl_lin,borers on broadleaves,borers on conifers,no link,0.1887369291439691,NA,NA,NA,NA,NA,cannot test
+sco_rat,xyl_spp,borers on broadleaves,borers on broadleaves,no link,0.24421893598324806,NA,NA,NA,NA,NA,cannot test
+sco_rat,zei_gri,borers on broadleaves,defoliators on conifers,no link,-0.016113062756124046,2,-0.03067928581344015,-0.0014667136623616184,0,"CZ,DE",no help
+sco_sco,tet_gab,borers on broadleaves,borers on conifers,promising,0.3095899257253502,NA,NA,NA,NA,NA,cannot test
+sco_sco,tet_spp,borers on broadleaves,borers on conifers,no link,-0.00807703286241614,NA,NA,NA,NA,NA,cannot test
+sco_sco,tha_pit,borers on broadleaves,defoliators on conifers,no link,-0.10807205026320002,NA,NA,NA,NA,NA,cannot test
+sco_sco,tha_pro,borers on broadleaves,defoliators on broadleaves,no link,0.41222709841054606,NA,NA,NA,NA,NA,cannot test
+sco_sco,tom_spp,borers on broadleaves,borers on conifers,weak,0.21053378695560196,2,0.010127029526542097,-0.0012523181236268055,0.5,"DE,LT",predicts a little
+sco_sco,tor_vir,borers on broadleaves,defoliators on broadleaves,no link,0.11652897175300349,2,-0.1519400035476961,-0.00257522087599793,0,"DE,LT",misleads
+sco_sco,uro_sir_spp,borers on broadleaves,borers on conifers,no link,-0.07954659008666243,NA,NA,NA,NA,NA,cannot test
+sco_sco,xyl_lin,borers on broadleaves,borers on conifers,no link,0.20069455823759416,NA,NA,NA,NA,NA,cannot test
+sco_sco,xyl_spp,borers on broadleaves,borers on broadleaves,no link,0.14706445812982097,NA,NA,NA,NA,NA,cannot test
+sco_sco,zei_gri,borers on broadleaves,defoliators on conifers,no link,0.14029028071059302,NA,NA,NA,NA,NA,cannot test
+tet_gab,tet_spp,borers on conifers,borers on conifers,promising,0.3150905519496324,NA,NA,NA,NA,NA,cannot test
+tet_gab,tha_pit,borers on conifers,defoliators on conifers,no link,-0.2561056600274978,NA,NA,NA,NA,NA,cannot test
+tet_gab,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.1037199841903357,NA,NA,NA,NA,NA,cannot test
+tet_gab,tom_spp,borers on conifers,borers on conifers,no link,0.11816863378427862,3,-0.03452080624047271,-0.05618691751718674,0,"AT,CZ,DE",no help
+tet_gab,tor_vir,borers on conifers,defoliators on broadleaves,weak,0.17243209484278207,NA,NA,NA,NA,NA,cannot test
+tet_gab,uro_sir_spp,borers on conifers,borers on conifers,no link,0.2801228012842594,NA,NA,NA,NA,NA,cannot test
+tet_gab,xyl_lin,borers on conifers,borers on conifers,weak,0.16409591346371794,NA,NA,NA,NA,NA,cannot test
+tet_gab,xyl_spp,borers on conifers,borers on broadleaves,weak,0.2255819374076223,NA,NA,NA,NA,NA,cannot test
+tet_gab,zei_gri,borers on conifers,defoliators on conifers,no link,-0.17663183388472267,2,0.031038246355453936,-5.602447862160798e-4,1,"CZ,DE",predicts a little
+tet_spp,tha_pit,borers on conifers,defoliators on conifers,no link,-0.19185599655687058,NA,NA,NA,NA,NA,cannot test
+tet_spp,tha_pro,borers on conifers,defoliators on broadleaves,no link,0.12307832134195376,NA,NA,NA,NA,NA,cannot test
+tet_spp,tom_spp,borers on conifers,borers on conifers,no link,0.17514842267223155,NA,NA,NA,NA,NA,cannot test
+tet_spp,tor_vir,borers on conifers,defoliators on broadleaves,no link,0.01577170983108481,NA,NA,NA,NA,NA,cannot test
+tet_spp,uro_sir_spp,borers on conifers,borers on conifers,no link,0.2422829636267983,NA,NA,NA,NA,NA,cannot test
+tet_spp,xyl_lin,borers on conifers,borers on conifers,no link,0.08659942607938206,NA,NA,NA,NA,NA,cannot test
+tet_spp,xyl_spp,borers on conifers,borers on broadleaves,no link,0.016823916076906423,NA,NA,NA,NA,NA,cannot test
+tet_spp,zei_gri,borers on conifers,defoliators on conifers,no link,-0.09766853508096923,NA,NA,NA,NA,NA,cannot test
+tha_pit,tha_pro,defoliators on conifers,defoliators on broadleaves,no link,0.1005071363815457,NA,NA,NA,NA,NA,cannot test
+tha_pit,tom_spp,defoliators on conifers,borers on conifers,no link,0.42526525436470464,NA,NA,NA,NA,NA,cannot test
+tha_pit,tor_vir,defoliators on conifers,defoliators on broadleaves,no link,-0.2553699518564751,1,-1.1428810313490674,0,0,BG,cannot test
+tha_pit,uro_sir_spp,defoliators on conifers,borers on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+tha_pit,xyl_lin,defoliators on conifers,borers on conifers,no link,-0.879837319677754,NA,NA,NA,NA,NA,cannot test
+tha_pit,xyl_spp,defoliators on conifers,borers on broadleaves,no link,-0.6727864719718979,NA,NA,NA,NA,NA,cannot test
+tha_pit,zei_gri,defoliators on conifers,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+tha_pro,tom_spp,defoliators on broadleaves,borers on conifers,no link,-0.05800026761847843,NA,NA,NA,NA,NA,cannot test
+tha_pro,tor_vir,defoliators on broadleaves,defoliators on broadleaves,no link,0.1301890427870311,NA,NA,NA,NA,NA,cannot test
+tha_pro,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,-0.06642399526161498,NA,NA,NA,NA,NA,cannot test
+tha_pro,xyl_lin,defoliators on broadleaves,borers on conifers,no link,0.16507154086640408,NA,NA,NA,NA,NA,cannot test
+tha_pro,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,0.14150837742776468,NA,NA,NA,NA,NA,cannot test
+tha_pro,zei_gri,defoliators on broadleaves,defoliators on conifers,not enough data,NA,NA,NA,NA,NA,NA,cannot test
+tom_spp,tor_vir,borers on conifers,defoliators on broadleaves,weak,0.1790927162487887,3,0.018891200187868273,0.0030272254349336114,0.6666666666666666,"DE,LT,PL",predicts a little
+tom_spp,uro_sir_spp,borers on conifers,borers on conifers,no link,0.1066226108023297,NA,NA,NA,NA,NA,cannot test
+tom_spp,xyl_lin,borers on conifers,borers on conifers,no link,0.10250653376240551,NA,NA,NA,NA,NA,cannot test
+tom_spp,xyl_spp,borers on conifers,borers on broadleaves,no link,0.17196302226035315,NA,NA,NA,NA,NA,cannot test
+tom_spp,zei_gri,borers on conifers,defoliators on conifers,no link,-0.06250113782993941,2,-0.1016473623606331,-0.0010211127159132083,0.5,"CZ,DE",misleads
+tor_vir,uro_sir_spp,defoliators on broadleaves,borers on conifers,no link,-0.09114268012731687,NA,NA,NA,NA,NA,cannot test
+tor_vir,xyl_lin,defoliators on broadleaves,borers on conifers,weak,0.27784579538565135,NA,NA,NA,NA,NA,cannot test
+tor_vir,xyl_spp,defoliators on broadleaves,borers on broadleaves,no link,0.1305666336620319,NA,NA,NA,NA,NA,cannot test
+tor_vir,zei_gri,defoliators on broadleaves,defoliators on conifers,no link,-0.0991223611896074,NA,NA,NA,NA,NA,cannot test
+uro_sir_spp,xyl_lin,borers on conifers,borers on conifers,no link,0.19568165715823388,NA,NA,NA,NA,NA,cannot test
+uro_sir_spp,xyl_spp,borers on conifers,borers on broadleaves,no link,0.005503700160225675,NA,NA,NA,NA,NA,cannot test
+uro_sir_spp,zei_gri,borers on conifers,defoliators on conifers,no link,-0.09766853508096923,NA,NA,NA,NA,NA,cannot test
+xyl_lin,xyl_spp,borers on conifers,borers on broadleaves,promising,0.5789800273779526,NA,NA,NA,NA,NA,cannot test
+xyl_lin,zei_gri,borers on conifers,defoliators on conifers,no link,0.02333864118750081,NA,NA,NA,NA,NA,cannot test
+xyl_spp,zei_gri,borers on broadleaves,defoliators on conifers,no link,-0.15610350462591693,NA,NA,NA,NA,NA,cannot test

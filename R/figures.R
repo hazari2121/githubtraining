@@ -1021,3 +1021,30 @@ plot_cm_heatmap <- function(v, hier, ord) {
     theme_eu(7.5) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5), legend.position = "right")
 }
+
+# Predictive test: same-year r (x) against out-of-country predictive skill (y),
+# one dot per pair that can be tested in >= 2 countries, coloured by verdict
+plot_cm_predictive <- function(ps) {
+  d <- dplyr::filter(ps, predictive != "cannot test") |>
+    dplyr::mutate(verdict = factor(as.character(verdict), verdict_levels),
+                  skill = pmax(skill, -0.6))   # very poor pairs drawn at the bottom edge
+  lab <- d |> dplyr::filter(predictive == "predicts well") |> dplyr::slice_max(skill, n = 6) |>
+    dplyr::mutate(pair = paste(species_a, "-", species_b))
+  cols <- c(verdict_cols[c("usable", "promising", "unreliable")], weak = "#9c9b97", `no link` = "#c9c8c3")
+  ggplot2::ggplot(d, ggplot2::aes(r, skill)) +
+    ggplot2::annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.05, ymax = Inf, fill = "#e9f3ea") +
+    ggplot2::geom_hline(yintercept = 0, colour = pal$ink2) +
+    ggplot2::geom_point(data = dplyr::filter(d, !verdict %in% c("usable", "unreliable")), ggplot2::aes(colour = verdict), size = 1.6) +
+    ggplot2::geom_point(data = dplyr::filter(d, verdict %in% c("usable", "unreliable")), ggplot2::aes(colour = verdict), size = 2.6) +
+    ggrepel::geom_text_repel(data = lab, ggplot2::aes(label = pair), size = 2.6, colour = pal$ink,
+                             nudge_x = -0.25, direction = "y", segment.colour = "#9c9b97", seed = 20261014) +
+    ggplot2::scale_colour_manual(values = cols, name = "correlation verdict", drop = TRUE) +
+    ggplot2::coord_cartesian(ylim = c(-0.6, 0.4), xlim = c(-0.5, 0.75)) +
+    ggplot2::labs(x = "same-year r (correlation metrics)",
+                  y = "predictive skill in a country left out\n(0 = no better than 'normal year')",
+                  title = "Does a link learnt in some countries predict another country?",
+                  subtitle = paste0("Each dot = one insect pair recorded together in at least 2 countries (", nrow(d),
+                                    " pairs). Green band = predicts well (skill >= 0.05)."),
+                  caption = "Skill = 1 - error using insect A / error guessing a normal year, for insect B in a country left out; both directions pooled. Below 0 = the link misleads.\nPairs below -0.6 are drawn at the bottom edge.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "right")
+}
