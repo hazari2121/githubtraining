@@ -143,3 +143,97 @@ gapfill_compare_scores <- function(cvr) {
   partner_cov <- cvr |> dplyr::summarise(share_cells_with_partner = mean(partner_used))
   list(overall = overall, by_species = by_species, partner_coverage = partner_cov)
 }
+
+# ---- Final gap-filled dataset (version 1) ---------------------------------------
+# Every region x year x insect cell:
+#   reported damage / reported zero : kept exactly as reported
+#   zero: host tree absent          : not reported, and the insect's host tree
+#                                     does not grow in the region (forest table)
+#   filled                          : not reported (unknown) -> estimated
+#   not fillable                    : nothing at all recorded in that region-year
+# Method: factor model + forest area for the amount (version 5 of the test);
+# partner method for the insects where it tested best, where a partner is
+# recorded in that region-year (otherwise the factor model).
+# Confidence of a filled value, from the hide-and-predict test of its method:
+#   reliable : beats the simple average and separates damage from no damage
+#              (AUC >= 0.7) for this insect
+#   weak     : tested, but not both of the above
+#   untested : insect reported by one country only, so it cannot be tested
+
+gapfill_final <- function(L, hs, group, K1, lambda1, K2, lambda2, tau = 50, partner_species = character()) {
+  Lh <- host_scaled_L(L, hs); absent <- host_absent_matrix(L, hs)
+  hp <- hurdle_parts(L$Y); Y2s <- hurdle_parts(Lh$Y)$Y2
+  f1 <- logit_fit(hp$B, K1, lambda1, group = group, tau = tau, tau_links = 0)
+  f2 <- lfm_fit(hp$Y2, K = K2, lambda = lambda2, group = group, tau = tau, tau_links = 0)
+  g2 <- lfm_fit(Y2s, K = K2, lambda = lambda2, group = group, tau = tau, tau_links = 0)
+  P1 <- logit_predict(f1); P2 <- lfm_predict(f2); P2s <- lfm_predict(g2)
+  sm <- smearing(f2, hp$Y2); sms <- smearing(g2, Y2s)
+  # 80% range of the amount if damaged, from the spread of the amount model's errors
+  ok <- !is.na(hp$Y2) & !is.na(P2); sd2 <- stats::sd(hp$Y2[ok] - P2[ok])
+  oks <- !is.na(Y2s) & !is.na(P2s); sds <- stats::sd(Y2s[oks] - P2s[oks])
+  scaled <- !is.na(Lh$area) & !is.na(P2s)
+  amount_log <- ifelse(scaled, log1p(pmax(expm1(P2s) * sms, 0) * Lh$area / 1000), log1p(pmax(expm1(P2) * sm, 0)))
+  spread <- ifelse(scaled, sds, sd2)
+  E <- host_combine(P1, P2s, sms, P2, sm, Lh$area, absent)
+  # partner method on all data for the chosen insects
+  H <- is.na(L$Y); H[, !L$species %in% partner_species] <- FALSE
+  pm <- partner_predict(L$Y, H, L$rows, baseline_species_year(L$Y, L$rows$year))
+  n <- nrow(L$Y); p <- ncol(L$Y); ix <- cbind(rep(seq_len(n), p), rep(seq_len(p), each = n))
+  tibble::tibble(
+    country = L$rows$country[ix[, 1]], nuts_id = L$rows$nuts_id[ix[, 1]], year = L$rows$year[ix[, 1]],
+    species = L$species[ix[, 2]], y = L$Y[ix], absent = absent[ix], empty = is.na(P1[ix]),
+    p_any = P1[ix], amount_log = amount_log[ix], spread = spread[ix], factor_fill = E[ix],
+    partner_used = pm$used[ix], partner_fill = pmax(expm1(pm$P[ix]), 0), host_area_ha = Lh$area[ix]
+  )
+}
+
+gapfill_dataset <- function(raw_fill, gf_species, all_species, unit_lookup) {
+  z <- stats::qnorm(0.9)
+  conf <- gf_species |>
+    dplyr::filter(as.character(method) == as.character(best)) |>
+    dplyr::transmute(species, method_used = as.character(best),
+                     confidence = dplyr::if_else(gain_vs_simple > 0 & !is.na(auc) & auc >= 0.7, "reliable", "weak"))
+  conf <- dplyr::bind_rows(conf, tibble::tibble(species = setdiff(all_species, conf$species),
+                                                method_used = "factor model + forest area (amount only)",
+                                                confidence = "untested"))
+  raw_fill |>
+    dplyr::left_join(conf, by = "species") |>
+    dplyr::left_join(unit_lookup, by = "species") |>
+    dplyr::mutate(
+      use_partner = method_used == "partner method" & partner_used,
+      cand = dplyr::if_else(use_partner, partner_fill, factor_fill),
+      value_type = dplyr::case_when(
+        !is.na(y) & y > 0 ~ "reported damage",
+        !is.na(y) ~ "reported zero",
+        absent ~ "zero: host tree absent",
+        (empty & !use_partner) | is.na(cand) ~ "not fillable (nothing recorded in this region-year)",
+        TRUE ~ "filled"),
+      fl = value_type == "filled",
+      fill_method = dplyr::case_when(!fl ~ NA_character_, use_partner ~ "partner method",
+                                     TRUE ~ "factor model + forest area"),
+      damage = dplyr::case_when(
+        value_type %in% c("reported damage", "reported zero") ~ expm1(y),
+        value_type == "zero: host tree absent" ~ 0,
+        fl ~ cand),
+      p_any = dplyr::if_else(fl & !use_partner, p_any, NA_real_),
+      amount_if_damaged = dplyr::if_else(fl & !use_partner, expm1(amount_log), NA_real_),
+      amount_lo80 = dplyr::if_else(fl & !use_partner, pmax(expm1(amount_log - z * spread), 0), NA_real_),
+      amount_hi80 = dplyr::if_else(fl & !use_partner, expm1(amount_log + z * spread), NA_real_),
+      confidence = dplyr::if_else(fl, confidence, NA_character_)) |>
+    dplyr::select(country, nuts_id, year, species, unit, value_type, damage, fill_method, confidence,
+                  p_any, amount_if_damaged, amount_lo80, amount_hi80, host_area_ha)
+}
+
+# Europe-wide totals per insect and year: reported, and filled by confidence
+gapfill_totals <- function(gd) {
+  gd |>
+    dplyr::group_by(species, unit, year) |>
+    dplyr::summarise(
+      reported = sum(damage[value_type %in% c("reported damage", "reported zero")]),
+      filled_reliable = sum(damage[value_type == "filled" & confidence == "reliable"]),
+      filled_weak = sum(damage[value_type == "filled" & confidence == "weak"]),
+      filled_untested = sum(damage[value_type == "filled" & confidence == "untested"]),
+      cells_not_fillable = sum(grepl("^not fillable", value_type)),
+      .groups = "drop") |>
+    dplyr::mutate(total_reported_plus_reliable = reported + filled_reliable)
+}

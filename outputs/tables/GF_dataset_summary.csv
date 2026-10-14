@@ -1,0 +1,10 @@
+value_type,fill_method,confidence,n
+filled,factor model + forest area,reliable,8889
+filled,factor model + forest area,untested,17476
+filled,factor model + forest area,weak,10877
+filled,partner method,reliable,947
+filled,partner method,weak,2400
+not fillable (nothing recorded in this region-year),NA,NA,13463
+reported damage,NA,NA,9828
+reported zero,NA,NA,17254
+zero: host tree absent,NA,NA,5645

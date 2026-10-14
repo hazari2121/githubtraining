@@ -362,6 +362,22 @@ list(
   tar_target(fig_gf_overall, save_fig(plot_gapfill_overall(gf_scores$overall), "outputs/figures/GF_1_methods_overall.png", 11, 7), format = "file"),
   tar_target(fig_gf_species, save_fig(plot_gapfill_species(gf_scores$by_species), "outputs/figures/GF_2_methods_by_insect.png", 9, 9.5), format = "file"),
 
+  # ---- Gap-filled dataset v1 ---------------------------------------------------
+  tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
+               dplyr::distinct(species) |> dplyr::pull(species)),
+  tar_target(gf_raw, gapfill_final(lfm_L, host_status, hm_group, h_best1$K, h_best1$lambda, h_best2$K, h_best2$lambda,
+                                   tau = 50, partner_species = gf_partner_species)),
+  tar_target(gf_data, gapfill_dataset(gf_raw, gf_scores$by_species, lfm_L$species,
+                                      dplyr::select(species_meta, species, unit))),
+  tar_target(gf_totals, gapfill_totals(gf_data)),
+  tar_target(gf_data_csv, write_csv_out(gf_data, "data/processed/eufordam_gapfilled_v1.csv"), format = "file"),
+  tar_target(gf_totals_csv, tab(gf_totals, "GF_europe_totals_reported_plus_filled.csv"), format = "file"),
+  tar_target(gf_summary_csv, tab(dplyr::count(gf_data, value_type, fill_method, confidence), "GF_dataset_summary.csv"), format = "file"),
+  tar_target(fig_gf_status, save_fig(plot_gapfill_status(gf_data, occ_rank2$species), "outputs/figures/GF_3_dataset_status.png", 12, 5.5),
+             format = "file"),
+  tar_target(fig_gf_totals, save_fig(plot_gapfill_totals(gf_totals), "outputs/figures/GF_4_totals_reported_vs_filled.png", 10, 7),
+             format = "file"),
+
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),
   tar_target(gl_pres_fits, gllvm_fit_set(gl_data, "presence")),

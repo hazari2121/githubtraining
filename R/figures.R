@@ -875,3 +875,55 @@ plot_gapfill_species <- function(by_species) {
                   caption = "Insects recorded in at least 2 countries (others cannot be tested).") +
     theme_eu(8.5) + ggplot2::theme(legend.position = "top", legend.justification = "left")
 }
+
+# ---- Gap-filled dataset v1 --------------------------------------------------------
+
+gf_status_cols <- c(reported = "#184f95", `filled: reliable` = "#008300", `filled: weak` = "#eda100",
+                    `filled: untested` = "#9c9b97", `zero: host absent` = "#8a5a44", `not fillable` = "#e6e5e1")
+
+plot_gapfill_status <- function(gd, sp_order) {
+  d <- gd |>
+    dplyr::mutate(status = dplyr::case_when(
+      value_type %in% c("reported damage", "reported zero") ~ "reported",
+      value_type == "filled" ~ paste0("filled: ", confidence),
+      value_type == "zero: host tree absent" ~ "zero: host absent",
+      TRUE ~ "not fillable")) |>
+    dplyr::count(country, species, status) |>
+    dplyr::group_by(country, species) |> dplyr::slice_max(n, n = 1, with_ties = FALSE) |> dplyr::ungroup() |>
+    dplyr::mutate(species = factor(species, sp_order), status = factor(status, names(gf_status_cols)),
+                  country = factor(country, rev(sort(unique(country)))))
+  ggplot2::ggplot(d, ggplot2::aes(species, country, fill = status)) +
+    ggplot2::geom_tile(colour = pal$surface, linewidth = 0.5) +
+    ggplot2::scale_fill_manual(values = gf_status_cols, name = NULL, drop = FALSE) +
+    ggplot2::labs(x = NULL, y = NULL, title = "Gap-filled dataset: reported vs filled, country x insect",
+                  subtitle = "Each tile = most common status of that country x insect's region-years, 2000-2022",
+                  caption = paste("Reliable = beats the simple average and separates damage from no damage in the hide-and-predict test;",
+                                  "\nweak = does not; untested = insect reported by one country only. Not reported = unknown, so it is filled, never set to 0.")) +
+    theme_eu(8) +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5),
+                   legend.position = "top", legend.justification = "left")
+}
+
+plot_gapfill_totals <- function(tot, k = 20) {
+  d <- tot |>
+    dplyr::group_by(species, unit) |>
+    dplyr::summarise(reported = sum(reported), `filled: reliable` = sum(filled_reliable),
+                     `filled: weak` = sum(filled_weak), `filled: untested` = sum(filled_untested), .groups = "drop") |>
+    dplyr::slice_max(reported, n = k) |>
+    dplyr::mutate(lab = paste0(species, "  (reported ", formatC(reported / 1e6, format = "f", digits = 1), " M ", unit, ")"))
+  ord <- d |> dplyr::arrange(reported) |> dplyr::pull(lab)
+  d <- d |> tidyr::pivot_longer(c(reported, `filled: reliable`, `filled: weak`, `filled: untested`), names_to = "source") |>
+    dplyr::group_by(lab) |> dplyr::mutate(share = value / sum(value)) |> dplyr::ungroup() |>
+    dplyr::mutate(lab = factor(lab, ord),
+                  source = factor(source, rev(c("reported", "filled: reliable", "filled: weak", "filled: untested"))))
+  ggplot2::ggplot(d, ggplot2::aes(share, lab, fill = source)) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::scale_fill_manual(values = gf_status_cols[c("reported", "filled: reliable", "filled: weak", "filled: untested")],
+                               name = NULL, guide = ggplot2::guide_legend(reverse = TRUE)) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(100 * x, "%"), expand = c(0, 0)) +
+    ggplot2::labs(x = "Share of Europe-wide total 2000-2022", y = NULL,
+                  title = "How much of each insect's Europe-wide total is reported vs filled?",
+                  subtitle = "20 insects with the largest reported damage",
+                  caption = "Filled amounts are typically several times off for a single region (hide-and-predict test); use with the confidence labels.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", legend.justification = "left")
+}
