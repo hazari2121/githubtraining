@@ -38,6 +38,12 @@ The thesis rests on one sentence: *damage from different agents tends to fluctua
 
 **How r is measured.** `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, left out. Damage on a log(1 + x) scale, each region's series compared with its own average, so a large and a small region count the same. Only region-years where both insects were recorded. The 95% range comes from resampling whole regions 999 times; a link is *sure* when the range excludes 0, *strong* when also r ≥ 0.3. As in Hlásný et al. (2025), the Czech spruce bark-borer group is counted as *I. typographus*.
 
+## The heatmap: every insect against every other
+
+![](../outputs/figures/CM_heatmap.png)
+
+How to read it: each square is one pair of insects. **Red** = they have bad years together, **blue** = one is high when the other is low; the darker, the stronger. Only sure links are coloured. **Black boxes** are the usable links (strong and the same in every country checked). Lines split the four broad groups. The red block in the top left is the bark and wood borers on conifers: that is where most of the shared signal sits.
+
 ## The answer in one figure
 
 ![](../outputs/figures/CM_verdict.png)
@@ -89,4 +95,4 @@ Broad groups: borers / defoliators on conifers / broadleaves. Pairs in the **sam
 
 - One row per pair, plain verdict: `outputs/tables/CM_pairs_verdict.csv`
 - Full detail (ranges, per-country r): `CM_basic_all_pairs.csv`, `CM_basic_Q4_per_country.csv`, `CM_basic_Q3_lead_effects.csv`
-- Figures: `outputs/figures/CM_verdict.png`, `CM_usable_pairs.png`; the full matrix of all pairs: `CM_basic_1_matrix.png`
+- Figures: `outputs/figures/CM_heatmap.png`, `CM_verdict.png`, `CM_usable_pairs.png`

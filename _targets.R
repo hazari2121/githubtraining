@@ -149,6 +149,8 @@ list(
   tar_target(cb_table_csv, tab(cb_table, "CM_basic_all_pairs.csv"), format = "file"),
   tar_target(cb_verdict, cm_verdict(cb_table)),
   tar_target(cb_verdict_csv, tab(cb_verdict, "CM_pairs_verdict.csv"), format = "file"),
+  tar_target(fig_cb_heatmap, save_fig(plot_cm_heatmap(cb_verdict, hier, cm_basic_order(hier)),
+                                      "outputs/figures/CM_heatmap.png", 11, 11), format = "file"),
   tar_target(fig_cb_verdict, save_fig(plot_cm_verdict(cb_verdict), "outputs/figures/CM_verdict.png", 8, 4.2), format = "file"),
   tar_target(fig_cb_usable, save_fig(plot_cm_usable(cb_verdict), "outputs/figures/CM_usable_pairs.png", 8.5, 7), format = "file"),
   tar_target(cb_info_csv, tab(cb_info, "CM_basic_per_insect.csv"), format = "file"),
