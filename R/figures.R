@@ -836,7 +836,8 @@ plot_cm_basic_matrix <- function(cm, hier, ord) {
 
 # ---- Gap-filling: three methods head to head ----------------------------------
 
-gf_cols <- c(`simple average` = "#9c9b97", `partner method` = "#5b8fd6", `factor model` = "#184f95")
+gf_cols <- c(`simple average` = "#9c9b97", `partner method` = "#5b8fd6", `factor model` = "#184f95",
+             `factor model + forest area` = "#eda100", `factor model + forest area (amount only)` = "#008300")
 
 plot_gapfill_overall <- function(overall) {
   d <- overall |>
@@ -856,7 +857,7 @@ plot_gapfill_overall <- function(overall) {
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.25))) +
     ggplot2::labs(x = NULL, y = NULL, title = "Gap-filling: which method fills hidden values best?",
                   subtitle = "Real reported values hidden (whole country x insect blocks) and predicted from the rest",
-                  caption = "Simple average = insect's yearly mean. Partner method = linked insects in the same region-year.\nFactor model = two-part latent factor model with group level hint.") +
+                  caption = "Simple average = insect's yearly mean. Partner method = linked insects in the same region-year.\nFactor model = two-part latent factor model with group level hint. Forest area = NUTS host-forest table (ha).") +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
 }
 

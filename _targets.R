@@ -353,12 +353,14 @@ list(
 
   # ---- Gap-filling: simple average vs partner method vs factor model ---------
   tar_target(gf_cv, gapfill_compare_cv(lfm_L, lfm_blocks, hm_group, h_best1$K, h_best1$lambda,
-                                       h_best2$K, h_best2$lambda, tau = 50)),
+                                       h_best2$K, h_best2$lambda, tau = 50,
+                                       Lh = host_scaled_L(lfm_L, host_status),
+                                       absent = host_absent_matrix(lfm_L, host_status))),
   tar_target(gf_scores, gapfill_compare_scores(gf_cv)),
   tar_target(gf_overall_csv, tab(gf_scores$overall, "GF_methods_overall.csv"), format = "file"),
   tar_target(gf_species_csv, tab(gf_scores$by_species, "GF_methods_by_insect.csv"), format = "file"),
-  tar_target(fig_gf_overall, save_fig(plot_gapfill_overall(gf_scores$overall), "outputs/figures/GF_1_methods_overall.png", 10, 6), format = "file"),
-  tar_target(fig_gf_species, save_fig(plot_gapfill_species(gf_scores$by_species), "outputs/figures/GF_2_methods_by_insect.png", 8, 9), format = "file"),
+  tar_target(fig_gf_overall, save_fig(plot_gapfill_overall(gf_scores$overall), "outputs/figures/GF_1_methods_overall.png", 11, 7), format = "file"),
+  tar_target(fig_gf_species, save_fig(plot_gapfill_species(gf_scores$by_species), "outputs/figures/GF_2_methods_by_insect.png", 9, 9.5), format = "file"),
 
   # ---- gllvm latent factor model on agent groups (objective 3, exploratory) --
   tar_target(gl_data, gllvm_data(g_cells)),

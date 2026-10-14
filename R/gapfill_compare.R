@@ -49,7 +49,15 @@ partner_predict <- function(Ytr, H, rows, base, min_r = 0.3, min_n = 20, min_cou
   list(P = P, used = used)
 }
 
-gapfill_compare_cv <- function(L, blocks, group, K1, lambda1, K2, lambda2, tau = 50) {
+#   4. factor model + forest area (optional, when Lh / absent are given):
+#                        the same model, plus the NUTS forest table: damage per
+#                        1000 ha of host forest in the amount part, log host
+#                        area in the any-damage part, host tree absent -> 0
+#                        (R/hosts.R). Regions without area use version 3.
+#   5. factor model + forest area (amount only): presence from version 3,
+#                        amount from version 4.
+gapfill_compare_cv <- function(L, blocks, group, K1, lambda1, K2, lambda2, tau = 50,
+                               Lh = NULL, absent = NULL) {
   out <- list()
   for (f in sort(unique(blocks$fold))) {
     H <- held_mask(L, dplyr::filter(blocks, fold == f))
@@ -65,6 +73,21 @@ gapfill_compare_cv <- function(L, blocks, group, K1, lambda1, K2, lambda2, tau =
     f2 <- lfm_fit(hp$Y2, K = K2, lambda = lambda2, group = group, tau = tau, tau_links = 0)
     p_any <- logit_predict(f1)[idx]; a <- lfm_predict(f2)[idx]
     fm <- p_any * pmax(expm1(a) * smearing(f2, hp$Y2), 0)
+    if (!is.null(Lh)) {
+      Ys <- Lh$Y; Ys[H] <- NA
+      Y2s <- hurdle_parts(Ys)$Y2
+      g1 <- logit_fit(hp$B, K1, lambda1, X = Lh$X, group = group, tau = tau, tau_links = 0)
+      g2 <- lfm_fit(Y2s, K = K2, lambda = lambda2, group = group, tau = tau, tau_links = 0)
+      p_h <- logit_predict(g1)[idx]; a_s <- lfm_predict(g2)[idx]
+      area <- Lh$area[idx]; ab <- absent[idx]
+      fh <- host_combine(p_h, a_s, smearing(g2, Y2s), a, smearing(f2, hp$Y2), area, ab)
+      # log-scale prediction: amount on the original scale when area is known
+      a_nat <- ifelse(!is.na(area) & !is.na(a_s), log1p(pmax(expm1(a_s) * area / 1000, 0)), a)
+      fh_log <- ifelse(ab, 0, p_h * a_nat)
+      # 5. forest area for the amount only: presence from version 3
+      fa <- host_combine(p_any, a_s, smearing(g2, Y2s), a, smearing(f2, hp$Y2), area, ab)
+      fa_log <- ifelse(ab, 0, p_any * a_nat)
+    } else { fh <- fh_log <- fa <- fa_log <- NA_real_ }
     out[[length(out) + 1]] <- tibble::tibble(
       fold = f, row = idx[, 1], col = idx[, 2],
       country = L$rows$country[idx[, 1]], nuts_id = L$rows$nuts_id[idx[, 1]],
@@ -73,14 +96,20 @@ gapfill_compare_cv <- function(L, blocks, group, K1, lambda1, K2, lambda2, tau =
       `simple average` = pmax(expm1(base[idx]), 0),
       `partner method` = pmax(expm1(pm$P[idx]), 0),
       `factor model` = fm,
+      `factor model + forest area` = fh,
+      `factor model + forest area (amount only)` = fa,
       `simple average_log` = base[idx], `partner method_log` = pm$P[idx], `factor model_log` = p_any * a,
+      `factor model + forest area_log` = fh_log,
+      `factor model + forest area (amount only)_log` = fa_log,
       partner_used = pm$used[idx])
   }
   dplyr::bind_rows(out)
 }
 
 gapfill_compare_scores <- function(cvr) {
-  methods <- c("simple average", "partner method", "factor model")
+  methods <- c("simple average", "partner method", "factor model", "factor model + forest area",
+               "factor model + forest area (amount only)")
+  methods <- methods[methods %in% names(cvr) & vapply(methods, function(m) any(!is.na(cvr[[m]])), TRUE)]
   lg <- paste0(methods, "_log")
   d0 <- cvr |> dplyr::filter(dplyr::if_all(dplyr::all_of(c(methods, lg)), ~ !is.na(.x)))
   d <- d0 |>
