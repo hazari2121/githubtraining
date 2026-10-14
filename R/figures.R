@@ -988,30 +988,35 @@ plot_cm_usable <- function(v) {
     theme_eu(8.5)
 }
 
-# Heatmap of all pairs, same verdicts as the bar chart: colour = r where the
-# link is sure; black outline = usable (strong + holds in every country checked);
-# grey dot = no link; blank = not enough data
+# Heatmap of all pairs, same verdicts as the bar chart: every measurable pair
+# coloured by r; faded = not sure (95% range includes 0); black outline =
+# usable (strong + holds in every country checked); blank = not enough data
 plot_cm_heatmap <- function(v, hier, ord) {
   both <- dplyr::bind_rows(v, dplyr::rename(v, species_a = species_b, species_b = species_a)) |>
     dplyr::mutate(a = factor(species_a, rev(ord)), b = factor(species_b, ord),
-                  show = dplyr::if_else(verdict %in% c("usable", "promising", "unreliable", "weak"), r, NA_real_))
+                  sure = factor(dplyr::if_else(verdict == "no link", "not sure (faded)", "sure link"),
+                                c("sure link", "not sure (faded)")),
+                  show = dplyr::if_else(verdict == "not enough data", NA_real_, r))
   cuts <- hier |> dplyr::mutate(i = match(species, ord)) |> dplyr::group_by(level1) |>
     dplyr::summarise(last = max(i)) |> dplyr::filter(last < length(ord)) |> dplyr::pull(last) |> sort()
   n <- length(ord)
-  ggplot2::ggplot(both, ggplot2::aes(b, a)) +
-    ggplot2::geom_tile(ggplot2::aes(fill = show), colour = "white", linewidth = 0.2) +
+  ggplot2::ggplot(dplyr::filter(both, !is.na(show)), ggplot2::aes(b, a)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = show, alpha = sure), colour = "white", linewidth = 0.2) +
     ggplot2::geom_tile(data = dplyr::filter(both, verdict == "usable"), fill = NA, colour = pal$ink, linewidth = 0.7) +
-    ggplot2::geom_point(data = dplyr::filter(both, verdict == "no link"), size = 0.4, colour = "#9c9b97") +
     ggplot2::geom_vline(xintercept = cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::geom_hline(yintercept = n - cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::annotate("text", x = c(0, cuts) + diff(c(0, cuts, n)) / 2 + 0.5, y = n + 1.6, size = 2.8, fontface = "bold",
-                      label = c("borers on\nconifers", "borers on\nbroadleaves", "defoliators\non conifers", "defoliators on\nbroadleaves"), lineheight = 0.9) +
+                      label = c("borers on\nconifers", "borers on\nbroadleaves", "defoliators\non conifers", "defoliators on\nbroadleaves"),
+                      lineheight = 0.9) +
     ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.8, 0.8),
-                                  oob = scales::squish, na.value = "transparent", name = "r (same year,\nwithin region)") +
+                                  oob = scales::squish, name = "r (same year,\nwithin region)") +
+    ggplot2::scale_alpha_manual(values = c(`sure link` = 1, `not sure (faded)` = 0.3), name = NULL) +
+    ggplot2::scale_x_discrete(drop = FALSE) + ggplot2::scale_y_discrete(drop = FALSE) +
     ggplot2::coord_cartesian(ylim = c(1, n + 2), clip = "off") +
     ggplot2::labs(x = NULL, y = NULL, title = "Which insects have bad years together?",
-                  subtitle = paste0("Red = bad years together, blue = opposite. Coloured = sure link. Black box = usable (strong and holds in every country checked, ",
-                                    sum(v$verdict == "usable"), " pairs).\nGrey dot = tested, no link. Blank = recorded together too rarely."),
+                  subtitle = paste0("Red = bad years together, blue = opposite. Strong colour = sure link, faded = could be chance. ",
+                                    "Black box = usable (strong and holds in every country checked, ", sum(v$verdict == "usable"), " pairs).",
+                                    "\nBlank = recorded together too rarely to measure."),
                   caption = "CZ spruce bark-borer group counted as ips_typ (as in Hlasny et al. 2025); log(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.") +
     theme_eu(7.5) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5), legend.position = "right")

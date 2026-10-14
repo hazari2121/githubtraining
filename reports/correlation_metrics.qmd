@@ -42,7 +42,7 @@ The thesis rests on one sentence: *damage from different agents tends to fluctua
 
 ![](../outputs/figures/CM_heatmap.png)
 
-How to read it: each square is one pair of insects. **Red** = they have bad years together, **blue** = one is high when the other is low; the darker, the stronger. Only sure links are coloured. **Black boxes** are the usable links (strong and the same in every country checked). Lines split the four broad groups. The red block in the top left is the bark and wood borers on conifers: that is where most of the shared signal sits.
+How to read it: each square is one pair of insects. **Red** = they have bad years together, **blue** = one is high when the other is low; the darker, the stronger. **Strong colour** = a sure link; **faded** = the 95% range includes 0, so it could be chance. **Black boxes** are the usable links (strong and the same in every country checked). Blank = recorded together too rarely to measure. Lines split the four broad groups. The red block in the top left is the bark and wood borers on conifers: that is where most of the shared signal sits.
 
 ## The answer in one figure
 
