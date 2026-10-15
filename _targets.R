@@ -387,6 +387,14 @@ list(
                                        Lh = host_scaled_L(lfm_L, host_status),
                                        absent = host_absent_matrix(lfm_L, host_status))),
   tar_target(gf_scores, gapfill_compare_scores(gf_cv)),
+  # Hybrid: the notes' equation with the factor model's level (R/gapfill_hybrid.R)
+  tar_target(gf_hyb, hybrid_from_cv(lfm_L, lfm_blocks, gf_cv)),
+  tar_target(gf_cv_hyb, gf_cv |> dplyr::left_join(gf_hyb, by = c("fold", "row", "col")) |>
+               dplyr::left_join(blend_from_cv(gf_cv), by = c("fold", "row", "col"))),
+  tar_target(gf_scores_hyb, gapfill_compare_scores(gf_cv_hyb)),
+  tar_target(gf_scores_hyb_partner, gapfill_compare_scores(dplyr::filter(gf_cv_hyb, hybrid_used))),
+  tar_target(gf_hyb_csv, tab(dplyr::bind_rows(all = gf_scores_hyb$overall, cells_with_partner = gf_scores_hyb_partner$overall, .id = "cells"),
+                             "GF_hybrid_vs_methods.csv"), format = "file"),
   tar_target(gf_overall_csv, tab(gf_scores$overall, "GF_methods_overall.csv"), format = "file"),
   tar_target(gf_species_csv, tab(gf_scores$by_species, "GF_methods_by_insect.csv"), format = "file"),
   tar_target(fig_gf_overall, save_fig(plot_gapfill_overall(gf_scores$overall), "outputs/figures/GF_1_methods_overall.png", 11, 7), format = "file"),

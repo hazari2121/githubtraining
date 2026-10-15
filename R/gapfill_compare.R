@@ -108,7 +108,8 @@ gapfill_compare_cv <- function(L, blocks, group, K1, lambda1, K2, lambda2, tau =
 
 gapfill_compare_scores <- function(cvr) {
   methods <- c("simple average", "partner method", "factor model", "factor model + forest area",
-               "factor model + forest area (amount only)")
+               "factor model + forest area (amount only)", "hybrid (factor level + partner ups and downs)",
+               "blend: factor model + 25% notes equation")
   methods <- methods[methods %in% names(cvr) & vapply(methods, function(m) any(!is.na(cvr[[m]])), TRUE)]
   lg <- paste0(methods, "_log")
   d0 <- cvr |> dplyr::filter(dplyr::if_all(dplyr::all_of(c(methods, lg)), ~ !is.na(.x)))
