@@ -19,7 +19,7 @@ library(targets)
 store <- "../_targets"
 rd <- function(x) tar_read_raw(x, store = store)
 pct <- function(x) paste0(round(x), "%")
-v <- rd("cb_verdict"); q5 <- rd("cb_q5"); ps <- rd("cb_pred")
+v <- rd("cb_verdict"); q5 <- rd("cb_q5"); ps <- rd("cb_pred"); spc <- rd("sp_compare")
 u <- filter(v, verdict == "usable")
 measurable <- filter(v, verdict != "not enough data")
 strong <- c("usable", "promising", "unreliable")
@@ -113,6 +113,14 @@ ps |> filter(verdict %in% c("usable", "unreliable")) |> count(verdict, predictiv
 - **Most pairs cannot be tested** (`r sum(ps$predictive == "cannot test")` of `r nrow(ps)`): they are recorded together in only one country.
 
 For gap-filling this means: one partner insect gives a modest but real gain, so the factor model, which combines all partners at once, is the right tool. The usable links are the ones it can trust across countries.
+
+## Check: does the choice of correlation matter? (Spearman)
+
+Pearson r uses the actual sizes of the ups and downs, so one huge outbreak year can dominate a series. Spearman r uses only the **order** of the years (which year was a region's worst, second worst, ...), so outbreaks cannot dominate. We reran the whole pipeline with within-region ranks instead of values.
+
+- The two agree almost perfectly: correlation between Pearson and Spearman r across all pairs = `r formatC(cor(spc$r_pearson, spc$r_spearman, use = "pair"), format = "f", digits = 2)`; typical difference `r formatC(median(abs(spc$r_pearson - spc$r_spearman), na.rm = TRUE), format = "f", digits = 2)`.
+- Usable pairs: `r sum(spc$verdict_pearson == "usable")` with Pearson, `r sum(spc$verdict_spearman == "usable")` with Spearman, `r sum(spc$verdict_pearson == "usable" & spc$verdict_spearman == "usable")` in both. The pairs that switch sit right at the edges (r near 0.3, or consistent in one country check but not the other).
+- So the results are **not** driven by a few extreme outbreak years. Pearson stays the main metric; Spearman is the robustness check (`outputs/tables/CM_pearson_vs_spearman.csv`).
 
 ## What it means for the thesis
 

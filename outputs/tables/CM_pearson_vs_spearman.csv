@@ -1,0 +1,1177 @@
+species_a,species_b,verdict_pearson,r_pearson,verdict_spearman,r_spearman
+CambXyl_con&BB_con&BO,CambXyl_con&BB_con&SM,no link,0.40042944557789645,no link,0.3929250936889421
+CambXyl_con&BB_con&BO,CambXyl_con&BO,no link,-0.015700260870400468,no link,-0.01806308649280989
+CambXyl_con&BB_con&BO,CambXyl_con&MD,no link,-0.07276338550706798,no link,-0.20633275314349098
+CambXyl_con&BB_con&BO,Def_dec,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,Def_dec&DB,no link,0.15476225866383506,no link,0.17475262681346143
+CambXyl_con&BB_con&BO,agr_big,no link,-0.059048366597316694,no link,-0.12232762994567829
+CambXyl_con&BB_con&BO,agr_vir,no link,0.003370578998842854,no link,0.02894188029716028
+CambXyl_con&BB_con&BO,bup_pin,no link,0.6177253516644907,no link,0.7095315394589511
+CambXyl_con&BB_con&BO,cep_spp,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,clo_ana,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,den_mic,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,den_pin,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,dip_sp,no link,0.011583588251076467,no link,-0.007154432062258682
+CambXyl_con&BB_con&BO,era_def,no link,-0.21755077437398868,no link,-0.21008498157321306
+CambXyl_con&BB_con&BO,geo_db,no link,0.0581314550260122,no link,0.03589959380833599
+CambXyl_con&BB_con&BO,ips_acu,no link,-0.20007759886663357,no link,-0.19417776625331815
+CambXyl_con&BB_con&BO,ips_ami,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,ips_cem,no link,0.02424894799108295,no link,-0.02875580351058936
+CambXyl_con&BB_con&BO,ips_dup,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,ips_sex,no link,-0.2755842068346394,no link,-0.2664933097059146
+CambXyl_con&BB_con&BO,ips_typ,weak,0.2566538490750496,no link,0.2226616213967012
+CambXyl_con&BB_con&BO,lym_dis,weak,0.22208914189214224,weak,0.19495947021804844
+CambXyl_con&BB_con&BO,lym_mon,no link,0.7936260747343145,no link,0.8691916046094927
+CambXyl_con&BB_con&BO,mel_spp,no link,0.3266384348023231,no link,0.24845435345031874
+CambXyl_con&BB_con&BO,neo_ser,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,ope_spp,no link,-0.18464281038198482,no link,-0.15991888339610283
+CambXyl_con&BB_con&BO,pan_fla,no link,0.8048371230685313,no link,0.8209488232908604
+CambXyl_con&BB_con&BO,pha_cya,weak,0.2739529177734577,weak,0.29514217953053784
+CambXyl_con&BB_con&BO,pis_pin,no link,0.4323093313081473,no link,0.424156274706168
+CambXyl_con&BB_con&BO,pit_bid,no link,-0.22156513687916324,no link,-0.20426810464901227
+CambXyl_con&BB_con&BO,pit_cha,no link,0.22251242611474137,no link,0.21348706660870787
+CambXyl_con&BB_con&BO,pit_spp,no link,0.24899967534917553,no link,0.19656964797437926
+CambXyl_con&BB_con&BO,pol_pol,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,pri_abi,no link,0.11332176360300306,no link,0.10099048122771949
+CambXyl_con&BB_con&BO,sap_car,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,sco_int,no link,0.3654961652028063,no link,0.3722003385379594
+CambXyl_con&BB_con&BO,sco_rat,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&BO,sco_sco,no link,0.2817473930476846,no link,0.1990544984971138
+CambXyl_con&BB_con&BO,tet_gab,no link,0.07339287631937812,no link,0.07738404927741661
+CambXyl_con&BB_con&BO,tet_spp,no link,0.1939588055413299,no link,0.15624252720571596
+CambXyl_con&BB_con&BO,tha_pit,no link,-0.6217247719356802,no link,-0.6052519798078108
+CambXyl_con&BB_con&BO,tha_pro,no link,0.10777719946167566,no link,0.06308319924562417
+CambXyl_con&BB_con&BO,tom_spp,usable,0.5390441793261151,usable,0.4640512960124661
+CambXyl_con&BB_con&BO,tor_vir,no link,-0.07555506164483235,no link,-0.06283495360843258
+CambXyl_con&BB_con&BO,uro_sir_spp,no link,0.20163660776972783,no link,0.13617873643267484
+CambXyl_con&BB_con&BO,xyl_lin,no link,-0.38622899102215574,no link,-0.3673829930036474
+CambXyl_con&BB_con&BO,xyl_spp,no link,0.018922301649942113,no link,0.025238432261094765
+CambXyl_con&BB_con&BO,zei_gri,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,CambXyl_con&BO,no link,0.21620744598922761,no link,0.19918330670593848
+CambXyl_con&BB_con&SM,CambXyl_con&MD,no link,0.5425991896891499,no link,0.34437654618821845
+CambXyl_con&BB_con&SM,Def_dec,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,Def_dec&DB,no link,0.44845796712858993,no link,0.4741256686502821
+CambXyl_con&BB_con&SM,agr_big,no link,-0.31814835511866024,no link,-0.3118012483353955
+CambXyl_con&BB_con&SM,agr_vir,no link,0.24630907020242818,no link,0.24420210164577288
+CambXyl_con&BB_con&SM,bup_pin,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,cep_spp,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,clo_ana,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,den_mic,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,den_pin,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,dip_sp,no link,-0.26143808090395076,no link,-0.21752473002848022
+CambXyl_con&BB_con&SM,era_def,no link,-0.24549439001010348,no link,-0.23759193212160448
+CambXyl_con&BB_con&SM,geo_db,no link,0.04182563996401112,no link,-0.007066572725085755
+CambXyl_con&BB_con&SM,ips_acu,no link,-0.051170256560591244,no link,-0.04120759574550722
+CambXyl_con&BB_con&SM,ips_ami,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,ips_cem,no link,-0.5963053050449754,no link,-0.5396631315789253
+CambXyl_con&BB_con&SM,ips_dup,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,ips_sex,no link,-0.24389783284653566,no link,-0.23759193212160448
+CambXyl_con&BB_con&SM,ips_typ,no link,-0.6208701363135091,no link,-0.5929080437206647
+CambXyl_con&BB_con&SM,lym_dis,no link,0.08992415101059414,no link,0.03098307923064011
+CambXyl_con&BB_con&SM,lym_mon,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,mel_spp,no link,0.22253800186976816,no link,0.10230747778605402
+CambXyl_con&BB_con&SM,neo_ser,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,ope_spp,no link,-0.15383990674347625,no link,-0.17357940729153717
+CambXyl_con&BB_con&SM,pan_fla,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,pha_cya,no link,-0.15684754186581196,no link,-0.0771413293996997
+CambXyl_con&BB_con&SM,pis_pin,no link,-0.2679619886936452,no link,-0.25659672623858565
+CambXyl_con&BB_con&SM,pit_bid,no link,-0.18611254646236183,no link,-0.17745307757998113
+CambXyl_con&BB_con&SM,pit_cha,no link,-0.6155328156771573,no link,-0.542084506150737
+CambXyl_con&BB_con&SM,pit_spp,no link,-0.19485959984782372,no link,-0.23886179836108262
+CambXyl_con&BB_con&SM,pol_pol,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,pri_abi,no link,-0.3345684224604586,no link,-0.3214291914461276
+CambXyl_con&BB_con&SM,sap_car,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,sco_int,no link,0.6154330250403487,no link,0.5792591772696379
+CambXyl_con&BB_con&SM,sco_rat,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,sco_sco,no link,-0.2676943929006886,no link,-0.25659672623858565
+CambXyl_con&BB_con&SM,tet_gab,no link,-0.41562211067990973,no link,-0.42327202552744014
+CambXyl_con&BB_con&SM,tet_spp,no link,-0.13533920230271942,no link,0.05820126590288427
+CambXyl_con&BB_con&SM,tha_pit,not enough data,NA,not enough data,NA
+CambXyl_con&BB_con&SM,tha_pro,no link,0.3129135890893612,no link,0.16231779566198376
+CambXyl_con&BB_con&SM,tom_spp,no link,0.12721567842373077,no link,-0.030605809463719935
+CambXyl_con&BB_con&SM,tor_vir,no link,-0.21414762490728567,no link,-0.23761963254477952
+CambXyl_con&BB_con&SM,uro_sir_spp,no link,-0.18611254646236183,no link,-0.17745307757998113
+CambXyl_con&BB_con&SM,xyl_lin,no link,-0.34003444818021533,no link,-0.32677419623253123
+CambXyl_con&BB_con&SM,xyl_spp,no link,-0.3103685696707953,no link,-0.269786195312354
+CambXyl_con&BB_con&SM,zei_gri,not enough data,NA,not enough data,NA
+CambXyl_con&BO,CambXyl_con&MD,no link,0.4085899793736814,no link,0.34490507954164734
+CambXyl_con&BO,Def_dec,not enough data,NA,not enough data,NA
+CambXyl_con&BO,Def_dec&DB,no link,-0.14624997885919855,no link,-0.14876320569237086
+CambXyl_con&BO,agr_big,no link,-0.48523093396203837,no link,-0.46712203615512093
+CambXyl_con&BO,agr_vir,no link,-0.21028859099322655,no link,-0.19631714904769257
+CambXyl_con&BO,bup_pin,not enough data,NA,not enough data,NA
+CambXyl_con&BO,cep_spp,not enough data,NA,not enough data,NA
+CambXyl_con&BO,clo_ana,not enough data,NA,not enough data,NA
+CambXyl_con&BO,den_mic,not enough data,NA,not enough data,NA
+CambXyl_con&BO,den_pin,not enough data,NA,not enough data,NA
+CambXyl_con&BO,dip_sp,no link,-0.2197696264453036,no link,-0.22700584631812587
+CambXyl_con&BO,era_def,no link,-0.17031205440760822,no link,-0.17070593165147532
+CambXyl_con&BO,geo_db,no link,0.07504624600914299,no link,0.07305576860902534
+CambXyl_con&BO,ips_acu,no link,-0.14309502033855018,no link,-0.1428730675102414
+CambXyl_con&BO,ips_ami,not enough data,NA,not enough data,NA
+CambXyl_con&BO,ips_cem,no link,0.0690729314005082,no link,0.015289515664181293
+CambXyl_con&BO,ips_dup,not enough data,NA,not enough data,NA
+CambXyl_con&BO,ips_sex,no link,-0.16923579078471165,no link,-0.17070593165147532
+CambXyl_con&BO,ips_typ,no link,0.18233600948312736,no link,0.14277054150440208
+CambXyl_con&BO,lym_dis,no link,-0.22368969366303829,no link,-0.2324504795651071
+CambXyl_con&BO,lym_mon,not enough data,NA,not enough data,NA
+CambXyl_con&BO,mel_spp,no link,-0.0670962167597237,no link,-0.09947631439118328
+CambXyl_con&BO,neo_ser,not enough data,NA,not enough data,NA
+CambXyl_con&BO,ope_spp,no link,-0.19373954305906851,no link,-0.1935059064649515
+CambXyl_con&BO,pan_fla,not enough data,NA,not enough data,NA
+CambXyl_con&BO,pha_cya,no link,-0.2775604572294517,no link,-0.2568958979830534
+CambXyl_con&BO,pis_pin,no link,-0.1818665055313,no link,-0.18047744680791855
+CambXyl_con&BO,pit_bid,no link,-0.126315074110525,no link,-0.12481171852545073
+CambXyl_con&BO,pit_cha,no link,0.19946240844398355,no link,0.10942217261923605
+CambXyl_con&BO,pit_spp,no link,0.34232828647433744,no link,0.3308797636026562
+CambXyl_con&BO,pol_pol,not enough data,NA,not enough data,NA
+CambXyl_con&BO,pri_abi,no link,-0.22707246707132053,no link,-0.22607739643487088
+CambXyl_con&BO,sap_car,not enough data,NA,not enough data,NA
+CambXyl_con&BO,sco_int,no link,0.4226891249451951,no link,0.41393790863417246
+CambXyl_con&BO,sco_rat,not enough data,NA,not enough data,NA
+CambXyl_con&BO,sco_sco,no link,-0.18168488756377726,no link,-0.18047744680791855
+CambXyl_con&BO,tet_gab,no link,-0.15084846095658896,no link,-0.2934440817421905
+CambXyl_con&BO,tet_spp,no link,-0.06629566544783358,no link,-0.16469487914971687
+CambXyl_con&BO,tha_pit,not enough data,NA,not enough data,NA
+CambXyl_con&BO,tha_pro,no link,0.2753810185803453,no link,0.22542003646164205
+CambXyl_con&BO,tom_spp,no link,-0.2999851652308982,no link,-0.32449904517854045
+CambXyl_con&BO,tor_vir,no link,-0.11718395903150548,no link,-0.08531509614662271
+CambXyl_con&BO,uro_sir_spp,no link,-0.126315074110525,no link,-0.12481171852545073
+CambXyl_con&BO,xyl_lin,no link,0.36282935360827007,no link,0.37414273365165557
+CambXyl_con&BO,xyl_spp,no link,0.25422927671137563,no link,0.2744502573572767
+CambXyl_con&BO,zei_gri,not enough data,NA,not enough data,NA
+CambXyl_con&MD,Def_dec,not enough data,NA,not enough data,NA
+CambXyl_con&MD,Def_dec&DB,no link,-0.03172351110377995,no link,-0.08429009059290643
+CambXyl_con&MD,agr_big,no link,-0.5679302367098098,no link,-0.4236142102829411
+CambXyl_con&MD,agr_vir,no link,0.23955636739227198,no link,0.10701206181237609
+CambXyl_con&MD,bup_pin,not enough data,NA,not enough data,NA
+CambXyl_con&MD,cep_spp,no link,-0.08729467552807127,no link,-0.09326626910823883
+CambXyl_con&MD,clo_ana,not enough data,NA,not enough data,NA
+CambXyl_con&MD,den_mic,no link,-0.019165484321685695,no link,-0.06565936920776054
+CambXyl_con&MD,den_pin,not enough data,NA,not enough data,NA
+CambXyl_con&MD,dip_sp,no link,-0.15203047166365852,no link,0.10255700281825499
+CambXyl_con&MD,era_def,no link,-0.41447166147635073,no link,-0.3560373412939601
+CambXyl_con&MD,geo_db,no link,0.2470975298187842,no link,0.05345287174322454
+CambXyl_con&MD,ips_acu,unreliable,0.39856366387056996,unreliable,0.41172209713746327
+CambXyl_con&MD,ips_ami,not enough data,NA,not enough data,NA
+CambXyl_con&MD,ips_cem,no link,-0.5080285918640388,no link,-0.4028007915565637
+CambXyl_con&MD,ips_dup,promising,0.32381019760645086,promising,0.40126225926933706
+CambXyl_con&MD,ips_sex,weak,0.2621792154650376,unreliable,0.30884815666176857
+CambXyl_con&MD,ips_typ,unreliable,0.3074949946386806,unreliable,0.3457063684799458
+CambXyl_con&MD,lym_dis,no link,-0.06913806778621184,no link,0.0028919551333878267
+CambXyl_con&MD,lym_mon,no link,-7.701405872143058e-4,no link,-0.006446185014720026
+CambXyl_con&MD,mel_spp,no link,-0.37181353861969174,no link,-0.39312561176816213
+CambXyl_con&MD,neo_ser,no link,-0.1385423290230635,no link,-0.19860985264517897
+CambXyl_con&MD,ope_spp,no link,-0.27135129003727565,no link,-0.27750784921459304
+CambXyl_con&MD,pan_fla,no link,0.23224287580754416,no link,0.2571932823529511
+CambXyl_con&MD,pha_cya,weak,0.25558267964124454,weak,0.240319835254721
+CambXyl_con&MD,pis_pin,no link,-0.4132447049303443,no link,-0.3560373412939601
+CambXyl_con&MD,pit_bid,no link,-0.287018411535239,no link,-0.246222634529102
+CambXyl_con&MD,pit_cha,no link,-0.43752968401052406,no link,-0.3202381822505621
+CambXyl_con&MD,pit_spp,unreliable,0.3868752957230249,usable,0.44971184509053513
+CambXyl_con&MD,pol_pol,no link,0.2217338760347831,no link,0.18055797102332816
+CambXyl_con&MD,pri_abi,weak,-0.24169837052052556,weak,-0.2903327292402262
+CambXyl_con&MD,sap_car,not enough data,NA,not enough data,NA
+CambXyl_con&MD,sco_int,usable,0.33711950666930385,weak,0.292089002744719
+CambXyl_con&MD,sco_rat,promising,0.3842897970706356,promising,0.4507969070872419
+CambXyl_con&MD,sco_sco,no link,-0.41283202496390564,no link,-0.3560373412939601
+CambXyl_con&MD,tet_gab,no link,-0.28844313453319853,no link,-0.30756491826117216
+CambXyl_con&MD,tet_spp,no link,-0.3141758054767339,no link,-0.17984940567152424
+CambXyl_con&MD,tha_pit,not enough data,NA,not enough data,NA
+CambXyl_con&MD,tha_pro,no link,0.6669559593540159,no link,0.6642890335495346
+CambXyl_con&MD,tom_spp,weak,0.2396955642856203,weak,0.2859834642752608
+CambXyl_con&MD,tor_vir,no link,-0.1878748028105495,no link,-0.11072380575382224
+CambXyl_con&MD,uro_sir_spp,no link,-0.287018411535239,no link,-0.246222634529102
+CambXyl_con&MD,xyl_lin,no link,0.4395034611066269,no link,0.6093627378727597
+CambXyl_con&MD,xyl_spp,no link,0.3834003930964955,no link,0.605543577149824
+CambXyl_con&MD,zei_gri,no link,-0.0335578961466258,no link,0.002654203399394605
+Def_dec,Def_dec&DB,no link,0.005859444997207841,no link,0.0254964677139056
+Def_dec,agr_big,no link,0.041005586539887035,no link,0.044098071615221016
+Def_dec,agr_vir,no link,-0.06411037315974936,no link,-0.06572716413465647
+Def_dec,bup_pin,no link,-0.002263108920180249,no link,0.049454307893491915
+Def_dec,cep_spp,not enough data,NA,not enough data,NA
+Def_dec,clo_ana,not enough data,NA,not enough data,NA
+Def_dec,den_mic,not enough data,NA,not enough data,NA
+Def_dec,den_pin,no link,-0.08850993486026422,no link,-0.0972683253078099
+Def_dec,dip_sp,no link,-0.15123501397980835,no link,-0.16427391877398578
+Def_dec,era_def,no link,-0.04545454545454545,no link,-0.04545454545454546
+Def_dec,geo_db,no link,0.1840790011792562,no link,0.2319701714182397
+Def_dec,ips_acu,no link,-0.05066524086339646,no link,-0.16086512287868954
+Def_dec,ips_ami,not enough data,NA,not enough data,NA
+Def_dec,ips_cem,no link,-0.19007771378048055,no link,-0.2816275213385363
+Def_dec,ips_dup,not enough data,NA,not enough data,NA
+Def_dec,ips_sex,no link,-0.05989375640280196,no link,-0.07343530148635741
+Def_dec,ips_typ,no link,0.06621435755806492,no link,0.04829181955873665
+Def_dec,lym_dis,no link,-0.1584249882659077,no link,-0.15786342443935558
+Def_dec,lym_mon,no link,-0.05536062331372908,no link,-0.014213741747037536
+Def_dec,mel_spp,no link,-0.1150527484178654,no link,-0.12472524837792055
+Def_dec,neo_ser,no link,-0.17030598012606962,no link,-0.1909327929196652
+Def_dec,ope_spp,no link,-0.0991952608416622,no link,-0.09831077865683432
+Def_dec,pan_fla,no link,0.4349557387080115,no link,0.445185843392689
+Def_dec,pha_cya,no link,0.014916770907577396,no link,-0.007718051728149974
+Def_dec,pis_pin,no link,0.047935607440218034,no link,0.0482475958670456
+Def_dec,pit_bid,no link,-0.0031573234898099527,no link,-9.240359424592367e-22
+Def_dec,pit_cha,no link,-0.08651135198533992,no link,-0.1286602556454549
+Def_dec,pit_spp,no link,-0.06473165280672023,no link,-0.06572716413465647
+Def_dec,pol_pol,not enough data,NA,not enough data,NA
+Def_dec,pri_abi,no link,0.034752146176104705,no link,0.032814293977252905
+Def_dec,sap_car,not enough data,NA,not enough data,NA
+Def_dec,sco_int,no link,0.0391640041483102,no link,0.044991392581769075
+Def_dec,sco_rat,no link,0.16704155744010196,no link,0.19707972130433635
+Def_dec,sco_sco,no link,-0.09494059709301478,no link,-0.0972683253078099
+Def_dec,tet_gab,no link,-0.05760786018903338,no link,-0.09170196762782937
+Def_dec,tet_spp,no link,-0.20132639388006474,no link,-0.16808269281595134
+Def_dec,tha_pit,not enough data,NA,not enough data,NA
+Def_dec,tha_pro,no link,0.024091422145301643,no link,-0.03222891521770213
+Def_dec,tom_spp,no link,-0.2917135929147534,no link,-0.2812694092199809
+Def_dec,tor_vir,no link,-0.009021902171087948,no link,-0.06440985288470351
+Def_dec,uro_sir_spp,no link,-0.1125868223752524,no link,-0.11148054845889471
+Def_dec,xyl_lin,no link,-0.15882600672809638,no link,-0.22498852128662875
+Def_dec,xyl_spp,no link,-0.04790893656529612,no link,-0.08872653878999055
+Def_dec,zei_gri,no link,-0.09766853508096923,no link,-0.09737854440867527
+Def_dec&DB,agr_big,weak,0.19581356008786657,no link,0.19354427889822207
+Def_dec&DB,agr_vir,no link,0.160435637316341,weak,0.18734743562266656
+Def_dec&DB,bup_pin,no link,0.2651966072469017,no link,0.2677297960604644
+Def_dec&DB,cep_spp,no link,0.0623217714086977,no link,0.09347968160816479
+Def_dec&DB,clo_ana,not enough data,NA,not enough data,NA
+Def_dec&DB,den_mic,no link,0.44936409809977634,no link,0.31225555677472483
+Def_dec&DB,den_pin,no link,-0.10327541499752042,no link,-0.0389498258759034
+Def_dec&DB,dip_sp,no link,0.16396749339264585,no link,0.15443577651689755
+Def_dec&DB,era_def,promising,-0.4011728810889084,promising,-0.31448860026313474
+Def_dec&DB,geo_db,weak,-0.276865879437037,weak,-0.2711420143894867
+Def_dec&DB,ips_acu,no link,0.04818574082146784,no link,0.06850380533452302
+Def_dec&DB,ips_ami,no link,-0.1482438477178945,no link,-0.18047744680791855
+Def_dec&DB,ips_cem,no link,0.14678734690646594,no link,0.13168260905130105
+Def_dec&DB,ips_dup,weak,-0.25020303855968506,weak,-0.2419084203565692
+Def_dec&DB,ips_sex,no link,4.4870607188378695e-4,no link,0.014652359321821946
+Def_dec&DB,ips_typ,no link,-0.08836681490827927,no link,-0.061381936360695166
+Def_dec&DB,lym_dis,weak,0.17696083288010994,weak,0.19572526852059716
+Def_dec&DB,lym_mon,no link,0.14194234738112996,no link,0.15922808742096217
+Def_dec&DB,mel_spp,no link,0.08193908555152642,no link,0.0036938833596123198
+Def_dec&DB,neo_ser,no link,0.05722014899959021,no link,0.043498422093954194
+Def_dec&DB,ope_spp,no link,-0.10950511630780273,no link,-0.08820147477760677
+Def_dec&DB,pan_fla,no link,0.28042437011146454,no link,0.2834212600744162
+Def_dec&DB,pha_cya,no link,0.09601879435748371,no link,0.10577899343349598
+Def_dec&DB,pis_pin,no link,0.2510610297675176,no link,0.2704461541545357
+Def_dec&DB,pit_bid,no link,-0.0435202252672427,no link,0.04585624933362988
+Def_dec&DB,pit_cha,no link,0.07875534760857462,no link,0.13792165395186237
+Def_dec&DB,pit_spp,weak,-0.15589839616354878,weak,-0.17661459830137746
+Def_dec&DB,pol_pol,no link,-0.028681736429911037,no link,-0.014146560037148741
+Def_dec&DB,pri_abi,weak,0.21947170134934643,weak,0.1960888312262335
+Def_dec&DB,sap_car,no link,0.3990765396574864,no link,0.4160390617515024
+Def_dec&DB,sco_int,no link,0.006714383265588024,no link,0.013798431279511459
+Def_dec&DB,sco_rat,no link,-0.06150605990333788,no link,-0.04841884015521942
+Def_dec&DB,sco_sco,no link,0.017143124488312525,no link,-0.025258971371909814
+Def_dec&DB,tet_gab,no link,0.05257446473063327,no link,0.08428996499856885
+Def_dec&DB,tet_spp,no link,0.15548884580632624,no link,0.1356142358018249
+Def_dec&DB,tha_pit,no link,0.4899013852018552,no link,0.6199543255983624
+Def_dec&DB,tha_pro,weak,0.1639678493720578,no link,0.08023293399378795
+Def_dec&DB,tom_spp,no link,0.05980389685733547,no link,0.06896497696540917
+Def_dec&DB,tor_vir,promising,-0.38151204577929937,promising,-0.36906182549701666
+Def_dec&DB,uro_sir_spp,no link,0.08141405594730934,no link,0.05570794211161872
+Def_dec&DB,xyl_lin,no link,-0.09314944036378515,no link,-0.15241564525061135
+Def_dec&DB,xyl_spp,no link,0.13987329415948246,no link,0.08855463201217707
+Def_dec&DB,zei_gri,no link,-0.09056968796497658,no link,-0.11199906462956298
+agr_big,agr_vir,promising,0.4023832540310443,promising,0.39484014091685665
+agr_big,bup_pin,weak,0.23914367957071236,weak,0.24625330307922513
+agr_big,cep_spp,not enough data,NA,not enough data,NA
+agr_big,clo_ana,not enough data,NA,not enough data,NA
+agr_big,den_mic,no link,0.24910932455580456,no link,0.266340110575914
+agr_big,den_pin,weak,0.17634488713423768,weak,0.1650616035263334
+agr_big,dip_sp,weak,0.19068414044471008,weak,0.20447289238019684
+agr_big,era_def,no link,0.016872835582134572,no link,0.018955228622379694
+agr_big,geo_db,no link,0.06485766920984902,no link,0.057096037584869565
+agr_big,ips_acu,no link,-0.08324653033002702,no link,-0.08662462575695219
+agr_big,ips_ami,no link,0.3081380685253343,no link,0.36448341688219466
+agr_big,ips_cem,promising,0.3015366518934127,promising,0.3014163471136592
+agr_big,ips_dup,not enough data,NA,not enough data,NA
+agr_big,ips_sex,promising,0.3202276000503943,weak,0.29627435239669697
+agr_big,ips_typ,weak,0.21841834072505428,weak,0.21771730389293376
+agr_big,lym_dis,no link,0.1718260569772289,no link,0.16087912340725755
+agr_big,lym_mon,no link,0.03586357942828582,no link,-0.003123595373288339
+agr_big,mel_spp,weak,0.14844897898179013,weak,0.15744778564951603
+agr_big,neo_ser,no link,0.15933046984177585,no link,0.12012098518380662
+agr_big,ope_spp,no link,0.027201630958977815,no link,0.029432131906952652
+agr_big,pan_fla,no link,0.028126834762366708,no link,0.024736938480515967
+agr_big,pha_cya,usable,0.3929146419422751,usable,0.3918006431811633
+agr_big,pis_pin,promising,0.4044548598037905,promising,0.4286133639350474
+agr_big,pit_bid,promising,0.3062203632781392,promising,0.31219351169165754
+agr_big,pit_cha,weak,0.24553837228852635,promising,0.30659855937650005
+agr_big,pit_spp,no link,-0.004985416969537053,no link,0.03973302312222073
+agr_big,pol_pol,not enough data,NA,not enough data,NA
+agr_big,pri_abi,no link,-0.116906913128948,no link,-0.12482484521671228
+agr_big,sap_car,no link,0.25395933013360983,no link,0.3214916029411889
+agr_big,sco_int,promising,0.3583582539819958,no link,0.34327627276937495
+agr_big,sco_rat,no link,0.6533638926742446,no link,0.6561246025811748
+agr_big,sco_sco,no link,0.25211305451952576,no link,0.2503999056347046
+agr_big,tet_gab,weak,0.28818159823377065,promising,0.3344682662657521
+agr_big,tet_spp,no link,0.061878490187534836,no link,0.1399877482646159
+agr_big,tha_pit,no link,0.22386911130466447,no link,0.27745229987799047
+agr_big,tha_pro,no link,0.0620513058985319,no link,0.08625333698916773
+agr_big,tom_spp,usable,0.33320232030004104,usable,0.3617405964633761
+agr_big,tor_vir,weak,0.16928675351966008,weak,0.17629502159638738
+agr_big,uro_sir_spp,no link,0.22612088080254372,no link,0.1982658637671551
+agr_big,xyl_lin,no link,0.0606327788079029,no link,0.0755024448992269
+agr_big,xyl_spp,no link,0.09401765810216339,no link,0.11282688259005058
+agr_big,zei_gri,no link,0.006149642809086199,no link,0.019013862564943727
+agr_vir,bup_pin,no link,-0.15322996158086244,no link,-0.09562284503020345
+agr_vir,cep_spp,not enough data,NA,not enough data,NA
+agr_vir,clo_ana,not enough data,NA,not enough data,NA
+agr_vir,den_mic,no link,0.7693546402599964,no link,0.7229988054812212
+agr_vir,den_pin,no link,-0.11679159435643065,no link,-0.13188418034674443
+agr_vir,dip_sp,no link,-0.023275853826580244,no link,0.012024220964919589
+agr_vir,era_def,no link,0.09436195187295861,no link,0.09012384797173661
+agr_vir,geo_db,weak,-0.17486371436479012,weak,-0.16507756577059693
+agr_vir,ips_acu,promising,0.4701470767696961,promising,0.46352528760447725
+agr_vir,ips_ami,no link,-0.06261931301983985,no link,-0.05655007558299342
+agr_vir,ips_cem,weak,0.2848920006194881,weak,0.2715906201540555
+agr_vir,ips_dup,not enough data,NA,not enough data,NA
+agr_vir,ips_sex,weak,0.25127795465337566,no link,0.17600709354129213
+agr_vir,ips_typ,weak,0.29213200593072136,promising,0.3130359865513474
+agr_vir,lym_dis,promising,0.36464002527305583,promising,0.3459989223976793
+agr_vir,lym_mon,weak,-0.17507862178476968,weak,-0.19426194592644824
+agr_vir,mel_spp,no link,0.11997315562944859,no link,0.14934372605445995
+agr_vir,neo_ser,no link,0.24284748902538117,no link,0.32410372979295693
+agr_vir,ope_spp,no link,0.0646994334318808,no link,0.056327403248948096
+agr_vir,pan_fla,no link,-0.1259169781486554,no link,-0.08633830703735448
+agr_vir,pha_cya,promising,0.40813548237545116,promising,0.3544721283805244
+agr_vir,pis_pin,no link,0.1481390221526748,weak,0.2277806805400165
+agr_vir,pit_bid,no link,0.4054515066097496,no link,0.4253950865630304
+agr_vir,pit_cha,weak,0.17793386462787442,weak,0.24012905157172787
+agr_vir,pit_spp,no link,0.08617441261279489,no link,0.2195084109720085
+agr_vir,pol_pol,not enough data,NA,not enough data,NA
+agr_vir,pri_abi,weak,-0.21430461722681685,weak,-0.24023390402141534
+agr_vir,sap_car,no link,0.47273607767830916,no link,0.4863416265390495
+agr_vir,sco_int,no link,0.2533880052668425,no link,0.25904418489444436
+agr_vir,sco_rat,no link,0.44660997739058744,no link,0.5336900904040857
+agr_vir,sco_sco,no link,0.009041036574031498,no link,0.004488663558146949
+agr_vir,tet_gab,no link,0.20557875517291666,no link,0.25251321253723674
+agr_vir,tet_spp,no link,0.08333191916871574,no link,0.10971005109552115
+agr_vir,tha_pit,no link,0.4819421532933191,no link,0.4467861660051069
+agr_vir,tha_pro,weak,0.22867607226968842,weak,0.2172531823275434
+agr_vir,tom_spp,no link,0.17343652188604344,no link,0.19456179091578338
+agr_vir,tor_vir,no link,-0.023473080572688366,no link,-0.004462656804256807
+agr_vir,uro_sir_spp,no link,0.12944890142742785,no link,0.12218693372306917
+agr_vir,xyl_lin,no link,-0.1922649887915832,no link,-0.1514960636700304
+agr_vir,xyl_spp,weak,-0.1170737818533673,no link,-0.11528120096929984
+agr_vir,zei_gri,no link,-0.13775445706015418,no link,-0.14080914257394453
+bup_pin,cep_spp,not enough data,NA,not enough data,NA
+bup_pin,clo_ana,not enough data,NA,not enough data,NA
+bup_pin,den_mic,not enough data,NA,not enough data,NA
+bup_pin,den_pin,usable,0.36819042668057694,usable,0.3956899689636135
+bup_pin,dip_sp,usable,0.31976033256971936,usable,0.3470276088071968
+bup_pin,era_def,no link,-0.06018925444776836,no link,-0.08370998696058576
+bup_pin,geo_db,weak,0.1837680358682625,weak,0.18560215191587667
+bup_pin,ips_acu,weak,-0.2346991825263723,weak,-0.2036230563366607
+bup_pin,ips_ami,no link,0.2325004055948246,no link,0.30425713851176006
+bup_pin,ips_cem,no link,0.2035466331704299,no link,0.21055842148894258
+bup_pin,ips_dup,not enough data,NA,not enough data,NA
+bup_pin,ips_sex,weak,0.25145974022469053,weak,0.28777463003421844
+bup_pin,ips_typ,no link,0.08722043139296448,no link,0.09475621682340035
+bup_pin,lym_dis,no link,0.19149794648436289,no link,0.21521886999982723
+bup_pin,lym_mon,usable,0.3136177982309187,usable,0.32199866220352447
+bup_pin,mel_spp,weak,0.22899176132458166,weak,0.23016556990501347
+bup_pin,neo_ser,no link,-0.1060048844379545,no link,-0.0862744836675984
+bup_pin,ope_spp,no link,0.2109041046958048,no link,0.20593271908946958
+bup_pin,pan_fla,usable,0.37370528267476955,usable,0.3700426512826918
+bup_pin,pha_cya,weak,0.24656345209279046,usable,0.31981244356446914
+bup_pin,pis_pin,no link,0.2748315377423307,promising,0.33589116086393095
+bup_pin,pit_bid,no link,0.11893758063975918,no link,0.07430270503946189
+bup_pin,pit_cha,weak,0.2882006577656623,weak,0.2943904717418845
+bup_pin,pit_spp,no link,-0.10279297904618881,no link,-0.19794261605364472
+bup_pin,pol_pol,not enough data,NA,not enough data,NA
+bup_pin,pri_abi,no link,0.11207858376349693,no link,0.12159799278355031
+bup_pin,sap_car,no link,-0.23988087104031094,no link,-0.23203111196084314
+bup_pin,sco_int,no link,-0.09181098423318342,no link,-0.032080266748738394
+bup_pin,sco_rat,no link,-0.058508791031153064,no link,-0.0815210644052159
+bup_pin,sco_sco,no link,0.11569773106173332,no link,0.10570072326730573
+bup_pin,tet_gab,promising,0.3561664914978123,promising,0.37944809675565216
+bup_pin,tet_spp,no link,0.18382826153365703,no link,0.19567583358807925
+bup_pin,tha_pit,no link,-0.6439950439766439,no link,-0.6943787330028675
+bup_pin,tha_pro,no link,0.06135750591113279,no link,0.047391058432659845
+bup_pin,tom_spp,weak,0.2763126195280879,usable,0.30235029310837436
+bup_pin,tor_vir,weak,0.16669179263283912,weak,0.19522283322361936
+bup_pin,uro_sir_spp,no link,0.03649087514490206,no link,0.04429665688874023
+bup_pin,xyl_lin,weak,0.29680306723036703,weak,0.27636190961545254
+bup_pin,xyl_spp,weak,0.28698121489114825,promising,0.33007788702495267
+bup_pin,zei_gri,no link,0.05686098573937332,no link,-0.008728734952918088
+cep_spp,clo_ana,not enough data,NA,not enough data,NA
+cep_spp,den_mic,no link,-0.10852937104017223,no link,-0.13815269518188256
+cep_spp,den_pin,not enough data,NA,not enough data,NA
+cep_spp,dip_sp,not enough data,NA,not enough data,NA
+cep_spp,era_def,not enough data,NA,not enough data,NA
+cep_spp,geo_db,not enough data,NA,not enough data,NA
+cep_spp,ips_acu,no link,-0.1323541372395329,no link,-0.1033118390994612
+cep_spp,ips_ami,not enough data,NA,not enough data,NA
+cep_spp,ips_cem,not enough data,NA,not enough data,NA
+cep_spp,ips_dup,weak,-0.26750068839798585,weak,-0.2224651144674677
+cep_spp,ips_sex,no link,-0.18201932465111778,no link,-0.1514794506488059
+cep_spp,ips_typ,promising,-0.3086505720179531,weak,-0.25773020063423224
+cep_spp,lym_dis,no link,-0.048900388515316244,no link,-0.02321323564423378
+cep_spp,lym_mon,no link,0.14391281355955865,no link,0.18712070153322988
+cep_spp,mel_spp,not enough data,NA,not enough data,NA
+cep_spp,neo_ser,no link,-0.05881882010846213,no link,-0.1056822866761434
+cep_spp,ope_spp,not enough data,NA,not enough data,NA
+cep_spp,pan_fla,no link,-0.2632700447611223,no link,-0.2756628939405246
+cep_spp,pha_cya,no link,-0.08165632095752541,no link,-0.044866578046860235
+cep_spp,pis_pin,not enough data,NA,not enough data,NA
+cep_spp,pit_bid,not enough data,NA,not enough data,NA
+cep_spp,pit_cha,not enough data,NA,not enough data,NA
+cep_spp,pit_spp,promising,-0.30151873422441144,promising,-0.34083844560997384
+cep_spp,pol_pol,no link,0.01702239275412908,no link,-0.03719592712321847
+cep_spp,pri_abi,promising,0.4241814920248439,promising,0.4384715262618675
+cep_spp,sap_car,not enough data,NA,not enough data,NA
+cep_spp,sco_int,no link,-0.13321963715066498,weak,-0.15808751328860074
+cep_spp,sco_rat,weak,-0.2803473165745918,weak,-0.287594828850625
+cep_spp,sco_sco,not enough data,NA,not enough data,NA
+cep_spp,tet_gab,no link,0.30764492106557895,no link,0.2404333265838731
+cep_spp,tet_spp,not enough data,NA,not enough data,NA
+cep_spp,tha_pit,not enough data,NA,not enough data,NA
+cep_spp,tha_pro,not enough data,NA,not enough data,NA
+cep_spp,tom_spp,no link,-0.18084574632645886,no link,-0.12530810554568828
+cep_spp,tor_vir,not enough data,NA,not enough data,NA
+cep_spp,uro_sir_spp,not enough data,NA,not enough data,NA
+cep_spp,xyl_lin,not enough data,NA,not enough data,NA
+cep_spp,xyl_spp,not enough data,NA,not enough data,NA
+cep_spp,zei_gri,no link,0.03014999269485231,no link,0.02730511050418711
+clo_ana,den_mic,not enough data,NA,not enough data,NA
+clo_ana,den_pin,not enough data,NA,not enough data,NA
+clo_ana,dip_sp,not enough data,NA,not enough data,NA
+clo_ana,era_def,not enough data,NA,not enough data,NA
+clo_ana,geo_db,no link,-0.3995241449660467,no link,-0.34559522606575716
+clo_ana,ips_acu,not enough data,NA,not enough data,NA
+clo_ana,ips_ami,not enough data,NA,not enough data,NA
+clo_ana,ips_cem,not enough data,NA,not enough data,NA
+clo_ana,ips_dup,no link,0.5583304608419918,no link,0.46023930668430163
+clo_ana,ips_sex,not enough data,NA,not enough data,NA
+clo_ana,ips_typ,no link,-0.3055440512168623,no link,-0.31241680347724954
+clo_ana,lym_dis,no link,0.018086008169012586,no link,-0.09277765514295681
+clo_ana,lym_mon,not enough data,NA,not enough data,NA
+clo_ana,mel_spp,not enough data,NA,not enough data,NA
+clo_ana,neo_ser,not enough data,NA,not enough data,NA
+clo_ana,ope_spp,not enough data,NA,not enough data,NA
+clo_ana,pan_fla,not enough data,NA,not enough data,NA
+clo_ana,pha_cya,not enough data,NA,not enough data,NA
+clo_ana,pis_pin,not enough data,NA,not enough data,NA
+clo_ana,pit_bid,not enough data,NA,not enough data,NA
+clo_ana,pit_cha,not enough data,NA,not enough data,NA
+clo_ana,pit_spp,not enough data,NA,not enough data,NA
+clo_ana,pol_pol,not enough data,NA,not enough data,NA
+clo_ana,pri_abi,not enough data,NA,not enough data,NA
+clo_ana,sap_car,not enough data,NA,not enough data,NA
+clo_ana,sco_int,not enough data,NA,not enough data,NA
+clo_ana,sco_rat,not enough data,NA,not enough data,NA
+clo_ana,sco_sco,not enough data,NA,not enough data,NA
+clo_ana,tet_gab,not enough data,NA,not enough data,NA
+clo_ana,tet_spp,not enough data,NA,not enough data,NA
+clo_ana,tha_pit,not enough data,NA,not enough data,NA
+clo_ana,tha_pro,not enough data,NA,not enough data,NA
+clo_ana,tom_spp,not enough data,NA,not enough data,NA
+clo_ana,tor_vir,no link,-0.5616943032115271,no link,-0.44331258606614443
+clo_ana,uro_sir_spp,not enough data,NA,not enough data,NA
+clo_ana,xyl_lin,not enough data,NA,not enough data,NA
+clo_ana,xyl_spp,not enough data,NA,not enough data,NA
+clo_ana,zei_gri,not enough data,NA,not enough data,NA
+den_mic,den_pin,no link,0.4329575969819365,no link,0.44570891686501307
+den_mic,dip_sp,no link,0.18673725823522513,no link,0.13446145291543893
+den_mic,era_def,no link,-0.11215048658060106,no link,-0.11129646084817225
+den_mic,geo_db,no link,-0.27284088622532837,no link,-0.3057491951594907
+den_mic,ips_acu,no link,0.005844293675881043,no link,0.017425350004798102
+den_mic,ips_ami,no link,-0.16489564030321066,no link,-0.1643262936896395
+den_mic,ips_cem,no link,0.2775572961866366,no link,0.28401048234119036
+den_mic,ips_dup,no link,-0.4087510131576323,no link,-0.32141217326661253
+den_mic,ips_sex,no link,-0.12639434103572164,no link,-0.19308594692215386
+den_mic,ips_typ,no link,-0.1161791207461158,no link,-0.06738043754580793
+den_mic,lym_dis,no link,0.27699953281394063,no link,0.28497871130539626
+den_mic,lym_mon,no link,-0.20031172025825586,no link,-0.15963703804614737
+den_mic,mel_spp,not enough data,NA,not enough data,NA
+den_mic,neo_ser,not enough data,NA,not enough data,NA
+den_mic,ope_spp,no link,-0.11206835021885247,no link,-0.11129646084817225
+den_mic,pan_fla,no link,-0.02412422073911762,no link,0.04384612595068662
+den_mic,pha_cya,no link,-0.10591108390854956,no link,-0.1267262094385555
+den_mic,pis_pin,no link,0.2296257921084678,no link,0.10005916298980734
+den_mic,pit_bid,not enough data,NA,not enough data,NA
+den_mic,pit_cha,no link,0.12967312900881206,no link,0.003346842090068375
+den_mic,pit_spp,no link,0.0650932592453634,no link,0.06444182600798551
+den_mic,pol_pol,no link,-0.2456644615835504,no link,-0.30051853173464066
+den_mic,pri_abi,no link,0.4021470672164959,no link,0.35381570302500104
+den_mic,sap_car,not enough data,NA,not enough data,NA
+den_mic,sco_int,no link,0.006152597081615267,no link,-0.03087816970841927
+den_mic,sco_rat,no link,-0.02221613819249527,no link,-0.0319655920006212
+den_mic,sco_sco,no link,-0.09456034591249297,no link,-0.09684161177795382
+den_mic,tet_gab,no link,0.22979319190479602,no link,0.4940038682537012
+den_mic,tet_spp,no link,0.3388119209471302,no link,0.3213396661017392
+den_mic,tha_pit,not enough data,NA,not enough data,NA
+den_mic,tha_pro,no link,-0.04545454545454546,no link,-0.04545454545454546
+den_mic,tom_spp,no link,-0.009566237449802648,no link,-0.064663835060748
+den_mic,tor_vir,no link,-0.052440742082064465,no link,-0.05698609331323632
+den_mic,uro_sir_spp,no link,-0.045454545454545456,no link,-0.04545454545454546
+den_mic,xyl_lin,no link,-0.03725343431019633,no link,3.4238611787922917e-18
+den_mic,xyl_spp,no link,-0.0825349731013383,no link,-0.08239336065226963
+den_mic,zei_gri,no link,-0.0968452048716532,no link,-0.1248634111010882
+den_pin,dip_sp,unreliable,0.3076445644869295,usable,0.32539820768766425
+den_pin,era_def,no link,0.05236952535273219,no link,0.04535976158956864
+den_pin,geo_db,weak,0.2637857055493073,weak,0.2834292028483066
+den_pin,ips_acu,no link,-0.13684989761595842,weak,-0.1562657463067513
+den_pin,ips_ami,no link,0.15747503237031577,no link,0.22744504445537395
+den_pin,ips_cem,weak,0.21790087112659803,weak,0.2588459633932159
+den_pin,ips_dup,not enough data,NA,not enough data,NA
+den_pin,ips_sex,no link,0.013074940840131617,no link,0.007449137665533891
+den_pin,ips_typ,no link,0.11541634996122327,no link,0.1266727984367208
+den_pin,lym_dis,no link,0.1815382838314081,weak,0.2201131085749298
+den_pin,lym_mon,unreliable,0.4432021899808284,unreliable,0.44801264165520627
+den_pin,mel_spp,no link,0.10756913145244507,no link,0.12196469674192527
+den_pin,neo_ser,no link,-0.13074981768605018,no link,-0.14633752242130854
+den_pin,ope_spp,no link,0.3229249694011392,no link,0.3435506827154495
+den_pin,pan_fla,usable,0.30165047017685614,weak,0.27930708636278473
+den_pin,pha_cya,no link,0.09301882664157693,no link,0.13806504632648325
+den_pin,pis_pin,no link,0.10567655850645563,no link,0.07905014752616076
+den_pin,pit_bid,no link,0.27182503700044225,no link,0.24762567799390045
+den_pin,pit_cha,no link,0.2026225356910675,no link,0.1726742610382336
+den_pin,pit_spp,not enough data,NA,not enough data,NA
+den_pin,pol_pol,no link,0.24962873584533693,no link,0.08807480762519093
+den_pin,pri_abi,no link,0.028537371259221175,no link,0.01796919814188643
+den_pin,sap_car,no link,-0.15177611257650636,no link,-0.19380722678490483
+den_pin,sco_int,no link,-0.04374446867728745,no link,-0.0773391407872591
+den_pin,sco_rat,no link,0.24020833554626667,no link,0.21303209454835062
+den_pin,sco_sco,no link,0.15484514219113038,no link,0.10463641369885032
+den_pin,tet_gab,no link,0.007299186530976299,no link,-0.017032471581153123
+den_pin,tet_spp,no link,0.017661322080644484,no link,0.01288671616237588
+den_pin,tha_pit,no link,-0.46113821271489674,no link,-0.458257657463047
+den_pin,tha_pro,no link,0.1272038513434976,no link,0.16705402620124796
+den_pin,tom_spp,weak,0.17421542865867715,weak,0.19245817982204852
+den_pin,tor_vir,weak,0.15219879073042472,weak,0.13836874586642212
+den_pin,uro_sir_spp,no link,0.43376798937257055,no link,0.4863416265390495
+den_pin,xyl_lin,promising,0.3812946579062535,promising,0.36560786625593794
+den_pin,xyl_spp,no link,0.09399678264424874,weak,0.2271050722951301
+den_pin,zei_gri,no link,-0.19018198491410837,no link,-0.20838065458196886
+dip_sp,era_def,no link,0.1591774437182982,no link,0.13416793777865363
+dip_sp,geo_db,no link,0.05532400856922286,no link,0.039873032331552816
+dip_sp,ips_acu,no link,-0.10843114053192929,no link,-0.08214545241994572
+dip_sp,ips_ami,no link,-0.1699389648885799,no link,-0.06063601171271024
+dip_sp,ips_cem,weak,0.2490732508163989,weak,0.28908610029236426
+dip_sp,ips_dup,not enough data,NA,not enough data,NA
+dip_sp,ips_sex,no link,0.15934506299637471,weak,0.1979950731707406
+dip_sp,ips_typ,no link,-0.0024260127310789235,no link,-0.008579354934282805
+dip_sp,lym_dis,no link,0.13297797258670588,no link,0.1366228388398178
+dip_sp,lym_mon,weak,0.1547481938926923,weak,0.17037755397643495
+dip_sp,mel_spp,weak,0.11513310156260939,weak,0.15073672327837417
+dip_sp,neo_ser,no link,-0.10710353437588324,no link,-0.09625641658312276
+dip_sp,ope_spp,weak,0.2881808207142827,weak,0.2698634146942732
+dip_sp,pan_fla,weak,0.18667030701110984,weak,0.19747755214062712
+dip_sp,pha_cya,no link,0.08201789389156428,no link,0.07758262034318698
+dip_sp,pis_pin,no link,0.05761189915703429,no link,0.07240378208443153
+dip_sp,pit_bid,weak,0.2463474132188226,weak,0.26016931629483403
+dip_sp,pit_cha,no link,0.08552085824605755,no link,0.10475244953100549
+dip_sp,pit_spp,no link,0.032521619847465565,no link,0.06236003749035937
+dip_sp,pol_pol,no link,7.0041247750066e-4,no link,-0.07805056577703715
+dip_sp,pri_abi,no link,0.023111305207663784,no link,0.023628044131993552
+dip_sp,sap_car,no link,-0.10575206068332288,no link,-0.16074580147059445
+dip_sp,sco_int,no link,-0.15109109782587538,no link,-0.13128705787084066
+dip_sp,sco_rat,no link,0.14451192010930736,no link,0.1578275514724204
+dip_sp,sco_sco,no link,-0.006217285596628248,no link,-0.03238582083445513
+dip_sp,tet_gab,no link,0.03203975641790537,no link,0.06507063872628055
+dip_sp,tet_spp,no link,0.10697811275640033,no link,0.1452832786137481
+dip_sp,tha_pit,no link,-0.31652171728521383,no link,-0.33806988608810007
+dip_sp,tha_pro,no link,-0.09162562254979881,no link,-0.05954117276113512
+dip_sp,tom_spp,weak,0.1260182866798072,weak,0.1268260537052285
+dip_sp,tor_vir,weak,0.15538439077046834,weak,0.1603607358485752
+dip_sp,uro_sir_spp,no link,0.2947148988368689,no link,0.28357945688798825
+dip_sp,xyl_lin,weak,0.18762955158591144,weak,0.234315968701462
+dip_sp,xyl_spp,no link,0.135597709708527,weak,0.18359496105454837
+dip_sp,zei_gri,no link,-0.09256578997880191,no link,-0.03060248800690723
+era_def,geo_db,weak,-0.2447686658809204,weak,-0.22574746862216288
+era_def,ips_acu,no link,-0.053793562124768136,no link,-0.050611663691746106
+era_def,ips_ami,no link,0.34190697442748985,no link,0.3560992885937188
+era_def,ips_cem,no link,-0.036534098354328616,no link,-0.015934598843956115
+era_def,ips_dup,not enough data,NA,not enough data,NA
+era_def,ips_sex,no link,0.02646434831589846,no link,0.04207213962553698
+era_def,ips_typ,no link,-0.023404776614628576,no link,-0.005123864907476188
+era_def,lym_dis,no link,-0.04584204992755515,no link,-0.04567800225203537
+era_def,lym_mon,no link,0.0726468312654702,no link,0.062284774842320714
+era_def,mel_spp,no link,-0.07351158784335307,no link,-0.06273403701932274
+era_def,neo_ser,no link,-0.045454545454545456,no link,-0.04545454545454546
+era_def,ope_spp,no link,0.21384212948273226,no link,0.22727575087939064
+era_def,pan_fla,weak,-0.12173103787943793,weak,-0.1531323832714834
+era_def,pha_cya,no link,-0.044034042514077734,no link,-0.01759945172048182
+era_def,pis_pin,no link,0.0586753233526046,no link,0.05431874532627395
+era_def,pit_bid,no link,0.15069251600998462,no link,0.15727723548154673
+era_def,pit_cha,no link,-0.03471135733896092,no link,-0.04155389612006812
+era_def,pit_spp,no link,-0.06945931476538518,no link,-0.04106705357467282
+era_def,pol_pol,not enough data,NA,not enough data,NA
+era_def,pri_abi,no link,0.03589811178666344,no link,0.032036311583915726
+era_def,sap_car,no link,-0.2561351893660142,no link,-0.23197017141823967
+era_def,sco_int,no link,-0.052425331023245474,no link,-0.06494911177015238
+era_def,sco_rat,no link,-0.043856698431753084,no link,-0.09456231049243692
+era_def,sco_sco,no link,0.12399104923770464,no link,0.16336114534704266
+era_def,tet_gab,no link,0.07327966378548946,no link,0.09829701991656109
+era_def,tet_spp,no link,0.08333227306625438,no link,0.06811616642164275
+era_def,tha_pit,no link,-0.5340941073139082,no link,-0.4607790283432619
+era_def,tha_pro,no link,0.08243819006645746,no link,0.08756613129799617
+era_def,tom_spp,no link,0.05501238273656167,no link,0.06945776907378173
+era_def,tor_vir,promising,0.3904364654787419,promising,0.3691542906496312
+era_def,uro_sir_spp,no link,-0.11916955122736426,no link,-0.11817672548202424
+era_def,xyl_lin,no link,0.004492547465887175,no link,-0.02442999987445926
+era_def,xyl_spp,no link,-0.05174667231566433,no link,-0.014651795492836676
+era_def,zei_gri,not enough data,NA,not enough data,NA
+geo_db,ips_acu,weak,-0.2757627659723428,weak,-0.2662703880335875
+geo_db,ips_ami,no link,-0.08509664615990228,no link,-0.09504132231404958
+geo_db,ips_cem,weak,-0.21961812680275922,weak,-0.26304333715254
+geo_db,ips_dup,no link,-0.3392287054820189,no link,-0.29794424118314056
+geo_db,ips_sex,weak,-0.14995425224255626,weak,-0.18527693346574106
+geo_db,ips_typ,no link,0.02252462690770797,no link,-0.030231633424430446
+geo_db,lym_dis,no link,-0.05931197946278122,no link,-0.05874398938396308
+geo_db,lym_mon,weak,0.15804249450192134,weak,0.12755172562738828
+geo_db,mel_spp,no link,-0.027702887217370725,no link,-0.034507042353749025
+geo_db,neo_ser,no link,-0.22132577607165868,no link,-0.2532561818727091
+geo_db,ope_spp,no link,-0.22258703927661513,no link,-0.18602317228272702
+geo_db,pan_fla,no link,0.047800925053061875,no link,0.04464897486429659
+geo_db,pha_cya,no link,0.027595245249431237,no link,0.010594178210932753
+geo_db,pis_pin,no link,-0.10455002524624174,no link,-0.16104819509712837
+geo_db,pit_bid,no link,-0.20434885599028016,no link,-0.179753375099259
+geo_db,pit_cha,no link,-0.05655794378574977,no link,-0.17301593993954179
+geo_db,pit_spp,no link,-0.03469115653502927,no link,-0.21769226452407797
+geo_db,pol_pol,no link,0.4747352618651723,no link,0.5356480123433693
+geo_db,pri_abi,no link,-0.06861765075404705,no link,-0.08652100442012688
+geo_db,sap_car,no link,-0.06575211977248926,no link,-0.06572716413465647
+geo_db,sco_int,no link,0.09313275207361599,no link,0.09413377025824145
+geo_db,sco_rat,no link,0.20291615973181779,no link,0.13185627341897507
+geo_db,sco_sco,no link,-0.11860037420234268,no link,-0.10454076354841497
+geo_db,tet_gab,no link,-0.0767731636572564,weak,-0.14331631057669034
+geo_db,tet_spp,weak,-0.18460802428708342,weak,-0.20452704222423163
+geo_db,tha_pit,no link,0.2675037506267358,no link,0.11496169742012619
+geo_db,tha_pro,no link,-0.028072191270748635,no link,-0.05815420424241099
+geo_db,tom_spp,no link,0.1166576310820372,no link,0.09864813385369993
+geo_db,tor_vir,weak,0.13656241160943658,no link,0.12847768196425383
+geo_db,uro_sir_spp,no link,0.024990919622671498,no link,0.017643029179877815
+geo_db,xyl_lin,no link,0.12209721654557396,no link,0.14076767670547885
+geo_db,xyl_spp,no link,-0.05460910622914823,no link,-0.07227260096452096
+geo_db,zei_gri,no link,-0.11970291279339365,no link,-0.09182886083655664
+ips_acu,ips_ami,no link,-0.041114849524094416,no link,-0.12074309835186471
+ips_acu,ips_cem,promising,0.4043776576322786,promising,0.39532224977136593
+ips_acu,ips_dup,usable,0.5118176598021795,usable,0.5354541994366422
+ips_acu,ips_sex,usable,0.4483831596781036,usable,0.4465400541216852
+ips_acu,ips_typ,usable,0.3132291187938481,weak,0.2929909417037706
+ips_acu,lym_dis,weak,0.1966668850355266,weak,0.19493782438063148
+ips_acu,lym_mon,no link,-0.020210825790474996,no link,0.007276080602866751
+ips_acu,mel_spp,no link,9.433930643531444e-4,no link,0.017569914034740945
+ips_acu,neo_ser,no link,-0.02205625024723737,no link,0.024690456225277064
+ips_acu,ope_spp,no link,0.14791303269738298,no link,0.17286099636129823
+ips_acu,pan_fla,no link,-0.017401633371073554,no link,-0.002175113990723505
+ips_acu,pha_cya,no link,0.13237658800296717,weak,0.16813429537931676
+ips_acu,pis_pin,usable,0.35840602764970364,unreliable,0.49311563504587663
+ips_acu,pit_bid,promising,0.5893332407556338,promising,0.5570248314571271
+ips_acu,pit_cha,unreliable,0.30598208011882894,unreliable,0.32077082198071294
+ips_acu,pit_spp,unreliable,0.46105709158335173,unreliable,0.47505023197817237
+ips_acu,pol_pol,no link,0.28957731621901056,no link,0.24096392810683653
+ips_acu,pri_abi,no link,-0.12094874978760113,no link,-0.14121022714963286
+ips_acu,sap_car,no link,0.34539864813295723,no link,0.32829684603880266
+ips_acu,sco_int,usable,0.31747639352144724,weak,0.2984333893947608
+ips_acu,sco_rat,usable,0.3670454702313205,unreliable,0.38635271575675506
+ips_acu,sco_sco,no link,3.8587904247209203e-4,no link,0.06960638435556209
+ips_acu,tet_gab,weak,0.22997599810460187,weak,0.248423605069224
+ips_acu,tet_spp,no link,0.03620360375343028,no link,0.100193766032347
+ips_acu,tha_pit,no link,0.3570891304862017,no link,0.28282156434215616
+ips_acu,tha_pro,no link,0.06406159707957278,no link,0.07220858527326349
+ips_acu,tom_spp,no link,0.1197432113994354,no link,0.15141442111478443
+ips_acu,tor_vir,no link,-0.09811449433660957,no link,-0.12215343728156394
+ips_acu,uro_sir_spp,no link,0.14974305906121788,no link,0.15422436243928575
+ips_acu,xyl_lin,no link,-0.03336637612581675,no link,-0.004867275473728389
+ips_acu,xyl_spp,no link,0.03803983299095406,no link,0.08010408482204961
+ips_acu,zei_gri,no link,-0.08139074699949432,no link,-0.04741721540467728
+ips_ami,ips_cem,no link,-0.005332224534492878,no link,0.07037530957571236
+ips_ami,ips_dup,not enough data,NA,not enough data,NA
+ips_ami,ips_sex,no link,-0.06668262929957959,no link,-0.008082804081352495
+ips_ami,ips_typ,no link,-0.13570534654602873,no link,-0.09575710920926765
+ips_ami,lym_dis,no link,-0.13235301453945433,no link,-0.16093441649503207
+ips_ami,lym_mon,no link,-0.26067803201986134,no link,-0.19672792029107614
+ips_ami,mel_spp,no link,-0.17267375081949468,no link,-0.2188114450292711
+ips_ami,neo_ser,not enough data,NA,not enough data,NA
+ips_ami,ope_spp,no link,0.5319562092489521,no link,0.5512479357616654
+ips_ami,pan_fla,no link,0.12092384780681295,no link,0.024098229835280472
+ips_ami,pha_cya,no link,-0.14741145945235332,no link,-0.09529770347701756
+ips_ami,pis_pin,no link,0.1643202189393955,no link,0.2570102563782735
+ips_ami,pit_bid,no link,0.027711524102041963,no link,-0.02234392810843759
+ips_ami,pit_cha,no link,0.07346028329919875,no link,0.12256911201284021
+ips_ami,pit_spp,not enough data,NA,not enough data,NA
+ips_ami,pol_pol,not enough data,NA,not enough data,NA
+ips_ami,pri_abi,no link,0.14869694535119574,no link,0.3157538638504672
+ips_ami,sap_car,no link,-0.058827447453991225,no link,-0.06572716413465647
+ips_ami,sco_int,no link,0.22680942530306233,no link,0.3352445049482928
+ips_ami,sco_rat,no link,0.15274117389643582,no link,0.25890569279417297
+ips_ami,sco_sco,no link,0.3575384771325581,no link,0.3907216867966215
+ips_ami,tet_gab,no link,0.2830422997424196,no link,0.2821910623880536
+ips_ami,tet_spp,no link,-0.11020898297785141,no link,-0.09423313883023075
+ips_ami,tha_pit,no link,-0.23975398474086962,no link,-0.27624762886293647
+ips_ami,tha_pro,no link,-0.035764258743985505,no link,-0.021646340229648477
+ips_ami,tom_spp,no link,-0.07414805479336577,no link,-0.04893817382930061
+ips_ami,tor_vir,no link,0.3188396202796396,no link,0.32434131897119234
+ips_ami,uro_sir_spp,no link,-0.16489564030321066,no link,-0.1643262936896395
+ips_ami,xyl_lin,no link,0.3835526025622549,no link,0.37455813628478557
+ips_ami,xyl_spp,no link,0.2110998605754242,no link,0.3398539193767151
+ips_ami,zei_gri,not enough data,NA,not enough data,NA
+ips_cem,ips_dup,not enough data,NA,not enough data,NA
+ips_cem,ips_sex,promising,0.36730916595009067,promising,0.3948919718230651
+ips_cem,ips_typ,promising,0.5628439496475026,promising,0.6069950491171284
+ips_cem,lym_dis,weak,0.24787380718169388,weak,0.25598335879444145
+ips_cem,lym_mon,no link,0.0740770553209341,no link,0.08884448732556738
+ips_cem,mel_spp,no link,0.13842853847036135,no link,0.20493439132607702
+ips_cem,neo_ser,no link,0.21391879719449855,no link,0.29920879353258123
+ips_cem,ope_spp,weak,0.19609558506538374,weak,0.22669801249602592
+ips_cem,pan_fla,no link,0.17215975678270967,no link,0.14835785629535173
+ips_cem,pha_cya,promising,0.501503437783238,promising,0.5303527044256643
+ips_cem,pis_pin,promising,0.42083512509871746,promising,0.4993063744764038
+ips_cem,pit_bid,promising,0.5050950140642676,promising,0.5515567945889572
+ips_cem,pit_cha,promising,0.5794674466791996,promising,0.6253656265371832
+ips_cem,pit_spp,no link,0.3874720404102154,no link,0.5374286241083348
+ips_cem,pol_pol,not enough data,NA,not enough data,NA
+ips_cem,pri_abi,no link,0.03719055316979803,no link,0.053069901379622385
+ips_cem,sap_car,no link,0.346239912168909,no link,0.28934244264707004
+ips_cem,sco_int,no link,0.14802038054405475,no link,0.127199225513039
+ips_cem,sco_rat,no link,0.35525391499078646,no link,0.4341395088334468
+ips_cem,sco_sco,no link,0.09250077641770556,no link,0.0807516486218234
+ips_cem,tet_gab,promising,0.40139010006928144,promising,0.435262906612464
+ips_cem,tet_spp,promising,0.30918644201167683,promising,0.31250250411435443
+ips_cem,tha_pit,no link,0.1851310882907218,no link,0.10788328118451218
+ips_cem,tha_pro,no link,0.08897845839668189,no link,0.07453292056112082
+ips_cem,tom_spp,promising,0.32566979690656916,promising,0.3844160497996974
+ips_cem,tor_vir,no link,0.06991147851734973,no link,0.07944735914455833
+ips_cem,uro_sir_spp,no link,0.2577401890352104,no link,0.26578649755805855
+ips_cem,xyl_lin,weak,0.2911769923497923,promising,0.3173398554273916
+ips_cem,xyl_spp,promising,0.3436019344431189,promising,0.361487808035138
+ips_cem,zei_gri,no link,-0.15296503764945543,no link,-0.05096993023975951
+ips_dup,ips_sex,promising,0.48819117600825906,promising,0.5594692259423146
+ips_dup,ips_typ,unreliable,0.6975451525059526,unreliable,0.6820775212125557
+ips_dup,lym_dis,no link,0.15564972812567052,no link,0.17460400280477212
+ips_dup,lym_mon,no link,-0.1283818841158283,weak,-0.14337160843452965
+ips_dup,mel_spp,not enough data,NA,not enough data,NA
+ips_dup,neo_ser,no link,-0.39445704818924987,no link,-0.33748278192994313
+ips_dup,ope_spp,not enough data,NA,not enough data,NA
+ips_dup,pan_fla,no link,0.32904230358377695,no link,0.32141217326661253
+ips_dup,pha_cya,promising,0.3887651601013897,promising,0.38710417417891607
+ips_dup,pis_pin,not enough data,NA,not enough data,NA
+ips_dup,pit_bid,not enough data,NA,not enough data,NA
+ips_dup,pit_cha,no link,-0.16718987394725757,no link,-0.18323798443662642
+ips_dup,pit_spp,promising,0.6416633164268658,promising,0.6253093452773026
+ips_dup,pol_pol,no link,0.12934763165336186,no link,0.12458352588577969
+ips_dup,pri_abi,promising,-0.5704777170785686,promising,-0.5025587809773536
+ips_dup,sap_car,not enough data,NA,not enough data,NA
+ips_dup,sco_int,no link,0.12352900798641978,no link,0.13118498653246982
+ips_dup,sco_rat,promising,0.3479730093302379,promising,0.3339865544490863
+ips_dup,sco_sco,not enough data,NA,not enough data,NA
+ips_dup,tet_gab,no link,-0.31806627958700223,no link,-0.3293742663151141
+ips_dup,tet_spp,not enough data,NA,not enough data,NA
+ips_dup,tha_pit,not enough data,NA,not enough data,NA
+ips_dup,tha_pro,not enough data,NA,not enough data,NA
+ips_dup,tom_spp,promising,0.5594019061776835,promising,0.6143443002582967
+ips_dup,tor_vir,no link,-0.23181160141943202,no link,-0.14898262569464113
+ips_dup,uro_sir_spp,not enough data,NA,not enough data,NA
+ips_dup,xyl_lin,not enough data,NA,not enough data,NA
+ips_dup,xyl_spp,not enough data,NA,not enough data,NA
+ips_dup,zei_gri,no link,0.07410008759150935,no link,0.050491583524209835
+ips_sex,ips_typ,unreliable,0.48403908056210027,unreliable,0.5215332328380019
+ips_sex,lym_dis,no link,0.15579491352646513,no link,0.1555047517297976
+ips_sex,lym_mon,no link,-0.03529447098492091,no link,-0.022401930442295246
+ips_sex,mel_spp,no link,0.04173545796708475,no link,0.09919943349258638
+ips_sex,neo_ser,no link,0.10248287218136404,no link,0.13272831954294767
+ips_sex,ope_spp,weak,0.2470822073336677,weak,0.2502107083904199
+ips_sex,pan_fla,no link,0.06658466053827775,no link,0.09341978520380395
+ips_sex,pha_cya,usable,0.5083318670172224,usable,0.5254227924454442
+ips_sex,pis_pin,promising,0.3714874913521598,promising,0.42190472080296365
+ips_sex,pit_bid,promising,0.5263323495026262,promising,0.5279920111831204
+ips_sex,pit_cha,promising,0.3465202285444606,promising,0.4604314955808984
+ips_sex,pit_spp,unreliable,0.38042587343109124,unreliable,0.3801718039784916
+ips_sex,pol_pol,no link,0.09170300005728516,no link,0.08037191666601258
+ips_sex,pri_abi,no link,-0.09098833630814482,no link,-0.08249089826107177
+ips_sex,sap_car,no link,0.3689403717139749,no link,0.3535533905932738
+ips_sex,sco_int,weak,0.20122306073413296,weak,0.20144829792706276
+ips_sex,sco_rat,usable,0.35142625797883975,usable,0.3020705269575756
+ips_sex,sco_sco,no link,0.18170088989717512,no link,0.1631992000656121
+ips_sex,tet_gab,no link,0.16917015453721057,no link,0.1929641862138121
+ips_sex,tet_spp,no link,0.09239498025767841,no link,0.07202969435763419
+ips_sex,tha_pit,no link,0.2667011231882058,no link,0.205285727072922
+ips_sex,tha_pro,no link,-0.04488240693743447,no link,-0.040478643120921295
+ips_sex,tom_spp,usable,0.4735130068663596,usable,0.4766286820296177
+ips_sex,tor_vir,no link,-0.02004120679986864,no link,-0.044009631434408315
+ips_sex,uro_sir_spp,no link,0.1909167036277084,no link,0.17479393979775668
+ips_sex,xyl_lin,no link,0.08162039870238538,no link,0.10776362415821072
+ips_sex,xyl_spp,weak,0.24107923944678716,weak,0.2975514565152588
+ips_sex,zei_gri,no link,-0.10343016619441693,no link,-0.10767783269082888
+ips_typ,lym_dis,weak,0.24855116461298588,weak,0.22693329010188104
+ips_typ,lym_mon,no link,0.02313540347925277,no link,-6.859268972262367e-4
+ips_typ,mel_spp,no link,0.010766657902572162,no link,0.029537104025548957
+ips_typ,neo_ser,no link,-0.14974531554375956,no link,-0.1332601928068743
+ips_typ,ope_spp,no link,0.11863863460231239,no link,0.15156367964149792
+ips_typ,pan_fla,weak,0.18252690628935667,weak,0.16367879641794303
+ips_typ,pha_cya,usable,0.3319830959491541,usable,0.35359302513546176
+ips_typ,pis_pin,unreliable,0.3235043924296048,usable,0.48577946486524254
+ips_typ,pit_bid,promising,0.5315507408812948,promising,0.55033553910692
+ips_typ,pit_cha,unreliable,0.645974459727935,unreliable,0.6619466954830072
+ips_typ,pit_spp,usable,0.5286213888659772,usable,0.5362699914831457
+ips_typ,pol_pol,no link,0.19355938120872257,no link,0.16206108309264913
+ips_typ,pri_abi,weak,-0.2681434956355257,weak,-0.2638584942860108
+ips_typ,sap_car,no link,0.36186041108726574,no link,0.2892709559399513
+ips_typ,sco_int,weak,0.20111081122093652,weak,0.15447399804209866
+ips_typ,sco_rat,usable,0.41405897755919985,usable,0.40550900879078816
+ips_typ,sco_sco,no link,-0.03032269583950967,no link,-0.07320648119392018
+ips_typ,tet_gab,weak,0.1897234436180047,weak,0.18050015260865412
+ips_typ,tet_spp,no link,0.1518982847509325,no link,0.1564984981412296
+ips_typ,tha_pit,no link,-0.12998119933084806,no link,-0.1525940361772905
+ips_typ,tha_pro,no link,0.05994628894858977,no link,0.10991818967746952
+ips_typ,tom_spp,weak,0.27488646287240986,weak,0.2929722489581048
+ips_typ,tor_vir,no link,0.04805932838652716,no link,0.02485042974831422
+ips_typ,uro_sir_spp,no link,0.20419035898138796,no link,0.2690918058763495
+ips_typ,xyl_lin,no link,0.1486321035438791,weak,0.21375094334330308
+ips_typ,xyl_spp,promising,0.3060653837916277,promising,0.3591433087440629
+ips_typ,zei_gri,no link,-0.056634448063355484,no link,0.009160392043265297
+lym_dis,lym_mon,no link,0.06242313431798265,no link,0.0658982251674897
+lym_dis,mel_spp,no link,0.09597843222882448,no link,0.12294758831795784
+lym_dis,neo_ser,no link,0.08413804906744832,no link,0.1647841013106181
+lym_dis,ope_spp,no link,0.13572171802283703,weak,0.1570779920409824
+lym_dis,pan_fla,no link,0.23933594974640196,no link,0.28133149679305336
+lym_dis,pha_cya,weak,0.2299865635285942,weak,0.24813817624548015
+lym_dis,pis_pin,weak,0.2824255637257937,usable,0.30917937528007383
+lym_dis,pit_bid,no link,0.1751403150041175,no link,0.17417556930547373
+lym_dis,pit_cha,weak,0.1976419245862337,weak,0.20697403283953028
+lym_dis,pit_spp,weak,0.2184224341170629,weak,0.24494581368776047
+lym_dis,pol_pol,no link,0.05209333963908175,no link,0.036235108004410856
+lym_dis,pri_abi,weak,-0.11953292512374628,weak,-0.12023478364706144
+lym_dis,sap_car,no link,-0.1022659723615388,no link,-0.11129646084817225
+lym_dis,sco_int,no link,0.006532228451070593,no link,9.645089807779711e-4
+lym_dis,sco_rat,no link,0.07124037271093261,no link,0.057203110066726306
+lym_dis,sco_sco,no link,0.15718529002986967,no link,0.14675515686708965
+lym_dis,tet_gab,no link,0.0640905097595749,no link,0.08514884179872086
+lym_dis,tet_spp,no link,0.16804547214768528,no link,0.1649080301935885
+lym_dis,tha_pit,no link,-0.011600778087988343,no link,0.004007810579927261
+lym_dis,tha_pro,weak,0.24772176627645368,weak,0.25909570936851684
+lym_dis,tom_spp,weak,0.2627527930819277,weak,0.2540150063995796
+lym_dis,tor_vir,no link,-0.05611534097677585,no link,-0.049172070160860004
+lym_dis,uro_sir_spp,no link,0.1704052472932392,no link,0.18936488613162697
+lym_dis,xyl_lin,no link,-0.09262171471154892,no link,-0.07587705557969161
+lym_dis,xyl_spp,no link,0.04286681876578998,no link,0.10195717175294092
+lym_dis,zei_gri,no link,0.06364662224101415,no link,0.09689245666078214
+lym_mon,mel_spp,weak,0.12958396461892052,weak,0.11628666390511042
+lym_mon,neo_ser,no link,0.12219839482146622,no link,0.1023016910849324
+lym_mon,ope_spp,weak,0.2378431017438669,weak,0.2675974910189778
+lym_mon,pan_fla,usable,0.3137447090653971,usable,0.3432588024986844
+lym_mon,pha_cya,no link,0.03424321386197566,no link,0.07575499356026152
+lym_mon,pis_pin,no link,0.1276608085806043,no link,0.10599342353609047
+lym_mon,pit_bid,no link,-0.05958419817413302,no link,-0.08893814683723192
+lym_mon,pit_cha,no link,0.136279183998604,no link,0.09890186932367899
+lym_mon,pit_spp,weak,-0.24046379357533265,weak,-0.28662122775169196
+lym_mon,pol_pol,no link,0.025929446931220828,no link,0.06645183389243924
+lym_mon,pri_abi,weak,0.19788204969515147,weak,0.22306547727254336
+lym_mon,sap_car,no link,-0.2849030264603879,no link,-0.2607624275212971
+lym_mon,sco_int,no link,-0.04000021516017061,no link,-0.07432673389638458
+lym_mon,sco_rat,no link,-0.033410835174173474,no link,-0.05914274831915754
+lym_mon,sco_sco,no link,0.18368714760379748,no link,0.1592791907076851
+lym_mon,tet_gab,no link,0.002082855323614126,no link,0.014802645343412925
+lym_mon,tet_spp,weak,0.2933750115784773,no link,0.27616877090778363
+lym_mon,tha_pit,no link,-0.45812713815045525,no link,-0.3839144041381808
+lym_mon,tha_pro,weak,0.22890753998842775,no link,0.18251647264768556
+lym_mon,tom_spp,no link,0.044027961841267255,no link,0.0651255599616121
+lym_mon,tor_vir,weak,0.11814031501611885,weak,0.1035474356247615
+lym_mon,uro_sir_spp,no link,0.0466252264243432,no link,0.03984286940777287
+lym_mon,xyl_lin,no link,0.08258686148283656,no link,0.09140672131097545
+lym_mon,xyl_spp,no link,0.1195009147257254,no link,0.17421104162088985
+lym_mon,zei_gri,no link,0.04206584395751018,no link,0.027046669286129442
+mel_spp,neo_ser,no link,-0.12106473765154466,no link,-0.07356693507282734
+mel_spp,ope_spp,no link,0.03399786445962709,no link,0.031393078626529854
+mel_spp,pan_fla,weak,0.19558617869370232,weak,0.18365841458643004
+mel_spp,pha_cya,weak,0.12520730313614978,weak,0.16705034976214178
+mel_spp,pis_pin,no link,0.19127499112975718,no link,0.17851965484387122
+mel_spp,pit_bid,no link,-0.05982057628450395,no link,-0.06491302016033669
+mel_spp,pit_cha,no link,-0.0808327025076635,no link,0.04392872064509467
+mel_spp,pit_spp,no link,0.14578869059689398,no link,0.20034973932230368
+mel_spp,pol_pol,not enough data,NA,not enough data,NA
+mel_spp,pri_abi,no link,0.1836602168951483,no link,0.09162649593396317
+mel_spp,sap_car,no link,0.07614457387190585,no link,0.1702374013564838
+mel_spp,sco_int,no link,0.03274659932177143,no link,0.038555098190519686
+mel_spp,sco_rat,no link,0.057681480233476454,no link,0.08500527871269228
+mel_spp,sco_sco,no link,-0.10135336539474932,no link,-0.13170368564069693
+mel_spp,tet_gab,no link,0.15704488950845902,no link,0.17643847445916944
+mel_spp,tet_spp,promising,0.3689755364368466,promising,0.3656200680947633
+mel_spp,tha_pit,no link,-0.30624404663563387,no link,-0.3016593896853677
+mel_spp,tha_pro,no link,0.16625123070372314,no link,0.1503530228763395
+mel_spp,tom_spp,no link,0.14831006526860172,no link,0.1261831548664343
+mel_spp,tor_vir,no link,-0.013023978666001603,no link,-0.028061356007617364
+mel_spp,uro_sir_spp,no link,0.17705501703533644,no link,0.29112708889655936
+mel_spp,xyl_lin,no link,-7.821162001359268e-4,no link,-0.010648273382031035
+mel_spp,xyl_spp,no link,-0.017471893717549987,no link,-0.02191058615188352
+mel_spp,zei_gri,no link,0.14383660286916528,no link,0.28625592465679256
+neo_ser,ope_spp,no link,0.2608398767546145,no link,0.27174019187604825
+neo_ser,pan_fla,no link,-0.06386657507055891,no link,-0.037448006294249506
+neo_ser,pha_cya,no link,0.07923805408676056,no link,0.08596729672137392
+neo_ser,pis_pin,no link,0.028240597159295108,no link,0.22670776417909821
+neo_ser,pit_bid,no link,0.24915579607054422,no link,0.3131453514818791
+neo_ser,pit_cha,no link,0.06409917451486274,no link,0.13568448837958685
+neo_ser,pit_spp,no link,-0.26836271181038623,no link,-0.24005518887481053
+neo_ser,pol_pol,no link,0.1421798470928714,no link,0.14618384244408794
+neo_ser,pri_abi,no link,0.34350764690467256,no link,0.3592045058561984
+neo_ser,sap_car,not enough data,NA,not enough data,NA
+neo_ser,sco_int,no link,-0.04836315575315628,no link,-0.03189629431240204
+neo_ser,sco_rat,no link,-0.035561846500657655,no link,0.003785043149068483
+neo_ser,sco_sco,no link,0.24111443417023712,no link,0.2268720341091892
+neo_ser,tet_gab,no link,-0.010692954811966159,no link,0.04548906363824167
+neo_ser,tet_spp,no link,-0.17030598012606962,no link,-0.1909327929196652
+neo_ser,tha_pit,not enough data,NA,not enough data,NA
+neo_ser,tha_pro,no link,0.2701441526624266,no link,0.26454227075346565
+neo_ser,tom_spp,no link,0.047834806387392716,no link,0.07170178777174033
+neo_ser,tor_vir,no link,0.10948696306080286,no link,0.07585839334218353
+neo_ser,uro_sir_spp,no link,0.15045390445454052,no link,0.1909327929196652
+neo_ser,xyl_lin,no link,0.08057980581614524,no link,-0.027597834696953392
+neo_ser,xyl_spp,no link,0.1396057422978602,no link,0.26222831132566393
+neo_ser,zei_gri,no link,-0.0476576999545067,no link,-0.0731158836296863
+ope_spp,pan_fla,no link,-0.012231036206837355,no link,0.0019574977322735208
+ope_spp,pha_cya,no link,0.12213133145403925,no link,0.18692708968880825
+ope_spp,pis_pin,no link,0.10255921585612508,no link,0.19837605568272093
+ope_spp,pit_bid,no link,0.3015953913947821,no link,0.3207902476528547
+ope_spp,pit_cha,no link,0.12655918559733276,no link,0.14089008934426067
+ope_spp,pit_spp,no link,0.03947941719645301,no link,0.02595507064483227
+ope_spp,pol_pol,not enough data,NA,not enough data,NA
+ope_spp,pri_abi,no link,0.05579603096651908,no link,0.07608496914543564
+ope_spp,sap_car,not enough data,NA,not enough data,NA
+ope_spp,sco_int,no link,-0.07300850908550445,no link,-0.0745115249421941
+ope_spp,sco_rat,no link,-0.08381725113691679,no link,-0.06187146580792107
+ope_spp,sco_sco,no link,0.2514751074719057,no link,0.27586610689742846
+ope_spp,tet_gab,no link,0.11395038540058705,weak,0.1767289879445352
+ope_spp,tet_spp,no link,0.03576993202787229,no link,0.03270984504102345
+ope_spp,tha_pit,not enough data,NA,not enough data,NA
+ope_spp,tha_pro,no link,0.13057213234747828,no link,0.11951064134563386
+ope_spp,tom_spp,no link,0.1649355936162675,no link,0.2025299182594325
+ope_spp,tor_vir,promising,0.5102158892514843,promising,0.5101738166083387
+ope_spp,uro_sir_spp,no link,-0.13170583075763934,no link,-0.13057600055320573
+ope_spp,xyl_lin,no link,0.003398576897489748,no link,0.02385108695396886
+ope_spp,xyl_spp,no link,0.024234432424789756,no link,0.01008984993917267
+ope_spp,zei_gri,no link,0.12688204890511523,no link,0.11616334257857576
+pan_fla,pha_cya,no link,0.10302006627359132,weak,0.13335546261887146
+pan_fla,pis_pin,no link,0.15477961051706823,no link,0.10856257726289197
+pan_fla,pit_bid,no link,0.16326578955205245,no link,0.14213699867862878
+pan_fla,pit_cha,no link,0.206512251004872,no link,0.14157859186497504
+pan_fla,pit_spp,no link,0.10266729905675964,no link,0.06650177404555513
+pan_fla,pol_pol,no link,0.12702264782734599,no link,0.12415942672412156
+pan_fla,pri_abi,weak,0.23321401772048966,no link,0.184404875553168
+pan_fla,sap_car,no link,-0.16148790635021953,no link,-0.16427391877398578
+pan_fla,sco_int,no link,-0.04695601087530223,no link,0.020065026478954664
+pan_fla,sco_rat,no link,-0.1160457869139796,no link,-0.061093075549148175
+pan_fla,sco_sco,no link,0.03204202659778427,no link,0.027664549929002767
+pan_fla,tet_gab,no link,0.10717903070164547,no link,0.08078482753873822
+pan_fla,tet_spp,no link,0.44632066952455196,no link,0.36859669981861826
+pan_fla,tha_pit,no link,-0.47239412810897125,no link,-0.4320899006286251
+pan_fla,tha_pro,no link,-0.026133601559517453,no link,-0.04330462420492143
+pan_fla,tom_spp,weak,0.1984667455410152,weak,0.2022530472638488
+pan_fla,tor_vir,weak,0.13589926750302703,weak,0.13825028749372445
+pan_fla,uro_sir_spp,no link,-0.09349088024409397,no link,-0.11129646084817225
+pan_fla,xyl_lin,promising,0.40239394906106984,weak,0.29934726727808975
+pan_fla,xyl_spp,weak,0.26045022010175806,no link,0.2294411644188785
+pan_fla,zei_gri,no link,0.2894964075144088,no link,0.20835401610913512
+pha_cya,pis_pin,usable,0.38143548702689134,usable,0.4295508689346274
+pha_cya,pit_bid,promising,0.6044388237191045,promising,0.6088320889651331
+pha_cya,pit_cha,usable,0.3495793541687242,usable,0.4001455719324101
+pha_cya,pit_spp,weak,0.2562962553260354,usable,0.31536178931365577
+pha_cya,pol_pol,no link,0.13614999139408854,no link,0.0818579878501918
+pha_cya,pri_abi,no link,-0.14454814615347625,no link,-0.11775510270572387
+pha_cya,sap_car,no link,0.4897466971970208,no link,0.32141217326661253
+pha_cya,sco_int,weak,0.24601577831480403,weak,0.23092459495225906
+pha_cya,sco_rat,usable,0.34923850849324495,usable,0.33019363300045873
+pha_cya,sco_sco,no link,0.03647298611798391,no link,0.01750404780066645
+pha_cya,tet_gab,no link,0.14516863960167734,weak,0.20249845723193696
+pha_cya,tet_spp,no link,0.145875328322962,no link,0.15374327200674892
+pha_cya,tha_pit,no link,0.38795166376655693,no link,-0.027765072267072404
+pha_cya,tha_pro,no link,0.12957864961418486,no link,0.07736978974656893
+pha_cya,tom_spp,weak,0.2878472325700574,usable,0.32872863193316537
+pha_cya,tor_vir,no link,0.018753908372652946,no link,0.06151494841185381
+pha_cya,uro_sir_spp,no link,0.21537837496359108,no link,0.21515680580291355
+pha_cya,xyl_lin,no link,0.026680925184946237,no link,0.06251726835664691
+pha_cya,xyl_spp,weak,0.2864029749936338,promising,0.31878640969412686
+pha_cya,zei_gri,no link,-0.039492033826317004,no link,-0.0347547799980039
+pis_pin,pit_bid,promising,0.4183824476545878,promising,0.4777999114842863
+pis_pin,pit_cha,usable,0.43155102237460574,usable,0.5459135088780791
+pis_pin,pit_spp,no link,0.16778578762789031,no link,0.2950223489693659
+pis_pin,pol_pol,no link,0.5437025759288647,no link,0.658882779443589
+pis_pin,pri_abi,no link,0.17203170432508988,weak,0.18944428079659628
+pis_pin,sap_car,no link,0.08203379930183087,no link,0.03218896365255206
+pis_pin,sco_int,no link,0.22537551920105753,no link,0.19186113406930264
+pis_pin,sco_rat,no link,0.36348986828610524,no link,0.3089922291818865
+pis_pin,sco_sco,no link,0.2600752836446467,no link,0.15750231642320944
+pis_pin,tet_gab,promising,0.44438769006133133,promising,0.4722715435613503
+pis_pin,tet_spp,no link,0.32143307968465457,no link,0.2930893315501211
+pis_pin,tha_pit,no link,-0.15133556560130884,no link,-0.09892632278194814
+pis_pin,tha_pro,no link,0.1018585202072589,no link,0.06308273942177475
+pis_pin,tom_spp,unreliable,0.47459157788404155,unreliable,0.5234675880092237
+pis_pin,tor_vir,no link,0.14612201449204124,no link,0.13111379639968826
+pis_pin,uro_sir_spp,no link,-0.006111886103271918,no link,0.015384013799717357
+pis_pin,xyl_lin,no link,0.21742164189690152,no link,0.2320564850758752
+pis_pin,xyl_spp,promising,0.3833883761546389,promising,0.4296585365717681
+pis_pin,zei_gri,no link,0.04548936441277936,no link,-0.09250165611878435
+pit_bid,pit_cha,promising,0.4343617702834948,promising,0.48610511305371923
+pit_bid,pit_spp,no link,0.18027932399395025,no link,0.32141217326661253
+pit_bid,pol_pol,not enough data,NA,not enough data,NA
+pit_bid,pri_abi,no link,0.05320308063758207,no link,0.07448942734244965
+pit_bid,sap_car,no link,0.2762426839708649,no link,0.2907833999788559
+pit_bid,sco_int,weak,0.22852493148438127,weak,0.23762763919079816
+pit_bid,sco_rat,no link,0.4613483122109086,no link,0.5104674607702664
+pit_bid,sco_sco,no link,0.2080301339631069,no link,0.2150979172609087
+pit_bid,tet_gab,no link,0.2958822072737022,no link,0.31508378413592547
+pit_bid,tet_spp,no link,-0.006668287204101228,no link,0.029994586020239154
+pit_bid,tha_pit,no link,0.20749572935287808,no link,0.20825333720544725
+pit_bid,tha_pro,no link,-0.01783327705465471,no link,-0.003389189303741883
+pit_bid,tom_spp,promising,0.3980823426219632,promising,0.4224984417521301
+pit_bid,tor_vir,no link,0.29529278227271977,no link,0.2079564143406136
+pit_bid,uro_sir_spp,no link,0.11832848278078659,no link,0.12270073434225404
+pit_bid,xyl_lin,no link,0.1729300942397273,no link,0.16277608209738129
+pit_bid,xyl_spp,weak,0.2921792341093277,promising,0.3640089529314041
+pit_bid,zei_gri,no link,-0.3778711320327924,no link,-0.41615853131700087
+pit_cha,pit_spp,usable,0.31562567503059846,usable,0.38454341231913614
+pit_cha,pol_pol,no link,0.6183597328246233,no link,0.7674337048810539
+pit_cha,pri_abi,no link,-0.010128895184766005,no link,-0.056881767643297436
+pit_cha,sap_car,no link,0.16067892468251915,no link,0.19294265491954393
+pit_cha,sco_int,no link,0.13824810076219993,no link,0.1095547647205248
+pit_cha,sco_rat,no link,0.3255521694996514,no link,0.40140985972947346
+pit_cha,sco_sco,no link,0.06076952557841103,no link,-0.0079618214673977325
+pit_cha,tet_gab,weak,0.2113280107582787,weak,0.23440971926457652
+pit_cha,tet_spp,no link,0.14433685344952601,no link,0.14460247144474522
+pit_cha,tha_pit,no link,0.415623705184031,no link,0.4826566563066956
+pit_cha,tha_pro,no link,-0.03795836670418357,no link,-0.009303738947951522
+pit_cha,tom_spp,unreliable,0.3371010577556004,unreliable,0.3469939480774995
+pit_cha,tor_vir,no link,0.11812625782433,no link,0.09392864478839519
+pit_cha,uro_sir_spp,no link,0.17764580846896885,no link,0.21185540411119602
+pit_cha,xyl_lin,no link,0.11529754035762718,no link,0.1715526195769072
+pit_cha,xyl_spp,weak,0.22615246625169083,weak,0.26365259664328006
+pit_cha,zei_gri,no link,-0.08515120707103326,no link,-0.011984020225915389
+pit_spp,pol_pol,no link,0.130965943995909,no link,0.11345072011775839
+pit_spp,pri_abi,usable,-0.3893076355577473,usable,-0.45120458686337467
+pit_spp,sap_car,not enough data,NA,not enough data,NA
+pit_spp,sco_int,weak,0.2044168697000314,weak,0.21628585402915673
+pit_spp,sco_rat,promising,0.4080050912537393,promising,0.3974559112480849
+pit_spp,sco_sco,no link,-0.24660806558417117,no link,-0.42030581223032953
+pit_spp,tet_gab,no link,0.09343213981213513,no link,0.011327730127134077
+pit_spp,tet_spp,no link,0.1830318375862749,no link,0.0530029957044302
+pit_spp,tha_pit,no link,0.0395373576969938,no link,0.3557312252964427
+pit_spp,tha_pro,no link,0.16531744195920015,no link,0.36258154803129883
+pit_spp,tom_spp,unreliable,0.3528813147678372,unreliable,0.36012164778400274
+pit_spp,tor_vir,no link,-0.09425909217331976,no link,-0.0623728918906039
+pit_spp,uro_sir_spp,no link,0.18953046743086874,no link,0.14239771745465474
+pit_spp,xyl_lin,no link,0.24674766441230933,no link,0.34239636618773744
+pit_spp,xyl_spp,no link,0.24118365152927246,no link,0.33142842360743535
+pit_spp,zei_gri,no link,-0.020617565990020396,no link,0.03196452176397561
+pol_pol,pri_abi,no link,-0.037121419679986355,no link,-0.04675588318461977
+pol_pol,sap_car,not enough data,NA,not enough data,NA
+pol_pol,sco_int,no link,0.17847978028893166,no link,0.19749062944424603
+pol_pol,sco_rat,no link,0.20927121449987235,no link,0.18890141239135208
+pol_pol,sco_sco,no link,0.1292409422107587,no link,0.226221344330375
+pol_pol,tet_gab,no link,-0.2513555305339332,no link,-0.164687133157557
+pol_pol,tet_spp,not enough data,NA,not enough data,NA
+pol_pol,tha_pit,not enough data,NA,not enough data,NA
+pol_pol,tha_pro,not enough data,NA,not enough data,NA
+pol_pol,tom_spp,no link,0.12900187849990705,no link,0.12763234261437736
+pol_pol,tor_vir,no link,0.3738754014462137,no link,0.4323213596802483
+pol_pol,uro_sir_spp,not enough data,NA,not enough data,NA
+pol_pol,xyl_lin,not enough data,NA,not enough data,NA
+pol_pol,xyl_spp,not enough data,NA,not enough data,NA
+pol_pol,zei_gri,weak,-0.1448021470525006,no link,-0.14327448728613595
+pri_abi,sap_car,no link,-0.06689979691855438,no link,-0.08233397804228353
+pri_abi,sco_int,weak,-0.16232401174226802,weak,-0.19532326826700044
+pri_abi,sco_rat,weak,-0.22199405349296994,weak,-0.2151375668964512
+pri_abi,sco_sco,no link,0.2963606629380736,no link,0.25444201559216933
+pri_abi,tet_gab,weak,0.22921920994177877,weak,0.24642540101146068
+pri_abi,tet_spp,no link,0.04941210102977778,no link,0.04598628354535157
+pri_abi,tha_pit,no link,-0.2726532185868306,no link,-0.3460451475197786
+pri_abi,tha_pro,no link,-0.05983429407536036,no link,-0.09540417366249722
+pri_abi,tom_spp,no link,-0.054403767694148085,no link,-0.06961842751341302
+pri_abi,tor_vir,no link,0.09161002773430094,no link,0.10473996553191227
+pri_abi,uro_sir_spp,no link,0.0416870208408851,no link,0.03434166847651782
+pri_abi,xyl_lin,no link,0.15406291978712452,no link,0.07031291936774123
+pri_abi,xyl_spp,weak,0.1359588825238368,no link,0.1281417133585909
+pri_abi,zei_gri,no link,-0.17291216853200186,no link,-0.15132130323230636
+sap_car,sco_int,no link,0.19236201758772603,no link,0.2573841966059032
+sap_car,sco_rat,no link,0.2536007562385222,no link,0.3217302457573791
+sap_car,sco_sco,no link,-0.2247083218876505,no link,-0.21828609273127375
+sap_car,tet_gab,no link,0.3376767787549809,no link,0.35501310292648797
+sap_car,tet_spp,no link,-0.07479526688260059,no link,-0.08239336065226963
+sap_car,tha_pit,no link,0.30712838660682645,no link,0.2952481736211902
+sap_car,tha_pro,no link,-0.24827081762145595,no link,-0.23197017141823967
+sap_car,tom_spp,no link,0.07976752604516332,no link,0.09642365197998376
+sap_car,tor_vir,no link,-0.21548151620876924,no link,-0.20426810464901227
+sap_car,uro_sir_spp,not enough data,NA,not enough data,NA
+sap_car,xyl_lin,no link,-0.2883484644918905,no link,-0.2571932823529511
+sap_car,xyl_spp,no link,-0.15711827670663825,no link,-0.2892709559399513
+sap_car,zei_gri,not enough data,NA,not enough data,NA
+sco_int,sco_rat,usable,0.43571267708369443,usable,0.466162312159441
+sco_int,sco_sco,no link,0.05727300257621063,no link,0.04452353141020173
+sco_int,tet_gab,no link,0.14150656647921508,no link,0.07264859225113642
+sco_int,tet_spp,weak,-0.1633641873350131,weak,-0.15079101269548142
+sco_int,tha_pit,no link,0.08789146246312574,no link,0.1330835511861911
+sco_int,tha_pro,weak,0.127151222308722,no link,0.047640241023207255
+sco_int,tom_spp,weak,0.1513395669561561,weak,0.137664166896695
+sco_int,tor_vir,no link,0.03106633550703826,no link,0.009585731809367158
+sco_int,uro_sir_spp,no link,0.12056864515565222,no link,0.13320427509107308
+sco_int,xyl_lin,no link,-0.007317605651569363,no link,0.01833042107080073
+sco_int,xyl_spp,no link,0.13494794262307708,no link,0.19229046181928022
+sco_int,zei_gri,no link,-0.005026221841110531,no link,0.00507571587179059
+sco_rat,sco_sco,no link,0.046619093233399515,no link,0.01788795683085242
+sco_rat,tet_gab,no link,0.05771493817705466,no link,0.059863428811934453
+sco_rat,tet_spp,no link,-0.31027070725386074,no link,-0.14514993522109218
+sco_rat,tha_pit,no link,0.3376629381122109,no link,0.3949748768136355
+sco_rat,tha_pro,no link,0.2139351897881134,no link,0.16612643198422355
+sco_rat,tom_spp,usable,0.3645841960605989,unreliable,0.3560734469988943
+sco_rat,tor_vir,no link,0.2995362181624372,no link,0.19492653956341566
+sco_rat,uro_sir_spp,no link,0.3039489097315388,no link,0.3284662021738939
+sco_rat,xyl_lin,no link,0.1887369291439691,no link,0.1966384617273464
+sco_rat,xyl_spp,no link,0.24421893598324806,no link,0.30988603309223006
+sco_rat,zei_gri,no link,-0.016113062756124046,no link,-6.192087445484089e-4
+sco_sco,tet_gab,promising,0.3095899257253502,promising,0.3209848910905576
+sco_sco,tet_spp,no link,-0.00807703286241614,no link,0.034924874539721464
+sco_sco,tha_pit,no link,-0.10807205026320002,no link,-0.10683526511001214
+sco_sco,tha_pro,no link,0.41222709841054606,no link,0.4369735171612872
+sco_sco,tom_spp,weak,0.21053378695560196,no link,0.20619785447856284
+sco_sco,tor_vir,no link,0.11652897175300349,no link,0.1248332917818836
+sco_sco,uro_sir_spp,no link,-0.07954659008666243,no link,-0.08177648916158331
+sco_sco,xyl_lin,no link,0.20069455823759416,no link,0.15206561491263296
+sco_sco,xyl_spp,no link,0.14706445812982097,weak,0.22131036032124832
+sco_sco,zei_gri,no link,0.14029028071059302,no link,0.13137041267124125
+tet_gab,tet_spp,promising,0.3150905519496324,promising,0.3517676395657008
+tet_gab,tha_pit,no link,-0.2561056600274978,no link,-0.27512444135096914
+tet_gab,tha_pro,no link,0.1037199841903357,no link,0.04458556014703083
+tet_gab,tom_spp,no link,0.11816863378427862,no link,0.1602583241654756
+tet_gab,tor_vir,weak,0.17243209484278207,weak,0.16947548519901706
+tet_gab,uro_sir_spp,no link,0.2801228012842594,no link,0.2769671181808177
+tet_gab,xyl_lin,weak,0.16409591346371794,no link,0.16026022935816456
+tet_gab,xyl_spp,weak,0.2255819374076223,weak,0.21719269087325593
+tet_gab,zei_gri,no link,-0.17663183388472267,no link,-0.19879038541811905
+tet_spp,tha_pit,no link,-0.19185599655687058,no link,-0.19573180353949807
+tet_spp,tha_pro,no link,0.12307832134195376,no link,0.1723458496160797
+tet_spp,tom_spp,no link,0.17514842267223155,weak,0.23509787380029332
+tet_spp,tor_vir,no link,0.01577170983108481,no link,-0.004564369121727529
+tet_spp,uro_sir_spp,no link,0.2422829636267983,no link,0.2657004791623725
+tet_spp,xyl_lin,no link,0.08659942607938206,no link,0.03813641856916579
+tet_spp,xyl_spp,no link,0.016823916076906423,no link,0.025760340008660537
+tet_spp,zei_gri,no link,-0.09766853508096923,no link,-0.09737854440867527
+tha_pit,tha_pro,no link,0.1005071363815457,no link,0.17506300001571953
+tha_pit,tom_spp,no link,0.42526525436470464,no link,0.414874252913755
+tha_pit,tor_vir,no link,-0.2553699518564751,no link,-0.31750340630914115
+tha_pit,uro_sir_spp,not enough data,NA,not enough data,NA
+tha_pit,xyl_lin,no link,-0.879837319677754,no link,-0.8534528877863884
+tha_pit,xyl_spp,no link,-0.6727864719718979,no link,-0.7352404713799751
+tha_pit,zei_gri,not enough data,NA,not enough data,NA
+tha_pro,tom_spp,no link,-0.05800026761847843,no link,-0.028019000456236332
+tha_pro,tor_vir,no link,0.1301890427870311,no link,0.14734862145958116
+tha_pro,uro_sir_spp,no link,-0.06642399526161498,no link,0.011865261136773698
+tha_pro,xyl_lin,no link,0.16507154086640408,no link,0.1625306969891026
+tha_pro,xyl_spp,no link,0.14150837742776468,no link,0.14746257677597804
+tha_pro,zei_gri,not enough data,NA,not enough data,NA
+tom_spp,tor_vir,weak,0.1790927162487887,weak,0.15506109264086715
+tom_spp,uro_sir_spp,no link,0.1066226108023297,no link,0.07357856026591472
+tom_spp,xyl_lin,no link,0.10250653376240551,no link,0.14021784243158286
+tom_spp,xyl_spp,no link,0.17196302226035315,no link,0.24701975279710517
+tom_spp,zei_gri,no link,-0.06250113782993941,no link,-0.023626809583336142
+tor_vir,uro_sir_spp,no link,-0.09114268012731687,no link,-0.13843653416245705
+tor_vir,xyl_lin,weak,0.27784579538565135,promising,0.3202018281611945
+tor_vir,xyl_spp,no link,0.1305666336620319,no link,0.15948073771549742
+tor_vir,zei_gri,no link,-0.0991223611896074,no link,-0.20248096768351456
+uro_sir_spp,xyl_lin,no link,0.19568165715823388,no link,0.17454335266701104
+uro_sir_spp,xyl_spp,no link,0.005503700160225675,no link,0.05307426400746019
+uro_sir_spp,zei_gri,no link,-0.09766853508096923,no link,-0.09737854440867527
+xyl_lin,xyl_spp,promising,0.5789800273779526,promising,0.6144244436236942
+xyl_lin,zei_gri,no link,0.02333864118750081,no link,-0.20806797921716305
+xyl_spp,zei_gri,no link,-0.15610350462591693,no link,-0.37506409579306615

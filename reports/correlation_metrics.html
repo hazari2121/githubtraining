@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-10-14">
+<meta name="dcterms.date" content="2026-10-15">
 
 <title>EU-ForDAM: correlation metrics, insect vs insect</title>
 <style>
@@ -2183,6 +2183,7 @@ vertical-align: -.125em;
   <li><a href="#regional-or-europe-wide-and-does-one-come-first" id="toc-regional-or-europe-wide-and-does-one-come-first" class="nav-link" data-scroll-target="#regional-or-europe-wide-and-does-one-come-first">3: regional or Europe-wide, and does one come first?</a></li>
   <li><a href="#feeding-type-matters-host-tree-adds-little" id="toc-feeding-type-matters-host-tree-adds-little" class="nav-link" data-scroll-target="#feeding-type-matters-host-tree-adds-little">4: feeding type matters, host tree adds little</a></li>
   <li><a href="#does-a-link-predict-a-country-it-has-never-seen" id="toc-does-a-link-predict-a-country-it-has-never-seen" class="nav-link" data-scroll-target="#does-a-link-predict-a-country-it-has-never-seen">5: does a link predict a country it has never seen?</a></li>
+  <li><a href="#check-does-the-choice-of-correlation-matter-spearman" id="toc-check-does-the-choice-of-correlation-matter-spearman" class="nav-link" data-scroll-target="#check-does-the-choice-of-correlation-matter-spearman">Check: does the choice of correlation matter? (Spearman)</a></li>
   <li><a href="#what-it-means-for-the-thesis" id="toc-what-it-means-for-the-thesis" class="nav-link" data-scroll-target="#what-it-means-for-the-thesis">What it means for the thesis</a></li>
   <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a></li>
   </ul>
@@ -2204,7 +2205,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2026</p>
+      <p class="date">October 15, 2026</p>
     </div>
   </div>
   
@@ -2478,6 +2479,15 @@ vertical-align: -.125em;
 <li><strong>Most pairs cannot be tested</strong> (894 of 1176): they are recorded together in only one country.</li>
 </ul>
 <p>For gap-filling this means: one partner insect gives a modest but real gain, so the factor model, which combines all partners at once, is the right tool. The usable links are the ones it can trust across countries.</p>
+</section>
+<section id="check-does-the-choice-of-correlation-matter-spearman" class="level2">
+<h2 class="anchored" data-anchor-id="check-does-the-choice-of-correlation-matter-spearman">Check: does the choice of correlation matter? (Spearman)</h2>
+<p>Pearson r uses the actual sizes of the ups and downs, so one huge outbreak year can dominate a series. Spearman r uses only the <strong>order</strong> of the years (which year was a region’s worst, second worst, …), so outbreaks cannot dominate. We reran the whole pipeline with within-region ranks instead of values.</p>
+<ul>
+<li>The two agree almost perfectly: correlation between Pearson and Spearman r across all pairs = 0.97; typical difference 0.02.</li>
+<li>Usable pairs: 30 with Pearson, 31 with Spearman, 23 in both. The pairs that switch sit right at the edges (r near 0.3, or consistent in one country check but not the other).</li>
+<li>So the results are <strong>not</strong> driven by a few extreme outbreak years. Pearson stays the main metric; Spearman is the robustness check (<code>outputs/tables/CM_pearson_vs_spearman.csv</code>).</li>
+</ul>
 </section>
 <section id="what-it-means-for-the-thesis" class="level2">
 <h2 class="anchored" data-anchor-id="what-it-means-for-the-thesis">What it means for the thesis</h2>
