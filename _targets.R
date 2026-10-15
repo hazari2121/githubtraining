@@ -400,6 +400,20 @@ list(
   tar_target(fig_gf_overall, save_fig(plot_gapfill_overall(gf_scores$overall), "outputs/figures/GF_1_methods_overall.png", 11, 7), format = "file"),
   tar_target(fig_gf_species, save_fig(plot_gapfill_species(gf_scores$by_species), "outputs/figures/GF_2_methods_by_insect.png", 9, 9.5), format = "file"),
 
+  # ---- Gap-filling v3: same data as the correlation metrics (R/gapfill_v3.R) ----
+  tar_target(gf3_L, build_lfm_matrix(cb_cells, cb_tr)),
+  tar_target(gf3_blocks, make_cv_blocks(gf3_L, n_folds = 10)),
+  tar_target(gf3_group, hier$level1[match(gf3_L$species, hier$species)]),
+  tar_target(gf3_cv, gapfill_compare_cv(gf3_L, gf3_blocks, gf3_group, h_best1$K, h_best1$lambda,
+                                        h_best2$K, h_best2$lambda, tau = 50,
+                                        Lh = host_scaled_L(gf3_L, host_status),
+                                        absent = host_absent_matrix(gf3_L, host_status))),
+  tar_target(gf3_scores, gapfill_compare_scores(gf3_cv)),
+  tar_target(gf3_raw, gapfill_final(gf3_L, host_status, gf3_group, h_best1$K, h_best1$lambda,
+                                    h_best2$K, h_best2$lambda, tau = 50)),
+  tar_target(gf3_model_cor, model_vs_correlation(gf3_raw, cb_verdict)),
+  tar_target(gf3_model_cor_csv, tab(gf3_model_cor, "GF3_model_vs_correlation_metrics.csv"), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
