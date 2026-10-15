@@ -1059,7 +1059,7 @@ insect_names <- c(
   dip_sp = "Diprion spp.", ips_acu = "Ips acuminatus", ips_dup = "Ips duplicatus",
   ips_sex = "Ips sexdentatus", ips_typ = "Ips typographus", lym_mon = "Lymantria monacha",
   pan_fla = "Panolis flammea", pha_cya = "Phaenops cyanea", pis_pin = "Pissodes pini",
-  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina",
+  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus",
   sco_int = "Scolytus intricatus", sco_rat = "Scolytus ratzeburgi", tom_spp = "Tomicus spp.")
 
 host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",
@@ -1197,4 +1197,26 @@ plot_partner_eq_scatter <- function(tr, a, b) {
                   caption = paste("Left: the equation as used by the partner method; the fit also has to bridge differences in region size and reporting level, so points spread more.",
                                   "\nRight: each region's series standardised against its own mean and spread (series with no variation drop out), as in the correlation metrics (axes in standard units): only shared ups and downs remain.")) +
     theme_eu(9) + ggplot2::theme(legend.position = "right", strip.text = ggplot2::element_text(face = "bold"))
+}
+
+# Gap-filled dataset v2: Europe-wide yearly totals, reported only vs reported +
+# filled (tested insects), with the 80% range of the filled part
+plot_gf2_europe <- function(eu, n = 8) {
+  nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
+  top <- eu |> dplyr::group_by(species) |> dplyr::summarise(f = sum(total_mid - reported)) |>
+    dplyr::slice_max(f, n = n) |> dplyr::pull(species)
+  d <- dplyr::filter(eu, species %in% top) |>
+    dplyr::mutate(lab = paste0(nm(species), " (", unit, ")"))
+  ggplot2::ggplot(d, ggplot2::aes(year)) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = total_lo80, ymax = total_hi80), fill = "#86b6ef", alpha = 0.45) +
+    ggplot2::geom_line(ggplot2::aes(y = total_mid, colour = "reported + filled"), linewidth = 0.8) +
+    ggplot2::geom_line(ggplot2::aes(y = reported, colour = "reported only"), linewidth = 0.8) +
+    ggplot2::scale_colour_manual(values = c(`reported only` = pal$ink, `reported + filled` = "#1c5cab"), name = NULL) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+    ggplot2::facet_wrap(~ lab, scales = "free_y", ncol = 2) +
+    ggplot2::labs(x = NULL, y = "Europe-wide damage per year",
+                  title = "Europe-wide damage: reported vs reported + gap-filled",
+                  subtitle = paste0("The ", n, " insects with the most filled damage. Band = 80% range of the filled part, from the hide-and-predict test"),
+                  caption = "Filled = factor model; insects tested in >= 2 countries only (untested fills and aggregate reporting codes excluded).\nLine = middle, band = 80% range: each country's filled total x test errors resampled from hidden totals of that insect.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }

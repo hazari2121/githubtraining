@@ -414,6 +414,27 @@ list(
   tar_target(gf3_model_cor, model_vs_correlation(gf3_raw, cb_verdict)),
   tar_target(gf3_model_cor_csv, tab(gf3_model_cor, "GF3_model_vs_correlation_metrics.csv"), format = "file"),
 
+  # ---- Gap-filled dataset v2: factor model only, ranges from the test ---------
+  tar_target(gf3_fcv, final_method_cv(gf3_L, gf3_blocks, host_status, gf3_group, h_best1$K, h_best1$lambda,
+                                      h_best2$K, h_best2$lambda, tau = 50)),
+  tar_target(gf3_bt, cv_block_totals(gf3_fcv)),
+  tar_target(gf3_simple, gf3_scores$by_species |> dplyr::filter(method == "simple average") |>
+               dplyr::select(species, error_log_simple = error_log)),
+  tar_target(gf3_conf, final_method_scores(gf3_fcv, gf3_simple)),
+  tar_target(gf3_range, range_table(gf3_bt)),
+  tar_target(gf3_calib, range_calibration(gf3_bt)),
+  tar_target(gf3_data, gapfill_dataset_v2(gf3_raw, gf3_conf, dplyr::select(species_meta, species, unit), gf3_L$species)),
+  tar_target(gf3_tot, gapfill_totals_v2(gf3_data, gf3_range, gf3_bt)),
+  tar_target(gf3_data_csv, write_csv_out(gf3_data, "data/processed/eufordam_gapfilled_v2.csv"), format = "file"),
+  tar_target(gf3_eu_csv, tab(gf3_tot$europe, "GF2_europe_totals_with_ranges.csv"), format = "file"),
+  tar_target(gf3_country_csv, tab(gf3_tot$country, "GF2_country_totals_with_ranges.csv"), format = "file"),
+  tar_target(gf3_conf_csv, tab(gf3_conf, "GF2_confidence_by_insect.csv"), format = "file"),
+  tar_target(gf3_range_csv, tab(dplyr::bind_cols(gf3_range), "GF2_total_error_ranges_by_insect.csv"), format = "file"),
+  tar_target(gf3_calib_csv, tab(gf3_calib, "GF2_range_calibration.csv"), format = "file"),
+  tar_target(fig_gf3_europe, save_fig(plot_gf2_europe(gf3_tot$europe), "outputs/figures/GF2_europe_totals_with_ranges.png", 10, 10),
+             format = "file"),
+  tar_target(gf3_summary_csv, tab(dplyr::count(gf3_data, value_type, confidence), "GF2_dataset_summary.csv"), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),

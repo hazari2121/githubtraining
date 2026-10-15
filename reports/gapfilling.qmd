@@ -23,6 +23,7 @@ pct <- function(x) paste0(round(x), "%")
 big <- function(x) format(x, big.mark = ",")
 gs <- rd("gf_scores"); ov <- gs$overall; bys <- gs$by_species
 v2 <- rd("v2_scores"); gd <- rd("gf_data"); gt <- rd("gf_totals")
+g3 <- rd("gf3_data"); g3c <- rd("gf3_calib"); g3conf <- rd("gf3_conf"); g3s <- rd("gf3_scores")$overall
 fm <- ov |> filter(method == "factor model + forest area (amount only)")
 sa <- ov |> filter(method == "simple average")
 ```
@@ -91,6 +92,22 @@ gt |> group_by(species, unit) |>
             `+ weak fill (M)` = f2(filled_weak / 1e6), `+ untested fill (M)` = f2(filled_untested / 1e6))
 ```
 
+## The gap-filled dataset v2 (factor model only, with ranges)
+
+Changes from v1: the same data as the correlation metrics (Czech spruce bark-borer group counted as *I. typographus*); the factor model only (no partner method); aggregate reporting codes are not filled; every filled total has an 80% range taken from the hide-and-predict test.
+
+```{r v2cells}
+g3 |> count(value_type, confidence, name = "cells") |> mutate(share = pct(100 * cells / sum(cells)))
+```
+
+**Ranges.** The final model was re-run 10 times, each time with different country x insect blocks hidden. For every hidden country x insect x year total the real value is known, so the spread of *real / predicted* tells how far off a filled total typically is; its 10% and 90% points give the 80% range (per insect when it has at least 30 hidden totals). Check: learning the spread on half the folds, `r pct(100 * g3c$share_inside_80pct_range)` of the other half's real totals fall inside the 80% range (target 80%), so the ranges are slightly too narrow.
+
+**Confidence.** *Reliable* = in the test, the model beats the simple average for that insect and separates damage from no damage (AUC >= 0.7): `r sum(g3conf$confidence == "reliable")` insects (`r paste(g3conf$species[g3conf$confidence == "reliable"], collapse = ", ")`). *Weak* = tested but not both: `r sum(g3conf$confidence == "weak")` insects. *Untested* = recorded in one country only; filled but left out of totals.
+
+![](../outputs/figures/GF2_europe_totals_with_ranges.png)
+
+**Caution.** For several insects the filled damage is many times the reported damage (e.g. *Ips duplicatus*, *Pissodes pini*, *Thaumetopoea pityocampa*, *Lymantria monacha*). The model fills every region where the host tree grows and something was recorded, including countries outside an insect's geographic range (the pine processionary moth is Mediterranean). A country x insect "could occur here" mask (range maps or expert judgement) is needed before Europe-wide totals are used.
+
 ## How to read it
 
 - Reported values are untouched; every filled value carries its method and confidence.
@@ -99,5 +116,6 @@ gt |> group_by(species, unit) |>
 
 ## Files
 
-- Dataset: `data/processed/eufordam_gapfilled_v1.csv` (local only, not in the public repository)
+- Dataset: `data/processed/eufordam_gapfilled_v1.csv` and `eufordam_gapfilled_v2.csv` (local only, not in the public repository)
+- v2 tables: `outputs/tables/GF2_europe_totals_with_ranges.csv`, `GF2_country_totals_with_ranges.csv`, `GF2_confidence_by_insect.csv`, `GF2_total_error_ranges_by_insect.csv`, `GF2_range_calibration.csv`, `GF2_dataset_summary.csv`
 - Tables: `outputs/tables/GF_methods_overall.csv`, `GF_methods_by_insect.csv`, `GF_v2_extras_scores.csv`, `GF_dataset_summary.csv`, `GF_europe_totals_reported_plus_filled.csv`
