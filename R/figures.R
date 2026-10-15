@@ -1119,3 +1119,82 @@ save_grob <- function(g, path, w, h) {
   grid::grid.newpage(); grid::grid.draw(g); grDevices::dev.off()
   path
 }
+
+# ---- The notes' equation log(B+1) = a + b log(A+1) --------------------------------
+
+plot_partner_eq_table <- function(pe) {
+  nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
+  f2 <- function(x) formatC(x, format = "f", digits = 2)
+  tab <- data.frame(
+    `#` = seq_len(nrow(pe)),
+    `A` = nm(pe$species_a), `B` = nm(pe$species_b),
+    `a` = f2(pe$a_B_from_A), `b` = paste0(f2(pe$b_B_from_A), " ± ", f2(pe$b_se_B_from_A)),
+    `a ` = f2(pe$a_A_from_B), `b ` = paste0(f2(pe$b_A_from_B), " ± ", f2(pe$b_se_A_from_B)),
+    `R2` = f2(pe$r2), `n` = pe$n_region_years, check.names = FALSE)
+  tab$b <- gsub("±", "+/-", tab$b); tab$`b ` <- gsub("±", "+/-", tab$`b `)
+  names(tab) <- c("#", "Insect A", "Insect B", "a\n(B from A)", "b\n(B from A)", "a\n(A from B)", "b\n(A from B)",
+                  "R²", "region-\nyears")
+  names(tab)[8] <- "R-sq"
+  fill <- rep(c("#f4f3ee", "#fcfcfb"), length.out = nrow(tab))
+  th <- gridExtra::ttheme_minimal(
+    base_size = 9.5,
+    core = list(bg_params = list(fill = fill, col = "white"), fg_params = list(hjust = 0, x = 0.05)),
+    colhead = list(bg_params = list(fill = "#16302B"), fg_params = list(col = "white", fontface = "bold", hjust = 0, x = 0.05)))
+  g <- gridExtra::tableGrob(tab, rows = NULL, theme = th)
+  title <- grid::textGrob("log(B + 1) = a + b x log(A + 1), fitted for the 30 usable pairs",
+                          x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
+  note <- grid::textGrob(paste(
+    "Fitted by least squares on all region-years where both insects are recorded (value1; borers m3, defoliators ha; zeros kept). b +/- standard error.",
+    "\nb = how strongly B follows A: b = 0.5 means B rises about 0.5% for each 1% rise in A (for large values). a = log(B + 1) expected when A = 0.",
+    "\nR-sq is the same in both directions. Pooled over regions of very different size, so R-sq here is lower than the within-region correlation (r) suggests."),
+    x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e"))
+  gridExtra::arrangeGrob(title, g, note, ncol = 1, heights = grid::unit(c(0.45, 1, 0.7), c("in", "null", "in")))
+}
+
+# Scatter of one pair: left = the notes' equation on raw log values (all regions
+# pooled), right = the same after comparing each region with its own mean (what
+# the correlation metrics use). Points coloured by country.
+plot_partner_eq_scatter <- function(tr, a, b) {
+  nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
+  d <- tr |>
+    dplyr::filter(species %in% c(a, b)) |>
+    dplyr::select(country, nuts_id, year, species, log_damage) |>
+    tidyr::pivot_wider(names_from = species, values_from = log_damage) |>
+    dplyr::filter(!is.na(.data[[a]]), !is.na(.data[[b]])) |>
+    dplyr::rename(x = !!a, y = !!b)
+  f <- stats::lm(y ~ x, d)
+  # right panel: z_within (each region series standardised; series with no
+  # variation, e.g. all zeros, drop out), exactly as in the correlation metrics
+  dw <- tr |>
+    dplyr::filter(species %in% c(a, b)) |>
+    dplyr::select(country, nuts_id, year, species, z_within) |>
+    tidyr::pivot_wider(names_from = species, values_from = z_within) |>
+    dplyr::filter(!is.na(.data[[a]]), !is.na(.data[[b]])) |>
+    dplyr::rename(x = !!a, y = !!b)
+  fw <- stats::lm(y ~ x, dw)
+  both <- dplyr::bind_rows(
+    dplyr::mutate(d, panel = "1. Equation from the notes: all regions pooled"),
+    dplyr::mutate(dw, panel = "2. Each region against its own normal (correlation metrics)"))
+  lab <- tibble::tibble(
+    panel = unique(both$panel),
+    txt = c(sprintf("log(B+1) = %.2f + %.2f log(A+1)\nR-sq = %.2f, n = %d", stats::coef(f)[1], stats::coef(f)[2], summary(f)$r.squared, nrow(d)),
+            sprintf("r = %.2f, n = %d", stats::cor(dw$x, dw$y), nrow(dw))))
+  lines <- dplyr::bind_rows(
+    tibble::tibble(panel = lab$panel[1], x = range(d$x), y = stats::coef(f)[1] + stats::coef(f)[2] * range(d$x)),
+    tibble::tibble(panel = lab$panel[2], x = range(dw$x), y = stats::coef(fw)[1] + stats::coef(fw)[2] * range(dw$x)))
+  cc <- c(AT = "#2a78d6", CZ = "#eb6834", DE = "#1baf7a", HR = "#4a3aa7", SI = "#eda100",
+          PL = "#e87ba4", LT = "#008300", SK = "#c23b3a", BG = "#52514e", IT = "#86b6ef", RO = "#9c9b97")
+  ggplot2::ggplot(both, ggplot2::aes(x, y)) +
+    ggplot2::geom_point(ggplot2::aes(colour = country), alpha = 0.55, size = 1.4) +
+    ggplot2::geom_line(data = lines, linewidth = 1, colour = pal$ink) +
+    ggplot2::geom_label(data = lab, ggplot2::aes(x = -Inf, y = Inf, label = txt), hjust = -0.05, vjust = 1.1,
+                        size = 3, label.size = 0, fill = "#ffffffcc", inherit.aes = FALSE) +
+    ggplot2::facet_wrap(~ panel, scales = "free") +
+    ggplot2::scale_colour_manual(values = cc, name = "country") +
+    ggplot2::labs(x = paste0("A: ", nm(a), "  (log(damage + 1))"), y = paste0("B: ", nm(b), "  (log(damage + 1))"),
+                  title = paste0("Predicting ", nm(b), " from ", nm(a)),
+                  subtitle = "Each dot = one region-year where both are recorded. Line = least-squares fit.",
+                  caption = paste("Left: the equation as used by the partner method; the fit also has to bridge differences in region size and reporting level, so points spread more.",
+                                  "\nRight: each region's series standardised against its own mean and spread (series with no variation drop out), as in the correlation metrics (axes in standard units): only shared ups and downs remain.")) +
+    theme_eu(9) + ggplot2::theme(legend.position = "right", strip.text = ggplot2::element_text(face = "bold"))
+}
