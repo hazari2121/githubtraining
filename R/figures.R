@@ -1048,3 +1048,74 @@ plot_cm_predictive <- function(ps) {
                   caption = "Skill = 1 - error using insect A / error guessing a normal year, for insect B in a country left out; both directions pooled. Below 0 = the link misleads.\nPairs below -0.6 are drawn at the bottom edge.") +
     theme_eu(9) + ggplot2::theme(legend.position = "right")
 }
+
+# ---- Table of the usable pairs as an image ---------------------------------------
+
+# Readable names for the insect codes in the usable pairs (from the code
+# abbreviations; aggregates named by the host tree given in the database)
+insect_names <- c(
+  `CambXyl_con&BB_con&BO` = "Conifer borer group (pine)", `CambXyl_con&MD` = "Conifer borer group (larch)",
+  agr_big = "Agrilus biguttatus", bup_pin = "Bupalus piniaria", den_pin = "Dendrolimus pini",
+  dip_sp = "Diprion spp.", ips_acu = "Ips acuminatus", ips_dup = "Ips duplicatus",
+  ips_sex = "Ips sexdentatus", ips_typ = "Ips typographus", lym_mon = "Lymantria monacha",
+  pan_fla = "Panolis flammea", pha_cya = "Phaenops cyanea", pis_pin = "Pissodes pini",
+  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina",
+  sco_int = "Scolytus intricatus", sco_rat = "Scolytus ratzeburgi", tom_spp = "Tomicus spp.")
+
+host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",
+                `Larix decidua` = "larch", `Quercus spp.` = "oak", `Betula spp.` = "birch")
+
+usable_table <- function(v, species_meta) {
+  h <- setNames(host_short[species_meta$host_tree], species_meta$species)
+  nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
+  v |>
+    dplyr::filter(verdict == "usable") |>
+    dplyr::mutate(
+      group = dplyr::case_when(
+        r < 0 ~ "4. Opposite link",
+        grepl("defoliators", group_a) & grepl("defoliators", group_b) ~ "3. Pine and spruce defoliators",
+        group_a == "borers on conifers" & group_b == "borers on conifers" ~ "1. Conifer bark beetles and borers",
+        TRUE ~ "2. Conifer borers with oak and birch borers"),
+      Pair = paste(nm(species_a), "x", nm(species_b)),
+      Hosts = paste(h[species_a], "x", h[species_b]),
+      r_txt = formatC(r, format = "f", digits = 2),
+      rw_txt = paste0(formatC(r_without_europe_wide_years, format = "f", digits = 2),
+                      ifelse(mostly_europe_wide_years, " *", "")),
+      Countries = gsub(",", ", ", countries)) |>
+    dplyr::arrange(group, dplyr::desc(abs(r)))
+}
+
+plot_usable_table <- function(ut) {
+  fills <- c(`1. Conifer bark beetles and borers` = "#e3eef9", `2. Conifer borers with oak and birch borers` = "#fdf0e3",
+             `3. Pine and spruce defoliators` = "#e6f2e6", `4. Opposite link` = "#ececf6")
+  rows <- list(); fill <- character(); bold <- logical(); i <- 0
+  for (g in unique(ut$group)) {
+    rows[[length(rows) + 1]] <- data.frame(`#` = "", Pair = g, Hosts = "", r = "", rw = "", Countries = "", check.names = FALSE)
+    fill <- c(fill, "#d8d6cf"); bold <- c(bold, TRUE)
+    d <- dplyr::filter(ut, group == g)
+    rows[[length(rows) + 1]] <- data.frame(`#` = as.character(i + seq_len(nrow(d))), Pair = d$Pair, Hosts = d$Hosts,
+                                           r = d$r_txt, rw = d$rw_txt, Countries = d$Countries, check.names = FALSE)
+    fill <- c(fill, rep(fills[[g]], nrow(d))); bold <- c(bold, rep(FALSE, nrow(d))); i <- i + nrow(d)
+  }
+  tab <- do.call(rbind, rows)
+  names(tab) <- c("#", "Pair", "Host trees", "r", "r without\nEurope-wide years", "Countries where it holds")
+  th <- gridExtra::ttheme_minimal(
+    base_size = 10,
+    core = list(bg_params = list(fill = fill, col = "white"),
+                fg_params = list(hjust = 0, x = 0.04, fontface = ifelse(bold, "bold", "plain"))),
+    colhead = list(bg_params = list(fill = "#16302B"), fg_params = list(col = "white", fontface = "bold", hjust = 0, x = 0.04)))
+  g <- gridExtra::tableGrob(tab, rows = NULL, theme = th)
+  title <- grid::textGrob("The 30 usable insect pairs: strong (r >= 0.3, sure) and consistent in every country checked",
+                          x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
+  note <- grid::textGrob(paste("r = same-year correlation within regions (log damage, each region against its own mean). * = link mostly reflects years bad all over Europe",
+                               "(r drops below 0.2 once they are removed).\nCZ spruce bark-borer group counted as I. typographus. Latin names from code abbreviations; group (pine)/(larch) = aggregate codes CambXyl_con&BB_con&BO / CambXyl_con&MD."),
+                         x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e"))
+  gridExtra::arrangeGrob(title, g, note, ncol = 1, heights = grid::unit(c(0.45, 1, 0.5), c("in", "null", "in")))
+}
+
+save_grob <- function(g, path, w, h) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  grDevices::png(path, width = w, height = h, units = "in", res = 200, bg = pal$surface, type = "cairo")
+  grid::grid.newpage(); grid::grid.draw(g); grDevices::dev.off()
+  path
+}
