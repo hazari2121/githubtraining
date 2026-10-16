@@ -1059,7 +1059,7 @@ insect_names <- c(
   dip_sp = "Diprion spp.", ips_acu = "Ips acuminatus", ips_dup = "Ips duplicatus",
   ips_sex = "Ips sexdentatus", ips_typ = "Ips typographus", lym_mon = "Lymantria monacha",
   pan_fla = "Panolis flammea", pha_cya = "Phaenops cyanea", pis_pin = "Pissodes pini",
-  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus",
+  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus", tha_pit = "Thaumetopoea pinivora",
   sco_int = "Scolytus intricatus", sco_rat = "Scolytus ratzeburgi", tom_spp = "Tomicus spp.")
 
 host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",

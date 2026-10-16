@@ -194,3 +194,15 @@ variant_links <- function(L, hs, group, spec, verdict, name) {
   tibble::tibble(model = name, usable_linked = sum(rm[u] >= 0.3, na.rm = TRUE), usable_n = sum(u),
                  agreement_with_r = stats::cor(verdict$r, rm, use = "pair"))
 }
+
+# Full-data fit of a spec, laid out like gapfill_final()'s output (one row per
+# region-year x insect, column by column), so the v2 dataset functions apply.
+gapfill_raw_rs <- function(L, hs, group, spec) {
+  r <- gapfill_final_rs(L, hs, group, spec)
+  Lh <- host_scaled_L(L, hs)
+  n <- nrow(L$Y); p <- ncol(L$Y); ix <- cbind(rep(seq_len(n), p), rep(seq_len(p), each = n))
+  tibble::tibble(
+    country = L$rows$country[ix[, 1]], nuts_id = L$rows$nuts_id[ix[, 1]], year = L$rows$year[ix[, 1]],
+    species = L$species[ix[, 2]], y = L$Y[ix], absent = r$absent[ix], empty = is.na(r$P1[ix]),
+    p_any = r$P1[ix], amount_log = r$amount_log[ix], factor_fill = r$E[ix], host_area_ha = Lh$area[ix])
+}

@@ -478,6 +478,28 @@ list(
   tar_target(m_links, purrr::map_dfr(m_name, function(nm) variant_links(gf3_L, host_status, gf3_group, m_specs[[nm]], cb_verdict, nm))),
   tar_target(m_scores_csv, tab(dplyr::left_join(m_scores, m_links, by = "model"), "GF_M0_M1_M2_comparison.csv"), format = "file"),
 
+  # ---- Gap-filled dataset v3: model M2 (3 factors + group links) + draft range rule
+  tar_target(v3_spec_name, "M2 K=3 + group links"),
+  tar_target(v3_spec, m_specs[[v3_spec_name]]),
+  tar_target(v3_cv, m_cv[[which(m_name == v3_spec_name)]]),         # hide-and-predict test of M2
+  tar_target(v3_bt, cv_block_totals(v3_cv)),
+  tar_target(v3_conf, final_method_scores(v3_cv, gf3_simple)),
+  tar_target(v3_range, range_table(v3_bt)),
+  tar_target(v3_calib, range_calibration(v3_bt)),
+  tar_target(v3_raw, gapfill_raw_rs(gf3_L, host_status, gf3_group, v3_spec)),
+  tar_target(v3_data, apply_range(gapfill_dataset_v2(v3_raw, v3_conf, dplyr::select(species_meta, species, unit), gf3_L$species),
+                                  rng_draft)),
+  tar_target(v3_tot, gapfill_totals_v2(v3_data, v3_range, v3_bt)),
+  tar_target(v3_data_csv, write_csv_out(v3_data, "data/processed/eufordam_gapfilled_v3.csv"), format = "file"),
+  tar_target(v3_eu_csv, tab(v3_tot$europe, "GF3_europe_totals_with_ranges.csv"), format = "file"),
+  tar_target(v3_country_csv, tab(v3_tot$country, "GF3_country_totals_with_ranges.csv"), format = "file"),
+  tar_target(v3_conf_csv, tab(v3_conf, "GF3_confidence_by_insect.csv"), format = "file"),
+  tar_target(v3_calib_csv, tab(v3_calib, "GF3_range_calibration.csv"), format = "file"),
+  tar_target(v3_summary_csv, tab(dplyr::count(v3_data, value_type, confidence), "GF3_dataset_summary.csv"), format = "file"),
+  tar_target(v3_effect_csv, tab(range_effect(gf3_tot, v3_tot), "GF3_vs_v2_filled_by_insect.csv"), format = "file"),
+  tar_target(fig_v3_europe, save_fig(plot_gf2_europe(v3_tot$europe), "outputs/figures/GF3_europe_totals_with_ranges.png", 10, 10),
+             format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
