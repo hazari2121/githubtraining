@@ -32,7 +32,7 @@ The thesis rests on one idea: **damage from different insects tends to rise and 
 | 2. Correlation metrics | Do insects really rise and fall together? | the premise; 3 (patterns) |
 | 3. Gap-filling | Can we use that to fill the missing records? | 1 (harmonise records), then 2 (Europe-wide totals) |
 
-**Data and rules used throughout.** EU-ForDAM, 49 insect codes, 16 countries, 77 regions (NUTS units), 2000-2022. `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown (never treated as 0). The Czech spruce bark-borer group is counted as *Ips typographus*, as in Hlásný et al. (2025).
+**Data and rules used throughout.** EU-ForDAM, 49 insect codes, 16 countries, 77 regions (NUTS units), 2000-2022. `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown (never treated as 0). The Czech spruce bark-borer group is counted as *Ips typographus*, as in the 2025 EU-ForDAM paper.
 
 ---
 
