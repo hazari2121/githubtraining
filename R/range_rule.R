@@ -60,7 +60,7 @@ apply_range <- function(gd, rd) {
 # Filled damage per insect (all years), before and after the draft range rule
 range_effect <- function(tot_before, tot_after) {
   f <- function(t) t$europe |> dplyr::group_by(species, unit) |>
-    dplyr::summarise(reported = sum(reported), filled = sum(total_mid - reported), .groups = "drop")
+    dplyr::summarise(filled = sum(total_mid - reported), reported = sum(reported), .groups = "drop")
   dplyr::full_join(dplyr::rename(f(tot_before), filled_before = filled),
                    dplyr::select(f(tot_after), species, filled_after = filled), by = "species") |>
     dplyr::mutate(filled_vs_reported_before = filled_before / pmax(reported, 1),

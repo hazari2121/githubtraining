@@ -1,0 +1,785 @@
+country,species,damage_reported,neighbour_reports,in_range,reason
+AT,CambXyl_con&BB_con&BO,TRUE,TRUE,TRUE,reports damage
+AT,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
+AT,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+AT,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
+AT,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
+AT,Def_dec&DB,TRUE,TRUE,TRUE,reports damage
+AT,agr_big,FALSE,TRUE,TRUE,neighbour reports damage
+AT,agr_vir,FALSE,TRUE,TRUE,neighbour reports damage
+AT,bup_pin,FALSE,TRUE,TRUE,neighbour reports damage
+AT,cep_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+AT,den_mic,FALSE,TRUE,TRUE,neighbour reports damage
+AT,den_pin,FALSE,TRUE,TRUE,neighbour reports damage
+AT,dip_sp,TRUE,TRUE,TRUE,reports damage
+AT,era_def,FALSE,TRUE,TRUE,neighbour reports damage
+AT,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_acu,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_ami,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_cem,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ips_typ,TRUE,TRUE,TRUE,reports damage
+AT,lym_dis,TRUE,TRUE,TRUE,reports damage
+AT,lym_mon,FALSE,TRUE,TRUE,neighbour reports damage
+AT,mel_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+AT,ope_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,pan_fla,FALSE,TRUE,TRUE,neighbour reports damage
+AT,pha_cya,TRUE,TRUE,TRUE,reports damage
+AT,pis_pin,FALSE,TRUE,TRUE,neighbour reports damage
+AT,pit_bid,FALSE,TRUE,TRUE,neighbour reports damage
+AT,pit_cha,TRUE,TRUE,TRUE,reports damage
+AT,pit_spp,TRUE,TRUE,TRUE,reports damage
+AT,pol_pol,FALSE,TRUE,TRUE,neighbour reports damage
+AT,pri_abi,FALSE,TRUE,TRUE,neighbour reports damage
+AT,sap_car,FALSE,TRUE,TRUE,neighbour reports damage
+AT,sco_int,FALSE,TRUE,TRUE,neighbour reports damage
+AT,sco_rat,FALSE,TRUE,TRUE,neighbour reports damage
+AT,sco_sco,FALSE,TRUE,TRUE,neighbour reports damage
+AT,tet_gab,TRUE,TRUE,TRUE,reports damage
+AT,tet_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+AT,tha_pro,FALSE,TRUE,TRUE,neighbour reports damage
+AT,tom_spp,TRUE,TRUE,TRUE,reports damage
+AT,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+AT,uro_sir_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
+AT,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
+AT,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
+BG,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+BG,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+BG,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+BG,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+BG,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+BG,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+BG,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+BG,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+BG,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+BG,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,clo_ana,FALSE,TRUE,TRUE,neighbour reports damage
+BG,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+BG,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+BG,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+BG,era_def,FALSE,FALSE,FALSE,no evidence nearby
+BG,geo_db,TRUE,TRUE,TRUE,reports damage
+BG,ips_acu,TRUE,FALSE,TRUE,reports damage
+BG,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+BG,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+BG,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+BG,ips_sex,TRUE,FALSE,TRUE,reports damage
+BG,ips_typ,TRUE,TRUE,TRUE,reports damage
+BG,lym_dis,TRUE,TRUE,TRUE,reports damage
+BG,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+BG,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,neo_ser,TRUE,FALSE,TRUE,reports damage
+BG,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+BG,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+BG,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+BG,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+BG,pit_cha,FALSE,FALSE,FALSE,no evidence nearby
+BG,pit_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+BG,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+BG,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+BG,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+BG,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+BG,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+BG,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+BG,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,tha_pit,TRUE,FALSE,TRUE,reports damage
+BG,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+BG,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,tor_vir,TRUE,TRUE,TRUE,reports damage
+BG,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+BG,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+BG,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+CH,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+CH,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
+CH,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+CH,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
+CH,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
+CH,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+CH,agr_big,FALSE,TRUE,TRUE,neighbour reports damage
+CH,agr_vir,FALSE,TRUE,TRUE,neighbour reports damage
+CH,bup_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CH,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+CH,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+CH,den_mic,FALSE,TRUE,TRUE,neighbour reports damage
+CH,den_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CH,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,era_def,FALSE,TRUE,TRUE,neighbour reports damage
+CH,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ips_acu,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ips_ami,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ips_cem,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+CH,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ips_typ,TRUE,TRUE,TRUE,reports damage
+CH,lym_dis,FALSE,TRUE,TRUE,neighbour reports damage
+CH,lym_mon,FALSE,TRUE,TRUE,neighbour reports damage
+CH,mel_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+CH,ope_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pan_fla,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pha_cya,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pis_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pit_bid,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pit_cha,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+CH,pri_abi,FALSE,TRUE,TRUE,neighbour reports damage
+CH,sap_car,FALSE,TRUE,TRUE,neighbour reports damage
+CH,sco_int,FALSE,TRUE,TRUE,neighbour reports damage
+CH,sco_rat,FALSE,TRUE,TRUE,neighbour reports damage
+CH,sco_sco,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tet_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tha_pro,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tom_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+CH,uro_sir_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
+CH,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CH,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,CambXyl_con&MD,TRUE,TRUE,TRUE,reports damage
+CZ,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,Def_dec&DB,TRUE,TRUE,TRUE,reports damage
+CZ,agr_big,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,agr_vir,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,bup_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,cep_spp,TRUE,FALSE,TRUE,reports damage
+CZ,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+CZ,den_mic,TRUE,TRUE,TRUE,reports damage
+CZ,den_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,era_def,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,ips_acu,TRUE,TRUE,TRUE,reports damage
+CZ,ips_ami,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,ips_cem,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,ips_dup,TRUE,TRUE,TRUE,reports damage
+CZ,ips_sex,TRUE,TRUE,TRUE,reports damage
+CZ,ips_typ,TRUE,TRUE,TRUE,reports damage
+CZ,lym_dis,TRUE,TRUE,TRUE,reports damage
+CZ,lym_mon,TRUE,TRUE,TRUE,reports damage
+CZ,mel_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,neo_ser,TRUE,TRUE,TRUE,reports damage
+CZ,ope_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,pan_fla,TRUE,TRUE,TRUE,reports damage
+CZ,pha_cya,TRUE,TRUE,TRUE,reports damage
+CZ,pis_pin,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,pit_bid,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,pit_cha,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,pit_spp,TRUE,TRUE,TRUE,reports damage
+CZ,pol_pol,TRUE,FALSE,TRUE,reports damage
+CZ,pri_abi,TRUE,TRUE,TRUE,reports damage
+CZ,sap_car,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,sco_int,TRUE,TRUE,TRUE,reports damage
+CZ,sco_rat,TRUE,TRUE,TRUE,reports damage
+CZ,sco_sco,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,tet_gab,TRUE,TRUE,TRUE,reports damage
+CZ,tet_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,tha_pro,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,tom_spp,TRUE,TRUE,TRUE,reports damage
+CZ,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,uro_sir_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
+CZ,zei_gri,TRUE,TRUE,TRUE,reports damage
+DE,CambXyl_con&BB_con&BO,TRUE,TRUE,TRUE,reports damage
+DE,CambXyl_con&BB_con&SM,TRUE,FALSE,TRUE,reports damage
+DE,CambXyl_con&BO,TRUE,FALSE,TRUE,reports damage
+DE,CambXyl_con&MD,TRUE,TRUE,TRUE,reports damage
+DE,Def_dec,TRUE,FALSE,TRUE,reports damage
+DE,Def_dec&DB,TRUE,TRUE,TRUE,reports damage
+DE,agr_big,TRUE,TRUE,TRUE,reports damage
+DE,agr_vir,TRUE,FALSE,TRUE,reports damage
+DE,bup_pin,TRUE,TRUE,TRUE,reports damage
+DE,cep_spp,FALSE,TRUE,TRUE,neighbour reports damage
+DE,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+DE,den_mic,TRUE,TRUE,TRUE,reports damage
+DE,den_pin,TRUE,TRUE,TRUE,reports damage
+DE,dip_sp,TRUE,TRUE,TRUE,reports damage
+DE,era_def,TRUE,FALSE,TRUE,reports damage
+DE,geo_db,TRUE,TRUE,TRUE,reports damage
+DE,ips_acu,TRUE,TRUE,TRUE,reports damage
+DE,ips_ami,TRUE,FALSE,TRUE,reports damage
+DE,ips_cem,TRUE,FALSE,TRUE,reports damage
+DE,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+DE,ips_sex,TRUE,TRUE,TRUE,reports damage
+DE,ips_typ,TRUE,TRUE,TRUE,reports damage
+DE,lym_dis,TRUE,TRUE,TRUE,reports damage
+DE,lym_mon,TRUE,TRUE,TRUE,reports damage
+DE,mel_spp,TRUE,TRUE,TRUE,reports damage
+DE,neo_ser,TRUE,TRUE,TRUE,reports damage
+DE,ope_spp,TRUE,FALSE,TRUE,reports damage
+DE,pan_fla,TRUE,TRUE,TRUE,reports damage
+DE,pha_cya,TRUE,TRUE,TRUE,reports damage
+DE,pis_pin,TRUE,FALSE,TRUE,reports damage
+DE,pit_bid,TRUE,FALSE,TRUE,reports damage
+DE,pit_cha,TRUE,TRUE,TRUE,reports damage
+DE,pit_spp,TRUE,TRUE,TRUE,reports damage
+DE,pol_pol,FALSE,TRUE,TRUE,neighbour reports damage
+DE,pri_abi,TRUE,TRUE,TRUE,reports damage
+DE,sap_car,TRUE,FALSE,TRUE,reports damage
+DE,sco_int,TRUE,TRUE,TRUE,reports damage
+DE,sco_rat,TRUE,TRUE,TRUE,reports damage
+DE,sco_sco,TRUE,FALSE,TRUE,reports damage
+DE,tet_gab,TRUE,TRUE,TRUE,reports damage
+DE,tet_spp,TRUE,FALSE,TRUE,reports damage
+DE,tha_pit,TRUE,FALSE,TRUE,reports damage
+DE,tha_pro,TRUE,FALSE,TRUE,reports damage
+DE,tom_spp,TRUE,TRUE,TRUE,reports damage
+DE,tor_vir,TRUE,TRUE,TRUE,reports damage
+DE,uro_sir_spp,TRUE,FALSE,TRUE,reports damage
+DE,xyl_lin,TRUE,FALSE,TRUE,reports damage
+DE,xyl_spp,TRUE,FALSE,TRUE,reports damage
+DE,zei_gri,TRUE,TRUE,TRUE,reports damage
+FI,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+FI,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+FI,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+FI,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+FI,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+FI,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+FI,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+FI,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+FI,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+FI,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+FI,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+FI,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+FI,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+FI,era_def,FALSE,FALSE,FALSE,no evidence nearby
+FI,geo_db,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_acu,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+FI,ips_typ,TRUE,TRUE,TRUE,reports damage
+FI,lym_dis,FALSE,FALSE,FALSE,no evidence nearby
+FI,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+FI,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+FI,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+FI,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+FI,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+FI,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+FI,pit_cha,FALSE,FALSE,FALSE,no evidence nearby
+FI,pit_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+FI,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+FI,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+FI,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+FI,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+FI,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+FI,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+FI,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,tha_pit,FALSE,FALSE,FALSE,no evidence nearby
+FI,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+FI,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,tor_vir,FALSE,FALSE,FALSE,no evidence nearby
+FI,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+FI,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+FI,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+HR,CambXyl_con&BB_con&BO,TRUE,FALSE,TRUE,reports damage
+HR,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+HR,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+HR,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+HR,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+HR,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+HR,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+HR,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+HR,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+HR,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+HR,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+HR,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+HR,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+HR,era_def,FALSE,FALSE,FALSE,no evidence nearby
+HR,geo_db,TRUE,FALSE,TRUE,reports damage
+HR,ips_acu,FALSE,FALSE,FALSE,no evidence nearby
+HR,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+HR,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+HR,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+HR,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+HR,ips_typ,TRUE,TRUE,TRUE,reports damage
+HR,lym_dis,TRUE,TRUE,TRUE,reports damage
+HR,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+HR,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+HR,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+HR,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+HR,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+HR,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+HR,pit_cha,FALSE,TRUE,TRUE,neighbour reports damage
+HR,pit_spp,TRUE,TRUE,TRUE,reports damage
+HR,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+HR,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+HR,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+HR,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+HR,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+HR,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+HR,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+HR,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,tha_pit,TRUE,FALSE,TRUE,reports damage
+HR,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+HR,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,tor_vir,FALSE,FALSE,FALSE,no evidence nearby
+HR,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+HR,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+HR,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+HU,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+HU,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+HU,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+HU,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+HU,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+HU,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+HU,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+HU,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+HU,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+HU,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,clo_ana,FALSE,TRUE,TRUE,neighbour reports damage
+HU,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+HU,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+HU,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+HU,era_def,FALSE,FALSE,FALSE,no evidence nearby
+HU,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+HU,ips_acu,FALSE,TRUE,TRUE,neighbour reports damage
+HU,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+HU,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+HU,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+HU,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+HU,ips_typ,TRUE,TRUE,TRUE,reports damage
+HU,lym_dis,TRUE,TRUE,TRUE,reports damage
+HU,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+HU,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+HU,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+HU,pha_cya,FALSE,TRUE,TRUE,neighbour reports damage
+HU,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+HU,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+HU,pit_cha,FALSE,TRUE,TRUE,neighbour reports damage
+HU,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+HU,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+HU,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+HU,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+HU,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+HU,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+HU,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+HU,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+HU,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+HU,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+HU,tom_spp,FALSE,TRUE,TRUE,neighbour reports damage
+HU,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+HU,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+HU,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+HU,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+IT,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+IT,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+IT,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+IT,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+IT,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+IT,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+IT,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+IT,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+IT,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+IT,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+IT,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+IT,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+IT,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+IT,era_def,FALSE,FALSE,FALSE,no evidence nearby
+IT,geo_db,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_acu,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+IT,ips_typ,TRUE,TRUE,TRUE,reports damage
+IT,lym_dis,FALSE,TRUE,TRUE,neighbour reports damage
+IT,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+IT,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+IT,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+IT,pha_cya,FALSE,TRUE,TRUE,neighbour reports damage
+IT,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+IT,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+IT,pit_cha,TRUE,TRUE,TRUE,reports damage
+IT,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+IT,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+IT,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+IT,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+IT,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+IT,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+IT,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+IT,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+IT,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,tha_pit,FALSE,FALSE,FALSE,no evidence nearby
+IT,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+IT,tom_spp,FALSE,TRUE,TRUE,neighbour reports damage
+IT,tor_vir,FALSE,FALSE,FALSE,no evidence nearby
+IT,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+IT,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+IT,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+LT,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+LT,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+LT,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+LT,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+LT,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+LT,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+LT,agr_big,FALSE,TRUE,TRUE,neighbour reports damage
+LT,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+LT,bup_pin,FALSE,TRUE,TRUE,neighbour reports damage
+LT,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+LT,den_mic,TRUE,FALSE,TRUE,reports damage
+LT,den_pin,TRUE,TRUE,TRUE,reports damage
+LT,dip_sp,TRUE,TRUE,TRUE,reports damage
+LT,era_def,FALSE,FALSE,FALSE,no evidence nearby
+LT,geo_db,TRUE,TRUE,TRUE,reports damage
+LT,ips_acu,TRUE,TRUE,TRUE,reports damage
+LT,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+LT,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+LT,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+LT,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+LT,ips_typ,TRUE,TRUE,TRUE,reports damage
+LT,lym_dis,TRUE,FALSE,TRUE,reports damage
+LT,lym_mon,TRUE,TRUE,TRUE,reports damage
+LT,mel_spp,FALSE,TRUE,TRUE,neighbour reports damage
+LT,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+LT,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,pan_fla,TRUE,TRUE,TRUE,reports damage
+LT,pha_cya,TRUE,TRUE,TRUE,reports damage
+LT,pis_pin,TRUE,FALSE,TRUE,reports damage
+LT,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+LT,pit_cha,TRUE,FALSE,TRUE,reports damage
+LT,pit_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,pol_pol,TRUE,FALSE,TRUE,reports damage
+LT,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+LT,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+LT,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+LT,sco_rat,TRUE,FALSE,TRUE,reports damage
+LT,sco_sco,TRUE,FALSE,TRUE,reports damage
+LT,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+LT,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,tha_pit,FALSE,FALSE,FALSE,no evidence nearby
+LT,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+LT,tom_spp,TRUE,TRUE,TRUE,reports damage
+LT,tor_vir,TRUE,TRUE,TRUE,reports damage
+LT,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+LT,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+LT,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+PL,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+PL,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
+PL,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+PL,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
+PL,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
+PL,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+PL,agr_big,TRUE,TRUE,TRUE,reports damage
+PL,agr_vir,FALSE,TRUE,TRUE,neighbour reports damage
+PL,bup_pin,TRUE,TRUE,TRUE,reports damage
+PL,cep_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+PL,den_mic,FALSE,TRUE,TRUE,neighbour reports damage
+PL,den_pin,TRUE,TRUE,TRUE,reports damage
+PL,dip_sp,TRUE,TRUE,TRUE,reports damage
+PL,era_def,FALSE,TRUE,TRUE,neighbour reports damage
+PL,geo_db,TRUE,TRUE,TRUE,reports damage
+PL,ips_acu,TRUE,TRUE,TRUE,reports damage
+PL,ips_ami,FALSE,TRUE,TRUE,neighbour reports damage
+PL,ips_cem,FALSE,TRUE,TRUE,neighbour reports damage
+PL,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+PL,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+PL,ips_typ,TRUE,TRUE,TRUE,reports damage
+PL,lym_dis,FALSE,TRUE,TRUE,neighbour reports damage
+PL,lym_mon,TRUE,TRUE,TRUE,reports damage
+PL,mel_spp,TRUE,TRUE,TRUE,reports damage
+PL,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+PL,ope_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pan_fla,TRUE,TRUE,TRUE,reports damage
+PL,pha_cya,TRUE,TRUE,TRUE,reports damage
+PL,pis_pin,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pit_bid,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pit_cha,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pol_pol,FALSE,TRUE,TRUE,neighbour reports damage
+PL,pri_abi,FALSE,TRUE,TRUE,neighbour reports damage
+PL,sap_car,FALSE,TRUE,TRUE,neighbour reports damage
+PL,sco_int,FALSE,TRUE,TRUE,neighbour reports damage
+PL,sco_rat,FALSE,TRUE,TRUE,neighbour reports damage
+PL,sco_sco,FALSE,TRUE,TRUE,neighbour reports damage
+PL,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+PL,tet_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+PL,tha_pro,FALSE,TRUE,TRUE,neighbour reports damage
+PL,tom_spp,TRUE,TRUE,TRUE,reports damage
+PL,tor_vir,TRUE,TRUE,TRUE,reports damage
+PL,uro_sir_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
+PL,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
+PL,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
+RO,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+RO,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+RO,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+RO,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+RO,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+RO,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+RO,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+RO,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+RO,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+RO,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,clo_ana,TRUE,FALSE,TRUE,reports damage
+RO,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+RO,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+RO,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+RO,era_def,FALSE,FALSE,FALSE,no evidence nearby
+RO,geo_db,TRUE,TRUE,TRUE,reports damage
+RO,ips_acu,FALSE,TRUE,TRUE,neighbour reports damage
+RO,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+RO,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+RO,ips_dup,TRUE,FALSE,TRUE,reports damage
+RO,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+RO,ips_typ,TRUE,TRUE,TRUE,reports damage
+RO,lym_dis,TRUE,TRUE,TRUE,reports damage
+RO,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+RO,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+RO,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+RO,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+RO,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+RO,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+RO,pit_cha,FALSE,FALSE,FALSE,no evidence nearby
+RO,pit_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+RO,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+RO,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+RO,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+RO,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+RO,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+RO,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+RO,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+RO,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+RO,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,tor_vir,TRUE,TRUE,TRUE,reports damage
+RO,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+RO,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+RO,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+RS,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+RS,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+RS,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+RS,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+RS,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+RS,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+RS,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+RS,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+RS,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+RS,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,clo_ana,FALSE,TRUE,TRUE,neighbour reports damage
+RS,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+RS,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+RS,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+RS,era_def,FALSE,FALSE,FALSE,no evidence nearby
+RS,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+RS,ips_acu,FALSE,TRUE,TRUE,neighbour reports damage
+RS,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+RS,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+RS,ips_dup,FALSE,TRUE,TRUE,neighbour reports damage
+RS,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+RS,ips_typ,TRUE,TRUE,TRUE,reports damage
+RS,lym_dis,TRUE,TRUE,TRUE,reports damage
+RS,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+RS,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+RS,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+RS,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+RS,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+RS,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+RS,pit_cha,FALSE,FALSE,FALSE,no evidence nearby
+RS,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+RS,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+RS,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+RS,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+RS,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+RS,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+RS,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+RS,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+RS,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+RS,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+RS,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+RS,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+RS,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+RS,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+SE,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+SE,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+SE,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+SE,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+SE,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+SE,Def_dec&DB,FALSE,FALSE,FALSE,no evidence nearby
+SE,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+SE,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+SE,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+SE,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+SE,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+SE,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+SE,dip_sp,FALSE,FALSE,FALSE,no evidence nearby
+SE,era_def,FALSE,FALSE,FALSE,no evidence nearby
+SE,geo_db,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_acu,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+SE,ips_typ,TRUE,TRUE,TRUE,reports damage
+SE,lym_dis,FALSE,FALSE,FALSE,no evidence nearby
+SE,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+SE,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+SE,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+SE,pha_cya,FALSE,FALSE,FALSE,no evidence nearby
+SE,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+SE,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+SE,pit_cha,FALSE,FALSE,FALSE,no evidence nearby
+SE,pit_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+SE,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+SE,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+SE,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+SE,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+SE,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+SE,tet_gab,FALSE,FALSE,FALSE,no evidence nearby
+SE,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,tha_pit,FALSE,FALSE,FALSE,no evidence nearby
+SE,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+SE,tom_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,tor_vir,FALSE,FALSE,FALSE,no evidence nearby
+SE,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+SE,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+SE,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+SI,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+SI,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+SI,CambXyl_con&BO,TRUE,FALSE,TRUE,reports damage
+SI,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
+SI,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+SI,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+SI,agr_big,FALSE,FALSE,FALSE,no evidence nearby
+SI,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+SI,bup_pin,FALSE,FALSE,FALSE,no evidence nearby
+SI,cep_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+SI,den_mic,FALSE,FALSE,FALSE,no evidence nearby
+SI,den_pin,FALSE,FALSE,FALSE,no evidence nearby
+SI,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+SI,era_def,FALSE,FALSE,FALSE,no evidence nearby
+SI,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+SI,ips_acu,FALSE,FALSE,FALSE,no evidence nearby
+SI,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+SI,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+SI,ips_dup,FALSE,FALSE,FALSE,no evidence nearby
+SI,ips_sex,FALSE,FALSE,FALSE,no evidence nearby
+SI,ips_typ,TRUE,TRUE,TRUE,reports damage
+SI,lym_dis,FALSE,TRUE,TRUE,neighbour reports damage
+SI,lym_mon,FALSE,FALSE,FALSE,no evidence nearby
+SI,mel_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,neo_ser,FALSE,FALSE,FALSE,no evidence nearby
+SI,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,pan_fla,FALSE,FALSE,FALSE,no evidence nearby
+SI,pha_cya,FALSE,TRUE,TRUE,neighbour reports damage
+SI,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+SI,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+SI,pit_cha,TRUE,TRUE,TRUE,reports damage
+SI,pit_spp,TRUE,TRUE,TRUE,reports damage
+SI,pol_pol,FALSE,FALSE,FALSE,no evidence nearby
+SI,pri_abi,FALSE,FALSE,FALSE,no evidence nearby
+SI,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+SI,sco_int,FALSE,FALSE,FALSE,no evidence nearby
+SI,sco_rat,FALSE,FALSE,FALSE,no evidence nearby
+SI,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+SI,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+SI,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,tha_pit,FALSE,TRUE,TRUE,neighbour reports damage
+SI,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+SI,tom_spp,FALSE,TRUE,TRUE,neighbour reports damage
+SI,tor_vir,FALSE,FALSE,FALSE,no evidence nearby
+SI,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+SI,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+SI,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
+SK,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
+SK,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
+SK,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
+SK,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
+SK,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
+SK,Def_dec&DB,FALSE,TRUE,TRUE,neighbour reports damage
+SK,agr_big,FALSE,TRUE,TRUE,neighbour reports damage
+SK,agr_vir,FALSE,FALSE,FALSE,no evidence nearby
+SK,bup_pin,FALSE,TRUE,TRUE,neighbour reports damage
+SK,cep_spp,FALSE,TRUE,TRUE,neighbour reports damage
+SK,clo_ana,FALSE,FALSE,FALSE,no evidence nearby
+SK,den_mic,FALSE,TRUE,TRUE,neighbour reports damage
+SK,den_pin,FALSE,TRUE,TRUE,neighbour reports damage
+SK,dip_sp,FALSE,TRUE,TRUE,neighbour reports damage
+SK,era_def,FALSE,FALSE,FALSE,no evidence nearby
+SK,geo_db,FALSE,TRUE,TRUE,neighbour reports damage
+SK,ips_acu,TRUE,TRUE,TRUE,reports damage
+SK,ips_ami,FALSE,FALSE,FALSE,no evidence nearby
+SK,ips_cem,FALSE,FALSE,FALSE,no evidence nearby
+SK,ips_dup,TRUE,TRUE,TRUE,reports damage
+SK,ips_sex,FALSE,TRUE,TRUE,neighbour reports damage
+SK,ips_typ,TRUE,TRUE,TRUE,reports damage
+SK,lym_dis,TRUE,TRUE,TRUE,reports damage
+SK,lym_mon,FALSE,TRUE,TRUE,neighbour reports damage
+SK,mel_spp,FALSE,TRUE,TRUE,neighbour reports damage
+SK,neo_ser,FALSE,TRUE,TRUE,neighbour reports damage
+SK,ope_spp,FALSE,FALSE,FALSE,no evidence nearby
+SK,pan_fla,FALSE,TRUE,TRUE,neighbour reports damage
+SK,pha_cya,FALSE,TRUE,TRUE,neighbour reports damage
+SK,pis_pin,FALSE,FALSE,FALSE,no evidence nearby
+SK,pit_bid,FALSE,FALSE,FALSE,no evidence nearby
+SK,pit_cha,TRUE,TRUE,TRUE,reports damage
+SK,pit_spp,FALSE,TRUE,TRUE,neighbour reports damage
+SK,pol_pol,FALSE,TRUE,TRUE,neighbour reports damage
+SK,pri_abi,FALSE,TRUE,TRUE,neighbour reports damage
+SK,sap_car,FALSE,FALSE,FALSE,no evidence nearby
+SK,sco_int,FALSE,TRUE,TRUE,neighbour reports damage
+SK,sco_rat,FALSE,TRUE,TRUE,neighbour reports damage
+SK,sco_sco,FALSE,FALSE,FALSE,no evidence nearby
+SK,tet_gab,FALSE,TRUE,TRUE,neighbour reports damage
+SK,tet_spp,FALSE,FALSE,FALSE,no evidence nearby
+SK,tha_pit,FALSE,FALSE,FALSE,no evidence nearby
+SK,tha_pro,FALSE,FALSE,FALSE,no evidence nearby
+SK,tom_spp,FALSE,TRUE,TRUE,neighbour reports damage
+SK,tor_vir,FALSE,TRUE,TRUE,neighbour reports damage
+SK,uro_sir_spp,FALSE,FALSE,FALSE,no evidence nearby
+SK,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
+SK,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
+SK,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
