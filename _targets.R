@@ -443,6 +443,23 @@ list(
              format = "file"),
   tar_target(gf3_summary_csv, tab(dplyr::count(gf3_data, value_type, confidence), "GF2_dataset_summary.csv"), format = "file"),
 
+  # ---- Draft range rule, test round (R/range_rule.R) ---------------------------
+  tar_target(rng_draft, range_draft(gf3_L)),
+  tar_target(rng_draft_csv, tab(rng_draft, "GF2_range_draft_long.csv"), format = "file"),
+  tar_target(rng_draft_xlsx, {
+    path <- "outputs/tables/GF2_range_draft_for_correction.xlsx"
+    writexl::write_xlsx(list(`in range (1 = yes)` = range_draft_wide(rng_draft), reasons = rng_draft), path); path
+  }, format = "file"),
+  tar_target(gf3r_data, apply_range(gf3_data, rng_draft)),
+  tar_target(gf3r_tot, gapfill_totals_v2(gf3r_data, gf3_range, gf3_bt)),
+  tar_target(gf3r_effect, range_effect(gf3_tot, gf3r_tot)),
+  tar_target(gf3r_effect_csv, tab(gf3r_effect, "GF2_range_rule_effect.csv"), format = "file"),
+  tar_target(gf3r_eu_csv, tab(gf3r_tot$europe, "GF2_europe_totals_with_ranges_rangerule.csv"), format = "file"),
+  tar_target(gf3r_summary_csv, tab(dplyr::count(gf3r_data, value_type, confidence), "GF2_dataset_summary_rangerule.csv"), format = "file"),
+  tar_target(gf3r_data_csv, write_csv_out(gf3r_data, "data/processed/eufordam_gapfilled_v2_rangerule.csv"), format = "file"),
+  tar_target(fig_gf3r_europe, save_fig(plot_gf2_europe(gf3r_tot$europe), "outputs/figures/GF2_europe_totals_with_ranges_rangerule.png", 10, 10),
+             format = "file"),
+
   # ---- Factor model steps M1 / M2 (R/lfm_m12.R) ---------------------------------
   tar_target(m_specs, {
     base <- list(K1 = h_best1$K, lambda1 = h_best1$lambda, K2 = h_best2$K, lambda2 = h_best2$lambda, tau = 50)
