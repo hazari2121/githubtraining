@@ -67,3 +67,20 @@ range_effect <- function(tot_before, tot_after) {
                   filled_vs_reported_after = filled_after / pmax(reported, 1)) |>
     dplyr::arrange(dplyr::desc(filled_before))
 }
+
+# Manual corrections to the draft range table: for each listed insect, only
+# the given countries are in range (an expert assumption, labelled as such).
+# Scenario (Oct 2026): tha_pit taken as Thaumetopoea pityocampa, the
+# Mediterranean pine processionary moth; among the 16 EU-ForDAM countries it
+# occurs in BG, CH (south), HR, IT and SI. Germany's own reports are kept as
+# reported; the rule only decides where gaps may be filled.
+range_overrides_pityocampa <- tibble::tibble(species = "tha_pit", allowed = list(c("BG", "CH", "HR", "IT", "SI")))
+
+apply_range_overrides <- function(rd, ov) {
+  for (k in seq_len(nrow(ov))) {
+    i <- rd$species == ov$species[k]
+    rd$in_range[i] <- rd$country[i] %in% ov$allowed[[k]]
+    rd$reason[i] <- dplyr::if_else(rd$in_range[i], "expert assumption: in range", "expert assumption: outside range")
+  }
+  rd
+}

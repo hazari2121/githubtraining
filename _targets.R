@@ -500,6 +500,14 @@ list(
   tar_target(fig_v3_europe, save_fig(plot_gf2_europe(v3_tot$europe), "outputs/figures/GF3_europe_totals_with_ranges.png", 10, 10),
              format = "file"),
 
+  # ---- Scenario: tha_pit = Thaumetopoea pityocampa (southern range only) ---------
+  tar_target(rng_pityo, apply_range_overrides(rng_draft, range_overrides_pityocampa)),
+  tar_target(v3p_data, apply_range(gapfill_dataset_v2(v3_raw, v3_conf, dplyr::select(species_meta, species, unit), gf3_L$species),
+                                   rng_pityo)),
+  tar_target(v3p_tot, gapfill_totals_v2(v3p_data, v3_range, v3_bt)),
+  tar_target(v3p_effect_csv, tab(range_effect(v3_tot, v3p_tot), "GF3_scenario_pityocampa_vs_pinivora.csv"), format = "file"),
+  tar_target(v3p_eu_csv, tab(v3p_tot$europe, "GF3_europe_totals_scenario_pityocampa.csv"), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
