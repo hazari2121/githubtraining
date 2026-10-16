@@ -443,6 +443,24 @@ list(
              format = "file"),
   tar_target(gf3_summary_csv, tab(dplyr::count(gf3_data, value_type, confidence), "GF2_dataset_summary.csv"), format = "file"),
 
+  # ---- Factor model steps M1 / M2 (R/lfm_m12.R) ---------------------------------
+  tar_target(m_specs, {
+    base <- list(K1 = h_best1$K, lambda1 = h_best1$lambda, K2 = h_best2$K, lambda2 = h_best2$lambda, tau = 50)
+    list(
+      `M0 current` = c(base, list(tau_links = 0, lambda_rc = 0)),
+      `M1 region+year (pull 5)` = c(base, list(tau_links = 0, lambda_rc = 5)),
+      `M1 region+year (pull 20)` = c(base, list(tau_links = 0, lambda_rc = 20)),
+      `M2 K=3 + group links` = modifyList(c(base, list(tau_links = 50, lambda_rc = 5)), list(K1 = 3, K2 = 3)),
+      `M2 K=4 + group links` = modifyList(c(base, list(tau_links = 50, lambda_rc = 5)), list(K1 = 4, K2 = 4)),
+      `M2 K=4, no group links` = modifyList(c(base, list(tau_links = 0, lambda_rc = 5)), list(K1 = 4, K2 = 4)))
+  }),
+  tar_target(m_name, names(m_specs)),
+  tar_target(m_cv, variant_cv(gf3_L, gf3_blocks, host_status, gf3_group, m_specs[[m_name]]),
+             pattern = map(m_name), iteration = "list"),
+  tar_target(m_scores, purrr::map2_dfr(m_cv, m_name, variant_scores)),
+  tar_target(m_links, purrr::map_dfr(m_name, function(nm) variant_links(gf3_L, host_status, gf3_group, m_specs[[nm]], cb_verdict, nm))),
+  tar_target(m_scores_csv, tab(dplyr::left_join(m_scores, m_links, by = "model"), "GF_M0_M1_M2_comparison.csv"), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
