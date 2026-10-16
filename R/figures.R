@@ -1220,3 +1220,57 @@ plot_gf2_europe <- function(eu, n = 8) {
                   caption = "Filled = factor model; insects tested in >= 2 countries only (untested fills and aggregate reporting codes excluded).\nLine = middle, band = 80% range: each country's filled total x test errors resampled from hidden totals of that insect.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# ---- Correlation report tables as images ------------------------------------------
+
+plot_simple_table <- function(df, title, note = NULL, base_size = 10.5) {
+  fill <- rep(c("#f4f3ee", "#fcfcfb"), length.out = nrow(df))
+  th <- gridExtra::ttheme_minimal(
+    base_size = base_size,
+    core = list(bg_params = list(fill = fill, col = "white"), fg_params = list(hjust = 0, x = 0.04)),
+    colhead = list(bg_params = list(fill = "#16302B"), fg_params = list(col = "white", fontface = "bold", hjust = 0, x = 0.04)))
+  g <- gridExtra::tableGrob(df, rows = NULL, theme = th)
+  ttl <- grid::textGrob(title, x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
+  parts <- list(ttl, g); h <- c(0.45, 1)
+  if (!is.null(note)) {
+    parts[[3]] <- grid::textGrob(note, x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e")); h <- c(h, 0.45)
+  }
+  gridExtra::arrangeGrob(grobs = parts, ncol = 1, heights = grid::unit(h, c("in", "null", "in")[seq_along(h)]))
+}
+
+cm_table_questions <- function() {
+  data.frame(
+    Question = c("1. Does insect A have bad years when insect B does,\n    in the same region?",
+                 "2. Does that link hold in every country?",
+                 "3. Is it regional, or just years bad all over Europe?\n    Does one come first?",
+                 "4. Do linked insects share feeding type or host tree?"),
+    Metric = c("same-year r, within region", "r per country",
+               "r after removing Europe-wide years;\nA this year vs B next year",
+               "share of strong links within vs\nbetween groups"),
+    Objective = c("the premise", "1, gap-filling (links learnt in one\ncountry fill gaps in another)",
+                  "3, drivers and anticipation", "2, damage across agents\nand host trees"),
+    check.names = FALSE)
+}
+
+cm_table_verdicts <- function(v) {
+  v |> dplyr::count(verdict, name = "pairs", .drop = FALSE) |>
+    dplyr::mutate(share = paste0(round(100 * pairs / sum(pairs)), "%"),
+                  meaning = c("strong, and holds in every country checked: lean on it",
+                              "strong, but only seen in one country: cannot check yet",
+                              "strong, but differs between countries: do not transfer",
+                              "sure but small (r < 0.3)", "no detectable link",
+                              "recorded together too rarely to measure"),
+                  verdict = as.character(verdict)) |>
+    as.data.frame()
+}
+
+cm_table_groups <- function(v) {
+  strong <- c("usable", "promising", "unreliable")
+  v |> dplyr::filter(verdict != "not enough data") |>
+    dplyr::mutate(pair = dplyr::if_else(group_a == group_b, "same broad group", "different broad groups")) |>
+    dplyr::group_by(pair) |>
+    dplyr::summarise(`measurable pairs` = dplyr::n(), `strong links` = sum(verdict %in% strong),
+                     `share strong` = paste0(round(100 * mean(verdict %in% strong)), "%"),
+                     usable = sum(verdict == "usable"), .groups = "drop") |>
+    as.data.frame()
+}
