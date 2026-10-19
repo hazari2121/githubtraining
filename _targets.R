@@ -165,6 +165,20 @@ list(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level2_paper"),
                      paper_group_europe_correlations(cb_cells, ph_hier, "level2_paper"), by = c("level", "species_a", "species_b")))),
   tar_target(p_group_cm_csv, tab(p_group_cm, "CM_groups_level1_level2.csv"), format = "file"),
+  # Heatmaps at the three levels (level 3 = individual species only)
+  tar_target(heat_sp, p_rank_species$species[is_single_species(p_rank_species)]),
+  tar_target(fig_heat_l1, save_fig(plot_paper_group_heatmap(p_group_cm, "level1"), "outputs/figures/HEAT_1_level1_guild_x_host_type.png", 8, 6),
+             format = "file"),
+  tar_target(fig_heat_l2, save_fig(plot_paper_group_heatmap(p_group_cm, "level2"), "outputs/figures/HEAT_2_level2_by_host_tree.png", 9, 7),
+             format = "file"),
+  tar_target(fig_heat_l3, save_fig(
+    plot_cm_heatmap(dplyr::filter(cb_verdict, species_a %in% heat_sp, species_b %in% heat_sp),
+                    dplyr::filter(ph_hier, species %in% heat_sp), cm_basic_order(dplyr::filter(ph_hier, species %in% heat_sp))) +
+      ggplot2::labs(title = "Level 3: which individual species have bad years together?",
+                    caption = paste("Individual species only: genus-level codes, species groups and aggregate reporting codes are left out (they count at levels 1-2).",
+                                    "\nCZ and DE spruce bark-borer group counted as I. typographus, as in the 2025 EU-ForDAM paper.",
+                                    "log(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.")),
+    "outputs/figures/HEAT_3_level3_individual_species.png", 10, 10), format = "file"),
   tar_target(fig_p_group_l1, save_fig(plot_paper_group_heatmap(p_group_cm, "level1"), "outputs/figures/CM_groups_level1.png", 8, 6),
              format = "file"),
   tar_target(fig_p_group_l2, save_fig(plot_paper_group_heatmap(p_group_cm, "level2"), "outputs/figures/CM_groups_level2.png", 9, 7),

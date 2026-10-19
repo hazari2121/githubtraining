@@ -95,11 +95,17 @@ Red = bad years together. Strong colour = sure link; faded = could be chance; bl
 3. **The paper's level-1 groups matter**: pairs in the same level-1 group are strongly linked 28% of the time vs 6% across groups (permutation test p = 0.001).
 4. **Checks**: Spearman (rank) correlation gives the same answer (agreement 0.97); hiding one country at a time, all 28 usable links help predict the hidden country (typically 11% less error).
 
-### The same question for the paper's groups
+### The heatmaps at the paper's three levels
 
-![](../outputs/figures/CM_groups_level2.png)
+![](../outputs/figures/HEAT_1_level1_guild_x_host_type.png)
 
-Here the group series include the aggregates. Bark borers on spruce, pine and fir have bad years together (r 0.47-0.54 within regions; 0.70-0.91 for the Europe-wide totals, the paper's way). Spruce and pine defoliators go together (0.35). Borers and defoliators do **not** move together, and fir borers go **against** spruce defoliators (-0.36). Level 1: `outputs/figures/CM_groups_level1.png`; table `CM_groups_level1_level2.csv`.
+![](../outputs/figures/HEAT_2_level2_by_host_tree.png)
+
+![](../outputs/figures/HEAT_3_level3_individual_species.png)
+
+Level 3 shows individual species only (33 species, 528 pairs, 21 of them usable). The full verdicts above also include genus-level codes such as *Tomicus* spp. (43 insects, 28 usable pairs).
+
+Here the group series include the aggregates. Bark borers on spruce, pine and fir have bad years together (r 0.47-0.54 within regions; 0.70-0.91 for the Europe-wide totals, the paper's way). Spruce and pine defoliators go together (0.35). Borers and defoliators do **not** move together, and fir borers go **against** spruce defoliators (-0.36). Table: `CM_groups_level1_level2.csv`.
 
 ---
 

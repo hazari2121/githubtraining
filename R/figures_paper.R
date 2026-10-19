@@ -119,9 +119,9 @@ plot_paper_group_heatmap <- function(gc, level) {
     ggplot2::scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.3), guide = "none") +
     ggplot2::scale_x_discrete(labels = function(x) sub(" on ", "\non ", x)) +
     ggplot2::labs(x = NULL, y = NULL,
-                  title = if (level == "level1") "Level 1 groups: do they have bad years together?" else "Level 2 groups (gymnosperm hosts)",
-                  subtitle = "Top: r within regions, with 95% range (faded = range includes 0). Bottom: r of the Europe-wide yearly totals (the paper's approach)",
-                  caption = "Group value = sum of all recorded member codes in a region-year, aggregate codes included; borers m3, defoliators ha (never mixed within a group).") +
+                  title = if (level == "level1") "Level 1: do the broad groups have bad years together?" else "Level 2: do the host-tree groups have bad years together?",
+                  subtitle = "Top: r within regions, with 95% range (faded = range includes 0).\nBottom: r of the Europe-wide yearly totals (the paper's approach)",
+                  caption = "Group value = sum of all recorded member codes in a region-year, aggregate codes included.\nBorers m3, defoliators ha (never mixed within a group).") +
     theme_eu(8.5) + ggplot2::theme(panel.grid = ggplot2::element_blank())
 }
 
