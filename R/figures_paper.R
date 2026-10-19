@@ -144,3 +144,81 @@ plot_paper_group_totals <- function(gt) {
                   caption = "Filled insects tested in >= 2 countries only; T. pityocampa (tha_pit) filled only in BG, CH, HR, IT, SI; other insects in reporting countries and their land neighbours.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# ---- Share of the host affected (R/host_share.R) ---------------------------------
+
+share_cols <- c(`reported, all host (paper's way)` = "#9c9b97",
+                `reported + filled, all host` = "#1c5cab",
+                `reported, only where recorded` = "#eb6834")
+
+share_long <- function(st) {
+  st |>
+    dplyr::transmute(level, group, unit, host_group, paper_share_pct,
+                     `reported, all host (paper's way)` = share_pct_paper,
+                     `reported + filled, all host` = share_pct_paper_filled,
+                     `reported, only where recorded` = share_pct_where_recorded) |>
+    tidyr::pivot_longer(c(`reported, all host (paper's way)`, `reported + filled, all host`, `reported, only where recorded`),
+                        names_to = "version", values_to = "share") |>
+    dplyr::mutate(version = factor(version, names(share_cols)))
+}
+
+share_caption <- paste(
+  "Borers: % of host growing stock (m3) killed per year. Defoliators: % of host forest area (ha) defoliated per year (defoliated, not killed).",
+  "\nHost: level 1 = all conifers / all broadleaves; level 2 and species = spruce, pine, fir or oak (larch and other broadleaf hosts: all conifers / broadleaves).",
+  "\nAll host = host of all 77 regions, as in the 2025 EU-ForDAM paper (diamond = its Table 2). Only where recorded = host of the region-years where the insect has a record.",
+  "\nBG and LT species growing stocks read as 1000 m3. Filled = factor model, tested insects only.")
+
+plot_share_groups <- function(st) {
+  d <- share_long(dplyr::filter(st, level %in% c("level1", "level2"))) |>
+    dplyr::mutate(level_lab = dplyr::if_else(level == "level1", "Level 1", "Level 2"),
+                  group = factor(group, rev(c(paper_level1_order, paper_level2_order))))
+  p <- dplyr::distinct(d, level_lab, group, paper_share_pct)
+  ggplot2::ggplot(d, ggplot2::aes(share, group)) +
+    ggplot2::geom_col(ggplot2::aes(fill = version), position = ggplot2::position_dodge(width = 0.8), width = 0.75) +
+    ggplot2::geom_text(ggplot2::aes(label = formatC(share, format = "f", digits = 2), group = version),
+                       position = ggplot2::position_dodge(width = 0.8), hjust = -0.15, size = 2.4, colour = pal$ink2) +
+    ggplot2::geom_point(data = p, ggplot2::aes(paper_share_pct, group), shape = 23, size = 2.8, fill = "white", colour = pal$ink,
+                        position = ggplot2::position_nudge(y = 0.27)) +
+    ggplot2::scale_fill_manual(values = share_cols, name = NULL, guide = ggplot2::guide_legend(reverse = TRUE)) +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.12))) +
+    ggplot2::facet_grid(level_lab ~ ., scales = "free_y", space = "free_y") +
+    ggplot2::labs(x = "% of host affected per year (average 2000-2022)", y = NULL,
+                  title = "How much of the host is hit each year? Paper groups",
+                  caption = share_caption) +
+    theme_eu(8.5) + ggplot2::theme(legend.position = "top", strip.text.y = ggplot2::element_text(angle = 0, face = "bold"))
+}
+
+plot_share_species <- function(st, species_keep) {
+  d <- dplyr::filter(st, level == "species", group %in% species_keep) |>
+    dplyr::arrange(share_pct_paper_filled) |>
+    dplyr::mutate(lab = paste0(group, " (", host_group, ", ", unit, ")"), lab = factor(lab, lab))
+  dl <- share_long(d) |> dplyr::left_join(dplyr::select(d, group, lab), by = "group")
+  ggplot2::ggplot(dl, ggplot2::aes(share, lab)) +
+    ggplot2::geom_point(ggplot2::aes(colour = version), size = 2.2) +
+    ggplot2::geom_point(data = dplyr::filter(d, !is.na(paper_share_pct)), ggplot2::aes(paper_share_pct, lab),
+                        shape = 23, size = 2.8, fill = "white", colour = pal$ink) +
+    ggplot2::scale_colour_manual(values = share_cols, name = NULL) +
+    ggplot2::scale_x_log10(labels = function(x) formatC(x, format = "fg", digits = 2)) +
+    ggplot2::labs(x = "% of host affected per year (average 2000-2022, log scale)", y = NULL,
+                  title = "How much of the host is hit each year? Individual species",
+                  caption = share_caption) +
+    theme_eu(8.5) + ggplot2::theme(legend.position = "top")
+}
+
+plot_share_by_year <- function(sy, sy_filled) {
+  d <- dplyr::bind_rows(
+    dplyr::mutate(sy, version = "reported, all host (paper's way)", share = share_pct_paper),
+    dplyr::mutate(sy, version = "reported, only where recorded", share = share_pct_where_recorded),
+    dplyr::mutate(sy_filled, version = "reported + filled, all host", share = share_pct_paper)) |>
+    dplyr::filter(level %in% c("level1", "level2")) |>
+    dplyr::mutate(group = factor(group, c(paper_level1_order, paper_level2_order)),
+                  version = factor(version, names(share_cols)))
+  ggplot2::ggplot(d, ggplot2::aes(year, share, colour = version)) +
+    ggplot2::geom_line(linewidth = 0.7) +
+    ggplot2::scale_colour_manual(values = share_cols, name = NULL) +
+    ggplot2::facet_wrap(~ group, scales = "free_y", ncol = 3) +
+    ggplot2::labs(x = NULL, y = "% of host affected that year",
+                  title = "Share of the host affected, year by year (paper groups)",
+                  caption = share_caption) +
+    theme_eu(8.5) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
+}

@@ -1,0 +1,1399 @@
+level,group,unit,host_group,share_pct,country,nuts_id,n_years,damage,host
+level1,Borers on angiosperms,m3,broadleaves_all,4.575529130103935e-4,CZ,CZ02,23,1584.2857142857133,15054431
+level1,Borers on angiosperms,m3,broadleaves_all,1.0436917497629325e-4,CZ,CZ03,23,384.2857142857145,16008629.5
+level1,Borers on angiosperms,m3,broadleaves_all,5.514306308014054e-5,CZ,CZ04,23,164.28571428571436,12953319.5
+level1,Borers on angiosperms,m3,broadleaves_all,5.801447546390835e-4,CZ,CZ05,23,2287.142857142857,17140721
+level1,Borers on angiosperms,m3,broadleaves_all,2.882882264044153e-4,CZ,CZ06,23,1521.4285714285706,22945463
+level1,Borers on angiosperms,m3,broadleaves_all,2.009238947830179e-5,CZ,CZ07,23,131.42857142857144,28440050.5
+level1,Borers on angiosperms,m3,broadleaves_all,0.0021095857356105674,CZ,CZ08,23,5664.285714285716,11674012
+level1,Borers on angiosperms,m3,broadleaves_all,0.029565479288589967,DE,DE1,23,1182047.058823529,173828910
+level1,Borers on angiosperms,m3,broadleaves_all,0.04449706695897109,DE,DE2,23,2651033.333333335,259033520
+level1,Borers on angiosperms,m3,broadleaves_all,0.019590518008755668,DE,DE4,23,314267.64705882355,69747062
+level1,Borers on angiosperms,m3,broadleaves_all,0.002439776718609443,DE,DE7,23,80914.28571428575,144194032
+level1,Borers on angiosperms,m3,broadleaves_all,4.194091426168127e-4,DE,DE8,23,7178,74411100
+level1,Borers on angiosperms,m3,broadleaves_all,0,DE,DE9,23,0,145109295
+level1,Borers on angiosperms,m3,broadleaves_all,0.005573948652708526,DE,DEA,23,177217.64705882352,138234411
+level1,Borers on angiosperms,m3,broadleaves_all,0.09078769394562836,DE,DEB; DEC,23,3007657.1428571413,144036814
+level1,Borers on angiosperms,m3,broadleaves_all,0.0679426438257338,DE,DED,23,620163.3333333334,39685861
+level1,Borers on angiosperms,m3,broadleaves_all,0.009553633264635436,DE,DEE,23,109650.00000000001,49901343
+level1,Borers on angiosperms,m3,broadleaves_all,0.007553585813350016,DE,DEF,23,55680,32049276
+level1,Borers on angiosperms,m3,broadleaves_all,0.02595068242063579,DE,DEG,23,401815,67320840
+level1,Borers on angiosperms,m3,broadleaves_all,3.4546583850931676e-4,LT,LT,23,15573.6,196000000
+level1,Borers on angiosperms,m3,broadleaves_all,0.027005447434931124,PL,BIA,20,177240.88875,32815766
+level1,Borers on angiosperms,m3,broadleaves_all,0.0015310934580186394,PL,GDA,20,5630.7,18387839
+level1,Borers on angiosperms,m3,broadleaves_all,0.011741217878924261,PL,KAT,20,74382.4375,31675776
+level1,Borers on angiosperms,m3,broadleaves_all,0.004860148318522596,PL,KRA,20,18106.78875,18627815
+level1,Borers on angiosperms,m3,broadleaves_all,0.0018822294286262669,PL,KRO,20,17579.375,46698279
+level1,Borers on angiosperms,m3,broadleaves_all,0.014646945449299497,PL,LOD,20,26988.07500551939,9212868
+level1,Borers on angiosperms,m3,broadleaves_all,0.04833529102858912,PL,LUB,20,242458.8875,25080938
+level1,Borers on angiosperms,m3,broadleaves_all,0.02228255085007203,PL,OLS,20,165221.1749982938,37074116
+level1,Borers on angiosperms,m3,broadleaves_all,0.04279556066843483,PL,PIL,20,71377.17499869839,8339320
+level1,Borers on angiosperms,m3,broadleaves_all,0.17175285514550886,PL,POZ,20,689545.05,20073758
+level1,Borers on angiosperms,m3,broadleaves_all,0.006918500929019762,PL,RAD,20,16992.7875,12280686
+level1,Borers on angiosperms,m3,broadleaves_all,0.021475459504503386,PL,SZ1,20,142195.125,33106422
+level1,Borers on angiosperms,m3,broadleaves_all,0.01604990960797584,PL,SZ2,20,95954.6125,29892571
+level1,Borers on angiosperms,m3,broadleaves_all,0.0322754494687693,PL,TOR,20,68727.7875,10647069
+level1,Borers on angiosperms,m3,broadleaves_all,0.10884043799880184,PL,WAR,20,161511.7,7419655
+level1,Borers on angiosperms,m3,broadleaves_all,0.021700055860530598,PL,WRO,20,148702.14999076576,34263080
+level1,Borers on angiosperms,m3,broadleaves_all,0.05184903933248081,PL,ZIE,20,111817.3375,10782971
+level1,Borers on gymnosperms,m3,conifers_all,0.5384202866543216,AT,AT11,21,1901582,16818000
+level1,Borers on gymnosperms,m3,conifers_all,0.518994978536287,AT,AT12,21,16238154,148989000
+level1,Borers on gymnosperms,m3,conifers_all,0.20038314176245212,AT,AT13,21,3661,87000
+level1,Borers on gymnosperms,m3,conifers_all,0.13921907944464335,AT,AT21,21,4899370,167580000
+level1,Borers on gymnosperms,m3,conifers_all,0.1850049632759655,AT,AT22,21,10552487,271614000
+level1,Borers on gymnosperms,m3,conifers_all,0.3816429503030073,AT,AT31,21,9668054,120632000
+level1,Borers on gymnosperms,m3,conifers_all,0.19461524437038638,AT,AT32,21,3672016,89848000
+level1,Borers on gymnosperms,m3,conifers_all,0.11808462946514957,AT,AT33,21,2947488,118861000
+level1,Borers on gymnosperms,m3,conifers_all,0.11707775967219954,AT,AT34,21,566887,23057000
+level1,Borers on gymnosperms,m3,conifers_all,0.051747282933868315,BG,BG,18,2673264.636363637,287000000
+level1,Borers on gymnosperms,m3,conifers_all,0.2122064614222048,CH,CH,23,13984809,286530000
+level1,Borers on gymnosperms,m3,conifers_all,0.7229127904199661,CZ,CZ02,23,8964347.142857144,53914418
+level1,Borers on gymnosperms,m3,conifers_all,0.6567177826293753,CZ,CZ03,23,24821541.428571433,164331998
+level1,Borers on gymnosperms,m3,conifers_all,0.5995040894963305,CZ,CZ04,23,7001287.142857146,50775932
+level1,Borers on gymnosperms,m3,conifers_all,0.559305519899022,CZ,CZ05,23,11441189.999999998,88939412.5
+level1,Borers on gymnosperms,m3,conifers_all,1.321921776726819,CZ,CZ06,23,25346515.714285716,83365176.5
+level1,Borers on gymnosperms,m3,conifers_all,0.9626699562542219,CZ,CZ07,23,14222087.142857146,64232981.5
+level1,Borers on gymnosperms,m3,conifers_all,1.7905899963345866,CZ,CZ08,23,15323967.142857142,37208933.5
+level1,Borers on gymnosperms,m3,conifers_all,0.8208357038604328,DE,DE1,23,56428838.23529411,298893888
+level1,Borers on gymnosperms,m3,conifers_all,0.9183994352348913,DE,DE2,23,148635523.33333328,703660500
+level1,Borers on gymnosperms,m3,conifers_all,0.12094428009234261,DE,DE4,23,6367333.235294118,228899271
+level1,Borers on gymnosperms,m3,conifers_all,0.060252685550126424,DE,DE7,23,1740054.5238095238,125562112
+level1,Borers on gymnosperms,m3,conifers_all,0.11635457608753859,DE,DE8,23,2324904.2,86874788
+level1,Borers on gymnosperms,m3,conifers_all,3.645824381467304e-5,DE,DE9,23,151.515151515152,18068932
+level1,Borers on gymnosperms,m3,conifers_all,0.4107191056469521,DE,DEA,23,11965800.000000002,126668608
+level1,Borers on gymnosperms,m3,conifers_all,1.5487978248954228,DE,DEB; DEC,23,43983113.57142856,123470556
+level1,Borers on gymnosperms,m3,conifers_all,1.0498370154216403,DE,DED,23,27421839.333333336,113565617
+level1,Borers on gymnosperms,m3,conifers_all,0.08760228229002924,DE,DEE,23,1664989.9999999998,82635826
+level1,Borers on gymnosperms,m3,conifers_all,2.357815159935944,DE,DEF,23,11012165,20306502
+level1,Borers on gymnosperms,m3,conifers_all,1.793039925369087,DE,DEG,23,44236394.25,107265960
+level1,Borers on gymnosperms,m3,conifers_all,0.0026601263482280433,FI,FI196,11,17264.22,59000000
+level1,Borers on gymnosperms,m3,conifers_all,0.001282032577675489,FI,FI198,11,22281.7262,158000000
+level1,Borers on gymnosperms,m3,conifers_all,5.256126482213438e-5,FI,FI199,11,531.92,92000000
+level1,Borers on gymnosperms,m3,conifers_all,2.3064983164983166e-4,FI,FI19A,11,1370.06,54000000
+level1,Borers on gymnosperms,m3,conifers_all,0.007646079597747386,FI,FI19B,11,95040.7694,113000000
+level1,Borers on gymnosperms,m3,conifers_all,0.03318118612903226,FI,FI1B1,11,226295.6894,62000000
+level1,Borers on gymnosperms,m3,conifers_all,0.005298792727272727,FI,FI1C1,11,43715.04,75000000
+level1,Borers on gymnosperms,m3,conifers_all,0.007346297253384914,FI,FI1C2,11,37980.3568,47000000
+level1,Borers on gymnosperms,m3,conifers_all,0.05800483156673115,FI,FI1C5,11,299884.9792,47000000
+level1,Borers on gymnosperms,m3,conifers_all,0.023212256490486256,FI,FI1C6,11,109793.9732,43000000
+level1,Borers on gymnosperms,m3,conifers_all,0.03414201952380952,FI,FI1C7,11,157736.13019999999,42000000
+level1,Borers on gymnosperms,m3,conifers_all,5.724340175953079e-5,FI,FI1D5,11,195.20000000000002,31000000
+level1,Borers on gymnosperms,m3,conifers_all,0,FI,FI1D8,11,0,142000000
+level1,Borers on gymnosperms,m3,conifers_all,3.343192692474989e-5,FI,FI1D9,11,768.6,209000000
+level1,Borers on gymnosperms,m3,conifers_all,0.006211777108585858,FI,FI1DA,11,98394.54939999999,144000000
+level1,Borers on gymnosperms,m3,conifers_all,0.003092657931034483,FI,FI1DB,11,49327.894,145000000
+level1,Borers on gymnosperms,m3,conifers_all,0.0022356839882697946,FI,FI1DC,11,38118.412,155000000
+level1,Borers on gymnosperms,m3,conifers_all,0.1640683827848475,HR,HR,23,2488709,65951000
+level1,Borers on gymnosperms,m3,conifers_all,0.30517628458498025,HU,HU,23,3860480,55000000
+level1,Borers on gymnosperms,m3,conifers_all,0.10089744927536232,IT,IT,23,313286.58,13500000
+level1,Borers on gymnosperms,m3,conifers_all,0.14042147223614038,LT,LT,23,8849361.180321567,274000000
+level1,Borers on gymnosperms,m3,conifers_all,0.18145382454244247,PL,BIA,20,4363831.8375,120246345
+level1,Borers on gymnosperms,m3,conifers_all,0.17678976403748195,PL,GDA,20,1969720.835000009,55708000
+level1,Borers on gymnosperms,m3,conifers_all,0.378555717490763,PL,KAT,20,8267755.900173959,109201308
+level1,Borers on gymnosperms,m3,conifers_all,0.14702025207744873,PL,KRA,20,910557.2875,30967070
+level1,Borers on gymnosperms,m3,conifers_all,0.019692891142907426,PL,KRO,20,275379.025,69918384
+level1,Borers on gymnosperms,m3,conifers_all,0.03333052055209422,PL,LOD,20,397960.862527281,59699167
+level1,Borers on gymnosperms,m3,conifers_all,0.09677236173554915,PL,LUB,20,1446783.175,74751879
+level1,Borers on gymnosperms,m3,conifers_all,0.10449084123112551,PL,OLS,20,2400083.9872702807,114846620
+level1,Borers on gymnosperms,m3,conifers_all,0.0785914529092585,PL,PIL,20,1082549.1501375646,68871939
+level1,Borers on gymnosperms,m3,conifers_all,0.05299823783711293,PL,POZ,20,830849.5375,78384638
+level1,Borers on gymnosperms,m3,conifers_all,0.03838832280473779,PL,RAD,20,526292.80375,68548554
+level1,Borers on gymnosperms,m3,conifers_all,0.049066413716175324,PL,SZ1,20,1314334.625,133934246
+level1,Borers on gymnosperms,m3,conifers_all,0.1616147022795169,PL,SZ2,20,3552645.5125,109910963
+level1,Borers on gymnosperms,m3,conifers_all,0.06655321650457047,PL,TOR,20,1207492.3375,90716302
+level1,Borers on gymnosperms,m3,conifers_all,0.06592236224329318,PL,WAR,20,480034.0375,36409044
+level1,Borers on gymnosperms,m3,conifers_all,0.2140032757177044,PL,WRO,20,4354027.700082745,101728062
+level1,Borers on gymnosperms,m3,conifers_all,0.03125092366814177,PL,ZIE,20,527591.1,84412081
+level1,Borers on gymnosperms,m3,conifers_all,0.07348214935888958,RO,RO,22,12170542.323749574,752844703.221
+level1,Borers on gymnosperms,m3,conifers_all,0.023720861053219067,RS,RS,20,219513,46270032
+level1,Borers on gymnosperms,m3,conifers_all,0.06095609392063484,SE,SE,23,37900000,2703300000
+level1,Borers on gymnosperms,m3,conifers_all,0.3549307309977254,SI,SI,23,15265570.740212169,187000000
+level1,Borers on gymnosperms,m3,conifers_all,0.9241958218860837,SK,SK,22,40270623,198062231
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.09414880952380952,AT,AT11,21,1581.7,80000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.19347290640394088,AT,AT12,21,11782.5,290000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.027210884353741496,AT,AT13,21,40,7000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.026544715447154473,AT,AT21,21,457.1,82000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.0022662076878944347,AT,AT22,21,79,166000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.01550125313283208,AT,AT31,21,494.8,152000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0,AT,AT32,21,0,55000
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.1164021164021164e-5,AT,AT33,21,0.2,45000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0,AT,AT34,21,0,18000
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.3747488405750491,BG,BG,23,189058.18181818188,2193448
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.26698122131817886,CZ,CZ02,23,5450.85714285714,88767.96190000001
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.01626908531703115,CZ,CZ03,23,363.4285714285711,97124.3430599226
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.008779691584676723,CZ,CZ04,23,182.34285714285716,90298.73355
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.10543591476871768,CZ,CZ05,23,2236.6571428571424,92232.29385
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.8294868968397513,CZ,CZ06,23,24200.142857142862,126847.10611250001
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.11402364529208084,CZ,CZ07,23,3367.8142857142857,128417.845
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.010006071607812417,CZ,CZ08,23,151.28571428571433,65736.4849
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.7234701559074712,DE,DE1,23,241773.52941176467,609926
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.653409041648244,DE,DE2,23,530483.3333333335,869240
+level1,Defoliators on angiosperms,ha,broadleaves_all,3.1662475685806766,DE,DE4,23,190948.82352941172,262207
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.7237464389945422,DE,DE7,23,81090.47619047623,487142
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.5059670562240217,DE,DE8,23,29860,256590
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.010131733433424606,DE,DE9,23,1212,520105
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.792382347952494,DE,DEA,23,309340.6470588234,481653
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.577928464148809,DE,DEB; DEC,23,325399.9999999998,548806
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.8061059470328082,DE,DED,23,65680,158111
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.9649072109272139,DE,DEE,23,90569.66666666673,200407
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.8581235697940504,DE,DEF,23,21015,106476
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.3047642615118369,DE,DEG,23,65170,217164
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.6372764225146289,HR,HR,23,249093,1699440
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.0791133113735385,HU,HU,23,431588,1738899.47
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.1820520860620073,LT,LT,23,37714.92964028738,900720
+level1,Defoliators on angiosperms,ha,broadleaves_all,3.338897939354821,PL,BIA,20,97251.4125,145634
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.3733127714237275,PL,GDA,20,5725.05,76679
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.512881389650912,PL,KAT,20,71998.575,143259
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.8322205150147813,PL,KRA,20,10697.3625,64270
+level1,Defoliators on angiosperms,ha,broadleaves_all,3.8739873794207287,PL,KRO,20,126343.9,163067
+level1,Defoliators on angiosperms,ha,broadleaves_all,34.307812321408164,PL,LOD,20,300159.05,43745
+level1,Defoliators on angiosperms,ha,broadleaves_all,17.41231103576892,PL,LUB,20,405212.3375,116358
+level1,Defoliators on angiosperms,ha,broadleaves_all,1.5890260685796287,PL,OLS,20,52708.3125,165851
+level1,Defoliators on angiosperms,ha,broadleaves_all,5.552876453746168,PL,PIL,20,43831.075,39467
+level1,Defoliators on angiosperms,ha,broadleaves_all,15.052718794669618,PL,POZ,20,261158.65,86748
+level1,Defoliators on angiosperms,ha,broadleaves_all,18.161682946023518,PL,RAD,20,196164.3375,54005
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.272859506282995,PL,SZ1,20,61135.375,134490
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.6919233054269827,PL,SZ2,20,17818.962499999998,128764
+level1,Defoliators on angiosperms,ha,broadleaves_all,6.2263130792996915,PL,TOR,20,66503.25,53405
+level1,Defoliators on angiosperms,ha,broadleaves_all,9.891881486209003,PL,WAR,20,71296.725,36038
+level1,Defoliators on angiosperms,ha,broadleaves_all,6.0357173684864724,PL,WRO,20,174811.275,144814
+level1,Defoliators on angiosperms,ha,broadleaves_all,5.117346506950253,PL,ZIE,20,51392.4875,50214
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.42411243431145407,RO,RO,23,502540,5151833.205
+level1,Defoliators on angiosperms,ha,broadleaves_all,2.4867089648486527,RS,RS,23,1149148,2009200
+level1,Defoliators on angiosperms,ha,broadleaves_all,0.1908163643781759,SK,SK,22,51446,1225500
+level1,Defoliators on gymnosperms,ha,conifers_all,8.333333333333333e-5,AT,AT11,21,0.7,40000
+level1,Defoliators on gymnosperms,ha,conifers_all,5.623973727422003e-4,AT,AT12,21,41.1,348000
+level1,Defoliators on gymnosperms,ha,conifers_all,0.0785422469823584,AT,AT21,21,5921.3,359000
+level1,Defoliators on gymnosperms,ha,conifers_all,2.254390128144281e-4,AT,AT22,21,28.5,602000
+level1,Defoliators on gymnosperms,ha,conifers_all,0,AT,AT31,21,0,254000
+level1,Defoliators on gymnosperms,ha,conifers_all,0,AT,AT32,21,0,187000
+level1,Defoliators on gymnosperms,ha,conifers_all,0,AT,AT33,21,0,277000
+level1,Defoliators on gymnosperms,ha,conifers_all,1.5873015873015873e-4,AT,AT34,21,1.3,39000
+level1,Defoliators on gymnosperms,ha,conifers_all,0.35972885541111477,BG,BG,18,110494.54545454547,1706448
+level1,Defoliators on gymnosperms,ha,conifers_all,0.302634604468003,CZ,CZ02,23,14084.914285714292,202352.13309999998
+level1,Defoliators on gymnosperms,ha,conifers_all,0.08640023826101734,CZ,CZ03,23,11179.657142857139,562581.8394400773
+level1,Defoliators on gymnosperms,ha,conifers_all,0.01816155579275214,CZ,CZ04,23,854.0142857142855,204448.65145
+level1,Defoliators on gymnosperms,ha,conifers_all,0.46700257083264385,CZ,CZ05,23,33766.08571428571,314364.5827499999
+level1,Defoliators on gymnosperms,ha,conifers_all,0.15335973948709758,CZ,CZ06,23,9229.471428571425,261660.17743749992
+level1,Defoliators on gymnosperms,ha,conifers_all,0.02935638842629075,CZ,CZ07,23,1343.9428571428575,199044.57349500002
+level1,Defoliators on gymnosperms,ha,conifers_all,0.4181305627132221,CZ,CZ08,23,11483.279999999999,119406.01525000003
+level1,Defoliators on gymnosperms,ha,conifers_all,0.03345326680650355,DE,DE1,23,5323.529411764707,691884
+level1,Defoliators on gymnosperms,ha,conifers_all,1.3413088939289914,DE,DE2,23,482399.99999999965,1563690
+level1,Defoliators on gymnosperms,ha,conifers_all,3.019723940910463,DE,DE4,23,550099.9999999999,792039
+level1,Defoliators on gymnosperms,ha,conifers_all,0.02871954683688132,DE,DE7,23,2199.9999999999995,333056
+level1,Defoliators on gymnosperms,ha,conifers_all,0.29382918121293095,DE,DE8,23,17370,257026
+level1,Defoliators on gymnosperms,ha,conifers_all,1.3037467988127038,DE,DE9,23,18181.81818181818,60634
+level1,Defoliators on gymnosperms,ha,conifers_all,0.008528608014472255,DE,DEA,23,705.8823529411768,359854
+level1,Defoliators on gymnosperms,ha,conifers_all,0.004690917989103895,DE,DEB; DEC,23,364.285714285714,337642
+level1,Defoliators on gymnosperms,ha,conifers_all,0.48195019285188007,DE,DED,23,36916.666666666664,333037
+level1,Defoliators on gymnosperms,ha,conifers_all,0.9798211895810592,DE,DEE,23,62283.33333333341,276374
+level1,Defoliators on gymnosperms,ha,conifers_all,0,DE,DEF,23,0,57363
+level1,Defoliators on gymnosperms,ha,conifers_all,0.014779801208299364,DE,DEG,23,985.5,289908
+level1,Defoliators on gymnosperms,ha,conifers_all,0.510531410960583,HR,HR,23,45406,386690
+level1,Defoliators on gymnosperms,ha,conifers_all,0.5720440972745942,LT,LT,23,165683.6488876687,1259280
+level1,Defoliators on gymnosperms,ha,conifers_all,0.9257458799569267,PL,BIA,20,79092.025,427180
+level1,Defoliators on gymnosperms,ha,conifers_all,6.393833579728499,PL,GDA,20,265549.975,207661
+level1,Defoliators on gymnosperms,ha,conifers_all,0.09413346401871953,PL,KAT,20,8504.4125,451721
+level1,Defoliators on gymnosperms,ha,conifers_all,0,PL,KRA,20,0,103463
+level1,Defoliators on gymnosperms,ha,conifers_all,0.004682536833034839,PL,KRO,20,221.7125,236744
+level1,Defoliators on gymnosperms,ha,conifers_all,2.018159736611871,PL,LOD,20,96422.425,238887
+level1,Defoliators on gymnosperms,ha,conifers_all,0.7202037383719035,PL,LUB,20,39778.725,276163
+level1,Defoliators on gymnosperms,ha,conifers_all,3.5834624662076386,PL,OLS,20,287908.275,401718
+level1,Defoliators on gymnosperms,ha,conifers_all,7.431296620553889,PL,PIL,20,443927.825,298688
+level1,Defoliators on gymnosperms,ha,conifers_all,4.647860056992479,PL,POZ,20,298480.925,321095
+level1,Defoliators on gymnosperms,ha,conifers_all,0.14985815547103384,PL,RAD,20,7627.9,254504
+level1,Defoliators on gymnosperms,ha,conifers_all,3.4624778280110604,PL,SZ1,20,347856.45,502323
+level1,Defoliators on gymnosperms,ha,conifers_all,3.2913590097815044,PL,SZ2,20,290187.275,440832
+level1,Defoliators on gymnosperms,ha,conifers_all,14.783936106047065,PL,TOR,20,1088283.975,368063
+level1,Defoliators on gymnosperms,ha,conifers_all,2.7275226003949515,PL,WAR,20,79832.95,146347
+level1,Defoliators on gymnosperms,ha,conifers_all,2.620116671095244,PL,WRO,20,199184.9375,380107
+level1,Defoliators on gymnosperms,ha,conifers_all,9.51589114359599,PL,ZIE,20,712412.9,374328
+level2,Borers on A. alba,m3,fir,0,AT,AT11,21,0,251000
+level2,Borers on A. alba,m3,fir,0.03673971063351594,AT,AT12,21,62772,8136000
+level2,Borers on A. alba,m3,fir,0.007630967070417097,AT,AT21,21,9091,5673000
+level2,Borers on A. alba,m3,fir,0.010078762439277461,AT,AT22,21,25644,12116000
+level2,Borers on A. alba,m3,fir,0.03591183745029899,AT,AT31,21,57353,7605000
+level2,Borers on A. alba,m3,fir,0.0018291035314169316,AT,AT32,21,2640,6873000
+level2,Borers on A. alba,m3,fir,0.0030257340076979356,AT,AT33,21,4756,7485000
+level2,Borers on A. alba,m3,fir,0.03342433816988251,AT,AT34,21,32688,4657000
+level2,Borers on A. alba,m3,fir,1.4701116549651845,CZ,CZ02,23,153911.42857142855,455190
+level2,Borers on A. alba,m3,fir,0.015456620653460446,CZ,CZ03,23,9884.28571428572,2780372
+level2,Borers on A. alba,m3,fir,0.004079816163483676,CZ,CZ04,23,25.71428571428573,27403.499999999996
+level2,Borers on A. alba,m3,fir,0.027583156382829363,CZ,CZ05,23,4122.857142857143,649870
+level2,Borers on A. alba,m3,fir,0.1838151744048688,CZ,CZ06,23,40364.285714285754,954746.5
+level2,Borers on A. alba,m3,fir,0.004803328224205222,CZ,CZ07,23,2857.1428571428582,2586198.5
+level2,Borers on A. alba,m3,fir,0.024547316794169514,CZ,CZ08,23,4599.999999999999,814753
+level2,Borers on A. alba,m3,fir,0.36738983200994857,DE,DE1,23,4494047.05882353,53184202
+level2,Borers on A. alba,m3,fir,0.06992915592498779,DE,DE2,23,492133.3333333335,30598255
+level2,Borers on A. alba,m3,fir,0,DE,DE7,23,0,203689
+level2,Borers on A. alba,m3,fir,0,DE,DE8,23,0,194880
+level2,Borers on A. alba,m3,fir,0,DE,DE9,23,0,1337436
+level2,Borers on A. alba,m3,fir,0.04207364621521889,DE,DEA,23,3529.411764705884,364724
+level2,Borers on A. alba,m3,fir,1.2821004704007535,DE,DEB; DEC,23,621314.2857142863,2106985
+level2,Borers on A. alba,m3,fir,0,DE,DED,23,0,29406
+level2,Borers on A. alba,m3,fir,0,DE,DEE,23,0,6496
+level2,Borers on A. alba,m3,fir,0,DE,DEF,23,0,870750
+level2,Borers on A. alba,m3,fir,0,DE,DEG,23,0,171010
+level2,Borers on A. alba,m3,fir,0.18505899721894778,HR,HR,23,1455291,34191000
+level2,Borers on A. alba,m3,fir,0.060559989763661067,SI,SI,23,371931.17991294595,26702317.7
+level2,Borers on P. abies,m3,spruce,1.5198409789135596,AT,AT11,21,1741373,5456000
+level2,Borers on P. abies,m3,spruce,0.7637150265361181,AT,AT12,21,15277974,95261000
+level2,Borers on P. abies,m3,spruce,0.17281944029264182,AT,AT21,21,4804237,132377000
+level2,Borers on P. abies,m3,spruce,0.22800102438467218,AT,AT22,21,10140455,211788000
+level2,Borers on P. abies,m3,spruce,0.4465957700536635,AT,AT31,21,9549669,101825000
+level2,Borers on P. abies,m3,spruce,0.23503487382899782,AT,AT32,21,3669026,74336000
+level2,Borers on P. abies,m3,spruce,0.16061183832807183,AT,AT33,21,2928948,86839000
+level2,Borers on P. abies,m3,spruce,0.14061525120818924,AT,AT34,21,531880,18012000
+level2,Borers on P. abies,m3,spruce,0.15920528583975013,BG,BG,18,892864.636363637,31157000
+level2,Borers on P. abies,m3,spruce,0.3354787876636156,CH,CH,23,13984809,181244000
+level2,Borers on P. abies,m3,spruce,1.2281198189741886,CZ,CZ02,23,8676455.714285715,30716644.999999996
+level2,Borers on P. abies,m3,spruce,0.9511010663209883,CZ,CZ03,23,24737212.857142862,113082724
+level2,Borers on P. abies,m3,spruce,0.7451763409432166,CZ,CZ04,23,6979391.428571432,40722146.5
+level2,Borers on P. abies,m3,spruce,0.7328402840020067,CZ,CZ05,23,11301361.428571425,67049199
+level2,Borers on P. abies,m3,spruce,1.700177044426607,CZ,CZ06,23,24824831.42857143,63484006
+level2,Borers on P. abies,m3,spruce,1.2006204086987562,CZ,CZ07,23,14182480.000000002,51359244
+level2,Borers on P. abies,m3,spruce,2.067608910552661,CZ,CZ08,23,15285605.714285713,32143001
+level2,Borers on P. abies,m3,spruce,1.1291945127494898,DE,DE1,23,50507402.94117647,194472610
+level2,Borers on P. abies,m3,spruce,1.2982360302548153,DE,DE2,23,143427133.33333328,480341184
+level2,Borers on P. abies,m3,spruce,2.401634052195981,DE,DE4,23,3391297.0588235296,6139474
+level2,Borers on P. abies,m3,spruce,0.0934103005920597,DE,DE7,23,1630209.5238095238,75878864
+level2,Borers on P. abies,m3,spruce,0.5991325777383599,DE,DE8,23,2128684,15447579
+level2,Borers on P. abies,m3,spruce,0,DE,DE9,23,0,70095760
+level2,Borers on P. abies,m3,spruce,0.5105830879591985,DE,DEA,23,11264588.235294119,95922626
+level2,Borers on P. abies,m3,spruce,2.7084653681638677,DE,DEB; DEC,23,42173421.42857142,67699851
+level2,Borers on P. abies,m3,spruce,1.4672758225662321,DE,DED,23,23293766.666666668,69024000
+level2,Borers on P. abies,m3,spruce,0.36391430590898455,DE,DEE,23,1572263.333333333,18784443
+level2,Borers on P. abies,m3,spruce,4.505808479560389,DE,DEF,23,10899425,10517270
+level2,Borers on P. abies,m3,spruce,2.4857439581731713,DE,DEG,23,43531010,76140288
+level2,Borers on P. abies,m3,spruce,0.0060364405594405595,FI,FI196,11,17264.22,26000000
+level2,Borers on P. abies,m3,spruce,0.0029356688010540185,FI,FI198,11,22281.7262,69000000
+level2,Borers on P. abies,m3,spruce,2.0148484848484845e-4,FI,FI199,11,531.92,24000000
+level2,Borers on P. abies,m3,spruce,5.930995670995671e-4,FI,FI19A,11,1370.06,21000000
+level2,Borers on P. abies,m3,spruce,0.014164049090909092,FI,FI19B,11,95040.7694,61000000
+level2,Borers on P. abies,m3,spruce,0.06050686882352942,FI,FI1B1,11,226295.6894,34000000
+level2,Borers on P. abies,m3,spruce,0.013703774294670847,FI,FI1C1,11,43715.04,29000000
+level2,Borers on P. abies,m3,spruce,0.01150919903030303,FI,FI1C2,11,37980.3568,30000000
+level2,Borers on P. abies,m3,spruce,0.12982033731601733,FI,FI1C5,11,299884.9792,21000000
+level2,Borers on P. abies,m3,spruce,0.03441817341692789,FI,FI1C6,11,109793.9732,29000000
+level2,Borers on P. abies,m3,spruce,0.07547183263157893,FI,FI1C7,11,157736.13019999999,19000000
+level2,Borers on P. abies,m3,spruce,2.535064935064935e-4,FI,FI1D5,11,195.20000000000002,7000000
+level2,Borers on P. abies,m3,spruce,0,FI,FI1D8,11,0,39000000
+level2,Borers on P. abies,m3,spruce,1.425974025974026e-4,FI,FI1D9,11,768.6,49000000
+level2,Borers on P. abies,m3,spruce,0.01397649849431818,FI,FI1DA,11,98394.54939999999,64000000
+level2,Borers on P. abies,m3,spruce,0.005900465789473685,FI,FI1DB,11,49327.894,76000000
+level2,Borers on P. abies,m3,spruce,0.006417241077441077,FI,FI1DC,11,38118.412,54000000
+level2,Borers on P. abies,m3,spruce,0.3289863826769792,HR,HR,23,1002132,13244000
+level2,Borers on P. abies,m3,spruce,3.5069395615767105,HU,HU,23,3860480,4786137.70139442
+level2,Borers on P. abies,m3,spruce,0.506800132016332,IT,IT,23,313286.58,2687678
+level2,Borers on P. abies,m3,spruce,0.8546698356569278,LT,LT,23,7463075.505996723,37965718.48000001
+level2,Borers on P. abies,m3,spruce,0.8661146226777385,PL,BIA,20,3060495.875,17667961
+level2,Borers on P. abies,m3,spruce,2.720348090718699,PL,GDA,20,1426739.875,2622348
+level2,Borers on P. abies,m3,spruce,3.034562345558143,PL,KAT,20,7720928.01267395,12721650
+level2,Borers on P. abies,m3,spruce,1.1727050080777306,PL,KRA,20,813865.25,3470034
+level2,Borers on P. abies,m3,spruce,0.08823375689792413,PL,KRO,20,55245.8375,3130652
+level2,Borers on P. abies,m3,spruce,1.5412064731021355,PL,LOD,20,52147.3375,169177
+level2,Borers on P. abies,m3,spruce,0.8174222149357957,PL,LUB,20,36896.15,225686
+level2,Borers on P. abies,m3,spruce,0.8746073627263483,PL,OLS,20,1202777.3624470562,6876099
+level2,Borers on P. abies,m3,spruce,1.2812501998279193,PL,PIL,20,160311.56250270904,625606
+level2,Borers on P. abies,m3,spruce,2.5360618872354603,PL,POZ,20,239787.1875,472755
+level2,Borers on P. abies,m3,spruce,0.46246587361968183,PL,RAD,20,29542.4125,319401
+level2,Borers on P. abies,m3,spruce,0.756225656887389,PL,SZ1,20,529546.5625,3501247
+level2,Borers on P. abies,m3,spruce,1.6926891004527336,PL,SZ2,20,2178985.1375,6436460
+level2,Borers on P. abies,m3,spruce,3.9132187944339374,PL,TOR,20,340163.5875,434634
+level2,Borers on P. abies,m3,spruce,2.096832094374427,PL,WAR,20,75933,181066
+level2,Borers on P. abies,m3,spruce,0.42576699450978683,PL,WRO,20,3879191.187600306,45555330
+level2,Borers on P. abies,m3,spruce,1.1722530761067054,PL,ZIE,20,123490.0625,526721
+level2,Borers on P. abies,m3,spruce,0.10747441303232552,RO,RO,22,12170542.323749574,514733185
+level2,Borers on P. abies,m3,spruce,0.05799233394673877,RS,RS,20,219513,18926036
+level2,Borers on P. abies,m3,spruce,0.12070217454999427,SE,SE,23,37900000,1365200000
+level2,Borers on P. abies,m3,spruce,0.619294802122368,SI,SI,23,14843689.520305866,104211726.47
+level2,Borers on P. abies,m3,spruce,1.3804536453907466,SK,SK,22,39298116,129397898
+level2,Borers on P. sylvestris,m3,pine,0.0712383988000375,AT,AT11,21,159579,10667000
+level2,Borers on P. sylvestris,m3,pine,0.1219112549772265,AT,AT12,21,893718,34909000
+level2,Borers on P. sylvestris,m3,pine,0.09730848861283643,AT,AT13,21,470,23000
+level2,Borers on P. sylvestris,m3,pine,0.038291450469698514,AT,AT21,21,79037,9829000
+level2,Borers on P. sylvestris,m3,pine,0.08495549394425798,AT,AT22,21,314388,17622000
+level2,Borers on P. sylvestris,m3,pine,0.05572449642625081,AT,AT31,21,60032,5130000
+level2,Borers on P. sylvestris,m3,pine,0,AT,AT32,21,0,1304000
+level2,Borers on P. sylvestris,m3,pine,0.007076120659561798,AT,AT33,21,13784,9276000
+level2,Borers on P. sylvestris,m3,pine,0.03472596585804133,AT,AT34,21,2319,318000
+level2,Borers on P. sylvestris,m3,pine,0.5328401180364764,BG,BG,18,1780400,18563000
+level2,Borers on P. sylvestris,m3,pine,0.030014673003776943,CZ,CZ02,23,121048.57142857138,17534695
+level2,Borers on P. sylvestris,m3,pine,0.007341010832944703,CZ,CZ03,23,72878.57142857142,43163450
+level2,Borers on P. sylvestris,m3,pine,0.008018805098626326,CZ,CZ04,23,11928.571428571424,6467716
+level2,Borers on P. sylvestris,m3,pine,0.03544649470042131,CZ,CZ05,23,133268.57142857142,16346569
+level2,Borers on P. sylvestris,m3,pine,0.14314456913477094,CZ,CZ06,23,437797.1428571427,13297506.5
+level2,Borers on P. sylvestris,m3,pine,0.03077246125170346,CZ,CZ07,23,32845.71428571429,4640755
+level2,Borers on P. sylvestris,m3,pine,0.08225095934916586,CZ,CZ08,23,29072.85714285714,1536805.5
+level2,Borers on P. sylvestris,m3,pine,0.15637101767089745,DE,DE1,23,945951.7647058823,26301765
+level2,Borers on P. sylvestris,m3,pine,0.10510568793583062,DE,DE2,23,4034556.666666669,166894400
+level2,Borers on P. sylvestris,m3,pine,0.05143643662997672,DE,DE4,23,2555185,215985024
+level2,Borers on P. sylvestris,m3,pine,0.01023974886011905,DE,DE7,23,63105.00000000005,26794560
+level2,Borers on P. sylvestris,m3,pine,0.010452129395480304,DE,DE8,23,151159.4,62878554
+level2,Borers on P. sylvestris,m3,pine,0,DE,DE9,23,0,86605934
+level2,Borers on P. sylvestris,m3,pine,0.08913033781146096,DE,DEA,23,359547.0588235295,17538900
+level2,Borers on P. sylvestris,m3,pine,0.14183641984241682,DE,DEB; DEC,23,871526.4285714293,26715602
+level2,Borers on P. sylvestris,m3,pine,0.39766283487085846,DE,DED,23,3572706.666666667,39062004
+level2,Borers on P. sylvestris,m3,pine,0.00515366317460675,DE,DEE,23,70423.3333333333,59411800
+level2,Borers on P. sylvestris,m3,pine,9.025762674407492e-4,DE,DEF,23,800,3853703
+level2,Borers on P. sylvestris,m3,pine,0.06134615795774416,DE,DEG,23,353783.25,25073910
+level2,Borers on P. sylvestris,m3,pine,0.007346407807113942,HR,HR,23,31286,18516000
+level2,Borers on P. sylvestris,m3,pine,0.1846183960229293,LT,LT,23,1386285.6743248445,32647499.646
+level2,Borers on P. sylvestris,m3,pine,0.0635305305568838,PL,BIA,20,1303335.9625,102575561
+level2,Borers on P. sylvestris,m3,pine,0.05121688801690395,PL,GDA,20,542980.9600000089,53008000
+level2,Borers on P. sylvestris,m3,pine,0.029104698456318735,PL,KAT,20,546827.8875000089,93941514
+level2,Borers on P. sylvestris,m3,pine,0.031745641739284375,PL,KRA,20,96692.0375,15229183
+level2,Borers on P. sylvestris,m3,pine,0.02637105044940229,PL,KRO,20,220133.1875,41737660
+level2,Borers on P. sylvestris,m3,pine,0.029222031365799796,PL,LOD,20,345813.525027281,59170001
+level2,Borers on P. sylvestris,m3,pine,0.09696342242505447,PL,LUB,20,1409887.025,72702004
+level2,Borers on P. sylvestris,m3,pine,0.05545349550183189,PL,OLS,20,1197306.6248232245,107955920
+level2,Borers on P. sylvestris,m3,pine,0.06759242386175175,PL,PIL,20,922237.5876348555,68220485
+level2,Borers on P. sylvestris,m3,pine,0.037982283795612505,PL,POZ,20,591062.35,77807637
+level2,Borers on P. sylvestris,m3,pine,0.04181847367481381,PL,RAD,20,496750.39125,59393654
+level2,Borers on P. sylvestris,m3,pine,0.030167550173919647,PL,SZ1,20,784788.0625,130071560
+level2,Borers on P. sylvestris,m3,pine,0.06647156045214314,PL,SZ2,20,1373660.375,103326924
+level2,Borers on P. sylvestris,m3,pine,0.04804641434454737,PL,TOR,20,867328.75,90259467
+level2,Borers on P. sylvestris,m3,pine,0.0558408289654107,PL,WAR,20,404101.0375,36183295
+level2,Borers on P. sylvestris,m3,pine,0.04241193077726479,PL,WRO,20,474836.5124824397,55979120
+level2,Borers on P. sylvestris,m3,pine,0.02410354617666309,PL,ZIE,20,404101.0375,83826055
+level2,Borers on P. sylvestris,m3,pine,0.010989608335368084,SI,SI,23,49950.03999335528,19761767.69
+level2,Borers on P. sylvestris,m3,pine,0.13750227852714073,SK,SK,22,972507,32148459
+level2,Defoliators on P. abies,ha,spruce,0.5891500231388959,CZ,CZ02,23,14084.914285714292,103944.2508
+level2,Defoliators on P. abies,ha,spruce,0.13357104653035778,CZ,CZ03,23,11179.657142857139,363905.24916563206
+level2,Defoliators on P. abies,ha,spruce,0.025131648427355848,CZ,CZ04,23,854.0142857142855,147746.20140000002
+level2,Defoliators on P. abies,ha,spruce,0.6624256394378938,CZ,CZ05,23,33740.37142857143,221454.69369999992
+level2,Defoliators on P. abies,ha,spruce,0.13105442327784253,CZ,CZ06,23,5655.185714285713,187614.91111999995
+level2,Defoliators on P. abies,ha,spruce,0.03652538797771344,CZ,CZ07,23,1343.9428571428575,159977.21412925003
+level2,Defoliators on P. abies,ha,spruce,0.4998921368947666,CZ,CZ08,23,11483.279999999999,99876.15460000004
+level2,Defoliators on P. abies,ha,spruce,0.0010680732749072234,DE,DE1,23,108.8235294117647,442990
+level2,Defoliators on P. abies,ha,spruce,2.056839930544517,DE,DE2,23,481433.33333333296,1017672
+level2,Defoliators on P. abies,ha,spruce,61.00247887560518,DE,DE4,23,270032.3529411764,19246
+level2,Defoliators on P. abies,ha,spruce,0.017761774493902958,DE,DE7,23,752.380952380952,184172
+level2,Defoliators on P. abies,ha,spruce,0.07729760563549909,DE,DE8,23,706,39711
+level2,Defoliators on P. abies,ha,spruce,0.20863609908578998,DE,DE9,23,9090.90909090909,189448
+level2,Defoliators on P. abies,ha,spruce,0.0038399448729429975,DE,DEA,23,223.52941176470605,253094
+level2,Defoliators on P. abies,ha,spruce,0,DE,DEB; DEC,23,0,169844
+level2,Defoliators on P. abies,ha,spruce,0.6032768270477649,DE,DED,23,23943.333333333332,172560
+level2,Defoliators on P. abies,ha,spruce,1.1893329241510744,DE,DEE,23,13486.666666666699,49303
+level2,Defoliators on P. abies,ha,spruce,0,DE,DEF,23,0,26626
+level2,Defoliators on P. abies,ha,spruce,0.013704679720538557,DE,DEG,23,625,198282
+level2,Defoliators on P. abies,ha,spruce,0.18169985461079316,LT,LT,23,18819.893135048293,450334
+level2,Defoliators on P. abies,ha,spruce,4.287682425971502,PL,BIA,20,54704.825,63793
+level2,Defoliators on P. abies,ha,spruce,89.66432981061003,PL,GDA,20,171384.4,9557
+level2,Defoliators on P. abies,ha,spruce,0.4620874276278235,PL,KAT,20,4533.2625,49052
+level2,Defoliators on P. abies,ha,spruce,0,PL,KRA,20,0,13459
+level2,Defoliators on P. abies,ha,spruce,0.07291596011666554,PL,KRO,20,215,14743
+level2,Defoliators on P. abies,ha,spruce,261.30923847087377,PL,LOD,20,43063.7625,824
+level2,Defoliators on P. abies,ha,spruce,72.7444081211287,PL,LUB,20,21139.525,1453
+level2,Defoliators on P. abies,ha,spruce,30.127743686094895,PL,OLS,20,186810.0875,31003
+level2,Defoliators on P. abies,ha,spruce,345.6833646344987,PL,PIL,20,239282.025,3461
+level2,Defoliators on P. abies,ha,spruce,141.64086044520548,PL,POZ,20,82718.2625,2920
+level2,Defoliators on P. abies,ha,spruce,19.323121191604603,PL,RAD,20,5708.05,1477
+level2,Defoliators on P. abies,ha,spruce,54.688029569427634,PL,SZ1,20,126504.35,11566
+level2,Defoliators on P. abies,ha,spruce,40.56972900796778,PL,SZ2,20,185338.75,22842
+level2,Defoliators on P. abies,ha,spruce,1229.4431357347328,PL,TOR,20,515382.5625,2096
+level2,Defoliators on P. abies,ha,spruce,272.9283269441402,PL,WAR,20,49836.7125,913
+level2,Defoliators on P. abies,ha,spruce,4.53522507731592,PL,WRO,20,121129.5125,133543
+level2,Defoliators on P. abies,ha,spruce,485.9929625984252,PL,ZIE,20,246884.425,2540
+level2,Defoliators on P. sylvestris,ha,pine,1.4492753623188405e-4,AT,AT11,21,0.7,23000
+level2,Defoliators on P. sylvestris,ha,pine,0.003010989010989011,AT,AT12,21,41.1,65000
+level2,Defoliators on P. sylvestris,ha,pine,1.4098333333333333,AT,AT21,21,5921.3,20000
+level2,Defoliators on P. sylvestris,ha,pine,0.003991596638655462,AT,AT22,21,28.5,34000
+level2,Defoliators on P. sylvestris,ha,pine,0,AT,AT31,21,0,8000
+level2,Defoliators on P. sylvestris,ha,pine,0,AT,AT32,21,0,4000
+level2,Defoliators on P. sylvestris,ha,pine,0,AT,AT33,21,0,26000
+level2,Defoliators on P. sylvestris,ha,pine,0.006190476190476191,AT,AT34,21,1.3,1000
+level2,Defoliators on P. sylvestris,ha,pine,1.1482534406129905,BG,BG,18,110494.54545454547,534602
+level2,Defoliators on P. sylvestris,ha,pine,0,CZ,CZ02,23,0,78726.05129999999
+level2,Defoliators on P. sylvestris,ha,pine,0,CZ,CZ03,23,0,169329.62802705533
+level2,Defoliators on P. sylvestris,ha,pine,0,CZ,CZ04,23,0,30430.2555
+level2,Defoliators on P. sylvestris,ha,pine,0.0015880208412980407,CZ,CZ05,23,25.7142857142857,70402.88094999999
+level2,Defoliators on P. sylvestris,ha,pine,0.2939829075301236,CZ,CZ06,23,3574.285714285713,52861.48368749999
+level2,Defoliators on P. sylvestris,ha,pine,0,CZ,CZ07,23,0,16681.767691499997
+level2,Defoliators on P. sylvestris,ha,pine,0,CZ,CZ08,23,0,7091.658399999998
+level2,Defoliators on P. sylvestris,ha,pine,0.29739672693180147,DE,DE1,23,5214.705882352942,76237
+level2,Defoliators on P. sylvestris,ha,pine,0.010073192511491434,DE,DE2,23,966.6666666666671,417236
+level2,Defoliators on P. sylvestris,ha,pine,1.6236931387174645,DE,DE4,23,280067.64705882355,749948
+level2,Defoliators on P. sylvestris,ha,pine,0.0796305144131231,DE,DE7,23,1447.6190476190477,79040
+level2,Defoliators on P. sylvestris,ha,pine,0.37563536680013626,DE,DE8,23,16664,192879
+level2,Defoliators on P. sylvestris,ha,pine,0.1195729986041885,DE,DE9,23,9090.90909090909,330557
+level2,Defoliators on P. sylvestris,ha,pine,0.03587203360702092,DE,DEA,23,482.3529411764707,58463
+level2,Defoliators on P. sylvestris,ha,pine,0.018693359121860747,DE,DEB; DEC,23,364.285714285714,84728
+level2,Defoliators on P. sylvestris,ha,pine,0.3985458605759192,DE,DED,23,12973.33333333333,141529
+level2,Defoliators on P. sylvestris,ha,pine,0.9998794461901418,DE,DEE,23,48796.66666666671,212185
+level2,Defoliators on P. sylvestris,ha,pine,0,DE,DEF,23,0,12803
+level2,Defoliators on P. sylvestris,ha,pine,0.02156624156344184,DE,DEG,23,360.5,72678
+level2,Defoliators on P. sylvestris,ha,pine,2.3575040757624532,HR,HR,23,45406,83740
+level2,Defoliators on P. sylvestris,ha,pine,0.9041054965057789,LT,LT,23,146863.7557526204,706265
+level2,Defoliators on P. sylvestris,ha,pine,0.3355725753852166,PL,BIA,20,24387.2,363367
+level2,Defoliators on P. sylvestris,ha,pine,2.3792884539583397,PL,GDA,20,94165.575,197886
+level2,Defoliators on P. sylvestris,ha,pine,0.05027790438569837,PL,KAT,20,3971.15,394920
+level2,Defoliators on P. sylvestris,ha,pine,0,PL,KRA,20,0,53594
+level2,Defoliators on P. sylvestris,ha,pine,2.2026106473460388e-4,PL,KRO,20,6.7125,152376
+level2,Defoliators on P. sylvestris,ha,pine,1.1264706658503632,PL,LOD,20,53358.6625,236840
+level2,Defoliators on P. sylvestris,ha,pine,0.3463119170599383,PL,LUB,20,18639.2,269110
+level2,Defoliators on P. sylvestris,ha,pine,1.3637002058401406,PL,OLS,20,101098.1875,370676
+level2,Defoliators on P. sylvestris,ha,pine,3.4670567785612394,PL,PIL,20,204645.8,295129
+level2,Defoliators on P. sylvestris,ha,pine,3.394416060977912,PL,POZ,20,215762.6625,317820
+level2,Defoliators on P. sylvestris,ha,pine,0.042943515917184115,PL,RAD,20,1919.85,223532
+level2,Defoliators on P. sylvestris,ha,pine,2.258837804024336,PL,SZ1,20,221352.1,489969
+level2,Defoliators on P. sylvestris,ha,pine,1.2556438903113465,PL,SZ2,20,104848.525,417509
+level2,Defoliators on P. sylvestris,ha,pine,7.830009163917263,PL,TOR,20,572901.4125,365837
+level2,Defoliators on P. sylvestris,ha,pine,1.0322031871550288,PL,WAR,20,29996.2375,145302
+level2,Defoliators on P. sylvestris,ha,pine,1.587460341671751,PL,WRO,20,78055.425,245850
+level2,Defoliators on P. sylvestris,ha,pine,6.2631305799667425,PL,ZIE,20,465528.47500000003,371642
+species,geo_db,ha,oak,0.6275827814549344,BG,BG,18,18716.36363636362,165683
+species,geo_db,ha,oak,0.23876419172449007,DE,DE1,23,5429.411764705883,98868
+species,geo_db,ha,oak,0.045606690010275557,DE,DE2,23,1733.333333333334,165244
+species,geo_db,ha,oak,0.4513740977278421,DE,DE4,23,7320.58823529412,70515
+species,geo_db,ha,oak,0,DE,DE7,23,0,111895
+species,geo_db,ha,oak,1.8535889374330372,DE,DE8,23,21124,49549
+species,geo_db,ha,oak,0,DE,DE9,23,0,142468
+species,geo_db,ha,oak,0,DE,DEA,23,0,140162
+species,geo_db,ha,oak,0.02717170534241912,DE,DEB; DEC,23,1142.85714285714,182872
+species,geo_db,ha,oak,2.932244636632008,DE,DED,23,29066.666666666668,43099
+species,geo_db,ha,oak,0,DE,DEE,23,0,61320
+species,geo_db,ha,oak,0,DE,DEF,23,0,26255
+species,geo_db,ha,oak,2.9029321971265807,DE,DEG,23,23410,35062
+species,geo_db,ha,oak,0.9866469362721236,HR,HR,23,126683,558250
+species,geo_db,ha,oak,0.81288208909892945,LT,LT,23,6427.783831340875,34380
+species,geo_db,ha,oak,8.494901486346354,PL,BIA,20,73727.25,43395
+species,geo_db,ha,oak,0.8275182423857868,PL,GDA,20,2608.3375,15760
+species,geo_db,ha,oak,1.001191303215162,PL,KAT,20,9223.575,46063
+species,geo_db,ha,oak,2.6488753081347576,PL,KRA,20,6447.3625,12170
+species,geo_db,ha,oak,1.1283948955416756,PL,KRO,20,5239.1375,23215
+species,geo_db,ha,oak,2.7759800933043524,PL,LOD,20,10472.6625,18863
+species,geo_db,ha,oak,6.855659867835811,PL,LUB,20,75526.0625,55083
+species,geo_db,ha,oak,3.8249338297248783,PL,OLS,20,41763.6875,54594
+species,geo_db,ha,oak,8.236612540300914,PL,PIL,20,24525.337499999998,14888
+species,geo_db,ha,oak,8.845308685036624,PL,POZ,20,86222.3,48739
+species,geo_db,ha,oak,1.8607675333969467,PL,RAD,20,7800.3375,20960
+species,geo_db,ha,oak,4.5277809937617475,PL,SZ1,20,33242.0625,36709
+species,geo_db,ha,oak,2.7280335542115095,PL,SZ2,20,12268.5125,22486
+species,geo_db,ha,oak,5.663776315789474,PL,TOR,20,26902.9375,23750
+species,geo_db,ha,oak,5.936659469971652,PL,WAR,20,18010.6375,15169
+species,geo_db,ha,oak,3.201957961713414,PL,WRO,20,46599.375,72767
+species,geo_db,ha,oak,4.161295805485135,PL,ZIE,20,18055.8625,21695
+species,geo_db,ha,oak,0.19379778986772941,RO,RO,23,50221,1126701.053
+species,agr_big,m3,oak,0.08197631531682967,DE,DE1,23,572282.3529411762,30352476
+species,agr_big,m3,oak,0.1019700821732705,DE,DE2,23,1259533.3333333333,53704300
+species,agr_big,m3,oak,0.008263404199731615,DE,DE4,23,40205.88235294117,21154500
+species,agr_big,m3,oak,0.005232135925043654,DE,DE7,23,40800.00000000002,33904185
+species,agr_big,m3,oak,0.0014810440941095972,DE,DE8,23,4996,14666504
+species,agr_big,m3,oak,0,DE,DE9,23,0,45304824
+species,agr_big,m3,oak,0.0030127425282408323,DE,DEA,23,31370.58823529413,45272326
+species,agr_big,m3,oak,0.22170206303846898,DE,DEB; DEC,23,2496164.2857142845,48952581
+species,agr_big,m3,oak,0.005425617131925999,DE,DED,23,16349.999999999996,13102096
+species,agr_big,m3,oak,0.0058949058353465755,DE,DEE,23,22863.33333333334,16863000
+species,agr_big,m3,oak,0.01669100531418551,DE,DEF,23,31850,8296580
+species,agr_big,m3,oak,0.017783042665541253,DE,DEG,23,48615,11886018
+species,agr_big,m3,oak,0.09751615041246088,PL,BIA,20,177240.88875,9087771
+species,agr_big,m3,oak,0.00865334166491726,PL,GDA,20,5630.7,3253483
+species,agr_big,m3,oak,0.03560428929073583,PL,KAT,20,74382.4375,10445713
+species,agr_big,m3,oak,0.02842726894077005,PL,KRA,20,18106.78875,3184757
+species,agr_big,m3,oak,0.016580511905193072,PL,KRO,20,17579.375,5301216
+species,agr_big,m3,oak,0.03369763041628394,PL,LOD,20,26988.07500551939,4004447
+species,agr_big,m3,oak,0.10358407300630078,PL,LUB,20,242458.8875,11703483
+species,agr_big,m3,oak,0.07981899015554776,PL,OLS,20,165221.1749982938,10349741
+species,agr_big,m3,oak,0.1099182848845726,PL,PIL,20,71377.17499869839,3246829
+species,agr_big,m3,oak,0.27815198215619336,PL,POZ,20,689545.05,12395113
+species,agr_big,m3,oak,0.018042672574433722,PL,RAD,20,16992.7875,4709055
+species,agr_big,m3,oak,0.0772741720755913,PL,SZ1,20,142195.125,9200689
+species,agr_big,m3,oak,0.08651966079431239,PL,SZ2,20,95954.6125,5545249
+species,agr_big,m3,oak,0.0700666347705221,PL,TOR,20,68727.7875,4904459
+species,agr_big,m3,oak,0.2644077025306323,PL,WAR,20,161511.7,3054217
+species,agr_big,m3,oak,0.04014466502414254,PL,WRO,20,148702.14999076576,18520786
+species,agr_big,m3,oak,0.11676160778150796,PL,ZIE,20,111817.3375,4788275
+species,agr_vir,m3,oak,0.07531291693752813,DE,DE1,23,525764.7058823528,30352476
+species,agr_vir,m3,oak,0.09995151388169154,DE,DE2,23,1234600.0000000014,53704300
+species,agr_vir,m3,oak,2.067362279669505e-4,DE,DE4,23,1005.8823529411765,21154500
+species,agr_vir,m3,oak,3.407483480595655e-4,DE,DE7,23,2657.142857142857,33904185
+species,agr_vir,m3,oak,3.06525138772883e-4,DE,DE8,23,1034,14666504
+species,agr_vir,m3,oak,0,DE,DE9,23,0,45304824
+species,agr_vir,m3,oak,0,DE,DEA,23,0,45272326
+species,agr_vir,m3,oak,0.013434220180398554,DE,DEB; DEC,23,151257.1428571428,48952581
+species,agr_vir,m3,oak,2.6547362113399386e-4,DE,DED,23,799.9999999999998,13102096
+species,agr_vir,m3,oak,0,DE,DEE,23,0,16863000
+species,agr_vir,m3,oak,4.978478822127546e-4,DE,DEF,23,950,8296580
+species,agr_vir,m3,oak,0.013201481225946391,DE,DEG,23,36090,11886018
+species,sco_int,m3,oak,3.110548230911463e-4,CZ,CZ02,23,492.85714285714255,6889001.5
+species,sco_int,m3,oak,3.0350642445066693e-4,CZ,CZ03,23,291.42857142857156,4174807
+species,sco_int,m3,oak,1.815296311056515e-4,CZ,CZ04,23,127.14285714285724,3045205.5
+species,sco_int,m3,oak,5.458623192764498e-4,CZ,CZ05,23,618.5714285714282,4926958.5
+species,sco_int,m3,oak,4.1023124912313043e-4,CZ,CZ06,23,848.571428571428,8993564
+species,sco_int,m3,oak,8.274935960960174e-5,CZ,CZ07,23,98.57142857142856,5179151
+species,sco_int,m3,oak,0.008449604709574296,CZ,CZ08,23,2738.5714285714294,1409158.5
+species,sco_int,m3,oak,0.008296385994259348,DE,DE1,23,57917.64705882339,30352476
+species,sco_int,m3,oak,0,DE,DE2,23,0,53704300
+species,sco_int,m3,oak,0.005549840084691733,DE,DE4,23,27002.94117647059,21154500
+species,sco_int,m3,oak,0,DE,DE7,23,0,33904185
+species,sco_int,m3,oak,0,DE,DE8,23,0,14666504
+species,sco_int,m3,oak,0,DE,DE9,23,0,45304824
+species,sco_int,m3,oak,0.006397205398424749,DE,DEA,23,66611.76470588238,45272326
+species,sco_int,m3,oak,0.030718027065304954,DE,DEB; DEC,23,345857.1428571426,48952581
+species,sco_int,m3,oak,0.0016171768087412475,DE,DED,23,4873.333333333337,13102096
+species,sco_int,m3,oak,7.73496902144907e-6,DE,DEE,23,30,16863000
+species,sco_int,m3,oak,9.432907241925877e-4,DE,DEF,23,1800,8296580
+species,sco_int,m3,oak,0.002088679905795342,DE,DEG,23,5710,11886018
+species,sco_rat,m3,broadleaves_all,3.152122863299735e-4,CZ,CZ02,23,1091.4285714285706,15054431
+species,sco_rat,m3,broadleaves_all,2.5219317373453778e-5,CZ,CZ03,23,92.85714285714297,16008629.5
+species,sco_rat,m3,broadleaves_all,1.2467127305075247e-5,CZ,CZ04,23,37.14285714285714,12953319.5
+species,sco_rat,m3,broadleaves_all,4.232411451707993e-4,CZ,CZ05,23,1668.5714285714287,17140721
+species,sco_rat,m3,broadleaves_all,1.2749648322674142e-4,CZ,CZ06,23,672.8571428571425,22945463
+species,sco_rat,m3,broadleaves_all,5.023097369575452e-6,CZ,CZ07,23,32.85714285714289,28440050.5
+species,sco_rat,m3,broadleaves_all,0.0010896422664641722,CZ,CZ08,23,2925.7142857142867,11674012
+species,sco_rat,m3,broadleaves_all,0,DE,DE1,23,0,173828910
+species,sco_rat,m3,broadleaves_all,0,DE,DE2,23,0,259033520
+species,sco_rat,m3,broadleaves_all,6.862575821168957e-4,DE,DE4,23,11008.82352941176,69747062
+species,sco_rat,m3,broadleaves_all,0,DE,DE7,23,0,144194032
+species,sco_rat,m3,broadleaves_all,0,DE,DE8,23,0,74411100
+species,sco_rat,m3,broadleaves_all,0,DE,DE9,23,0,145109295
+species,sco_rat,m3,broadleaves_all,0,DE,DEA,23,0,138234411
+species,sco_rat,m3,broadleaves_all,0,DE,DEB; DEC,23,0,144036814
+species,sco_rat,m3,broadleaves_all,9.049329552976278e-4,DE,DED,23,8260,39685861
+species,sco_rat,m3,broadleaves_all,2.6719387759430335e-5,DE,DEE,23,306.66666666666697,49901343
+species,sco_rat,m3,broadleaves_all,0,DE,DEF,23,0,32049276
+species,sco_rat,m3,broadleaves_all,0,DE,DEG,23,0,67320840
+species,sco_rat,m3,broadleaves_all,3.3684117125110916e-4,LT,LT,23,15184.800000000001,196000000
+species,sco_sco,m3,broadleaves_all,1.6949376027855823e-4,DE,DE1,23,6776.470588235307,173828910
+species,sco_sco,m3,broadleaves_all,0,DE,DE2,23,0,259033520
+species,sco_sco,m3,broadleaves_all,4.4919344808613283e-5,DE,DE4,23,720.5882352941177,69747062
+species,sco_sco,m3,broadleaves_all,0,DE,DE7,23,0,144194032
+species,sco_sco,m3,broadleaves_all,0,DE,DE8,23,0,74411100
+species,sco_sco,m3,broadleaves_all,0,DE,DE9,23,0,145109295
+species,sco_sco,m3,broadleaves_all,0,DE,DEA,23,0,138234411
+species,sco_sco,m3,broadleaves_all,0,DE,DEB; DEC,23,0,144036814
+species,sco_sco,m3,broadleaves_all,1.972008861423402e-5,DE,DED,23,180,39685861
+species,sco_sco,m3,broadleaves_all,4.559721606772346e-5,DE,DEE,23,523.3333333333333,49901343
+species,sco_sco,m3,broadleaves_all,0.0027444152479179384,DE,DEF,23,20230,32049276
+species,sco_sco,m3,broadleaves_all,0,DE,DEG,23,0,67320840
+species,sco_sco,m3,broadleaves_all,8.624667258207632e-6,LT,LT,23,388.8,196000000
+species,sap_car,m3,broadleaves_all,0,DE,DE1,23,0,173828910
+species,sap_car,m3,broadleaves_all,0,DE,DE2,23,0,259033520
+species,sap_car,m3,broadleaves_all,1.8334426452495248e-6,DE,DE4,23,29.4117647058824,69747062
+species,sap_car,m3,broadleaves_all,0,DE,DE7,23,0,144194032
+species,sap_car,m3,broadleaves_all,0,DE,DE8,23,0,74411100
+species,sap_car,m3,broadleaves_all,0,DE,DE9,23,0,145109295
+species,sap_car,m3,broadleaves_all,0,DE,DEA,23,0,138234411
+species,sap_car,m3,broadleaves_all,0,DE,DEB; DEC,23,0,144036814
+species,sap_car,m3,broadleaves_all,0,DE,DED,23,0,39685861
+species,sap_car,m3,broadleaves_all,0,DE,DEE,23,0,49901343
+species,sap_car,m3,broadleaves_all,0,DE,DEF,23,0,32049276
+species,sap_car,m3,broadleaves_all,0,DE,DEG,23,0,67320840
+species,xyl_spp,m3,oak,0.0027654619980864554,DE,DE1,23,19305.88235294117,30352476
+species,xyl_spp,m3,oak,0.012702407685110478,DE,DE2,23,156900.0000000001,53704300
+species,xyl_spp,m3,oak,0.04815382432703882,DE,DE4,23,234294.11764705883,21154500
+species,xyl_spp,m3,oak,0.004803452519420329,DE,DE7,23,37457.14285714288,33904185
+species,xyl_spp,m3,oak,3.4031997999155677e-4,DE,DE8,23,1148,14666504
+species,xyl_spp,m3,oak,0,DE,DE9,23,0,45304824
+species,xyl_spp,m3,oak,0.007609533443728478,DE,DEA,23,79235.29411764702,45272326
+species,xyl_spp,m3,oak,0.001277062959158591,DE,DEB; DEC,23,14378.57142857144,48952581
+species,xyl_spp,m3,oak,0.1956872429783953,DE,DED,23,589700,13102096
+species,xyl_spp,m3,oak,0.022154670159434904,DE,DEE,23,85926.66666666667,16863000
+species,xyl_spp,m3,oak,4.4544284197983307e-4,DE,DEF,23,850,8296580
+species,xyl_spp,m3,oak,0.11390804249819081,DE,DEG,23,311400,11886018
+species,den_mic,m3,spruce,0,CZ,CZ02,23,0,30716644.999999996
+species,den_mic,m3,spruce,0,CZ,CZ03,23,0,113082724
+species,den_mic,m3,spruce,0,CZ,CZ04,23,0,40722146.5
+species,den_mic,m3,spruce,0,CZ,CZ05,23,0,67049199
+species,den_mic,m3,spruce,0,CZ,CZ06,23,0,63484006
+species,den_mic,m3,spruce,0,CZ,CZ07,23,0,51359244
+species,den_mic,m3,spruce,1.93235850138063e-6,CZ,CZ08,23,14.2857142857143,32143001
+species,den_mic,m3,spruce,0,DE,DE1,23,0,194472610
+species,den_mic,m3,spruce,0,DE,DE2,23,0,480341184
+species,den_mic,m3,spruce,0,DE,DE4,23,0,6139474
+species,den_mic,m3,spruce,0,DE,DE7,23,0,75878864
+species,den_mic,m3,spruce,0,DE,DE8,23,0,15447579
+species,den_mic,m3,spruce,0,DE,DE9,23,0,70095760
+species,den_mic,m3,spruce,0,DE,DEA,23,0,95922626
+species,den_mic,m3,spruce,0,DE,DEB; DEC,23,0,67699851
+species,den_mic,m3,spruce,0,DE,DED,23,0,69024000
+species,den_mic,m3,spruce,0,DE,DEE,23,0,18784443
+species,den_mic,m3,spruce,0.001033496831154026,DE,DEF,23,2500,10517270
+species,den_mic,m3,spruce,0,DE,DEG,23,0,76140288
+species,den_mic,m3,spruce,1.1497786861597005e-4,LT,LT,23,1004,37965718.48000001
+species,ips_ami,m3,spruce,0,DE,DE1,23,0,194472610
+species,ips_ami,m3,spruce,0,DE,DE2,23,0,480341184
+species,ips_ami,m3,spruce,0.006202785683631054,DE,DE4,23,8758.82352941177,6139474
+species,ips_ami,m3,spruce,0,DE,DE7,23,0,75878864
+species,ips_ami,m3,spruce,0,DE,DE8,23,0,15447579
+species,ips_ami,m3,spruce,0,DE,DE9,23,0,70095760
+species,ips_ami,m3,spruce,0,DE,DEA,23,0,95922626
+species,ips_ami,m3,spruce,0,DE,DEB; DEC,23,0,67699851
+species,ips_ami,m3,spruce,0,DE,DED,23,0,69024000
+species,ips_ami,m3,spruce,0,DE,DEE,23,0,18784443
+species,ips_ami,m3,spruce,0.17668661825409232,DE,DEF,23,427400,10517270
+species,ips_ami,m3,spruce,0,DE,DEG,23,0,76140288
+species,ips_dup,m3,spruce,0.023806664743666422,CZ,CZ02,23,168190,30716644.999999996
+species,ips_dup,m3,spruce,0.004257532884944199,CZ,CZ03,23,110734.28571428578,113082724
+species,ips_dup,m3,spruce,9.227814096575879e-5,CZ,CZ04,23,864.2857142857147,40722146.5
+species,ips_dup,m3,spruce,0.011507448692881542,CZ,CZ05,23,177460,67049199
+species,ips_dup,m3,spruce,0.20804457591397216,CZ,CZ06,23,3037725.7142857146,63484006
+species,ips_dup,m3,spruce,0.2162211835076686,CZ,CZ07,23,2554139.9999999995,51359244
+species,ips_dup,m3,spruce,0.7646238242604069,CZ,CZ08,23,5652779.999999999,32143001
+species,ips_dup,m3,spruce,0.005511646335231471,RO,RO,22,624146,514733185
+species,ips_dup,m3,spruce,0.1074671170285861,SK,SK,21,2920264,129397898
+species,ips_typ,m3,spruce,1.155110145231113,AT,AT11,21,1323479,5456000
+species,ips_typ,m3,spruce,0.6623831968411596,AT,AT12,21,13250850,95261000
+species,ips_typ,m3,spruce,0.15520042504866152,AT,AT21,21,4314443,132377000
+species,ips_typ,m3,spruce,0.1934717736604529,AT,AT22,21,8604750,211788000
+species,ips_typ,m3,spruce,0.39233928425286146,AT,AT31,21,8389489,101825000
+species,ips_typ,m3,spruce,0.21227387102064244,AT,AT32,21,3313714,74336000
+species,ips_typ,m3,spruce,0.15514309732460563,AT,AT33,21,2829219,86839000
+species,ips_typ,m3,spruce,0.12792952846250646,AT,AT34,21,483896,18012000
+species,ips_typ,m3,spruce,0.15920528583975013,BG,BG,18,892864.636363637,31157000
+species,ips_typ,m3,spruce,0.3354787876636156,CH,CH,23,13984809,181244000
+species,ips_typ,m3,spruce,1.1949824250557646,CZ,CZ02,23,8442345.714285715,30716644.999999996
+species,ips_typ,m3,spruce,0.9459223697235095,CZ,CZ03,23,24602520.000000004,113082724
+species,ips_typ,m3,spruce,0.7449498400517552,CZ,CZ04,23,6977270.000000004,40722146.5
+species,ips_typ,m3,spruce,0.7210739172503546,CZ,CZ05,23,11119908.571428569,67049199
+species,ips_typ,m3,spruce,1.4876169280744136,CZ,CZ06,23,21721172.85714286,63484006
+species,ips_typ,m3,spruce,0.9826648824082871,CZ,CZ07,23,11607852.85714286,51359244
+species,ips_typ,m3,spruce,1.2912228200943503,CZ,CZ08,23,9545868.57142857,32143001
+species,ips_typ,m3,spruce,1.0533944512106101,DE,DE1,23,47116964.70588235,194472610
+species,ips_typ,m3,spruce,1.1604731429363773,DE,DE2,23,128207299.99999996,480341184
+species,ips_typ,m3,spruce,1.8764968016491614,DE,DE4,23,2649761.7647058824,6139474
+species,ips_typ,m3,spruce,0.08403636420982366,DE,DE7,23,1466614.2857142857,75878864
+species,ips_typ,m3,spruce,0.5427449603704187,DE,DE8,23,1928342,15447579
+species,ips_typ,m3,spruce,0,DE,DE9,23,0,70095760
+species,ips_typ,m3,spruce,0.40714240660961437,DE,DEA,23,8982458.823529413,95922626
+species,ips_typ,m3,spruce,2.5912040845523068,DE,DEB; DEC,23,40347549.99999999,67699851
+species,ips_typ,m3,spruce,1.3284184287086869,DE,DED,23,21089333.333333332,69024000
+species,ips_typ,m3,spruce,0.28531550036501946,DE,DEE,23,1232683.333333333,18784443
+species,ips_typ,m3,spruce,3.2144789929573805,DE,DEF,23,7775735,10517270
+species,ips_typ,m3,spruce,2.2345467436200876,DE,DEG,23,39131977.5,76140288
+species,ips_typ,m3,spruce,0.0060364405594405595,FI,FI196,11,17264.22,26000000
+species,ips_typ,m3,spruce,0.0029356688010540185,FI,FI198,11,22281.7262,69000000
+species,ips_typ,m3,spruce,2.0148484848484845e-4,FI,FI199,11,531.92,24000000
+species,ips_typ,m3,spruce,5.930995670995671e-4,FI,FI19A,11,1370.06,21000000
+species,ips_typ,m3,spruce,0.014164049090909092,FI,FI19B,11,95040.7694,61000000
+species,ips_typ,m3,spruce,0.06050686882352942,FI,FI1B1,11,226295.6894,34000000
+species,ips_typ,m3,spruce,0.013703774294670847,FI,FI1C1,11,43715.04,29000000
+species,ips_typ,m3,spruce,0.01150919903030303,FI,FI1C2,11,37980.3568,30000000
+species,ips_typ,m3,spruce,0.12982033731601733,FI,FI1C5,11,299884.9792,21000000
+species,ips_typ,m3,spruce,0.03441817341692789,FI,FI1C6,11,109793.9732,29000000
+species,ips_typ,m3,spruce,0.07547183263157893,FI,FI1C7,11,157736.13019999999,19000000
+species,ips_typ,m3,spruce,2.535064935064935e-4,FI,FI1D5,11,195.20000000000002,7000000
+species,ips_typ,m3,spruce,0,FI,FI1D8,11,0,39000000
+species,ips_typ,m3,spruce,1.425974025974026e-4,FI,FI1D9,11,768.6,49000000
+species,ips_typ,m3,spruce,0.01397649849431818,FI,FI1DA,11,98394.54939999999,64000000
+species,ips_typ,m3,spruce,0.005900465789473685,FI,FI1DB,11,49327.894,76000000
+species,ips_typ,m3,spruce,0.006417241077441077,FI,FI1DC,11,38118.412,54000000
+species,ips_typ,m3,spruce,0.3289863826769792,HR,HR,23,1002132,13244000
+species,ips_typ,m3,spruce,3.5069395615767105,HU,HU,23,3860480,4786137.70139442
+species,ips_typ,m3,spruce,0.5061805572788433,IT,IT,23,312903.58,2687678
+species,ips_typ,m3,spruce,0.8518000656748278,LT,LT,23,7438016.343770888,37965718.48000001
+species,ips_typ,m3,spruce,0.8661146226777385,PL,BIA,20,3060495.875,17667961
+species,ips_typ,m3,spruce,2.720348090718699,PL,GDA,20,1426739.875,2622348
+species,ips_typ,m3,spruce,3.034562345558143,PL,KAT,20,7720928.01267395,12721650
+species,ips_typ,m3,spruce,1.1727050080777306,PL,KRA,20,813865.25,3470034
+species,ips_typ,m3,spruce,0.08823375689792413,PL,KRO,20,55245.8375,3130652
+species,ips_typ,m3,spruce,1.5412064731021355,PL,LOD,20,52147.3375,169177
+species,ips_typ,m3,spruce,0.8174222149357957,PL,LUB,20,36896.15,225686
+species,ips_typ,m3,spruce,0.8746073627263483,PL,OLS,20,1202777.3624470562,6876099
+species,ips_typ,m3,spruce,1.2812501998279193,PL,PIL,20,160311.56250270904,625606
+species,ips_typ,m3,spruce,2.5360618872354603,PL,POZ,20,239787.1875,472755
+species,ips_typ,m3,spruce,0.46246587361968183,PL,RAD,20,29542.4125,319401
+species,ips_typ,m3,spruce,0.756225656887389,PL,SZ1,20,529546.5625,3501247
+species,ips_typ,m3,spruce,1.6926891004527336,PL,SZ2,20,2178985.1375,6436460
+species,ips_typ,m3,spruce,3.9132187944339374,PL,TOR,20,340163.5875,434634
+species,ips_typ,m3,spruce,2.096832094374427,PL,WAR,20,75933,181066
+species,ips_typ,m3,spruce,0.42576699450978683,PL,WRO,20,3879191.187600306,45555330
+species,ips_typ,m3,spruce,1.1722530761067054,PL,ZIE,20,123490.0625,526721
+species,ips_typ,m3,spruce,0.10196276669709405,RO,RO,22,11546396.323749574,514733185
+species,ips_typ,m3,spruce,0.05799233394673877,RS,RS,20,219513,18926036
+species,ips_typ,m3,spruce,0.12070217454999427,SE,SE,23,37900000,1365200000
+species,ips_typ,m3,spruce,0.6115422964550707,SI,SI,23,14657872.060292639,104211726.47
+species,ips_typ,m3,spruce,1.2392006131773063,SK,SK,22,35276990,129397898
+species,pit_cha,m3,spruce,0.3647308336824466,AT,AT11,21,417894,5456000
+species,pit_cha,m3,spruce,0.10133182969495837,AT,AT12,21,2027124,95261000
+species,pit_cha,m3,spruce,0.017619015243980306,AT,AT21,21,489794,132377000
+species,pit_cha,m3,spruce,0.03452925072421928,AT,AT22,21,1535705,211788000
+species,pit_cha,m3,spruce,0.05425648580080203,AT,AT31,21,1160180,101825000
+species,pit_cha,m3,spruce,0.02276100280835537,AT,AT32,21,355312,74336000
+species,pit_cha,m3,spruce,0.005468741003466185,AT,AT33,21,99729,86839000
+species,pit_cha,m3,spruce,0.012685722745682772,AT,AT34,21,47984,18012000
+species,pit_cha,m3,spruce,0.05127580244042993,DE,DE1,23,2293499.999999999,194472610
+species,pit_cha,m3,spruce,0.10787018577533253,DE,DE2,23,11917333.333333332,480341184
+species,pit_cha,m3,spruce,0.04977641781981694,DE,DE4,23,70288.23529411764,6139474
+species,pit_cha,m3,spruce,0.00916806722198579,DE,DE7,23,160002.38095238103,75878864
+species,pit_cha,m3,spruce,0.04244818810316068,DE,DE8,23,150816,15447579
+species,pit_cha,m3,spruce,0,DE,DE9,23,0,70095760
+species,pit_cha,m3,spruce,0.04071882662484244,DE,DEA,23,898347.0588235289,95922626
+species,pit_cha,m3,spruce,0.06326059593919427,DE,DEB; DEC,23,985028.5714285711,67699851
+species,pit_cha,m3,spruce,0.028677275872958305,DE,DED,23,455266.66666666704,69024000
+species,pit_cha,m3,spruce,0.013862072159809391,DE,DEE,23,59890.00000000007,18784443
+species,pit_cha,m3,spruce,0.9435722718753143,DE,DEF,23,2282475,10517270
+species,pit_cha,m3,spruce,0.08173827878030251,DE,DEG,23,1431422.5,76140288
+species,pit_cha,m3,spruce,6.19574737488772e-4,IT,IT,23,383,2687678
+species,pit_cha,m3,spruce,0.0022793059476537833,LT,LT,23,19903.162225835033,37965718.48000001
+species,pit_cha,m3,spruce,0.007752505667297319,SI,SI,23,185817.46001322797,104211726.47
+species,pit_cha,m3,spruce,0.03867078414069896,SK,SK,22,1100862,129397898
+species,pol_pol,m3,spruce,0.009330729174757661,CZ,CZ02,23,65920.00000000001,30716644.999999996
+species,pol_pol,m3,spruce,9.211637125344989e-4,CZ,CZ03,23,23958.571428571435,113082724
+species,pol_pol,m3,spruce,1.3422275049564906e-4,CZ,CZ04,23,1257.1428571428567,40722146.5
+species,pol_pol,m3,spruce,0.00025891805877061957,CZ,CZ05,23,3992.857142857142,67049199
+species,pol_pol,m3,spruce,0.004515540438221431,CZ,CZ06,23,65932.85714285714,63484006
+species,pol_pol,m3,spruce,0.0017343427828005152,CZ,CZ07,23,20487.14285714285,51359244
+species,pol_pol,m3,spruce,0.011760333839402504,CZ,CZ08,23,86942.85714285716,32143001
+species,pol_pol,m3,spruce,4.754861658301869e-4,LT,LT,23,4152,37965718.48000001
+species,tet_spp,m3,spruce,7.748676643173506e-4,DE,DE1,23,34658.823529411784,194472610
+species,tet_spp,m3,spruce,3.017179060621301e-6,DE,DE2,23,333.333333333334,480341184
+species,tet_spp,m3,spruce,9.602028878958744e-4,DE,DE4,23,1355.8823529411761,6139474
+species,tet_spp,m3,spruce,2.0586916025024254e-4,DE,DE7,23,3592.8571428571427,75878864
+species,tet_spp,m3,spruce,0,DE,DE8,23,0,15447579
+species,tet_spp,m3,spruce,0,DE,DE9,23,0,70095760
+species,tet_spp,m3,spruce,0.015959687557604636,DE,DEA,23,352105.8823529415,95922626
+species,tet_spp,m3,spruce,5.064370715633376e-4,DE,DEB; DEC,23,7885.714285714287,67699851
+species,tet_spp,m3,spruce,2.0996687562570107e-6,DE,DED,23,33.3333333333333,69024000
+species,tet_spp,m3,spruce,0,DE,DEE,23,0,18784443
+species,tet_spp,m3,spruce,0.0016081210692756647,DE,DEF,23,3890,10517270
+species,tet_spp,m3,spruce,0,DE,DEG,23,0,76140288
+species,uro_sir_spp,m3,spruce,2.959016029725113e-6,DE,DE1,23,132.3529411764705,194472610
+species,uro_sir_spp,m3,spruce,0,DE,DE2,23,0,480341184
+species,uro_sir_spp,m3,spruce,0,DE,DE4,23,0,6139474
+species,uro_sir_spp,m3,spruce,0,DE,DE7,23,0,75878864
+species,uro_sir_spp,m3,spruce,0,DE,DE8,23,0,15447579
+species,uro_sir_spp,m3,spruce,0,DE,DE9,23,0,70095760
+species,uro_sir_spp,m3,spruce,0.001463509054824616,DE,DEA,23,32288.23529411768,95922626
+species,uro_sir_spp,m3,spruce,0,DE,DEB; DEC,23,0,67699851
+species,uro_sir_spp,m3,spruce,5.039205015016838e-5,DE,DED,23,800.0000000000011,69024000
+species,uro_sir_spp,m3,spruce,0,DE,DEE,23,0,18784443
+species,uro_sir_spp,m3,spruce,6.200980986924157e-4,DE,DEF,23,1500,10517270
+species,uro_sir_spp,m3,spruce,0,DE,DEG,23,0,76140288
+species,xyl_lin,m3,spruce,0.023746432418102925,DE,DE1,23,1062147.05882353,194472610
+species,xyl_lin,m3,spruce,0.02988968436404486,DE,DE2,23,3302166.666666667,480341184
+species,xyl_lin,m3,spruce,0.4681978441554754,DE,DE4,23,661132.3529411764,6139474
+species,xyl_lin,m3,spruce,0,DE,DE7,23,0,75878864
+species,xyl_lin,m3,spruce,0.013939429264780501,DE,DE8,23,49526,15447579
+species,xyl_lin,m3,spruce,0,DE,DE9,23,0,70095760
+species,xyl_lin,m3,spruce,0.04529865811231241,DE,DEA,23,999388.235294118,95922626
+species,xyl_lin,m3,spruce,0.05349425060080347,DE,DEB; DEC,23,832957.1428571427,67699851
+species,xyl_lin,m3,spruce,0.11012762626568035,DE,DED,23,1748333.3333333337,69024000
+species,xyl_lin,m3,spruce,0.06473673338415568,DE,DEE,23,279690,18784443
+species,xyl_lin,m3,spruce,0.16780888047447923,DE,DEF,23,405925,10517270
+species,xyl_lin,m3,spruce,0.16945893577278096,DE,DEG,23,2967610,76140288
+species,ips_acu,m3,pine,0.46870417257746894,BG,BG,18,1566100,18563000
+species,ips_acu,m3,pine,0.01172227882212559,CZ,CZ02,23,47275.714285714246,17534695
+species,ips_acu,m3,pine,0.0017862191016238863,CZ,CZ03,23,17732.857142857134,43163450
+species,ips_acu,m3,pine,0.001900504825171437,CZ,CZ04,23,2827.1428571428564,6467716
+species,ips_acu,m3,pine,0.008470256194385043,CZ,CZ05,23,31845.714285714283,16346569
+species,ips_acu,m3,pine,0.08182125224307071,CZ,CZ06,23,250244.28571428562,13297506.5
+species,ips_acu,m3,pine,0.02299235002796685,CZ,CZ07,23,24541.428571428576,4640755
+species,ips_acu,m3,pine,0.036192685419477184,CZ,CZ08,23,12792.857142857138,1536805.5
+species,ips_acu,m3,pine,0.002923135831893977,DE,DE1,23,17683.235294117625,26301765
+species,ips_acu,m3,pine,0,DE,DE2,23,0,166894400
+species,ips_acu,m3,pine,0.0032079282039845372,DE,DE4,23,159358.82352941175,215985024
+species,ips_acu,m3,pine,8.329616377246037e-4,DE,DE7,23,5133.333333333336,26794560
+species,ips_acu,m3,pine,0,DE,DE8,23,0,62878554
+species,ips_acu,m3,pine,0,DE,DE9,23,0,86605934
+species,ips_acu,m3,pine,0,DE,DEA,23,0,17538900
+species,ips_acu,m3,pine,3.7931169855992075e-4,DE,DEB; DEC,23,2330.7142857142876,26715602
+species,ips_acu,m3,pine,0.10605212921621163,DE,DED,23,952800.0000000003,39062004
+species,ips_acu,m3,pine,1.3489732264673326e-4,DE,DEE,23,1843.333333333333,59411800
+species,ips_acu,m3,pine,0,DE,DEF,23,0,3853703
+species,ips_acu,m3,pine,0.020203747900576302,DE,DEG,23,116515,25073910
+species,ips_acu,m3,pine,0.13989649370875282,LT,LT,23,1050472.2676316241,32647499.646
+species,ips_acu,m3,pine,0.013775670637082845,PL,BIA,20,282609.42875,102575561
+species,ips_acu,m3,pine,4.525272128735285e-4,PL,GDA,20,4797.5125,53008000
+species,ips_acu,m3,pine,0.002127813535132082,PL,KAT,20,39978.005,93941514
+species,ips_acu,m3,pine,0.004379207341588843,PL,KRA,20,13338.35,15229183
+species,ips_acu,m3,pine,0.01023121115318875,PL,KRO,20,85405.3625,41737660
+species,ips_acu,m3,pine,0.004848020557748512,PL,LOD,20,57371.47625,59170001
+species,ips_acu,m3,pine,0.03731469527304915,PL,LUB,20,542570.625,72702004
+species,ips_acu,m3,pine,0.008029249924413595,PL,OLS,20,173361.0125,107955920
+species,ips_acu,m3,pine,0.00495102323371052,PL,PIL,20,67552.24125,68220485
+species,ips_acu,m3,pine,0.008895849693391923,PL,POZ,20,138433.00875,77807637
+species,ips_acu,m3,pine,0.022088958148626447,PL,RAD,20,262388.7875,59393654
+species,ips_acu,m3,pine,0.0031851763944401065,PL,SZ1,20,82860.1725,130071560
+species,ips_acu,m3,pine,0,PL,SZ2,20,0,103326924
+species,ips_acu,m3,pine,0.0029858867186751724,PL,TOR,20,53900.90875,90259467
+species,ips_acu,m3,pine,0.024049107295231128,PL,WAR,20,174035.18875,36183295
+species,ips_acu,m3,pine,6.300116900730129e-4,PL,WRO,20,7053.5,55979120
+species,ips_acu,m3,pine,0.0037547603039412986,PL,ZIE,20,62949.34875,83826055
+species,ips_acu,m3,pine,0.13750227852714073,SK,SK,22,972507,32148459
+species,ips_sex,m3,pine,0.06413594545900742,BG,BG,18,214299.99999999985,18563000
+species,ips_sex,m3,pine,0.002629746410886304,CZ,CZ02,23,10605.714285714284,17534695
+species,ips_sex,m3,pine,6.166074962102921e-4,CZ,CZ03,23,6121.428571428571,43163450
+species,ips_sex,m3,pine,0.0015048464179098747,CZ,CZ04,23,2238.571428571428,6467716
+species,ips_sex,m3,pine,0.0022706913250334216,CZ,CZ05,23,8537.142857142859,16346569
+species,ips_sex,m3,pine,0.013698920973133558,CZ,CZ06,23,41897.142857142855,13297506.5
+species,ips_sex,m3,pine,0.0026995500323889125,CZ,CZ07,23,2881.4285714285716,4640755
+species,ips_sex,m3,pine,0.007933695307474457,CZ,CZ08,23,2804.285714285715,1536805.5
+species,ips_sex,m3,pine,0.008008224344739169,DE,DE1,23,48444.99999999998,26301765
+species,ips_sex,m3,pine,0,DE,DE2,23,0,166894400
+species,ips_sex,m3,pine,0.006142559065870358,DE,DE4,23,305141.1764705882,215985024
+species,ips_sex,m3,pine,0,DE,DE7,23,0,26794560
+species,ips_sex,m3,pine,5.6243687460281535e-5,DE,DE8,23,813.4000000000001,62878554
+species,ips_sex,m3,pine,0,DE,DE9,23,0,86605934
+species,ips_sex,m3,pine,1.0936595611896636e-4,DE,DEA,23,441.176470588236,17538900
+species,ips_sex,m3,pine,0.0017345111413461754,DE,DEB; DEC,23,10657.85714285714,26715602
+species,ips_sex,m3,pine,0.12252352676922626,DE,DED,23,1100783.3333333333,39062004
+species,ips_sex,m3,pine,3.9395872707861506e-4,DE,DEE,23,5383.33333333333,59411800
+species,ips_sex,m3,pine,0,DE,DEF,23,0,3853703
+species,ips_sex,m3,pine,0.006458428042465689,DE,DEG,23,37245.75,25073910
+species,pha_cya,m3,pine,0.008914899980804171,AT,AT11,21,19970,10667000
+species,pha_cya,m3,pine,0.004888628802232744,AT,AT12,21,35838,34909000
+species,pha_cya,m3,pine,0,AT,AT13,21,0,23000
+species,pha_cya,m3,pine,0.0037658241646439834,AT,AT21,21,7773,9829000
+species,pha_cya,m3,pine,0.0019661570223367974,AT,AT22,21,7276,17622000
+species,pha_cya,m3,pine,1.392369813422445e-4,AT,AT31,21,150,5130000
+species,pha_cya,m3,pine,0,AT,AT32,21,0,1304000
+species,pha_cya,m3,pine,2.2690404320417257e-4,AT,AT33,21,442,9276000
+species,pha_cya,m3,pine,1.497454327643007e-5,AT,AT34,21,1,318000
+species,pha_cya,m3,pine,0.00496867630731441,CZ,CZ02,23,20038.571428571424,17534695
+species,pha_cya,m3,pine,8.173466927595006e-4,CZ,CZ03,23,8114.2857142857165,43163450
+species,pha_cya,m3,pine,6.520681032296138e-4,CZ,CZ04,23,969.9999999999997,6467716
+species,pha_cya,m3,pine,0.010055864443944023,CZ,CZ05,23,37807.14285714285,16346569
+species,pha_cya,m3,pine,0.009912660286819433,CZ,CZ06,23,30317.142857142855,13297506.5
+species,pha_cya,m3,pine,0.0017225190340528164,CZ,CZ07,23,1838.571428571429,4640755
+species,pha_cya,m3,pine,0.012852343901053881,CZ,CZ08,23,4542.857142857144,1536805.5
+species,pha_cya,m3,pine,0.04565071482470985,DE,DE1,23,276159.705882353,26301765
+species,pha_cya,m3,pine,0.06337774847057683,DE,DE2,23,2432800.0000000023,166894400
+species,pha_cya,m3,pine,0.036374360546173205,DE,DE4,23,1806952.9411764708,215985024
+species,pha_cya,m3,pine,0.004954228649830201,DE,DE7,23,30531.66666666669,26794560
+species,pha_cya,m3,pine,0.006011035454016712,DE,DE8,23,86932,62878554
+species,pha_cya,m3,pine,0,DE,DE9,23,0,86605934
+species,pha_cya,m3,pine,0.01661618844506676,DE,DEA,23,67028.82352941172,17538900
+species,pha_cya,m3,pine,0.05532963832420065,DE,DEB; DEC,23,339977.8571428571,26715602
+species,pha_cya,m3,pine,0.13180086196042193,DE,DED,23,1184133.3333333335,39062004
+species,pha_cya,m3,pine,0.003804933885431726,DE,DEE,23,51993.3333333333,59411800
+species,pha_cya,m3,pine,2.820550835752341e-4,DE,DEF,23,250,3853703
+species,pha_cya,m3,pine,0.028987518691046137,DE,DEG,23,167171,25073910
+species,pha_cya,m3,pine,0.0013450793920208352,LT,LT,23,10100.100164213685,32647499.646
+species,pha_cya,m3,pine,0.03821579848585961,PL,BIA,20,784001.39375,102575561
+species,pha_cya,m3,pine,0.038000221310934786,PL,GDA,20,402863.1462500063,53008000
+species,pha_cya,m3,pine,0.022958737324054956,PL,KAT,20,431355.7087500063,93941514
+species,pha_cya,m3,pine,0.0069094600314409515,PL,KRA,20,21045.08625,15229183
+species,pha_cya,m3,pine,0.004993580737396394,PL,KRO,20,41684.075,41737660
+species,pha_cya,m3,pine,0.02437401080805128,PL,LOD,20,288442.048777281,59170001
+species,pha_cya,m3,pine,0.04696075924193231,PL,LUB,20,682828.26125,72702004
+species,pha_cya,m3,pine,0.03446997411657726,PL,OLS,20,744247.5536262571,107955920
+species,pha_cya,m3,pine,0.06264140062804123,PL,PIL,20,854685.3463848555,68220485
+species,pha_cya,m3,pine,0.024328937016812373,PL,POZ,20,378595.42,77807637
+species,pha_cya,m3,pine,0.012686613066018804,PL,RAD,20,150700.861375,59393654
+species,pha_cya,m3,pine,0.02669913022300955,PL,SZ1,20,694559.50375,130071560
+species,pha_cya,m3,pine,0.056027524224954176,PL,SZ2,20,1157830.3475,103326924
+species,pha_cya,m3,pine,0.03363249004118316,PL,TOR,20,607130.125,90259467
+species,pha_cya,m3,pine,0.030697427155265987,PL,WAR,20,222146.8125,36183295
+species,pha_cya,m3,pine,0.0415131340473412,PL,WRO,20,464773.74248243973,55979120
+species,pha_cya,m3,pine,0.020348785872721792,PL,ZIE,20,341151.68875,83826055
+species,pis_pin,m3,pine,9.529375165098559e-5,DE,DE1,23,576.4705882352946,26301765
+species,pis_pin,m3,pine,0,DE,DE2,23,0,166894400
+species,pis_pin,m3,pine,1.6092334831549176e-4,DE,DE4,23,7994.117647058824,215985024
+species,pis_pin,m3,pine,4.978838880035703e-4,DE,DE7,23,3068.333333333337,26794560
+species,pis_pin,m3,pine,4.536004299722729e-5,DE,DE8,23,656,62878554
+species,pis_pin,m3,pine,0,DE,DE9,23,0,86605934
+species,pis_pin,m3,pine,0,DE,DEA,23,0,17538900
+species,pis_pin,m3,pine,0,DE,DEB; DEC,23,0,26715602
+species,pis_pin,m3,pine,0.003151066097933408,DE,DED,23,28310.000000000007,39062004
+species,pis_pin,m3,pine,1.3514125993904197e-4,DE,DEE,23,1846.666666666666,59411800
+species,pis_pin,m3,pine,0,DE,DEF,23,0,3853703
+species,pis_pin,m3,pine,2.421536621306682e-4,DE,DEG,23,1396.5,25073910
+species,pis_pin,m3,pine,0.0428565230857989,LT,LT,23,321806.4141226544,32647499.646
+species,pit_bid,m3,pine,0.002923135831893977,DE,DE1,23,17683.235294117625,26301765
+species,pit_bid,m3,pine,0,DE,DE2,23,0,166894400
+species,pit_bid,m3,pine,5.491405649838805e-4,DE,DE4,23,27279.411764705907,215985024
+species,pit_bid,m3,pine,0,DE,DE7,23,0,26794560
+species,pit_bid,m3,pine,0,DE,DE8,23,0,62878554
+species,pit_bid,m3,pine,0,DE,DE9,23,0,86605934
+species,pit_bid,m3,pine,0,DE,DEA,23,0,17538900
+species,pit_bid,m3,pine,0,DE,DEB; DEC,23,0,26715602
+species,pit_bid,m3,pine,0.014490526023888742,DE,DED,23,130186.6666666666,39062004
+species,pit_bid,m3,pine,2.488160381549149e-5,DE,DEE,23,340,59411800
+species,pit_bid,m3,pine,0,DE,DEF,23,0,3853703
+species,pit_bid,m3,pine,0.002055661771972124,DE,DEG,23,11855,25073910
+species,tom_spp,m3,pine,0.04013222801073181,AT,AT11,21,89899,10667000
+species,tom_spp,m3,pine,0.044156302986404106,AT,AT12,21,323705,34909000
+species,tom_spp,m3,pine,0.060041407867494824,AT,AT13,21,290,23000
+species,tom_spp,m3,pine,0.02112310994191145,AT,AT21,21,43600,9829000
+species,tom_spp,m3,pine,0.07869275959163599,AT,AT22,21,291212,17622000
+species,tom_spp,m3,pine,0.0372765246449457,AT,AT31,21,40158,5130000
+species,tom_spp,m3,pine,0,AT,AT32,21,0,1304000
+species,tom_spp,m3,pine,0.005113041335551038,AT,AT33,21,9960,9276000
+species,tom_spp,m3,pine,0.03243486073674753,AT,AT34,21,2166,318000
+species,tom_spp,m3,pine,0.010693971463450636,CZ,CZ02,23,43128.57142857143,17534695
+species,tom_spp,m3,pine,0.004120837542351024,CZ,CZ03,23,40910,43163450
+species,tom_spp,m3,pine,0.0039613857523154005,CZ,CZ04,23,5892.85714285714,6467716
+species,tom_spp,m3,pine,0.014649682737058823,CZ,CZ05,23,55078.57142857141,16346569
+species,tom_spp,m3,pine,0.03771173563174726,CZ,CZ06,23,115338.57142857139,13297506.5
+species,tom_spp,m3,pine,0.0033580421572948827,CZ,CZ07,23,3584.285714285713,4640755
+species,tom_spp,m3,pine,0.025272234721160355,CZ,CZ08,23,8932.857142857145,1536805.5
+species,tom_spp,m3,pine,0.0326434094399166,DE,DE1,23,197473.23529411765,26301765
+species,tom_spp,m3,pine,0.0417279394652538,DE,DE2,23,1601756.6666666663,166894400
+species,tom_spp,m3,pine,0.0050015249006492395,DE,DE4,23,248458.52941176444,215985024
+species,tom_spp,m3,pine,0.002957013813922345,DE,DE7,23,18223.333333333354,26794560
+species,tom_spp,m3,pine,0.004339490211006083,DE,DE8,23,62758,62878554
+species,tom_spp,m3,pine,0,DE,DE9,23,0,86605934
+species,tom_spp,m3,pine,0.07240478341027523,DE,DEA,23,292077.0588235296,17538900
+species,tom_spp,m3,pine,0.013402966662752596,DE,DEB; DEC,23,82355.71428571432,26715602
+species,tom_spp,m3,pine,0.019644724803176507,DE,DED,23,176493.3333333334,39062004
+species,tom_spp,m3,pine,6.59850375695142e-4,DE,DEE,23,9016.666666666666,59411800
+species,tom_spp,m3,pine,6.20521183865515e-4,DE,DEF,23,550,3853703
+species,tom_spp,m3,pine,0.003398647889553238,DE,DEG,23,19600,25073910
+species,tom_spp,m3,pine,5.202998363567587e-4,LT,LT,23,3906.8924063523623,32647499.646
+species,tom_spp,m3,pine,0.011539061433941365,PL,BIA,20,236725.14,102575561
+species,tom_spp,m3,pine,0.012764139493095636,PL,GDA,20,135320.3012500027,53008000
+species,tom_spp,m3,pine,0.0040181475971316945,PL,KAT,20,75494.1737500027,93941514
+species,tom_spp,m3,pine,0.020456974366254578,PL,KRA,20,62308.60125,15229183
+species,tom_spp,m3,pine,0.011146258558817145,PL,KRO,20,93043.75,41737660
+species,tom_spp,m3,pine,0,PL,LOD,20,0,59170001
+species,tom_spp,m3,pine,0.012687967910073015,PL,LUB,20,184488.13874999998,72702004
+species,tom_spp,m3,pine,0.012954271460841025,PL,OLS,20,279698.0586969674,107955920
+species,tom_spp,m3,pine,0,PL,PIL,20,0,68220485
+species,tom_spp,m3,pine,0.00475749708540821,PL,POZ,20,74033.92125,77807637
+species,tom_spp,m3,pine,0.007042902460168556,PL,RAD,20,83660.742375,59393654
+species,tom_spp,m3,pine,2.8324355646999234e-4,PL,SZ1,20,7368.38625,130071560
+species,tom_spp,m3,pine,0.010444036227188955,PL,SZ2,20,215830.0275,103326924
+species,tom_spp,m3,pine,0.011428037584689039,PL,TOR,20,206297.71625,90259467
+species,tom_spp,m3,pine,0.001094294514913581,PL,WAR,20,7919.03625,36183295
+species,tom_spp,m3,pine,2.687850398505729e-4,PL,WRO,20,3009.27,55979120
+species,tom_spp,m3,pine,0,PL,ZIE,20,0,83826055
+species,pit_spp,m3,fir,0,AT,AT11,21,0,251000
+species,pit_spp,m3,fir,0.03673971063351594,AT,AT12,21,62772,8136000
+species,pit_spp,m3,fir,0.007630967070417097,AT,AT21,21,9091,5673000
+species,pit_spp,m3,fir,0.010078762439277461,AT,AT22,21,25644,12116000
+species,pit_spp,m3,fir,0.03591183745029899,AT,AT31,21,57353,7605000
+species,pit_spp,m3,fir,0.0018291035314169316,AT,AT32,21,2640,6873000
+species,pit_spp,m3,fir,0.0030257340076979356,AT,AT33,21,4756,7485000
+species,pit_spp,m3,fir,0.03342433816988251,AT,AT34,21,32688,4657000
+species,pit_spp,m3,fir,1.4701116549651845,CZ,CZ02,23,153911.42857142855,455190
+species,pit_spp,m3,fir,0.015456620653460446,CZ,CZ03,23,9884.28571428572,2780372
+species,pit_spp,m3,fir,0.004079816163483676,CZ,CZ04,23,25.71428571428573,27403.499999999996
+species,pit_spp,m3,fir,0.027583156382829363,CZ,CZ05,23,4122.857142857143,649870
+species,pit_spp,m3,fir,0.1838151744048688,CZ,CZ06,23,40364.285714285754,954746.5
+species,pit_spp,m3,fir,0.004803328224205222,CZ,CZ07,23,2857.1428571428582,2586198.5
+species,pit_spp,m3,fir,0.024547316794169514,CZ,CZ08,23,4599.999999999999,814753
+species,pit_spp,m3,fir,0.36738983200994857,DE,DE1,23,4494047.05882353,53184202
+species,pit_spp,m3,fir,0.06992915592498779,DE,DE2,23,492133.3333333335,30598255
+species,pit_spp,m3,fir,0,DE,DE7,23,0,203689
+species,pit_spp,m3,fir,0,DE,DE8,23,0,194880
+species,pit_spp,m3,fir,0,DE,DE9,23,0,1337436
+species,pit_spp,m3,fir,0.04207364621521889,DE,DEA,23,3529.411764705884,364724
+species,pit_spp,m3,fir,1.2821004704007535,DE,DEB; DEC,23,621314.2857142863,2106985
+species,pit_spp,m3,fir,0,DE,DED,23,0,29406
+species,pit_spp,m3,fir,0,DE,DEE,23,0,6496
+species,pit_spp,m3,fir,0,DE,DEF,23,0,870750
+species,pit_spp,m3,fir,0,DE,DEG,23,0,171010
+species,pit_spp,m3,fir,0.18505899721894778,HR,HR,23,1455291,34191000
+species,pit_spp,m3,fir,0.060559989763661067,SI,SI,23,371931.17991294595,26702317.7
+species,ips_cem,m3,conifers_all,0.00313087871341468,DE,DE1,23,215234.11764705883,298893888
+species,ips_cem,m3,conifers_all,0.00421213503312785,DE,DE2,23,681699.9999999997,703660500
+species,ips_cem,m3,conifers_all,0.00794145315943221,DE,DE4,23,418092.35294117633,228899271
+species,ips_cem,m3,conifers_all,0.0010641009769376023,DE,DE7,23,30730.47619047619,125562112
+species,ips_cem,m3,conifers_all,0.001952275017475376,DE,DE8,23,39008.8,86874788
+species,ips_cem,m3,conifers_all,0,DE,DE9,23,0,18068932
+species,ips_cem,m3,conifers_all,0.00947010657440322,DE,DEA,23,275900,126668608
+species,ips_cem,m3,conifers_all,0.006929305618347618,DE,DEB; DEC,23,196779.99999999997,123470556
+species,ips_cem,m3,conifers_all,0.021124223780216653,DE,DED,23,551766.6666666666,113565617
+species,ips_cem,m3,conifers_all,0.0011687389697650939,DE,DEE,23,22213.33333333334,82635826
+species,ips_cem,m3,conifers_all,0.023621690877310048,DE,DEF,23,110325,20306502
+species,ips_cem,m3,conifers_all,0.014251492272105709,DE,DEG,23,351601,107265960
+species,tet_gab,m3,conifers_all,1.7838030681412772e-4,AT,AT11,21,630,16818000
+species,tet_gab,m3,conifers_all,1.1793775762927848e-4,AT,AT12,21,3690,148989000
+species,tet_gab,m3,conifers_all,0,AT,AT13,21,0,87000
+species,tet_gab,m3,conifers_all,1.9905205189845362e-4,AT,AT21,21,7005,167580000
+species,tet_gab,m3,conifers_all,0.0012622955475680298,AT,AT22,21,72000,271614000
+species,tet_gab,m3,conifers_all,3.947463991233472e-5,AT,AT31,21,1000,120632000
+species,tet_gab,m3,conifers_all,1.854984714925949e-5,AT,AT32,21,350,89848000
+species,tet_gab,m3,conifers_all,0,AT,AT33,21,0,118861000
+species,tet_gab,m3,conifers_all,0,AT,AT34,21,0,23057000
+species,tet_gab,m3,conifers_all,0,CZ,CZ02,23,0,53914418
+species,tet_gab,m3,conifers_all,0,CZ,CZ03,23,0,164331998
+species,tet_gab,m3,conifers_all,0,CZ,CZ04,23,0,50775932
+species,tet_gab,m3,conifers_all,0,CZ,CZ05,23,0,88939412.5
+species,tet_gab,m3,conifers_all,6.705512237236423e-7,CZ,CZ06,23,12.85714285714286,83365176.5
+species,tet_gab,m3,conifers_all,1.904944244993594e-5,CZ,CZ07,23,281.42857142857144,64232981.5
+species,tet_gab,m3,conifers_all,0,CZ,CZ08,23,0,37208933.5
+species,tet_gab,m3,conifers_all,6.118381393831156e-4,DE,DE1,23,42061.17647058823,298893888
+species,tet_gab,m3,conifers_all,0,DE,DE2,23,0,703660500
+species,tet_gab,m3,conifers_all,5.240246007810983e-5,DE,DE4,23,2758.8235294117667,228899271
+species,tet_gab,m3,conifers_all,5.54360102343605e-4,DE,DE7,23,16009.523809523816,125562112
+species,tet_gab,m3,conifers_all,3.028846928324115e-4,DE,DE8,23,6052,86874788
+species,tet_gab,m3,conifers_all,3.645824381467304e-5,DE,DE9,23,151.515151515152,18068932
+species,tet_gab,m3,conifers_all,0.00213619017029158,DE,DEA,23,62235.294117647,126668608
+species,tet_gab,m3,conifers_all,0.004228131032640641,DE,DEB; DEC,23,120071.42857142864,123470556
+species,tet_gab,m3,conifers_all,1.3779941302409198e-4,DE,DED,23,3599.333333333334,113565617
+species,tet_gab,m3,conifers_all,4.735286942325559e-6,DE,DEE,23,90,82635826
+species,tet_gab,m3,conifers_all,3.4578772505647614e-4,DE,DEF,23,1615,20306502
+species,tet_gab,m3,conifers_all,0,DE,DEG,23,0,107265960
+species,cep_spp,ha,spruce,0.012703895446326484,CZ,CZ02,23,303.7142857142857,103944.2508
+species,cep_spp,ha,spruce,0.02066779204110658,CZ,CZ03,23,1729.8571428571424,363905.24916563206
+species,cep_spp,ha,spruce,0.00757173884386521,CZ,CZ04,23,257.2999999999999,147746.20140000002
+species,cep_spp,ha,spruce,0.15554125785010103,CZ,CZ05,23,7922.428571428572,221454.69369999992
+species,cep_spp,ha,spruce,0.05161722718557887,CZ,CZ06,23,2227.3571428571418,187614.91111999995
+species,cep_spp,ha,spruce,0.0137597235206659,CZ,CZ07,23,506.2857142857148,159977.21412925003
+species,cep_spp,ha,spruce,0.035882948698117166,CZ,CZ08,23,824.2857142857144,99876.15460000004
+species,lym_mon,ha,spruce,0.48965330521900263,CZ,CZ02,23,11706.228571428579,103944.2508
+species,lym_mon,ha,spruce,0.09360159513868072,CZ,CZ03,23,7834.285714285711,363905.24916563206
+species,lym_mon,ha,spruce,0.014381721495121251,CZ,CZ04,23,488.7142857142856,147746.20140000002
+species,lym_mon,ha,spruce,0.03489069454992622,CZ,CZ05,23,1777.1428571428585,221454.69369999992
+species,lym_mon,ha,spruce,0.06919486036659621,CZ,CZ06,23,2985.857142857143,187614.91111999995
+species,lym_mon,ha,spruce,0.00561027101787873,CZ,CZ07,23,206.42857142857156,159977.21412925003
+species,lym_mon,ha,spruce,0,CZ,CZ08,23,0,99876.15460000004
+species,lym_mon,ha,spruce,0,DE,DE1,23,0,442990
+species,lym_mon,ha,spruce,0.09840589849797564,DE,DE2,23,23033.333333333332,1017672
+species,lym_mon,ha,spruce,60.41578241388318,DE,DE4,23,267435.294117647,19246
+species,lym_mon,ha,spruce,0.017761774493902958,DE,DE7,23,752.380952380952,184172
+species,lym_mon,ha,spruce,0.06328330886305733,DE,DE8,23,578,39711
+species,lym_mon,ha,spruce,0.20863609908578998,DE,DE9,23,9090.90909090909,189448
+species,lym_mon,ha,spruce,0.001010511808669209,DE,DEA,23,58.8235294117647,253094
+species,lym_mon,ha,spruce,0,DE,DEB; DEC,23,0,169844
+species,lym_mon,ha,spruce,0.5604435844201218,DE,DED,23,22243.333333333332,172560
+species,lym_mon,ha,spruce,1.188451065828669,DE,DEE,23,13476.6666666667,49303
+species,lym_mon,ha,spruce,0,DE,DEF,23,0,26626
+species,lym_mon,ha,spruce,0.0013704679720538556,DE,DEG,23,62.5,198282
+species,lym_mon,ha,spruce,0.18169985461079316,LT,LT,23,18819.893135048293,450334
+species,lym_mon,ha,spruce,4.287682425971502,PL,BIA,20,54704.825,63793
+species,lym_mon,ha,spruce,89.66432981061003,PL,GDA,20,171384.4,9557
+species,lym_mon,ha,spruce,0.4620874276278235,PL,KAT,20,4533.2625,49052
+species,lym_mon,ha,spruce,0,PL,KRA,20,0,13459
+species,lym_mon,ha,spruce,0.07291596011666554,PL,KRO,20,215,14743
+species,lym_mon,ha,spruce,261.30923847087377,PL,LOD,20,43063.7625,824
+species,lym_mon,ha,spruce,72.7444081211287,PL,LUB,20,21139.525,1453
+species,lym_mon,ha,spruce,30.127743686094895,PL,OLS,20,186810.0875,31003
+species,lym_mon,ha,spruce,345.6833646344987,PL,PIL,20,239282.025,3461
+species,lym_mon,ha,spruce,141.64086044520548,PL,POZ,20,82718.2625,2920
+species,lym_mon,ha,spruce,19.323121191604603,PL,RAD,20,5708.05,1477
+species,lym_mon,ha,spruce,54.688029569427634,PL,SZ1,20,126504.35,11566
+species,lym_mon,ha,spruce,40.56972900796778,PL,SZ2,20,185338.75,22842
+species,lym_mon,ha,spruce,1229.4431357347328,PL,TOR,20,515382.5625,2096
+species,lym_mon,ha,spruce,272.9283269441402,PL,WAR,20,49836.7125,913
+species,lym_mon,ha,spruce,4.53522507731592,PL,WRO,20,121129.5125,133543
+species,lym_mon,ha,spruce,485.9929625984252,PL,ZIE,20,246884.425,2540
+species,pri_abi,ha,spruce,0.08119976220180686,CZ,CZ02,23,1941.2571428571434,103944.2508
+species,pri_abi,ha,spruce,0.018914212922844727,CZ,CZ03,23,1583.0857142857144,363905.24916563206
+species,pri_abi,ha,spruce,0,CZ,CZ04,23,0,147746.20140000002
+species,pri_abi,ha,spruce,0.46900385742450457,CZ,CZ05,23,23888.514285714282,221454.69369999992
+species,pri_abi,ha,spruce,0.007322386113527459,CZ,CZ06,23,315.9714285714285,187614.91111999995
+species,pri_abi,ha,spruce,0.015431545458588769,CZ,CZ07,23,567.7999999999996,159977.21412925003
+species,pri_abi,ha,spruce,0.4540651960011054,CZ,CZ08,23,10430.565714285714,99876.15460000004
+species,pri_abi,ha,spruce,0.0010680732749072234,DE,DE1,23,108.8235294117647,442990
+species,pri_abi,ha,spruce,1.9584340320465414,DE,DE2,23,458399.99999999965,1017672
+species,pri_abi,ha,spruce,0.5866964617220091,DE,DE4,23,2597.058823529411,19246
+species,pri_abi,ha,spruce,0,DE,DE7,23,0,184172
+species,pri_abi,ha,spruce,0.01401429677244176,DE,DE8,23,128,39711
+species,pri_abi,ha,spruce,0,DE,DE9,23,0,189448
+species,pri_abi,ha,spruce,0.0028294330642737887,DE,DEA,23,164.70588235294136,253094
+species,pri_abi,ha,spruce,0,DE,DEB; DEC,23,0,169844
+species,pri_abi,ha,spruce,0.03997769311913352,DE,DED,23,1586.6666666666663,172560
+species,pri_abi,ha,spruce,8.81858322405639e-4,DE,DEE,23,10,49303
+species,pri_abi,ha,spruce,0,DE,DEF,23,0,26626
+species,pri_abi,ha,spruce,0.0123342117484847,DE,DEG,23,562.5,198282
+species,zei_gri,ha,spruce,0.0055930602717599205,CZ,CZ02,23,133.71428571428575,103944.2508
+species,zei_gri,ha,spruce,3.874464277257572e-4,CZ,CZ03,23,32.428571428571416,363905.24916563206
+species,zei_gri,ha,spruce,0.0031781880883693854,CZ,CZ04,23,107.99999999999999,147746.20140000002
+species,zei_gri,ha,spruce,0.0029898296133618408,CZ,CZ05,23,152.2857142857142,221454.69369999992
+species,zei_gri,ha,spruce,0.0029199496121399856,CZ,CZ06,23,125.99999999999999,187614.91111999995
+species,zei_gri,ha,spruce,0.0017238479805800396,CZ,CZ07,23,63.428571428571495,159977.21412925003
+species,zei_gri,ha,spruce,0.009943992195544083,CZ,CZ08,23,228.42857142857156,99876.15460000004
+species,zei_gri,ha,spruce,0,DE,DE1,23,0,442990
+species,zei_gri,ha,spruce,0,DE,DE2,23,0,1017672
+species,zei_gri,ha,spruce,0,DE,DE4,23,0,19246
+species,zei_gri,ha,spruce,0,DE,DE7,23,0,184172
+species,zei_gri,ha,spruce,0,DE,DE8,23,0,39711
+species,zei_gri,ha,spruce,0,DE,DE9,23,0,189448
+species,zei_gri,ha,spruce,0,DE,DEA,23,0,253094
+species,zei_gri,ha,spruce,0,DE,DEB; DEC,23,0,169844
+species,zei_gri,ha,spruce,0.002855549508509534,DE,DED,23,113.3333333333332,172560
+species,zei_gri,ha,spruce,0,DE,DEE,23,0,49303
+species,zei_gri,ha,spruce,0,DE,DEF,23,0,26626
+species,zei_gri,ha,spruce,0,DE,DEG,23,0,198282
+species,bup_pin,ha,pine,0,DE,DE1,23,0,76237
+species,bup_pin,ha,pine,0.0035777200989090285,DE,DE2,23,343.3333333333337,417236
+species,bup_pin,ha,pine,0.13992444993662792,DE,DE4,23,24135.294117647074,749948
+species,bup_pin,ha,pine,0.0433514807084601,DE,DE7,23,788.0952380952378,79040
+species,bup_pin,ha,pine,0.25950038061708885,DE,DE8,23,11512,192879
+species,bup_pin,ha,pine,0,DE,DE9,23,0,330557
+species,bup_pin,ha,pine,0.03587203360702092,DE,DEA,23,482.3529411764707,58463
+species,bup_pin,ha,pine,0,DE,DEB; DEC,23,0,84728
+species,bup_pin,ha,pine,0.12492958630591498,DE,DED,23,4066.6666666666633,141529
+species,bup_pin,ha,pine,0.1754006706616765,DE,DEE,23,8560,212185
+species,bup_pin,ha,pine,0,DE,DEF,23,0,12803
+species,bup_pin,ha,pine,0.004157708151620549,DE,DEG,23,69.5,72678
+species,bup_pin,ha,pine,0.029574954522562587,PL,BIA,20,2149.3125,363367
+species,bup_pin,ha,pine,0.6978876095327613,PL,GDA,20,27620.4375,197886
+species,bup_pin,ha,pine,0.005575971082750937,PL,KAT,20,440.4125,394920
+species,bup_pin,ha,pine,0,PL,KRA,20,0,53594
+species,bup_pin,ha,pine,0,PL,KRO,20,0,152376
+species,bup_pin,ha,pine,0.016651536902550244,PL,LOD,20,788.75,236840
+species,bup_pin,ha,pine,9.754375534168185e-4,PL,LUB,20,52.5,269110
+species,bup_pin,ha,pine,0.35256109783206896,PL,OLS,20,26137.1875,370676
+species,bup_pin,ha,pine,0.173303877287559,PL,PIL,20,10229.4,295129
+species,bup_pin,ha,pine,0.01807961267384054,PL,POZ,20,1149.2125,317820
+species,bup_pin,ha,pine,0,PL,RAD,20,0,223532
+species,bup_pin,ha,pine,0.04528194640885445,PL,SZ1,20,4437.35,489969
+species,bup_pin,ha,pine,0.6826062432187091,PL,SZ2,20,56998.85,417509
+species,bup_pin,ha,pine,0.5178047190415405,PL,TOR,20,37886.425,365837
+species,bup_pin,ha,pine,0.17515330139984306,PL,WAR,20,5090.025,145302
+species,bup_pin,ha,pine,0.11919869839332926,PL,WRO,20,5861,245850
+species,bup_pin,ha,pine,0.011002355761727685,PL,ZIE,20,817.7875,371642
+species,den_pin,ha,pine,0,DE,DE1,23,0,76237
+species,den_pin,ha,pine,0,DE,DE2,23,0,417236
+species,den_pin,ha,pine,0.31628791395009875,DE,DE4,23,54555.8823529412,749948
+species,den_pin,ha,pine,0,DE,DE7,23,0,79040
+species,den_pin,ha,pine,0.006807602062748508,DE,DE8,23,302,192879
+species,den_pin,ha,pine,0.1195729986041885,DE,DE9,23,9090.90909090909,330557
+species,den_pin,ha,pine,0,DE,DEA,23,0,58463
+species,den_pin,ha,pine,0,DE,DEB; DEC,23,0,84728
+species,den_pin,ha,pine,0.011776149528836245,DE,DED,23,383.3333333333329,141529
+species,den_pin,ha,pine,0.17020968508134657,DE,DEE,23,8306.66666666667,212185
+species,den_pin,ha,pine,0,DE,DEF,23,0,12803
+species,den_pin,ha,pine,0.004636293262598454,DE,DEG,23,77.5,72678
+species,den_pin,ha,pine,0.11683698966946807,LT,LT,23,18979.11159704858,706265
+species,den_pin,ha,pine,0.0014620204916792113,PL,BIA,20,106.25,363367
+species,den_pin,ha,pine,0.06783703748622945,PL,GDA,20,2684.8,197886
+species,den_pin,ha,pine,0,PL,KAT,20,0,394920
+species,den_pin,ha,pine,0,PL,KRA,20,0,53594
+species,den_pin,ha,pine,0,PL,KRO,20,0,152376
+species,den_pin,ha,pine,0.5283334740753252,PL,LOD,20,25026.1,236840
+species,den_pin,ha,pine,0.2908334417152837,PL,LUB,20,15653.2375,269110
+species,den_pin,ha,pine,0.013638595431050298,PL,OLS,20,1011.1,370676
+species,den_pin,ha,pine,1.6880266764702894,PL,PIL,20,99637.125,295129
+species,den_pin,ha,pine,0.6723518815681833,PL,POZ,20,42737.375,317820
+species,den_pin,ha,pine,0.028854929048189967,PL,RAD,20,1290,223532
+species,den_pin,ha,pine,1.4920029379409718,PL,SZ1,20,146207.0375,489969
+species,den_pin,ha,pine,0.0019011566217734229,PL,SZ2,20,158.75,417509
+species,den_pin,ha,pine,0.910273222774077,PL,TOR,20,66602.325,365837
+species,den_pin,ha,pine,0.349195124636963,PL,WAR,20,10147.75,145302
+species,den_pin,ha,pine,0.6752872686597519,PL,WRO,20,33203.875,245850
+species,den_pin,ha,pine,4.482180095360589,PL,ZIE,20,333153.275,371642
+species,dip_sp,ha,pine,1.4492753623188405e-4,AT,AT11,21,0.7,23000
+species,dip_sp,ha,pine,0.003010989010989011,AT,AT12,21,41.1,65000
+species,dip_sp,ha,pine,1.4098333333333333,AT,AT21,21,5921.3,20000
+species,dip_sp,ha,pine,0.003991596638655462,AT,AT22,21,28.5,34000
+species,dip_sp,ha,pine,0,AT,AT31,21,0,8000
+species,dip_sp,ha,pine,0,AT,AT32,21,0,4000
+species,dip_sp,ha,pine,0,AT,AT33,21,0,26000
+species,dip_sp,ha,pine,0.006190476190476191,AT,AT34,21,1.3,1000
+species,dip_sp,ha,pine,0.29739672693180147,DE,DE1,23,5214.705882352942,76237
+species,dip_sp,ha,pine,1.7367573295674912e-4,DE,DE2,23,16.6666666666667,417236
+species,dip_sp,ha,pine,0.8454635633935923,DE,DE4,23,145832.35294117648,749948
+species,dip_sp,ha,pine,0.003929137224331734,DE,DE7,23,71.42857142857146,79040
+species,dip_sp,ha,pine,0.1093273841202989,DE,DE8,23,4850,192879
+species,dip_sp,ha,pine,0,DE,DE9,23,0,330557
+species,dip_sp,ha,pine,0,DE,DEA,23,0,58463
+species,dip_sp,ha,pine,0.018693359121860747,DE,DEB; DEC,23,364.285714285714,84728
+species,dip_sp,ha,pine,0.06738005556499355,DE,DED,23,2193.3333333333335,141529
+species,dip_sp,ha,pine,0.6157465132457225,DE,DEE,23,30050.000000000033,212185
+species,dip_sp,ha,pine,0,DE,DEF,23,0,12803
+species,dip_sp,ha,pine,0.005832756040043216,DE,DEG,23,97.5,72678
+species,dip_sp,ha,pine,0.06805454016103597,LT,LT,23,11054.844155571836,706265
+species,dip_sp,ha,pine,0.2756945801352351,PL,BIA,20,20035.6625,363367
+species,dip_sp,ha,pine,1.0143125334788716,PL,GDA,20,40143.65,197886
+species,dip_sp,ha,pine,0.04396080218778487,PL,KAT,20,3472.2,394920
+species,dip_sp,ha,pine,0,PL,KRA,20,0,53594
+species,dip_sp,ha,pine,2.2026106473460388e-4,PL,KRO,20,6.7125,152376
+species,dip_sp,ha,pine,0.3788726038675899,PL,LOD,20,17946.4375,236840
+species,dip_sp,ha,pine,0.042202770242651705,PL,LUB,20,2271.4375,269110
+species,dip_sp,ha,pine,0.6708889636771735,PL,OLS,20,49736.4875,370676
+species,dip_sp,ha,pine,0.46274870480366215,PL,PIL,20,27314.1125,295129
+species,dip_sp,ha,pine,1.9771193206846642,PL,POZ,20,125673.6125,317820
+species,dip_sp,ha,pine,0.013059092210511249,PL,RAD,20,583.825,223532
+species,dip_sp,ha,pine,0.4285484132669618,PL,SZ1,20,41995.0875,489969
+species,dip_sp,ha,pine,0.19031146633964777,PL,SZ2,20,15891.35,417509
+species,dip_sp,ha,pine,4.682311897101715,PL,TOR,20,342592.5875,365837
+species,dip_sp,ha,pine,0.40743675241909955,PL,WAR,20,11840.275,145302
+species,dip_sp,ha,pine,0.6107174089892211,PL,WRO,20,30028.975,245850
+species,dip_sp,ha,pine,0.5377518889146007,PL,ZIE,20,39970.2375,371642
+species,neo_ser,ha,pine,0.3877707720940631,BG,BG,18,37314.545454545456,534602
+species,neo_ser,ha,pine,0,CZ,CZ02,23,0,78726.05129999999
+species,neo_ser,ha,pine,0,CZ,CZ03,23,0,169329.62802705533
+species,neo_ser,ha,pine,0,CZ,CZ04,23,0,30430.2555
+species,neo_ser,ha,pine,0.0015880208412980407,CZ,CZ05,23,25.7142857142857,70402.88094999999
+species,neo_ser,ha,pine,2.3499832736220943e-4,CZ,CZ06,23,2.85714285714286,52861.48368749999
+species,neo_ser,ha,pine,0,CZ,CZ07,23,0,16681.767691499997
+species,neo_ser,ha,pine,0,CZ,CZ08,23,0,7091.658399999998
+species,neo_ser,ha,pine,0,DE,DE1,23,0,76237
+species,neo_ser,ha,pine,0,DE,DE2,23,0,417236
+species,neo_ser,ha,pine,0,DE,DE4,23,0,749948
+species,neo_ser,ha,pine,0,DE,DE7,23,0,79040
+species,neo_ser,ha,pine,0,DE,DE8,23,0,192879
+species,neo_ser,ha,pine,0,DE,DE9,23,0,330557
+species,neo_ser,ha,pine,0,DE,DEA,23,0,58463
+species,neo_ser,ha,pine,0,DE,DEB; DEC,23,0,84728
+species,neo_ser,ha,pine,0.15698119328439997,DE,DED,23,5110.000000000004,141529
+species,neo_ser,ha,pine,2.732097673857883e-4,DE,DEE,23,13.3333333333333,212185
+species,neo_ser,ha,pine,0,DE,DEF,23,0,12803
+species,neo_ser,ha,pine,0,DE,DEG,23,0,72678
+species,pan_fla,ha,pine,0,CZ,CZ02,23,0,78726.05129999999
+species,pan_fla,ha,pine,0,CZ,CZ03,23,0,169329.62802705533
+species,pan_fla,ha,pine,0,CZ,CZ04,23,0,30430.2555
+species,pan_fla,ha,pine,0,CZ,CZ05,23,0,70402.88094999999
+species,pan_fla,ha,pine,0.2937479092027614,CZ,CZ06,23,3571.42857142857,52861.48368749999
+species,pan_fla,ha,pine,0,CZ,CZ07,23,0,16681.767691499997
+species,pan_fla,ha,pine,0,CZ,CZ08,23,0,7091.658399999998
+species,pan_fla,ha,pine,0,DE,DE1,23,0,76237
+species,pan_fla,ha,pine,0.0063217966796256546,DE,DE2,23,606.6666666666666,417236
+species,pan_fla,ha,pine,0.3109849034784569,DE,DE4,23,53641.17647058821,749948
+species,pan_fla,ha,pine,0.03234989648033128,DE,DE7,23,588.0952380952383,79040
+species,pan_fla,ha,pine,0,DE,DE8,23,0,192879
+species,pan_fla,ha,pine,0,DE,DE9,23,0,330557
+species,pan_fla,ha,pine,0,DE,DEA,23,0,58463
+species,pan_fla,ha,pine,0,DE,DEB; DEC,23,0,84728
+species,pan_fla,ha,pine,0.03747887589177443,DE,DED,23,1219.9999999999968,141529
+species,pan_fla,ha,pine,0.03824936743401052,DE,DEE,23,1866.66666666667,212185
+species,pan_fla,ha,pine,0,DE,DEF,23,0,12803
+species,pan_fla,ha,pine,0.006939484109179621,DE,DEG,23,116,72678
+species,pan_fla,ha,pine,0.7192139666752748,LT,LT,23,116829.79999999999,706265
+species,pan_fla,ha,pine,0.028841020235739624,PL,BIA,20,2095.975,363367
+species,pan_fla,ha,pine,0.5992512734604772,PL,GDA,20,23716.6875,197886
+species,pan_fla,ha,pine,7.411311151625646e-4,PL,KAT,20,58.5375,394920
+species,pan_fla,ha,pine,0,PL,KRA,20,0,53594
+species,pan_fla,ha,pine,0,PL,KRO,20,0,152376
+species,pan_fla,ha,pine,0.20261305100489782,PL,LOD,20,9597.375,236840
+species,pan_fla,ha,pine,0.01230026754858608,PL,LUB,20,662.025,269110
+species,pan_fla,ha,pine,0.32661154889984784,PL,OLS,20,24213.4125,370676
+species,pan_fla,ha,pine,1.1429775199997292,PL,PIL,20,67465.1625,295129
+species,pan_fla,ha,pine,0.7268652460512239,PL,POZ,20,46202.4625,317820
+species,pan_fla,ha,pine,0.001029494658482902,PL,RAD,20,46.025000000000006,223532
+species,pan_fla,ha,pine,0.2930045064075482,PL,SZ1,20,28712.625,489969
+species,pan_fla,ha,pine,0.3808250241312163,PL,SZ2,20,31799.575,417509
+species,pan_fla,ha,pine,1.7196193249999316,PL,TOR,20,125820.075,365837
+species,pan_fla,ha,pine,0.1004180086991232,PL,WAR,20,2918.1875,145302
+species,pan_fla,ha,pine,0.18225696562944887,PL,WRO,20,8961.575,245850
+species,pan_fla,ha,pine,1.232196239929825,PL,ZIE,20,91587.175,371642
+species,tha_pit,ha,pine,0.7604826685189274,BG,BG,18,73180.00000000001,534602
+species,tha_pit,ha,pine,0,DE,DE1,23,0,76237
+species,tha_pit,ha,pine,0,DE,DE2,23,0,417236
+species,tha_pit,ha,pine,0.011032307958688547,DE,DE4,23,1902.9411764705885,749948
+species,tha_pit,ha,pine,0,DE,DE7,23,0,79040
+species,tha_pit,ha,pine,0,DE,DE8,23,0,192879
+species,tha_pit,ha,pine,0,DE,DE9,23,0,330557
+species,tha_pit,ha,pine,0,DE,DEA,23,0,58463
+species,tha_pit,ha,pine,0,DE,DEB; DEC,23,0,84728
+species,tha_pit,ha,pine,0,DE,DED,23,0,141529
+species,tha_pit,ha,pine,0,DE,DEE,23,0,212185
+species,tha_pit,ha,pine,0,DE,DEF,23,0,12803
+species,tha_pit,ha,pine,0,DE,DEG,23,0,72678
+species,tha_pit,ha,pine,2.3575040757624532,HR,HR,23,45406,83740
+species,clo_ana,ha,broadleaves_all,7.848620287134403e-5,RO,RO,23,93,5151833.205
+species,era_def,ha,oak,0.26657258891883734,DE,DE1,23,6061.76470588235,98868
+species,era_def,ha,oak,2.2417442243512355,DE,DE2,23,85199.99999999999,165244
+species,era_def,ha,oak,3.0684008571936854,DE,DE4,23,49764.70588235293,70515
+species,era_def,ha,oak,0.031455102882702916,DE,DE7,23,809.52380952381,111895
+species,era_def,ha,oak,0.08160564816382904,DE,DE8,23,930,49549
+species,era_def,ha,oak,0.03698771104663015,DE,DE9,23,1212,142468
+species,era_def,ha,oak,0.01824706237805716,DE,DEA,23,588.235294117647,140162
+species,era_def,ha,oak,0.18748476686269241,DE,DEB; DEC,23,7885.714285714286,182872
+species,era_def,ha,oak,0,DE,DED,23,0,43099
+species,era_def,ha,oak,0.07090388269661646,DE,DEE,23,1000,61320
+species,era_def,ha,oak,0.7957076498886341,DE,DEF,23,4805,26255
+species,era_def,ha,oak,0.07409235317313678,DE,DEG,23,597.5,35062
+species,lym_dis,ha,oak,0.19734335839599002,AT,AT11,21,787.4000000000001,19000
+species,lym_dis,ha,oak,1.2972698412698414,AT,AT12,21,8172.8,30000
+species,lym_dis,ha,oak,0,AT,AT13,21,0,2000
+species,lym_dis,ha,oak,0.11833333333333333,AT,AT21,21,49.7,2000
+species,lym_dis,ha,oak,0.024285714285714282,AT,AT22,21,40.8,8000
+species,lym_dis,ha,oak,0.05373015873015873,AT,AT31,21,67.7,6000
+species,lym_dis,ha,oak,5.630260098129464,BG,BG,18,167910.90909090915,165683
+species,lym_dis,ha,oak,0.057337784985598265,CZ,CZ02,23,489.5714285714285,37123.3634
+species,lym_dis,ha,oak,0.0015849404936702175,CZ,CZ03,23,8.57142857142857,23513.23655
+species,lym_dis,ha,oak,2.0911477313463746e-4,CZ,CZ04,23,0.8571428571428579,17821.35245
+species,lym_dis,ha,oak,0,CZ,CZ05,23,0,23678.687299999998
+species,lym_dis,ha,oak,1.1270597974246133,CZ,CZ06,23,12277.67142857142,47363.219099999995
+species,lym_dis,ha,oak,0.012552803642279198,CZ,CZ07,23,67.14285714285712,23255.798
+species,lym_dis,ha,oak,0,CZ,CZ08,23,0,7833.7004499999985
+species,lym_dis,ha,oak,0.8458926402373589,DE,DE1,23,19235.294117647056,98868
+species,lym_dis,ha,oak,1.952755678997664,DE,DE2,23,74216.6666666667,165244
+species,lym_dis,ha,oak,0.011968939513876054,DE,DE4,23,194.1176470588231,70515
+species,lym_dis,ha,oak,0.022481147060284746,DE,DE7,23,578.5714285714291,111895
+species,lym_dis,ha,oak,0,DE,DE8,23,0,49549
+species,lym_dis,ha,oak,0,DE,DE9,23,0,142468
+species,lym_dis,ha,oak,0.0021896474853668594,DE,DEA,23,70.58823529411764,140162
+species,lym_dis,ha,oak,0.016642669522231764,DE,DEB; DEC,23,700.0000000000005,182872
+species,lym_dis,ha,oak,0.28313646606010895,DE,DED,23,2806.6666666666665,43099
+species,lym_dis,ha,oak,0.23634627565538796,DE,DEE,23,3333.33333333333,61320
+species,lym_dis,ha,oak,0,DE,DEF,23,0,26255
+species,lym_dis,ha,oak,0.41634322306076443,DE,DEG,23,3357.5,35062
+species,lym_dis,ha,oak,0.9533674721081018,HR,HR,23,122410,558250
+species,lym_dis,ha,oak,3.682946717027422,HU,HU,23,431588,509502.2299784793
+species,lym_dis,ha,oak,0.2514556899553302,LT,LT,23,1988.3607227527777,34380
+species,lym_dis,ha,oak,1.3751265409877365,RO,RO,23,356352,1126701.053
+species,lym_dis,ha,oak,6.931597741639724,RS,RS,23,1149148,720800
+species,lym_dis,ha,oak,0.9247435681735496,SK,SK,22,51446,252876
+species,mel_spp,ha,oak,4.262186570908515,DE,DE1,23,96920.58823529411,98868
+species,mel_spp,ha,oak,0.7494407041111624,DE,DE2,23,28483.333333333332,165244
+species,mel_spp,ha,oak,0.017590714134029992,DE,DE4,23,285.2941176470587,70515
+species,mel_spp,ha,oak,2.4015045900858896,DE,DE7,23,61804.76190476194,111895
+species,mel_spp,ha,oak,0.005264880526698648,DE,DE8,23,60,49549
+species,mel_spp,ha,oak,0,DE,DE9,23,0,142468
+species,mel_spp,ha,oak,0.07171095514576452,DE,DEA,23,2311.7647058823486,140162
+species,mel_spp,ha,oak,3.0595340215563995,DE,DEB; DEC,23,128685.71428571423,182872
+species,mel_spp,ha,oak,0.11130424022077914,DE,DED,23,1103.3333333333328,43099
+species,mel_spp,ha,oak,0.5967743460298555,DE,DEE,23,8416.66666666667,61320
+species,mel_spp,ha,oak,0,DE,DEF,23,0,26255
+species,mel_spp,ha,oak,0,DE,DEG,23,0,35062
+species,mel_spp,ha,oak,0.5939782809079387,PL,BIA,20,5155.1375,43395
+species,mel_spp,ha,oak,0.9876150063451776,PL,GDA,20,3112.9625,15760
+species,mel_spp,ha,oak,5.592921650782624,PL,KAT,20,51525.35,46063
+species,mel_spp,ha,oak,1.1133781840591617,PL,KRA,20,2709.9624999999996,12170
+species,mel_spp,ha,oak,25.267496769330176,PL,KRO,20,117316.9875,23215
+species,mel_spp,ha,oak,75.11560992419022,PL,LOD,20,283381.15,18863
+species,mel_spp,ha,oak,29.588373454604874,PL,LUB,20,325963.275,55083
+species,mel_spp,ha,oak,0.5242769351943437,PL,OLS,20,5724.475,54594
+species,mel_spp,ha,oak,5.269718061526061,PL,PIL,20,15691.1125,14888
+species,mel_spp,ha,oak,12.021580510474159,PL,POZ,20,117183.9625,48739
+species,mel_spp,ha,oak,44.85345300572519,PL,RAD,20,188025.675,20960
+species,mel_spp,ha,oak,2.8515605845977827,PL,SZ1,20,20935.5875,36709
+species,mel_spp,ha,oak,1.1604998665836521,PL,SZ2,20,5219,22486
+species,mel_spp,ha,oak,6.860468421052632,PL,TOR,20,32587.225,23750
+species,mel_spp,ha,oak,15.238376788186432,PL,WAR,20,46230.1875,15169
+species,mel_spp,ha,oak,3.9436635081836546,PL,WRO,20,57393.7125,72767
+species,mel_spp,ha,oak,1.9800875777828992,PL,ZIE,20,8591.6,21695
+species,ope_spp,ha,oak,0.8392962297400957,DE,DE1,23,19085.29411764707,98868
+species,ope_spp,ha,oak,2.871467367185425,DE,DE2,23,109133.33333333334,165244
+species,ope_spp,ha,oak,0,DE,DE4,23,0,70515
+species,ope_spp,ha,oak,0,DE,DE7,23,0,111895
+species,ope_spp,ha,oak,0.21112170912061579,DE,DE8,23,2406,49549
+species,ope_spp,ha,oak,0,DE,DE9,23,0,142468
+species,ope_spp,ha,oak,0.69302342911861,DE,DEA,23,22341.1764705882,140162
+species,ope_spp,ha,oak,1.434496218921341,DE,DEB; DEC,23,60335.7142857142,182872
+species,ope_spp,ha,oak,0.5043998801545886,DE,DED,23,5000.000000000001,43099
+species,ope_spp,ha,oak,2.5662478610662056,DE,DEE,23,36193.333333333336,61320
+species,ope_spp,ha,oak,0.7170476844990188,DE,DEF,23,4330,26255
+species,ope_spp,ha,oak,0.4966357731521553,DE,DEG,23,4005,35062
+species,tha_pro,ha,oak,1.461040254452784,DE,DE1,23,33223.529411764706,98868
+species,tha_pro,ha,oak,2.545204123265762,DE,DE2,23,96733.33333333334,165244
+species,tha_pro,ha,oak,4.640539197098145,DE,DE4,23,75262.35294117642,70515
+species,tha_pro,ha,oak,0.2509932180022734,DE,DE7,23,6459.523809523808,111895
+species,tha_pro,ha,oak,0.013513193351859862,DE,DE8,23,154,49549
+species,tha_pro,ha,oak,0,DE,DE9,23,0,142468
+species,tha_pro,ha,oak,1.933469677816362,DE,DEA,23,62329.7647058823,140162
+species,tha_pro,ha,oak,0.9022704405267076,DE,DEB; DEC,23,37950.000000000015,182872
+species,tha_pro,ha,oak,0,DE,DED,23,0,43099
+species,tha_pro,ha,oak,0.1261852765724118,DE,DEE,23,1779.666666666667,61320
+species,tha_pro,ha,oak,0.02483998907040481,DE,DEF,23,150,26255
+species,tha_pro,ha,oak,0.009300295377381185,DE,DEG,23,75,35062
+species,tor_vir,ha,oak,0.06379151729793839,BG,BG,23,2430.909090909095,165683
+species,tor_vir,ha,oak,0.404967867979078,DE,DE1,23,9208.823529411762,98868
+species,tor_vir,ha,oak,3.55162098455021,DE,DE2,23,134983.33333333343,165244
+species,tor_vir,ha,oak,2.1233986783026544,DE,DE4,23,34438.23529411769,70515
+species,tor_vir,ha,oak,0.03885630356098594,DE,DE7,23,1000,111895
+species,tor_vir,ha,oak,0.28395255640661377,DE,DE8,23,3236,49549
+species,tor_vir,ha,oak,0,DE,DE9,23,0,142468
+species,tor_vir,ha,oak,0,DE,DEA,23,0,140162
+species,tor_vir,ha,oak,0.2289216175098818,DE,DEB; DEC,23,9628.571428571435,182872
+species,tor_vir,ha,oak,2.7641113432471456,DE,DED,23,27400.000000000007,43099
+species,tor_vir,ha,oak,2.8252833791845156,DE,DEE,23,39846.66666666674,61320
+species,tor_vir,ha,oak,1.942487145305656,DE,DEF,23,11730,26255
+species,tor_vir,ha,oak,4.182032821362406,DE,DEG,23,33725,35062
+species,tor_vir,ha,oak,3.7052362453137224,LT,LT,23,29298.78508619373,34380
+species,tor_vir,ha,oak,2.1164909551791684,PL,BIA,20,18369.025,43395
+species,tor_vir,ha,oak,0.0011897208121827412,PL,GDA,20,3.75,15760
+species,tor_vir,ha,oak,1.2211156459631374,PL,KAT,20,11249.65,46063
+species,tor_vir,ha,oak,0.6327187756778965,PL,KRA,20,1540.0375000000001,12170
+species,tor_vir,ha,oak,0.8158033598966185,PL,KRO,20,3787.7749999999996,23215
+species,tor_vir,ha,oak,1.6713241531039602,PL,LOD,20,6305.2375,18863
+species,tor_vir,ha,oak,0.3379445563967104,PL,LUB,20,3723,55083
+species,tor_vir,ha,oak,0.4780882514562039,PL,OLS,20,5220.15,54594
+species,tor_vir,ha,oak,1.2139390784524449,PL,PIL,20,3614.625,14888
+species,tor_vir,ha,oak,5.924658640924106,PL,POZ,20,57752.3875,48739
+species,tor_vir,ha,oak,0.08070729961832061,PL,RAD,20,338.325,20960
+species,tor_vir,ha,oak,0.9476865346372824,PL,SZ1,20,6957.7249999999995,36709
+species,tor_vir,ha,oak,0.07370141421328827,PL,SZ2,20,331.45,22486
+species,tor_vir,ha,oak,1.4764394736842106,PL,TOR,20,7013.0875,23750
+species,tor_vir,ha,oak,2.3257630694178917,PL,WAR,20,7055.9,15169
+species,tor_vir,ha,oak,4.866092287712837,PL,WRO,20,70818.1875,72767
+species,tor_vir,ha,oak,5.702932703387877,PL,ZIE,20,24745.025,21695
+species,tor_vir,ha,oak,0.3699681269942592,RO,RO,23,95874,1126701.053

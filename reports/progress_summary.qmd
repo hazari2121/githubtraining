@@ -161,6 +161,42 @@ Per insect: `outputs/figures/GF3_europe_totals_with_ranges.png`.
 
 ---
 
+## 4. How much of the host is hit each year?
+
+For **borers**: % of the host's growing stock (m3) killed per year. For **defoliators**: % of the host's forest area (ha) defoliated per year (defoliated, not necessarily killed). Host values come from the NUTS forest appendix: spruce, pine, fir, oak, or all conifers / broadleaves.
+
+Three versions:
+
+- **Reported, all host (the paper's way):** damage divided by the host in all 77 regions. This reproduces the paper's Table 2 (e.g. borers on spruce 0.51% vs 0.53%; *L. dispar* 1.67% vs 1.70%; *T. viridana* 0.46% vs 0.46%).
+- **Reported, only where recorded:** damage divided by the host only where the insect is actually monitored. This is the share of the *watched* host that is hit.
+- **Reported + filled, all host:** gap-filled damage divided by all host. This is the gap-filling's answer to "what would the paper's number be if every region were monitored?"
+
+![](../outputs/figures/SHARE_1_paper_groups.png)
+
+```{r share}
+tb("SHARE_host_affected_per_year.csv") |>
+  filter(level != "species") |>
+  transmute(Level = sub("level", "", level), Group = group, Host = host_group,
+            `Paper's way` = formatC(share_pct_paper, format = "f", digits = 2),
+            `Paper Table 2` = formatC(paper_share_pct, format = "f", digits = 2),
+            `Reported + filled` = formatC(share_pct_paper_filled, format = "f", digits = 2),
+            `Only where recorded` = formatC(share_pct_where_recorded, format = "f", digits = 2))
+```
+
+**What it shows**
+
+- **Borers:** all three versions agree. About **0.5% of spruce growing stock is killed per year** (up to 1.5% in 2019-2020), 0.26-0.29% of all conifers. Bark-beetle damage is reported almost everywhere spruce grows, so there is little to fill.
+- **Defoliators:** the versions differ a lot. The paper's way gives 0.44% of conifer area per year. Counting only where defoliators are monitored gives 1.5%, and gap-filling gives 0.76%. The paper's figures for defoliators are therefore **lower bounds**: they divide by host forest that nobody monitors for defoliators.
+- **Caution:** for a few insects the filled share is higher than the share where they are recorded (*Zeiraphera griseana*, *Dendroctonus micans*, *Scolytus* spp., *Pissodes pini*). The model fills too much for them, the same insects already flagged in the range list.
+
+![](../outputs/figures/SHARE_2_individual_species.png)
+
+![](../outputs/figures/SHARE_3_by_year.png)
+
+**Assumption:** in the appendix the species growing stocks of Bulgaria and Lithuania are about 1000x too small for their areas (e.g. BG spruce 31,157 m3 on 133,737 ha). They are read as 1000 m3. This changes the results by less than 2%. Tables: `SHARE_host_affected_per_year.csv`, `SHARE_host_affected_by_year.csv`, `SHARE_host_affected_by_region.csv`.
+
+---
+
 ## Where we stand
 
 | | Status |
@@ -170,6 +206,7 @@ Per insect: `outputs/figures/GF3_europe_totals_with_ranges.png`.
 | Correlation metrics | ✅ done: premise holds for a core group; 28 usable pairs; group level added |
 | Gap-filling method | ✅ works and is tested; clearly better than simple averages |
 | Filled dataset | ✅ v3 with ranges and confidence labels |
+| Share of host affected | ✅ reproduces the paper's Table 2; gap-filled version added |
 | Europe-wide totals | ⚠️ nearly: a few insects still too high until the range list is checked |
 
 **Open points**

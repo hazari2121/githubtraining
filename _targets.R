@@ -158,6 +158,32 @@ list(
   tar_target(fig_p_rank, save_grob(plot_paper_ranking(p_rank_groups, p_rank_species),
                                    "outputs/figures/species_nuts_occurrence_ranking.png", 9, 13), format = "file"),
 
+  # ---- Share of the host affected per year (R/host_share.R) ---------------------
+  tar_target(hs_stock, host_stock_long(host_appx)),
+  tar_target(hs_units, share_units(ph_hier, species_meta)),
+  tar_target(hs_regions, dplyr::distinct(cb_dmg, country, nuts_id)),
+  tar_target(hs_filled_d, filled_as_damage(v3_data)),
+  tar_target(hs_table, {
+    rep <- host_share_table(cb_dmg, hs_units, hs_stock, hs_regions)
+    fil <- host_share_table(hs_filled_d, hs_units, hs_stock, hs_regions) |>
+      dplyr::select(level, group, share_pct_paper_filled = share_pct_paper)
+    rep |> dplyr::left_join(fil, by = c("level", "group")) |>
+      dplyr::left_join(paper_table2_share, by = c("level", "group")) |>
+      dplyr::relocate(share_pct_paper_filled, paper_share_pct, .after = share_pct_paper)
+  }),
+  tar_target(hs_year, host_share_by_year(cb_dmg, hs_units, hs_stock, hs_regions)),
+  tar_target(hs_year_filled, host_share_by_year(hs_filled_d, hs_units, hs_stock, hs_regions)),
+  tar_target(hs_region, host_share_by_region(cb_dmg, hs_units, hs_stock)),
+  tar_target(hs_table_csv, tab(hs_table, "SHARE_host_affected_per_year.csv"), format = "file"),
+  tar_target(hs_year_csv, tab(dplyr::left_join(hs_year, dplyr::select(hs_year_filled, level, group, year, share_pct_paper_filled = share_pct_paper),
+                                               by = c("level", "group", "year")), "SHARE_host_affected_by_year.csv"), format = "file"),
+  tar_target(hs_region_csv, tab(hs_region, "SHARE_host_affected_by_region.csv"), format = "file"),
+  tar_target(fig_share_groups, save_fig(plot_share_groups(hs_table), "outputs/figures/SHARE_1_paper_groups.png", 10, 7.5), format = "file"),
+  tar_target(fig_share_species, save_fig(plot_share_species(hs_table, heat_sp), "outputs/figures/SHARE_2_individual_species.png", 10, 10),
+             format = "file"),
+  tar_target(fig_share_year, save_fig(plot_share_by_year(hs_year, hs_year_filled), "outputs/figures/SHARE_3_by_year.png", 12, 8.5),
+             format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),
