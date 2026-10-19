@@ -111,6 +111,17 @@ g3 |> count(value_type, confidence, name = "cells") |> mutate(share = pct(100 * 
 
 ## The gap-filled dataset v3 (current): better model + draft range rule
 
+**Retooled on the 2025 paper's hierarchy.** Aggregate reporting codes (several insects lumped together) are model input only: they help the model learn the region-year patterns but are never filled, and all test scores below are on single insects. The spruce bark-borer group of CZ and DE is counted as *I. typographus*, and `tha_pit` is *T. pityocampa* (filled only in BG, CH, HR, IT, SI), both as in the paper. Totals are reported per paper group, with the aggregates added into the reported part:
+
+![](../outputs/figures/GF3_europe_totals_by_paper_group.png)
+
+```{r gtot}
+read.csv("../outputs/tables/GF3_cumulative_totals_by_paper_group.csv") |>
+  transmute(level, group, unit, reported = big(round(reported)), filled = big(round(filled)),
+            `filled vs reported` = pct(100 * filled_vs_reported))
+```
+
+
 **Better model (M2).** Six versions of the factor model were compared in the same hide-and-predict test. The chosen one (M2) separates each region-year's overall intensity into region and year parts and uses 3 hidden factors whose insect sensitivities are pulled towards the insect's broad group.
 
 ```{r m12}
@@ -119,9 +130,9 @@ ms |> transmute(model, `error (log)` = f2(error_log), AUC = f2(damage_vs_none_au
                 `usable pairs the model links` = paste(usable_linked, "of", usable_n))
 ```
 
-M2 is slightly better at filling (AUC 0.76 to 0.78, typical total error 4.5x to 4.35x) and reproduces far more of the usable insect pairs from the correlation metrics (23 of 30 instead of 15). It was picked out of six versions on the same test, so its lead is slightly optimistic.
+M2 is slightly better at filling (AUC `r f2(ms$damage_vs_none_auc[1])` to `r f2(ms$damage_vs_none_auc[4])`, typical total error `r f2(ms$typical_total_error_x[1])`x to `r f2(ms$typical_total_error_x[4])`x) and reproduces far more of the usable insect pairs from the correlation metrics (`r ms$usable_linked[4]` of `r ms$usable_n[4]` instead of `r ms$usable_linked[1]`). It was picked out of six versions on the same test, so its lead is slightly optimistic.
 
-**Draft range rule.** An insect is filled only in countries that report damage from it or share a border with one that does; elsewhere the cell is 0 ("outside range"). This is a data-only stand-in for an expert range table (`outputs/tables/GF2_range_draft_for_correction.xlsx`). `tha_pit` is treated as *Thaumetopoea pinivora*.
+**Draft range rule.** An insect is filled only in countries that report damage from it or share a border with one that does; elsewhere the cell is 0 ("outside range"). This is a data-only stand-in for an expert range table (`outputs/tables/GF2_range_draft_for_correction.xlsx`). `tha_pit` is *Thaumetopoea pityocampa* (as in the paper) and is allowed only in BG, CH, HR, IT and SI.
 
 ```{r v3cells}
 v3 |> count(value_type, confidence, name = "cells") |> mutate(share = pct(100 * cells / sum(cells)))
@@ -131,7 +142,7 @@ Ranges: `r pct(100 * v3c$share_inside_80pct_range)` of hidden real totals fall i
 
 ![](../outputs/figures/GF3_europe_totals_with_ranges.png)
 
-With the range rule, filled damage falls from about 200 to 63 million m3 and from 46 to 16 million ha; for most insects the filled part is now 0.1-1x the reported damage. Still implausibly high and needing expert range checks: *Thaumetopoea pinivora* (about 90x reported), *Pissodes pini* (9x), *Polygraphus poligraphus* (6x), *Ips duplicatus* (3x).
+With the range rule, for most insects the filled part is 0.1-1x the reported damage. Still implausibly high and needing expert range checks: *Pissodes pini* (9x reported), *Polygraphus poligraphus* (7x), *Ips duplicatus* (3x).
 
 ## How to read it
 

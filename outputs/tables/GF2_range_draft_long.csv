@@ -1,6 +1,5 @@
 country,species,damage_reported,neighbour_reports,in_range,reason
 AT,CambXyl_con&BB_con&BO,TRUE,TRUE,TRUE,reports damage
-AT,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
 AT,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 AT,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
 AT,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
@@ -49,7 +48,6 @@ AT,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
 AT,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
 AT,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
 BG,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
-BG,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 BG,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 BG,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 BG,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -98,7 +96,6 @@ BG,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 BG,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 BG,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 CH,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-CH,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
 CH,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 CH,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
 CH,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
@@ -147,7 +144,6 @@ CH,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
 CH,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
 CH,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
 CZ,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-CZ,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
 CZ,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 CZ,CambXyl_con&MD,TRUE,TRUE,TRUE,reports damage
 CZ,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
@@ -196,7 +192,6 @@ CZ,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
 CZ,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
 CZ,zei_gri,TRUE,TRUE,TRUE,reports damage
 DE,CambXyl_con&BB_con&BO,TRUE,TRUE,TRUE,reports damage
-DE,CambXyl_con&BB_con&SM,TRUE,FALSE,TRUE,reports damage
 DE,CambXyl_con&BO,TRUE,FALSE,TRUE,reports damage
 DE,CambXyl_con&MD,TRUE,TRUE,TRUE,reports damage
 DE,Def_dec,TRUE,FALSE,TRUE,reports damage
@@ -245,7 +240,6 @@ DE,xyl_lin,TRUE,FALSE,TRUE,reports damage
 DE,xyl_spp,TRUE,FALSE,TRUE,reports damage
 DE,zei_gri,TRUE,TRUE,TRUE,reports damage
 FI,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
-FI,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 FI,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 FI,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 FI,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -294,7 +288,6 @@ FI,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 FI,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 FI,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 HR,CambXyl_con&BB_con&BO,TRUE,FALSE,TRUE,reports damage
-HR,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 HR,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 HR,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 HR,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -343,7 +336,6 @@ HR,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 HR,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 HR,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 HU,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-HU,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 HU,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 HU,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 HU,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -392,7 +384,6 @@ HU,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 HU,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 HU,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 IT,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-IT,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 IT,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 IT,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 IT,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -441,7 +432,6 @@ IT,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 IT,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 IT,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 LT,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
-LT,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 LT,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 LT,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 LT,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -490,7 +480,6 @@ LT,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 LT,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 LT,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 PL,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-PL,CambXyl_con&BB_con&SM,FALSE,TRUE,TRUE,neighbour reports damage
 PL,CambXyl_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
 PL,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
 PL,Def_dec,FALSE,TRUE,TRUE,neighbour reports damage
@@ -539,7 +528,6 @@ PL,xyl_lin,FALSE,TRUE,TRUE,neighbour reports damage
 PL,xyl_spp,FALSE,TRUE,TRUE,neighbour reports damage
 PL,zei_gri,FALSE,TRUE,TRUE,neighbour reports damage
 RO,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
-RO,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 RO,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 RO,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 RO,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -588,7 +576,6 @@ RO,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 RO,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 RO,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 RS,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-RS,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 RS,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 RS,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 RS,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -637,7 +624,6 @@ RS,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 RS,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 RS,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 SE,CambXyl_con&BB_con&BO,FALSE,FALSE,FALSE,no evidence nearby
-SE,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 SE,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 SE,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 SE,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -686,7 +672,6 @@ SE,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 SE,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 SE,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 SI,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-SI,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 SI,CambXyl_con&BO,TRUE,FALSE,TRUE,reports damage
 SI,CambXyl_con&MD,FALSE,FALSE,FALSE,no evidence nearby
 SI,Def_dec,FALSE,FALSE,FALSE,no evidence nearby
@@ -735,7 +720,6 @@ SI,xyl_lin,FALSE,FALSE,FALSE,no evidence nearby
 SI,xyl_spp,FALSE,FALSE,FALSE,no evidence nearby
 SI,zei_gri,FALSE,FALSE,FALSE,no evidence nearby
 SK,CambXyl_con&BB_con&BO,FALSE,TRUE,TRUE,neighbour reports damage
-SK,CambXyl_con&BB_con&SM,FALSE,FALSE,FALSE,no evidence nearby
 SK,CambXyl_con&BO,FALSE,FALSE,FALSE,no evidence nearby
 SK,CambXyl_con&MD,FALSE,TRUE,TRUE,neighbour reports damage
 SK,Def_dec,FALSE,FALSE,FALSE,no evidence nearby

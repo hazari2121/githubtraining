@@ -1,0 +1,10 @@
+level,group,unit,n_units_with_damage,n_units_reported,n_countries_with_damage,n_codes,cumulative_damage,from_aggregate_codes,share_from_aggregates
+level1,Borers on angiosperms,m3,37,41,4,7,10869383.386386834,0,0
+level1,Borers on gymnosperms,m3,73,77,16,21,686541052.0348904,1866236.289293076,0.002718317111207842
+level1,Defoliators on angiosperms,ha,51,56,11,10,6629197.696577516,419649.7420168066,0.06330324742516895
+level1,Defoliators on gymnosperms,ha,43,52,7,10,5832112.020360166,0,0
+level2,Borers on A. alba,m3,21,34,5,1,7849191.69812023,0,0
+level2,Borers on P. abies,m3,72,77,16,9,643611144.7217339,0,0
+level2,Borers on P. sylvestris,m3,49,54,9,8,31543920.739660673,1562406.5413939161,0.049531145931059783
+level2,Defoliators on P. abies,ha,35,41,4,4,2952688.957751167,0,0
+level2,Defoliators on P. sylvestris,ha,37,52,7,6,2879423.062608999,0,0

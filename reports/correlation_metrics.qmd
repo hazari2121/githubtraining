@@ -27,7 +27,7 @@ strong <- c("usable", "promising", "unreliable")
 
 ## Why these metrics
 
-The thesis rests on one sentence: *damage from different agents tends to fluctuate together, so the existing records carry information about the missing ones.* The correlation metrics test that sentence, pair by pair, for all `r n_distinct(c(v$species_a, v$species_b))` insect codes (`r format(nrow(v), big.mark = ",")` pairs). Each question below serves one objective:
+The thesis rests on one sentence: *damage from different agents tends to fluctuate together, so the existing records carry information about the missing ones.* The correlation metrics test that sentence, pair by pair, for all `r n_distinct(c(v$species_a, v$species_b))` single insects (`r format(nrow(v), big.mark = ",")` pairs). Groups follow Table 1 of the 2025 EU-ForDAM paper (`data/lookup/paper_hierarchy_2025.csv`). Aggregate reporting codes (several insects lumped together, e.g. "borers on pine") are left out here, because comparing a group with its own members says nothing new; they are used in the group-level correlations at the end. Each question below serves one objective:
 
 | Question | Metric | Objective |
 |---|---|---|
@@ -36,13 +36,13 @@ The thesis rests on one sentence: *damage from different agents tends to fluctua
 | 3. Is it regional, or just years bad all over Europe? Does one come first? | r after removing Europe-wide years; A this year vs B next year | 3, drivers and anticipation |
 | 4. Do linked insects share feeding type or host tree? | share of strong links within vs between groups | 2, damage across agents and host trees |
 
-**How r is measured.** `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, left out. Damage on a log(1 + x) scale, each region's series compared with its own average, so a large and a small region count the same. Only region-years where both insects were recorded. The 95% range comes from resampling whole regions 999 times; a link is *sure* when the range excludes 0, *strong* when also r ≥ 0.3. As in Hlásný et al. (2025), the Czech spruce bark-borer group is counted as *I. typographus*.
+**How r is measured.** `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, left out. Damage on a log(1 + x) scale, each region's series compared with its own average, so a large and a small region count the same. Only region-years where both insects were recorded. The 95% range comes from resampling whole regions 999 times; a link is *sure* when the range excludes 0, *strong* when also r ≥ 0.3. As in the 2025 EU-ForDAM paper, the spruce bark-borer group of Czechia and Germany is counted as *I. typographus*.
 
 ## The heatmap: every insect against every other
 
 ![](../outputs/figures/CM_heatmap.png)
 
-How to read it: each square is one pair of insects. **Red** = they have bad years together, **blue** = one is high when the other is low; the darker, the stronger. **Strong colour** = a sure link; **faded** = the 95% range includes 0, so it could be chance. **Black boxes** are the usable links (strong and the same in every country checked). Blank = recorded together too rarely to measure. Lines split the four broad groups. The red block in the top left is the bark and wood borers on conifers: that is where most of the shared signal sits.
+How to read it: each square is one pair of insects. **Red** = they have bad years together, **blue** = one is high when the other is low; the darker, the stronger. **Strong colour** = a sure link; **faded** = the 95% range includes 0, so it could be chance. **Black boxes** are the usable links (strong and the same in every country checked). Blank = recorded together too rarely to measure. Lines split the paper's four level-1 groups. The red block in the top left is the borers on gymnosperms (bark and wood borers on spruce, pine and fir): that is where most of the shared signal sits.
 
 ## The answer in one figure
 
@@ -82,7 +82,7 @@ measurable |>
             `share strong` = pct(100 * mean(verdict %in% strong)), usable = sum(verdict == "usable"))
 ```
 
-Broad groups: borers / defoliators on conifers / broadleaves. Pairs in the **same broad group** are about four times as likely to be strongly linked. Most usable links are among **borers on conifers** (bark beetles on spruce and pine); most others are borers on conifers with borers on broadleaves, or defoliators of pine with each other. A permutation test confirms the group effect (p = `r formatC(q5$p_value[q5$metric == "same_year" & grepl("level 1", q5$pair_class)], format = "f", digits = 3)`); sharing the same host tree adds nothing beyond it.
+Level-1 groups of the paper: borers / defoliators on gymnosperms / angiosperms. Pairs in the **same level-1 group** are about five times as likely to be strongly linked. Most usable links are among **borers on gymnosperms** (bark beetles on spruce and pine); most others are borers on gymnosperms with borers on angiosperms (oak *Scolytus* and *Agrilus*), or pine defoliators with each other. A permutation test confirms the group effect (p = `r formatC(q5$p_value[q5$metric == "same_year" & grepl("level 1", q5$pair_class)], format = "f", digits = 3)`); sharing the same level-2 host adds little beyond it.
 
 ## 5: does a link predict a country it has never seen?
 
@@ -108,8 +108,8 @@ ps |> filter(verdict %in% c("usable", "unreliable")) |> count(verdict, predictiv
 ```
 
 - **The correlation verdicts hold up.** All `r nrow(pu)` usable pairs help predict a country left out: `r sum(pu$predictive == "predicts well")` predict well, `r sum(pu$predictive == "predicts a little")` a little, none mislead. Of the `r sum(ps$verdict == "unreliable")` unreliable pairs, `r sum(ps$verdict == "unreliable" & ps$predictive == "misleads")` make guesses worse, which is exactly why they were flagged.
-- **The gain from one partner insect is modest.** For usable pairs the error is typically `r round(100 * median(pu$skill))`% smaller (range `r round(100 * min(pu$skill))`-`r round(100 * max(pu$skill))`%), and still `r round(100 * median(pu$skill_beyond_year))`% after removing years bad all over Europe. The best: *Tomicus* with the conifer-borer group, *I. acuminatus* with *I. duplicatus*, *I. typographus* with *Pityokteines*, *I. sexdentatus* with *Phaenops cyanea* (about 25%).
-- **High correlation is not enough.** *I. typographus* with *Pityogenes chalcographus* has the highest pooled r and a high pooled skill, but helps in only half the hidden countries (strong in DE and AT, not in IT or SK).
+- **The gain from one partner insect is modest.** For usable pairs the error is typically `r round(100 * median(pu$skill))`% smaller (range `r round(100 * min(pu$skill))`-`r round(100 * max(pu$skill))`%), and still `r round(100 * median(pu$skill_beyond_year))`% after removing years bad all over Europe. The best: *I. acuminatus* with *I. duplicatus*, *I. typographus* with *Pityokteines*, *I. sexdentatus* with *Phaenops cyanea* (about 25%).
+- **High correlation is not enough.** *I. typographus* with *Pityogenes chalcographus* has the highest pooled r and a high pooled skill, but the link differs between countries (strong in DE and AT, not in IT or SK), so it is "unreliable".
 - **Most pairs cannot be tested** (`r sum(ps$predictive == "cannot test")` of `r nrow(ps)`): they are recorded together in only one country.
 
 For gap-filling this means: one partner insect gives a modest but real gain, so the factor model, which combines all partners at once, is the right tool. The usable links are the ones it can trust across countries.
@@ -121,6 +121,26 @@ Pearson r uses the actual sizes of the ups and downs, so one huge outbreak year 
 - The two agree almost perfectly: correlation between Pearson and Spearman r across all pairs = `r formatC(cor(spc$r_pearson, spc$r_spearman, use = "pair"), format = "f", digits = 2)`; typical difference `r formatC(median(abs(spc$r_pearson - spc$r_spearman), na.rm = TRUE), format = "f", digits = 2)`.
 - Usable pairs: `r sum(spc$verdict_pearson == "usable")` with Pearson, `r sum(spc$verdict_spearman == "usable")` with Spearman, `r sum(spc$verdict_pearson == "usable" & spc$verdict_spearman == "usable")` in both. The pairs that switch sit right at the edges (r near 0.3, or consistent in one country check but not the other).
 - So the results are **not** driven by a few extreme outbreak years. Pearson stays the main metric; Spearman is the robustness check (`outputs/tables/CM_pearson_vs_spearman.csv`).
+
+## The paper's groups (levels 1 and 2)
+
+Group value in a region-year = sum of all recorded member codes, **aggregates included**. Same metric as above (within region, 95% range from resampling regions), plus the paper's own approach (Pearson r of the Europe-wide yearly totals).
+
+![](../outputs/figures/CM_groups_level1.png)
+
+![](../outputs/figures/CM_groups_level2.png)
+
+```{r groups_tab}
+rd("p_group_cm") |>
+  transmute(level, `group A` = species_a, `group B` = species_b, `region-years` = n,
+            `r within region` = formatC(same_year, format = "f", digits = 2),
+            `95% range` = paste(formatC(same_year_lo, format = "f", digits = 2), "to", formatC(same_year_hi, format = "f", digits = 2)),
+            `r Europe totals` = formatC(r_europe_total, format = "f", digits = 2))
+```
+
+- Borers on spruce, pine and fir have bad years together; so do spruce and pine defoliators.
+- Borers and defoliators do not move together; borers on fir go **against** defoliators on spruce (the group version of the *Pityokteines* x *Pristiphora* link).
+- Europe-wide totals give much higher r than within-region series, because a Europe-wide total mixes regional signals with shared bad years; the within-region number is the one that matters for gap-filling.
 
 ## What it means for the thesis
 
@@ -134,4 +154,5 @@ Pearson r uses the actual sizes of the ups and downs, so one huge outbreak year 
 - One row per pair, plain verdict: `outputs/tables/CM_pairs_verdict.csv`
 - Predictive test: `CM_predictive_pairs.csv` (per pair), `CM_predictive_by_country.csv` (per hidden country)
 - Full detail (ranges, per-country r): `CM_basic_all_pairs.csv`, `CM_basic_Q4_per_country.csv`, `CM_basic_Q3_lead_effects.csv`
-- Figures: `outputs/figures/CM_heatmap.png`, `CM_verdict.png`, `CM_usable_pairs.png`
+- Groups: `CM_groups_level1_level2.csv`
+- Figures: `outputs/figures/CM_heatmap.png`, `CM_verdict.png`, `CM_usable_pairs.png`, `CM_groups_level1.png`, `CM_groups_level2.png`

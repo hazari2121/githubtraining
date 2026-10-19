@@ -1,277 +1,4 @@
 species_a,species_b,verdict_pearson,r_pearson,verdict_spearman,r_spearman
-CambXyl_con&BB_con&BO,CambXyl_con&BB_con&SM,no link,0.40042944557789645,no link,0.3929250936889421
-CambXyl_con&BB_con&BO,CambXyl_con&BO,no link,-0.015700260870400468,no link,-0.01806308649280989
-CambXyl_con&BB_con&BO,CambXyl_con&MD,no link,-0.07276338550706798,no link,-0.20633275314349098
-CambXyl_con&BB_con&BO,Def_dec,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,Def_dec&DB,no link,0.15476225866383506,no link,0.17475262681346143
-CambXyl_con&BB_con&BO,agr_big,no link,-0.059048366597316694,no link,-0.12232762994567829
-CambXyl_con&BB_con&BO,agr_vir,no link,0.003370578998842854,no link,0.02894188029716028
-CambXyl_con&BB_con&BO,bup_pin,no link,0.6177253516644907,no link,0.7095315394589511
-CambXyl_con&BB_con&BO,cep_spp,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,clo_ana,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,den_mic,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,den_pin,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,dip_sp,no link,0.011583588251076467,no link,-0.007154432062258682
-CambXyl_con&BB_con&BO,era_def,no link,-0.21755077437398868,no link,-0.21008498157321306
-CambXyl_con&BB_con&BO,geo_db,no link,0.0581314550260122,no link,0.03589959380833599
-CambXyl_con&BB_con&BO,ips_acu,no link,-0.20007759886663357,no link,-0.19417776625331815
-CambXyl_con&BB_con&BO,ips_ami,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,ips_cem,no link,0.02424894799108295,no link,-0.02875580351058936
-CambXyl_con&BB_con&BO,ips_dup,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,ips_sex,no link,-0.2755842068346394,no link,-0.2664933097059146
-CambXyl_con&BB_con&BO,ips_typ,weak,0.2566538490750496,no link,0.2226616213967012
-CambXyl_con&BB_con&BO,lym_dis,weak,0.22208914189214224,weak,0.19495947021804844
-CambXyl_con&BB_con&BO,lym_mon,no link,0.7936260747343145,no link,0.8691916046094927
-CambXyl_con&BB_con&BO,mel_spp,no link,0.3266384348023231,no link,0.24845435345031874
-CambXyl_con&BB_con&BO,neo_ser,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,ope_spp,no link,-0.18464281038198482,no link,-0.15991888339610283
-CambXyl_con&BB_con&BO,pan_fla,no link,0.8048371230685313,no link,0.8209488232908604
-CambXyl_con&BB_con&BO,pha_cya,weak,0.2739529177734577,weak,0.29514217953053784
-CambXyl_con&BB_con&BO,pis_pin,no link,0.4323093313081473,no link,0.424156274706168
-CambXyl_con&BB_con&BO,pit_bid,no link,-0.22156513687916324,no link,-0.20426810464901227
-CambXyl_con&BB_con&BO,pit_cha,no link,0.22251242611474137,no link,0.21348706660870787
-CambXyl_con&BB_con&BO,pit_spp,no link,0.24899967534917553,no link,0.19656964797437926
-CambXyl_con&BB_con&BO,pol_pol,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,pri_abi,no link,0.11332176360300306,no link,0.10099048122771949
-CambXyl_con&BB_con&BO,sap_car,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,sco_int,no link,0.3654961652028063,no link,0.3722003385379594
-CambXyl_con&BB_con&BO,sco_rat,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&BO,sco_sco,no link,0.2817473930476846,no link,0.1990544984971138
-CambXyl_con&BB_con&BO,tet_gab,no link,0.07339287631937812,no link,0.07738404927741661
-CambXyl_con&BB_con&BO,tet_spp,no link,0.1939588055413299,no link,0.15624252720571596
-CambXyl_con&BB_con&BO,tha_pit,no link,-0.6217247719356802,no link,-0.6052519798078108
-CambXyl_con&BB_con&BO,tha_pro,no link,0.10777719946167566,no link,0.06308319924562417
-CambXyl_con&BB_con&BO,tom_spp,usable,0.5390441793261151,usable,0.4640512960124661
-CambXyl_con&BB_con&BO,tor_vir,no link,-0.07555506164483235,no link,-0.06283495360843258
-CambXyl_con&BB_con&BO,uro_sir_spp,no link,0.20163660776972783,no link,0.13617873643267484
-CambXyl_con&BB_con&BO,xyl_lin,no link,-0.38622899102215574,no link,-0.3673829930036474
-CambXyl_con&BB_con&BO,xyl_spp,no link,0.018922301649942113,no link,0.025238432261094765
-CambXyl_con&BB_con&BO,zei_gri,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,CambXyl_con&BO,no link,0.21620744598922761,no link,0.19918330670593848
-CambXyl_con&BB_con&SM,CambXyl_con&MD,no link,0.5425991896891499,no link,0.34437654618821845
-CambXyl_con&BB_con&SM,Def_dec,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,Def_dec&DB,no link,0.44845796712858993,no link,0.4741256686502821
-CambXyl_con&BB_con&SM,agr_big,no link,-0.31814835511866024,no link,-0.3118012483353955
-CambXyl_con&BB_con&SM,agr_vir,no link,0.24630907020242818,no link,0.24420210164577288
-CambXyl_con&BB_con&SM,bup_pin,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,cep_spp,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,clo_ana,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,den_mic,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,den_pin,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,dip_sp,no link,-0.26143808090395076,no link,-0.21752473002848022
-CambXyl_con&BB_con&SM,era_def,no link,-0.24549439001010348,no link,-0.23759193212160448
-CambXyl_con&BB_con&SM,geo_db,no link,0.04182563996401112,no link,-0.007066572725085755
-CambXyl_con&BB_con&SM,ips_acu,no link,-0.051170256560591244,no link,-0.04120759574550722
-CambXyl_con&BB_con&SM,ips_ami,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,ips_cem,no link,-0.5963053050449754,no link,-0.5396631315789253
-CambXyl_con&BB_con&SM,ips_dup,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,ips_sex,no link,-0.24389783284653566,no link,-0.23759193212160448
-CambXyl_con&BB_con&SM,ips_typ,no link,-0.6208701363135091,no link,-0.5929080437206647
-CambXyl_con&BB_con&SM,lym_dis,no link,0.08992415101059414,no link,0.03098307923064011
-CambXyl_con&BB_con&SM,lym_mon,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,mel_spp,no link,0.22253800186976816,no link,0.10230747778605402
-CambXyl_con&BB_con&SM,neo_ser,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,ope_spp,no link,-0.15383990674347625,no link,-0.17357940729153717
-CambXyl_con&BB_con&SM,pan_fla,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,pha_cya,no link,-0.15684754186581196,no link,-0.0771413293996997
-CambXyl_con&BB_con&SM,pis_pin,no link,-0.2679619886936452,no link,-0.25659672623858565
-CambXyl_con&BB_con&SM,pit_bid,no link,-0.18611254646236183,no link,-0.17745307757998113
-CambXyl_con&BB_con&SM,pit_cha,no link,-0.6155328156771573,no link,-0.542084506150737
-CambXyl_con&BB_con&SM,pit_spp,no link,-0.19485959984782372,no link,-0.23886179836108262
-CambXyl_con&BB_con&SM,pol_pol,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,pri_abi,no link,-0.3345684224604586,no link,-0.3214291914461276
-CambXyl_con&BB_con&SM,sap_car,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,sco_int,no link,0.6154330250403487,no link,0.5792591772696379
-CambXyl_con&BB_con&SM,sco_rat,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,sco_sco,no link,-0.2676943929006886,no link,-0.25659672623858565
-CambXyl_con&BB_con&SM,tet_gab,no link,-0.41562211067990973,no link,-0.42327202552744014
-CambXyl_con&BB_con&SM,tet_spp,no link,-0.13533920230271942,no link,0.05820126590288427
-CambXyl_con&BB_con&SM,tha_pit,not enough data,NA,not enough data,NA
-CambXyl_con&BB_con&SM,tha_pro,no link,0.3129135890893612,no link,0.16231779566198376
-CambXyl_con&BB_con&SM,tom_spp,no link,0.12721567842373077,no link,-0.030605809463719935
-CambXyl_con&BB_con&SM,tor_vir,no link,-0.21414762490728567,no link,-0.23761963254477952
-CambXyl_con&BB_con&SM,uro_sir_spp,no link,-0.18611254646236183,no link,-0.17745307757998113
-CambXyl_con&BB_con&SM,xyl_lin,no link,-0.34003444818021533,no link,-0.32677419623253123
-CambXyl_con&BB_con&SM,xyl_spp,no link,-0.3103685696707953,no link,-0.269786195312354
-CambXyl_con&BB_con&SM,zei_gri,not enough data,NA,not enough data,NA
-CambXyl_con&BO,CambXyl_con&MD,no link,0.4085899793736814,no link,0.34490507954164734
-CambXyl_con&BO,Def_dec,not enough data,NA,not enough data,NA
-CambXyl_con&BO,Def_dec&DB,no link,-0.14624997885919855,no link,-0.14876320569237086
-CambXyl_con&BO,agr_big,no link,-0.48523093396203837,no link,-0.46712203615512093
-CambXyl_con&BO,agr_vir,no link,-0.21028859099322655,no link,-0.19631714904769257
-CambXyl_con&BO,bup_pin,not enough data,NA,not enough data,NA
-CambXyl_con&BO,cep_spp,not enough data,NA,not enough data,NA
-CambXyl_con&BO,clo_ana,not enough data,NA,not enough data,NA
-CambXyl_con&BO,den_mic,not enough data,NA,not enough data,NA
-CambXyl_con&BO,den_pin,not enough data,NA,not enough data,NA
-CambXyl_con&BO,dip_sp,no link,-0.2197696264453036,no link,-0.22700584631812587
-CambXyl_con&BO,era_def,no link,-0.17031205440760822,no link,-0.17070593165147532
-CambXyl_con&BO,geo_db,no link,0.07504624600914299,no link,0.07305576860902534
-CambXyl_con&BO,ips_acu,no link,-0.14309502033855018,no link,-0.1428730675102414
-CambXyl_con&BO,ips_ami,not enough data,NA,not enough data,NA
-CambXyl_con&BO,ips_cem,no link,0.0690729314005082,no link,0.015289515664181293
-CambXyl_con&BO,ips_dup,not enough data,NA,not enough data,NA
-CambXyl_con&BO,ips_sex,no link,-0.16923579078471165,no link,-0.17070593165147532
-CambXyl_con&BO,ips_typ,no link,0.18233600948312736,no link,0.14277054150440208
-CambXyl_con&BO,lym_dis,no link,-0.22368969366303829,no link,-0.2324504795651071
-CambXyl_con&BO,lym_mon,not enough data,NA,not enough data,NA
-CambXyl_con&BO,mel_spp,no link,-0.0670962167597237,no link,-0.09947631439118328
-CambXyl_con&BO,neo_ser,not enough data,NA,not enough data,NA
-CambXyl_con&BO,ope_spp,no link,-0.19373954305906851,no link,-0.1935059064649515
-CambXyl_con&BO,pan_fla,not enough data,NA,not enough data,NA
-CambXyl_con&BO,pha_cya,no link,-0.2775604572294517,no link,-0.2568958979830534
-CambXyl_con&BO,pis_pin,no link,-0.1818665055313,no link,-0.18047744680791855
-CambXyl_con&BO,pit_bid,no link,-0.126315074110525,no link,-0.12481171852545073
-CambXyl_con&BO,pit_cha,no link,0.19946240844398355,no link,0.10942217261923605
-CambXyl_con&BO,pit_spp,no link,0.34232828647433744,no link,0.3308797636026562
-CambXyl_con&BO,pol_pol,not enough data,NA,not enough data,NA
-CambXyl_con&BO,pri_abi,no link,-0.22707246707132053,no link,-0.22607739643487088
-CambXyl_con&BO,sap_car,not enough data,NA,not enough data,NA
-CambXyl_con&BO,sco_int,no link,0.4226891249451951,no link,0.41393790863417246
-CambXyl_con&BO,sco_rat,not enough data,NA,not enough data,NA
-CambXyl_con&BO,sco_sco,no link,-0.18168488756377726,no link,-0.18047744680791855
-CambXyl_con&BO,tet_gab,no link,-0.15084846095658896,no link,-0.2934440817421905
-CambXyl_con&BO,tet_spp,no link,-0.06629566544783358,no link,-0.16469487914971687
-CambXyl_con&BO,tha_pit,not enough data,NA,not enough data,NA
-CambXyl_con&BO,tha_pro,no link,0.2753810185803453,no link,0.22542003646164205
-CambXyl_con&BO,tom_spp,no link,-0.2999851652308982,no link,-0.32449904517854045
-CambXyl_con&BO,tor_vir,no link,-0.11718395903150548,no link,-0.08531509614662271
-CambXyl_con&BO,uro_sir_spp,no link,-0.126315074110525,no link,-0.12481171852545073
-CambXyl_con&BO,xyl_lin,no link,0.36282935360827007,no link,0.37414273365165557
-CambXyl_con&BO,xyl_spp,no link,0.25422927671137563,no link,0.2744502573572767
-CambXyl_con&BO,zei_gri,not enough data,NA,not enough data,NA
-CambXyl_con&MD,Def_dec,not enough data,NA,not enough data,NA
-CambXyl_con&MD,Def_dec&DB,no link,-0.03172351110377995,no link,-0.08429009059290643
-CambXyl_con&MD,agr_big,no link,-0.5679302367098098,no link,-0.4236142102829411
-CambXyl_con&MD,agr_vir,no link,0.23955636739227198,no link,0.10701206181237609
-CambXyl_con&MD,bup_pin,not enough data,NA,not enough data,NA
-CambXyl_con&MD,cep_spp,no link,-0.08729467552807127,no link,-0.09326626910823883
-CambXyl_con&MD,clo_ana,not enough data,NA,not enough data,NA
-CambXyl_con&MD,den_mic,no link,-0.019165484321685695,no link,-0.06565936920776054
-CambXyl_con&MD,den_pin,not enough data,NA,not enough data,NA
-CambXyl_con&MD,dip_sp,no link,-0.15203047166365852,no link,0.10255700281825499
-CambXyl_con&MD,era_def,no link,-0.41447166147635073,no link,-0.3560373412939601
-CambXyl_con&MD,geo_db,no link,0.2470975298187842,no link,0.05345287174322454
-CambXyl_con&MD,ips_acu,unreliable,0.39856366387056996,unreliable,0.41172209713746327
-CambXyl_con&MD,ips_ami,not enough data,NA,not enough data,NA
-CambXyl_con&MD,ips_cem,no link,-0.5080285918640388,no link,-0.4028007915565637
-CambXyl_con&MD,ips_dup,promising,0.32381019760645086,promising,0.40126225926933706
-CambXyl_con&MD,ips_sex,weak,0.2621792154650376,unreliable,0.30884815666176857
-CambXyl_con&MD,ips_typ,unreliable,0.3074949946386806,unreliable,0.3457063684799458
-CambXyl_con&MD,lym_dis,no link,-0.06913806778621184,no link,0.0028919551333878267
-CambXyl_con&MD,lym_mon,no link,-7.701405872143058e-4,no link,-0.006446185014720026
-CambXyl_con&MD,mel_spp,no link,-0.37181353861969174,no link,-0.39312561176816213
-CambXyl_con&MD,neo_ser,no link,-0.1385423290230635,no link,-0.19860985264517897
-CambXyl_con&MD,ope_spp,no link,-0.27135129003727565,no link,-0.27750784921459304
-CambXyl_con&MD,pan_fla,no link,0.23224287580754416,no link,0.2571932823529511
-CambXyl_con&MD,pha_cya,weak,0.25558267964124454,weak,0.240319835254721
-CambXyl_con&MD,pis_pin,no link,-0.4132447049303443,no link,-0.3560373412939601
-CambXyl_con&MD,pit_bid,no link,-0.287018411535239,no link,-0.246222634529102
-CambXyl_con&MD,pit_cha,no link,-0.43752968401052406,no link,-0.3202381822505621
-CambXyl_con&MD,pit_spp,unreliable,0.3868752957230249,usable,0.44971184509053513
-CambXyl_con&MD,pol_pol,no link,0.2217338760347831,no link,0.18055797102332816
-CambXyl_con&MD,pri_abi,weak,-0.24169837052052556,weak,-0.2903327292402262
-CambXyl_con&MD,sap_car,not enough data,NA,not enough data,NA
-CambXyl_con&MD,sco_int,usable,0.33711950666930385,weak,0.292089002744719
-CambXyl_con&MD,sco_rat,promising,0.3842897970706356,promising,0.4507969070872419
-CambXyl_con&MD,sco_sco,no link,-0.41283202496390564,no link,-0.3560373412939601
-CambXyl_con&MD,tet_gab,no link,-0.28844313453319853,no link,-0.30756491826117216
-CambXyl_con&MD,tet_spp,no link,-0.3141758054767339,no link,-0.17984940567152424
-CambXyl_con&MD,tha_pit,not enough data,NA,not enough data,NA
-CambXyl_con&MD,tha_pro,no link,0.6669559593540159,no link,0.6642890335495346
-CambXyl_con&MD,tom_spp,weak,0.2396955642856203,weak,0.2859834642752608
-CambXyl_con&MD,tor_vir,no link,-0.1878748028105495,no link,-0.11072380575382224
-CambXyl_con&MD,uro_sir_spp,no link,-0.287018411535239,no link,-0.246222634529102
-CambXyl_con&MD,xyl_lin,no link,0.4395034611066269,no link,0.6093627378727597
-CambXyl_con&MD,xyl_spp,no link,0.3834003930964955,no link,0.605543577149824
-CambXyl_con&MD,zei_gri,no link,-0.0335578961466258,no link,0.002654203399394605
-Def_dec,Def_dec&DB,no link,0.005859444997207841,no link,0.0254964677139056
-Def_dec,agr_big,no link,0.041005586539887035,no link,0.044098071615221016
-Def_dec,agr_vir,no link,-0.06411037315974936,no link,-0.06572716413465647
-Def_dec,bup_pin,no link,-0.002263108920180249,no link,0.049454307893491915
-Def_dec,cep_spp,not enough data,NA,not enough data,NA
-Def_dec,clo_ana,not enough data,NA,not enough data,NA
-Def_dec,den_mic,not enough data,NA,not enough data,NA
-Def_dec,den_pin,no link,-0.08850993486026422,no link,-0.0972683253078099
-Def_dec,dip_sp,no link,-0.15123501397980835,no link,-0.16427391877398578
-Def_dec,era_def,no link,-0.04545454545454545,no link,-0.04545454545454546
-Def_dec,geo_db,no link,0.1840790011792562,no link,0.2319701714182397
-Def_dec,ips_acu,no link,-0.05066524086339646,no link,-0.16086512287868954
-Def_dec,ips_ami,not enough data,NA,not enough data,NA
-Def_dec,ips_cem,no link,-0.19007771378048055,no link,-0.2816275213385363
-Def_dec,ips_dup,not enough data,NA,not enough data,NA
-Def_dec,ips_sex,no link,-0.05989375640280196,no link,-0.07343530148635741
-Def_dec,ips_typ,no link,0.06621435755806492,no link,0.04829181955873665
-Def_dec,lym_dis,no link,-0.1584249882659077,no link,-0.15786342443935558
-Def_dec,lym_mon,no link,-0.05536062331372908,no link,-0.014213741747037536
-Def_dec,mel_spp,no link,-0.1150527484178654,no link,-0.12472524837792055
-Def_dec,neo_ser,no link,-0.17030598012606962,no link,-0.1909327929196652
-Def_dec,ope_spp,no link,-0.0991952608416622,no link,-0.09831077865683432
-Def_dec,pan_fla,no link,0.4349557387080115,no link,0.445185843392689
-Def_dec,pha_cya,no link,0.014916770907577396,no link,-0.007718051728149974
-Def_dec,pis_pin,no link,0.047935607440218034,no link,0.0482475958670456
-Def_dec,pit_bid,no link,-0.0031573234898099527,no link,-9.240359424592367e-22
-Def_dec,pit_cha,no link,-0.08651135198533992,no link,-0.1286602556454549
-Def_dec,pit_spp,no link,-0.06473165280672023,no link,-0.06572716413465647
-Def_dec,pol_pol,not enough data,NA,not enough data,NA
-Def_dec,pri_abi,no link,0.034752146176104705,no link,0.032814293977252905
-Def_dec,sap_car,not enough data,NA,not enough data,NA
-Def_dec,sco_int,no link,0.0391640041483102,no link,0.044991392581769075
-Def_dec,sco_rat,no link,0.16704155744010196,no link,0.19707972130433635
-Def_dec,sco_sco,no link,-0.09494059709301478,no link,-0.0972683253078099
-Def_dec,tet_gab,no link,-0.05760786018903338,no link,-0.09170196762782937
-Def_dec,tet_spp,no link,-0.20132639388006474,no link,-0.16808269281595134
-Def_dec,tha_pit,not enough data,NA,not enough data,NA
-Def_dec,tha_pro,no link,0.024091422145301643,no link,-0.03222891521770213
-Def_dec,tom_spp,no link,-0.2917135929147534,no link,-0.2812694092199809
-Def_dec,tor_vir,no link,-0.009021902171087948,no link,-0.06440985288470351
-Def_dec,uro_sir_spp,no link,-0.1125868223752524,no link,-0.11148054845889471
-Def_dec,xyl_lin,no link,-0.15882600672809638,no link,-0.22498852128662875
-Def_dec,xyl_spp,no link,-0.04790893656529612,no link,-0.08872653878999055
-Def_dec,zei_gri,no link,-0.09766853508096923,no link,-0.09737854440867527
-Def_dec&DB,agr_big,weak,0.19581356008786657,no link,0.19354427889822207
-Def_dec&DB,agr_vir,no link,0.160435637316341,weak,0.18734743562266656
-Def_dec&DB,bup_pin,no link,0.2651966072469017,no link,0.2677297960604644
-Def_dec&DB,cep_spp,no link,0.0623217714086977,no link,0.09347968160816479
-Def_dec&DB,clo_ana,not enough data,NA,not enough data,NA
-Def_dec&DB,den_mic,no link,0.44936409809977634,no link,0.31225555677472483
-Def_dec&DB,den_pin,no link,-0.10327541499752042,no link,-0.0389498258759034
-Def_dec&DB,dip_sp,no link,0.16396749339264585,no link,0.15443577651689755
-Def_dec&DB,era_def,promising,-0.4011728810889084,promising,-0.31448860026313474
-Def_dec&DB,geo_db,weak,-0.276865879437037,weak,-0.2711420143894867
-Def_dec&DB,ips_acu,no link,0.04818574082146784,no link,0.06850380533452302
-Def_dec&DB,ips_ami,no link,-0.1482438477178945,no link,-0.18047744680791855
-Def_dec&DB,ips_cem,no link,0.14678734690646594,no link,0.13168260905130105
-Def_dec&DB,ips_dup,weak,-0.25020303855968506,weak,-0.2419084203565692
-Def_dec&DB,ips_sex,no link,4.4870607188378695e-4,no link,0.014652359321821946
-Def_dec&DB,ips_typ,no link,-0.08836681490827927,no link,-0.061381936360695166
-Def_dec&DB,lym_dis,weak,0.17696083288010994,weak,0.19572526852059716
-Def_dec&DB,lym_mon,no link,0.14194234738112996,no link,0.15922808742096217
-Def_dec&DB,mel_spp,no link,0.08193908555152642,no link,0.0036938833596123198
-Def_dec&DB,neo_ser,no link,0.05722014899959021,no link,0.043498422093954194
-Def_dec&DB,ope_spp,no link,-0.10950511630780273,no link,-0.08820147477760677
-Def_dec&DB,pan_fla,no link,0.28042437011146454,no link,0.2834212600744162
-Def_dec&DB,pha_cya,no link,0.09601879435748371,no link,0.10577899343349598
-Def_dec&DB,pis_pin,no link,0.2510610297675176,no link,0.2704461541545357
-Def_dec&DB,pit_bid,no link,-0.0435202252672427,no link,0.04585624933362988
-Def_dec&DB,pit_cha,no link,0.07875534760857462,no link,0.13792165395186237
-Def_dec&DB,pit_spp,weak,-0.15589839616354878,weak,-0.17661459830137746
-Def_dec&DB,pol_pol,no link,-0.028681736429911037,no link,-0.014146560037148741
-Def_dec&DB,pri_abi,weak,0.21947170134934643,weak,0.1960888312262335
-Def_dec&DB,sap_car,no link,0.3990765396574864,no link,0.4160390617515024
-Def_dec&DB,sco_int,no link,0.006714383265588024,no link,0.013798431279511459
-Def_dec&DB,sco_rat,no link,-0.06150605990333788,no link,-0.04841884015521942
-Def_dec&DB,sco_sco,no link,0.017143124488312525,no link,-0.025258971371909814
-Def_dec&DB,tet_gab,no link,0.05257446473063327,no link,0.08428996499856885
-Def_dec&DB,tet_spp,no link,0.15548884580632624,no link,0.1356142358018249
-Def_dec&DB,tha_pit,no link,0.4899013852018552,no link,0.6199543255983624
-Def_dec&DB,tha_pro,weak,0.1639678493720578,no link,0.08023293399378795
-Def_dec&DB,tom_spp,no link,0.05980389685733547,no link,0.06896497696540917
-Def_dec&DB,tor_vir,promising,-0.38151204577929937,promising,-0.36906182549701666
-Def_dec&DB,uro_sir_spp,no link,0.08141405594730934,no link,0.05570794211161872
-Def_dec&DB,xyl_lin,no link,-0.09314944036378515,no link,-0.15241564525061135
-Def_dec&DB,xyl_spp,no link,0.13987329415948246,no link,0.08855463201217707
-Def_dec&DB,zei_gri,no link,-0.09056968796497658,no link,-0.11199906462956298
 agr_big,agr_vir,promising,0.4023832540310443,promising,0.39484014091685665
 agr_big,bup_pin,weak,0.23914367957071236,weak,0.24625330307922513
 agr_big,cep_spp,not enough data,NA,not enough data,NA
@@ -286,10 +13,10 @@ agr_big,ips_ami,no link,0.3081380685253343,no link,0.36448341688219466
 agr_big,ips_cem,promising,0.3015366518934127,promising,0.3014163471136592
 agr_big,ips_dup,not enough data,NA,not enough data,NA
 agr_big,ips_sex,promising,0.3202276000503943,weak,0.29627435239669697
-agr_big,ips_typ,weak,0.21841834072505428,weak,0.21771730389293376
+agr_big,ips_typ,weak,0.2086740628694677,weak,0.22098139722548088
 agr_big,lym_dis,no link,0.1718260569772289,no link,0.16087912340725755
 agr_big,lym_mon,no link,0.03586357942828582,no link,-0.003123595373288339
-agr_big,mel_spp,weak,0.14844897898179013,weak,0.15744778564951603
+agr_big,mel_spp,no link,0.14844897898179013,weak,0.15744778564951603
 agr_big,neo_ser,no link,0.15933046984177585,no link,0.12012098518380662
 agr_big,ope_spp,no link,0.027201630958977815,no link,0.029432131906952652
 agr_big,pan_fla,no link,0.028126834762366708,no link,0.024736938480515967
@@ -327,7 +54,7 @@ agr_vir,ips_ami,no link,-0.06261931301983985,no link,-0.05655007558299342
 agr_vir,ips_cem,weak,0.2848920006194881,weak,0.2715906201540555
 agr_vir,ips_dup,not enough data,NA,not enough data,NA
 agr_vir,ips_sex,weak,0.25127795465337566,no link,0.17600709354129213
-agr_vir,ips_typ,weak,0.29213200593072136,promising,0.3130359865513474
+agr_vir,ips_typ,promising,0.3497842447965391,promising,0.3700655808528121
 agr_vir,lym_dis,promising,0.36464002527305583,promising,0.3459989223976793
 agr_vir,lym_mon,weak,-0.17507862178476968,weak,-0.19426194592644824
 agr_vir,mel_spp,no link,0.11997315562944859,no link,0.14934372605445995
@@ -375,7 +102,7 @@ bup_pin,neo_ser,no link,-0.1060048844379545,no link,-0.0862744836675984
 bup_pin,ope_spp,no link,0.2109041046958048,no link,0.20593271908946958
 bup_pin,pan_fla,usable,0.37370528267476955,usable,0.3700426512826918
 bup_pin,pha_cya,weak,0.24656345209279046,usable,0.31981244356446914
-bup_pin,pis_pin,no link,0.2748315377423307,promising,0.33589116086393095
+bup_pin,pis_pin,weak,0.2748315377423307,promising,0.33589116086393095
 bup_pin,pit_bid,no link,0.11893758063975918,no link,0.07430270503946189
 bup_pin,pit_cha,weak,0.2882006577656623,weak,0.2943904717418845
 bup_pin,pit_spp,no link,-0.10279297904618881,no link,-0.19794261605364472
@@ -524,7 +251,7 @@ den_pin,mel_spp,no link,0.10756913145244507,no link,0.12196469674192527
 den_pin,neo_ser,no link,-0.13074981768605018,no link,-0.14633752242130854
 den_pin,ope_spp,no link,0.3229249694011392,no link,0.3435506827154495
 den_pin,pan_fla,usable,0.30165047017685614,weak,0.27930708636278473
-den_pin,pha_cya,no link,0.09301882664157693,no link,0.13806504632648325
+den_pin,pha_cya,no link,0.09301882664157693,weak,0.13806504632648325
 den_pin,pis_pin,no link,0.10567655850645563,no link,0.07905014752616076
 den_pin,pit_bid,no link,0.27182503700044225,no link,0.24762567799390045
 den_pin,pit_cha,no link,0.2026225356910675,no link,0.1726742610382336
@@ -552,7 +279,7 @@ dip_sp,ips_ami,no link,-0.1699389648885799,no link,-0.06063601171271024
 dip_sp,ips_cem,weak,0.2490732508163989,weak,0.28908610029236426
 dip_sp,ips_dup,not enough data,NA,not enough data,NA
 dip_sp,ips_sex,no link,0.15934506299637471,weak,0.1979950731707406
-dip_sp,ips_typ,no link,-0.0024260127310789235,no link,-0.008579354934282805
+dip_sp,ips_typ,no link,0.0012437287964422855,no link,-0.008009650567775597
 dip_sp,lym_dis,no link,0.13297797258670588,no link,0.1366228388398178
 dip_sp,lym_mon,weak,0.1547481938926923,weak,0.17037755397643495
 dip_sp,mel_spp,weak,0.11513310156260939,weak,0.15073672327837417
@@ -586,7 +313,7 @@ era_def,ips_ami,no link,0.34190697442748985,no link,0.3560992885937188
 era_def,ips_cem,no link,-0.036534098354328616,no link,-0.015934598843956115
 era_def,ips_dup,not enough data,NA,not enough data,NA
 era_def,ips_sex,no link,0.02646434831589846,no link,0.04207213962553698
-era_def,ips_typ,no link,-0.023404776614628576,no link,-0.005123864907476188
+era_def,ips_typ,no link,-0.018536161899447238,no link,-0.009881205546543257
 era_def,lym_dis,no link,-0.04584204992755515,no link,-0.04567800225203537
 era_def,lym_mon,no link,0.0726468312654702,no link,0.062284774842320714
 era_def,mel_spp,no link,-0.07351158784335307,no link,-0.06273403701932274
@@ -619,7 +346,7 @@ geo_db,ips_ami,no link,-0.08509664615990228,no link,-0.09504132231404958
 geo_db,ips_cem,weak,-0.21961812680275922,weak,-0.26304333715254
 geo_db,ips_dup,no link,-0.3392287054820189,no link,-0.29794424118314056
 geo_db,ips_sex,weak,-0.14995425224255626,weak,-0.18527693346574106
-geo_db,ips_typ,no link,0.02252462690770797,no link,-0.030231633424430446
+geo_db,ips_typ,no link,0.011457269483675057,no link,-0.042535714692167485
 geo_db,lym_dis,no link,-0.05931197946278122,no link,-0.05874398938396308
 geo_db,lym_mon,weak,0.15804249450192134,weak,0.12755172562738828
 geo_db,mel_spp,no link,-0.027702887217370725,no link,-0.034507042353749025
@@ -642,7 +369,7 @@ geo_db,tet_spp,weak,-0.18460802428708342,weak,-0.20452704222423163
 geo_db,tha_pit,no link,0.2675037506267358,no link,0.11496169742012619
 geo_db,tha_pro,no link,-0.028072191270748635,no link,-0.05815420424241099
 geo_db,tom_spp,no link,0.1166576310820372,no link,0.09864813385369993
-geo_db,tor_vir,weak,0.13656241160943658,no link,0.12847768196425383
+geo_db,tor_vir,no link,0.13656241160943658,no link,0.12847768196425383
 geo_db,uro_sir_spp,no link,0.024990919622671498,no link,0.017643029179877815
 geo_db,xyl_lin,no link,0.12209721654557396,no link,0.14076767670547885
 geo_db,xyl_spp,no link,-0.05460910622914823,no link,-0.07227260096452096
@@ -651,19 +378,19 @@ ips_acu,ips_ami,no link,-0.041114849524094416,no link,-0.12074309835186471
 ips_acu,ips_cem,promising,0.4043776576322786,promising,0.39532224977136593
 ips_acu,ips_dup,usable,0.5118176598021795,usable,0.5354541994366422
 ips_acu,ips_sex,usable,0.4483831596781036,usable,0.4465400541216852
-ips_acu,ips_typ,usable,0.3132291187938481,weak,0.2929909417037706
+ips_acu,ips_typ,usable,0.3138657534052671,weak,0.2931663977573775
 ips_acu,lym_dis,weak,0.1966668850355266,weak,0.19493782438063148
 ips_acu,lym_mon,no link,-0.020210825790474996,no link,0.007276080602866751
 ips_acu,mel_spp,no link,9.433930643531444e-4,no link,0.017569914034740945
 ips_acu,neo_ser,no link,-0.02205625024723737,no link,0.024690456225277064
 ips_acu,ope_spp,no link,0.14791303269738298,no link,0.17286099636129823
 ips_acu,pan_fla,no link,-0.017401633371073554,no link,-0.002175113990723505
-ips_acu,pha_cya,no link,0.13237658800296717,weak,0.16813429537931676
+ips_acu,pha_cya,no link,0.13237658800296717,no link,0.16813429537931676
 ips_acu,pis_pin,usable,0.35840602764970364,unreliable,0.49311563504587663
 ips_acu,pit_bid,promising,0.5893332407556338,promising,0.5570248314571271
 ips_acu,pit_cha,unreliable,0.30598208011882894,unreliable,0.32077082198071294
 ips_acu,pit_spp,unreliable,0.46105709158335173,unreliable,0.47505023197817237
-ips_acu,pol_pol,no link,0.28957731621901056,no link,0.24096392810683653
+ips_acu,pol_pol,weak,0.28957731621901056,no link,0.24096392810683653
 ips_acu,pri_abi,no link,-0.12094874978760113,no link,-0.14121022714963286
 ips_acu,sap_car,no link,0.34539864813295723,no link,0.32829684603880266
 ips_acu,sco_int,usable,0.31747639352144724,weak,0.2984333893947608
@@ -712,7 +439,7 @@ ips_ami,xyl_spp,no link,0.2110998605754242,no link,0.3398539193767151
 ips_ami,zei_gri,not enough data,NA,not enough data,NA
 ips_cem,ips_dup,not enough data,NA,not enough data,NA
 ips_cem,ips_sex,promising,0.36730916595009067,promising,0.3948919718230651
-ips_cem,ips_typ,promising,0.5628439496475026,promising,0.6069950491171284
+ips_cem,ips_typ,promising,0.4860894262431098,promising,0.5703707162615076
 ips_cem,lym_dis,weak,0.24787380718169388,weak,0.25598335879444145
 ips_cem,lym_mon,no link,0.0740770553209341,no link,0.08884448732556738
 ips_cem,mel_spp,no link,0.13842853847036135,no link,0.20493439132607702
@@ -769,7 +496,7 @@ ips_dup,uro_sir_spp,not enough data,NA,not enough data,NA
 ips_dup,xyl_lin,not enough data,NA,not enough data,NA
 ips_dup,xyl_spp,not enough data,NA,not enough data,NA
 ips_dup,zei_gri,no link,0.07410008759150935,no link,0.050491583524209835
-ips_sex,ips_typ,unreliable,0.48403908056210027,unreliable,0.5215332328380019
+ips_sex,ips_typ,unreliable,0.48479164933832675,unreliable,0.5187007614037379
 ips_sex,lym_dis,no link,0.15579491352646513,no link,0.1555047517297976
 ips_sex,lym_mon,no link,-0.03529447098492091,no link,-0.022401930442295246
 ips_sex,mel_spp,no link,0.04173545796708475,no link,0.09919943349258638
@@ -797,38 +524,38 @@ ips_sex,uro_sir_spp,no link,0.1909167036277084,no link,0.17479393979775668
 ips_sex,xyl_lin,no link,0.08162039870238538,no link,0.10776362415821072
 ips_sex,xyl_spp,weak,0.24107923944678716,weak,0.2975514565152588
 ips_sex,zei_gri,no link,-0.10343016619441693,no link,-0.10767783269082888
-ips_typ,lym_dis,weak,0.24855116461298588,weak,0.22693329010188104
+ips_typ,lym_dis,weak,0.2649085542632813,weak,0.23531232369392624
 ips_typ,lym_mon,no link,0.02313540347925277,no link,-6.859268972262367e-4
-ips_typ,mel_spp,no link,0.010766657902572162,no link,0.029537104025548957
+ips_typ,mel_spp,no link,0.030808302121031694,no link,0.04040895587031783
 ips_typ,neo_ser,no link,-0.14974531554375956,no link,-0.1332601928068743
-ips_typ,ope_spp,no link,0.11863863460231239,no link,0.15156367964149792
+ips_typ,ope_spp,no link,0.14355140845450903,no link,0.1547584296335086
 ips_typ,pan_fla,weak,0.18252690628935667,weak,0.16367879641794303
-ips_typ,pha_cya,usable,0.3319830959491541,usable,0.35359302513546176
-ips_typ,pis_pin,unreliable,0.3235043924296048,usable,0.48577946486524254
-ips_typ,pit_bid,promising,0.5315507408812948,promising,0.55033553910692
-ips_typ,pit_cha,unreliable,0.645974459727935,unreliable,0.6619466954830072
-ips_typ,pit_spp,usable,0.5286213888659772,usable,0.5362699914831457
+ips_typ,pha_cya,usable,0.3396463873776411,usable,0.3642776586184333
+ips_typ,pis_pin,unreliable,0.3397212302690419,usable,0.4828563249604577
+ips_typ,pit_bid,promising,0.5467545894644714,promising,0.5437638434223911
+ips_typ,pit_cha,unreliable,0.5928261134653481,unreliable,0.6368501893868962
+ips_typ,pit_spp,usable,0.5252801198061381,usable,0.5321252535452069
 ips_typ,pol_pol,no link,0.19355938120872257,no link,0.16206108309264913
-ips_typ,pri_abi,weak,-0.2681434956355257,weak,-0.2638584942860108
+ips_typ,pri_abi,weak,-0.27366358107380123,weak,-0.2736470959333582
 ips_typ,sap_car,no link,0.36186041108726574,no link,0.2892709559399513
-ips_typ,sco_int,weak,0.20111081122093652,weak,0.15447399804209866
+ips_typ,sco_int,weak,0.19082468380966638,weak,0.1556211252416154
 ips_typ,sco_rat,usable,0.41405897755919985,usable,0.40550900879078816
-ips_typ,sco_sco,no link,-0.03032269583950967,no link,-0.07320648119392018
-ips_typ,tet_gab,weak,0.1897234436180047,weak,0.18050015260865412
-ips_typ,tet_spp,no link,0.1518982847509325,no link,0.1564984981412296
+ips_typ,sco_sco,no link,-0.1259444503850098,no link,-0.11218902544464879
+ips_typ,tet_gab,no link,0.14591484096983354,weak,0.15767319176174002
+ips_typ,tet_spp,no link,0.20202542238606613,no link,0.2135793658932205
 ips_typ,tha_pit,no link,-0.12998119933084806,no link,-0.1525940361772905
-ips_typ,tha_pro,no link,0.05994628894858977,no link,0.10991818967746952
-ips_typ,tom_spp,weak,0.27488646287240986,weak,0.2929722489581048
-ips_typ,tor_vir,no link,0.04805932838652716,no link,0.02485042974831422
-ips_typ,uro_sir_spp,no link,0.20419035898138796,no link,0.2690918058763495
-ips_typ,xyl_lin,no link,0.1486321035438791,weak,0.21375094334330308
-ips_typ,xyl_spp,promising,0.3060653837916277,promising,0.3591433087440629
+ips_typ,tha_pro,no link,0.1120673553942751,no link,0.14292808147425787
+ips_typ,tom_spp,weak,0.27266320024796686,weak,0.2937462636360275
+ips_typ,tor_vir,no link,0.05102238017783547,no link,0.01917114336633089
+ips_typ,uro_sir_spp,no link,0.1953509491407843,no link,0.25288172977768875
+ips_typ,xyl_lin,no link,0.12573061437191022,no link,0.18108185679376404
+ips_typ,xyl_spp,promising,0.3084336097861807,promising,0.3534237610202964
 ips_typ,zei_gri,no link,-0.056634448063355484,no link,0.009160392043265297
 lym_dis,lym_mon,no link,0.06242313431798265,no link,0.0658982251674897
 lym_dis,mel_spp,no link,0.09597843222882448,no link,0.12294758831795784
 lym_dis,neo_ser,no link,0.08413804906744832,no link,0.1647841013106181
 lym_dis,ope_spp,no link,0.13572171802283703,weak,0.1570779920409824
-lym_dis,pan_fla,no link,0.23933594974640196,no link,0.28133149679305336
+lym_dis,pan_fla,no link,0.23933594974640196,weak,0.28133149679305336
 lym_dis,pha_cya,weak,0.2299865635285942,weak,0.24813817624548015
 lym_dis,pis_pin,weak,0.2824255637257937,usable,0.30917937528007383
 lym_dis,pit_bid,no link,0.1751403150041175,no link,0.17417556930547373
@@ -893,7 +620,7 @@ mel_spp,tet_gab,no link,0.15704488950845902,no link,0.17643847445916944
 mel_spp,tet_spp,promising,0.3689755364368466,promising,0.3656200680947633
 mel_spp,tha_pit,no link,-0.30624404663563387,no link,-0.3016593896853677
 mel_spp,tha_pro,no link,0.16625123070372314,no link,0.1503530228763395
-mel_spp,tom_spp,no link,0.14831006526860172,no link,0.1261831548664343
+mel_spp,tom_spp,weak,0.14831006526860172,no link,0.1261831548664343
 mel_spp,tor_vir,no link,-0.013023978666001603,no link,-0.028061356007617364
 mel_spp,uro_sir_spp,no link,0.17705501703533644,no link,0.29112708889655936
 mel_spp,xyl_lin,no link,-7.821162001359268e-4,no link,-0.010648273382031035
@@ -923,7 +650,7 @@ neo_ser,xyl_lin,no link,0.08057980581614524,no link,-0.027597834696953392
 neo_ser,xyl_spp,no link,0.1396057422978602,no link,0.26222831132566393
 neo_ser,zei_gri,no link,-0.0476576999545067,no link,-0.0731158836296863
 ope_spp,pan_fla,no link,-0.012231036206837355,no link,0.0019574977322735208
-ope_spp,pha_cya,no link,0.12213133145403925,no link,0.18692708968880825
+ope_spp,pha_cya,no link,0.12213133145403925,weak,0.18692708968880825
 ope_spp,pis_pin,no link,0.10255921585612508,no link,0.19837605568272093
 ope_spp,pit_bid,no link,0.3015953913947821,no link,0.3207902476528547
 ope_spp,pit_cha,no link,0.12655918559733276,no link,0.14089008934426067
@@ -938,7 +665,7 @@ ope_spp,tet_gab,no link,0.11395038540058705,weak,0.1767289879445352
 ope_spp,tet_spp,no link,0.03576993202787229,no link,0.03270984504102345
 ope_spp,tha_pit,not enough data,NA,not enough data,NA
 ope_spp,tha_pro,no link,0.13057213234747828,no link,0.11951064134563386
-ope_spp,tom_spp,no link,0.1649355936162675,no link,0.2025299182594325
+ope_spp,tom_spp,no link,0.1649355936162675,weak,0.2025299182594325
 ope_spp,tor_vir,promising,0.5102158892514843,promising,0.5101738166083387
 ope_spp,uro_sir_spp,no link,-0.13170583075763934,no link,-0.13057600055320573
 ope_spp,xyl_lin,no link,0.003398576897489748,no link,0.02385108695396886
@@ -1069,10 +796,10 @@ pol_pol,tor_vir,no link,0.3738754014462137,no link,0.4323213596802483
 pol_pol,uro_sir_spp,not enough data,NA,not enough data,NA
 pol_pol,xyl_lin,not enough data,NA,not enough data,NA
 pol_pol,xyl_spp,not enough data,NA,not enough data,NA
-pol_pol,zei_gri,weak,-0.1448021470525006,no link,-0.14327448728613595
+pol_pol,zei_gri,no link,-0.1448021470525006,no link,-0.14327448728613595
 pri_abi,sap_car,no link,-0.06689979691855438,no link,-0.08233397804228353
 pri_abi,sco_int,weak,-0.16232401174226802,weak,-0.19532326826700044
-pri_abi,sco_rat,weak,-0.22199405349296994,weak,-0.2151375668964512
+pri_abi,sco_rat,no link,-0.22199405349296994,no link,-0.2151375668964512
 pri_abi,sco_sco,no link,0.2963606629380736,no link,0.25444201559216933
 pri_abi,tet_gab,weak,0.22921920994177877,weak,0.24642540101146068
 pri_abi,tet_spp,no link,0.04941210102977778,no link,0.04598628354535157
@@ -1100,7 +827,7 @@ sap_car,zei_gri,not enough data,NA,not enough data,NA
 sco_int,sco_rat,usable,0.43571267708369443,usable,0.466162312159441
 sco_int,sco_sco,no link,0.05727300257621063,no link,0.04452353141020173
 sco_int,tet_gab,no link,0.14150656647921508,no link,0.07264859225113642
-sco_int,tet_spp,weak,-0.1633641873350131,weak,-0.15079101269548142
+sco_int,tet_spp,no link,-0.1633641873350131,weak,-0.15079101269548142
 sco_int,tha_pit,no link,0.08789146246312574,no link,0.1330835511861911
 sco_int,tha_pro,weak,0.127151222308722,no link,0.047640241023207255
 sco_int,tom_spp,weak,0.1513395669561561,weak,0.137664166896695
@@ -1124,7 +851,7 @@ sco_sco,tet_gab,promising,0.3095899257253502,promising,0.3209848910905576
 sco_sco,tet_spp,no link,-0.00807703286241614,no link,0.034924874539721464
 sco_sco,tha_pit,no link,-0.10807205026320002,no link,-0.10683526511001214
 sco_sco,tha_pro,no link,0.41222709841054606,no link,0.4369735171612872
-sco_sco,tom_spp,weak,0.21053378695560196,no link,0.20619785447856284
+sco_sco,tom_spp,no link,0.21053378695560196,no link,0.20619785447856284
 sco_sco,tor_vir,no link,0.11652897175300349,no link,0.1248332917818836
 sco_sco,uro_sir_spp,no link,-0.07954659008666243,no link,-0.08177648916158331
 sco_sco,xyl_lin,no link,0.20069455823759416,no link,0.15206561491263296
@@ -1140,7 +867,7 @@ tet_gab,xyl_lin,weak,0.16409591346371794,no link,0.16026022935816456
 tet_gab,xyl_spp,weak,0.2255819374076223,weak,0.21719269087325593
 tet_gab,zei_gri,no link,-0.17663183388472267,no link,-0.19879038541811905
 tet_spp,tha_pit,no link,-0.19185599655687058,no link,-0.19573180353949807
-tet_spp,tha_pro,no link,0.12307832134195376,no link,0.1723458496160797
+tet_spp,tha_pro,no link,0.12307832134195376,weak,0.1723458496160797
 tet_spp,tom_spp,no link,0.17514842267223155,weak,0.23509787380029332
 tet_spp,tor_vir,no link,0.01577170983108481,no link,-0.004564369121727529
 tet_spp,uro_sir_spp,no link,0.2422829636267983,no link,0.2657004791623725

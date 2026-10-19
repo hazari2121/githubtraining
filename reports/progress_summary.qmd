@@ -32,7 +32,19 @@ The thesis rests on one idea: **damage from different insects tends to rise and 
 | 2. Correlation metrics | Do insects really rise and fall together? | the premise; 3 (patterns) |
 | 3. Gap-filling | Can we use that to fill the missing records? | 1 (harmonise records), then 2 (Europe-wide totals) |
 
-**Data and rules used throughout.** EU-ForDAM, 49 insect codes, 16 countries, 77 regions (NUTS units), 2000-2022. `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown (never treated as 0). The Czech spruce bark-borer group is counted as *Ips typographus*, as in the 2025 EU-ForDAM paper.
+**Data and rules used throughout.** EU-ForDAM, 16 countries, 77 regions (NUTS units), 2000-2022. `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown (never treated as 0).
+
+**Groups follow the 2025 EU-ForDAM paper (Table 1).**
+
+| Level | What | Groups |
+|---|---|---|
+| 1 | feeding guild x host type | Borers / Defoliators on gymnosperms / angiosperms |
+| 2 | gymnosperm host | Borers on *P. abies*, *P. sylvestris*, *A. alba*; Defoliators on *P. abies*, *P. sylvestris* |
+| 3 | single insects | 43 codes (species, genera, and the species group "Geometridae on oaks") |
+
+Some codes are **aggregates**: several insects reported together (e.g. `CambXyl_con&BO` = "borers on pine"). As in the paper, they count **only in the group totals** (levels 1-2). They are never ranked, correlated or gap-filled as if they were one insect. The spruce bark-borer group (`CambXyl_con&BB_con&SM`, Czechia and Germany) is mostly *Ips typographus* and is counted as *I. typographus*, again as in the paper. `tha_pit` is *Thaumetopoea pityocampa* (the paper's name). The code-to-group table is `data/lookup/paper_hierarchy_2025.csv`.
+
+**Check against the paper.** Our cumulative totals reproduce the paper's Table 2 closely: *I. typographus* to 0.01%, Borers on angiosperms exactly, *P. chalcographus* exactly, Borers on *P. abies* to 0.01% once *Trypodendron lineatum* (`xyl_lin`, Germany only) is left out, as the paper apparently did. The rest are within 0-9% (defoliators slightly higher in our file, probably later data corrections; the paper used 15 countries). Table: `outputs/tables/CHECK_totals_vs_paper_table2.csv`.
 
 ---
 
@@ -40,15 +52,15 @@ The thesis rests on one idea: **damage from different insects tends to rise and 
 
 ![](../outputs/figures/species_nuts_occurrence_ranking.png)
 
-- *Ips typographus* is everywhere: damage in **72 of 77** regions, all 16 countries.
-- Next: *Phaenops cyanea* (44 regions), *Tomicus* spp. (42), *Ips acuminatus* (34), *Lymantria monacha* (32).
-- Most codes are local: half cause damage in 15 regions or fewer.
+- **Groups (A):** Borers on gymnosperms cause damage in **73 of 77** regions, almost all of it on spruce (Borers on *P. abies*: 72 regions, 644 million m3). Defoliators on angiosperms are next (51 regions).
+- **Aggregates are inside the groups now**, not ranked as insects. They are a small part of each group: 0.3% of Borers on gymnosperms, 5% of Borers on *P. sylvestris*, 6% of Defoliators on angiosperms.
+- **Single insects (B):** *Ips typographus* is everywhere (72 regions, all 16 countries). Next: *Phaenops cyanea* (44), *Tomicus* spp. (42), *Ips acuminatus* (34), *Lymantria monacha* (32). Most insects are local: half cause damage in 11 regions or fewer.
 
 ---
 
 ## 2. Correlation metrics: do insects rise and fall together?
 
-**How.** For every pair of insects (1,176 pairs), in the same region and year: does one have a bad year when the other does? Each region is compared with its own normal (so big and small regions count the same). A link is **sure** if it survives resampling whole regions 999 times, and **strong** if r is at least 0.3.
+**How.** For every pair of single insects (43 insects, 903 pairs; aggregates left out), in the same region and year: does one have a bad year when the other does? Each region is compared with its own normal (so big and small regions count the same). A link is **sure** if it survives resampling whole regions 999 times, and **strong** if r is at least 0.3.
 
 ![](../outputs/figures/CM_table_questions.png)
 
@@ -62,9 +74,9 @@ Red = bad years together. Strong colour = sure link; faded = could be chance; bl
 
 ![](../outputs/figures/CM_table_verdicts.png)
 
-**30 usable pairs**: strong and the same in every country where they can be checked. About 10% of measurable pairs are strongly linked.
+**28 usable pairs**: strong and the same in every country where they can be checked. About 12% of measurable pairs are strongly linked. (Before the retool there were 30; the two that dropped out were aggregate x insect pairs, which compared a group with its own members.)
 
-### The 30 usable pairs
+### The 28 usable pairs
 
 ![](../outputs/figures/CM_usable_pairs_table.png)
 
@@ -72,10 +84,16 @@ Red = bad years together. Strong colour = sure link; faded = could be chance; bl
 
 ![](../outputs/figures/CM_table_groups.png)
 
-1. **The premise holds for a core of insects**, mainly conifer bark beetles and pine defoliators.
-2. **Links are regional**: 23 of the 30 stay strong after removing years that were bad all over Europe.
-3. **Feeding type matters, host tree adds little**: pairs in the same broad group are strongly linked 23% of the time vs 5% across groups.
-4. **Checks**: Spearman (rank) correlation gives the same answer (agreement 0.97); hiding one country at a time, all 30 usable links help predict the hidden country (about 10-25% less error).
+1. **The premise holds for a core of insects**, mainly bark beetles on spruce and pine and pine defoliators.
+2. **Links are mostly regional**: 21 of the 28 are still clear when the Europe-wide part of each year (the part all regions share) is separated out. The rest are mostly carried by years that were bad everywhere.
+3. **The paper's level-1 groups matter**: pairs in the same level-1 group are strongly linked 28% of the time vs 6% across groups (permutation test p = 0.001).
+4. **Checks**: Spearman (rank) correlation gives the same answer (agreement 0.97); hiding one country at a time, all 28 usable links help predict the hidden country (typically 11% less error).
+
+### The same question for the paper's groups
+
+![](../outputs/figures/CM_groups_level2.png)
+
+Here the group series include the aggregates. Bark borers on spruce, pine and fir have bad years together (r 0.47-0.54 within regions; 0.70-0.91 for the Europe-wide totals, the paper's way). Spruce and pine defoliators go together (0.35). Borers and defoliators do **not** move together, and fir borers go **against** spruce defoliators (-0.36). Level 1: `outputs/figures/CM_groups_level1.png`; table `CM_groups_level1_level2.csv`.
 
 ---
 
@@ -90,7 +108,7 @@ Each empty box (region x year x insect) gets two questions, multiplied together:
 
 The model learns a few hidden "scores" for each region-year (e.g. *was this a bad bark-beetle year here?*) from the insects that **were** recorded there, and each insect's sensitivity to those scores from where it **was** recorded. That is the thesis idea written as a model.
 
-**Rules:** reported values kept; host tree absent = 0; insect outside its range = 0 (draft rule, below); nothing recorded in a region-year = not filled; aggregate reporting codes not filled.
+**Rules:** reported values kept; host tree absent = 0; insect outside its range = 0 (draft rule, below); nothing recorded in a region-year = not filled. Aggregate codes help the model learn but are **never filled**, and the tests are scored on single insects only.
 
 ### Does it work? The hide-and-predict test
 
@@ -98,7 +116,7 @@ Real values were hidden (a whole country's records for one insect), predicted, a
 
 ![](../outputs/figures/GF_1_methods_overall.png)
 
-The factor model clearly beats the simple average: it tells damage from no damage much better (AUC 0.76 vs 0.64) and gets regional totals far closer (typically 4.5x off vs 46x).
+The factor model clearly beats the simple average: it tells damage from no damage much better and gets regional totals far closer.
 
 ### A better version of the model (M2)
 
@@ -109,17 +127,25 @@ tb("GF_M0_M1_M2_comparison.csv") |>
             `Usable pairs the model reproduces` = paste(usable_linked, "of", usable_n))
 ```
 
-**M2** (region and year effects separated, 3 hidden factors, insects pulled towards their feeding group) is the best on every score and now reproduces **23 of the 30** usable pairs instead of 15. It is the model used for the current filled dataset (v3).
+**M2** (region and year effects separated, 3 hidden factors, insects pulled towards their level-1 group) is the best on every score (AUC 0.79; a hidden regional total typically 4.3x off) and reproduces **22 of the 28** usable pairs instead of 13. It is the model used for the current filled dataset (v3).
 
 ### Where insects can live: the range rule
 
-The model first filled insects wherever their tree grows, inventing damage outside their natural range. A draft rule now fills an insect only in countries that report it or border one that does. This removed about two thirds of the invented damage (filled m3 from 201 to 63 million; ha from 46 to 16 million). The draft table is in `outputs/tables/GF2_range_draft_for_correction.xlsx` for expert correction.
+The model first filled insects wherever their tree grows, inventing damage outside their natural range. A draft rule now fills an insect only in countries that report it or border one that does; *T. pityocampa* only in BG, CH, HR, IT and SI (its southern range). The draft table is in `outputs/tables/GF2_range_draft_for_correction.xlsx` for expert correction.
 
-### Europe-wide totals (dataset v3)
+### Europe-wide totals by the paper's groups (dataset v3)
 
-![](../outputs/figures/GF3_europe_totals_with_ranges.png)
+![](../outputs/figures/GF3_europe_totals_by_paper_group.png)
 
-Black = reported only; blue = reported + filled; band = 80% range from the test (it catches the truth about 75% of the time). For most insects the filled part is a modest top-up (0.1-1x reported) that follows the reported ups and downs.
+```{r gtot}
+tb("GF3_cumulative_totals_by_paper_group.csv") |>
+  transmute(Level = sub("level", "", level), Group = group, Unit = unit,
+            `Reported 2000-2022` = big(reported), `Filled` = big(filled), `Filled vs reported` = pct(filled_vs_reported))
+```
+
+Black = reported only (aggregates included); blue = reported + filled; band = 80% range from the test (it catches the truth about 74% of the time). For borers the filled part is a small top-up (+6% for all borers on gymnosperms, +4% on spruce): the big outbreaks are already reported. For defoliators it is larger (+30-110%), and the ranges are very wide, because defoliator records are patchier and harder to predict.
+
+Per insect: `outputs/figures/GF3_europe_totals_with_ranges.png`.
 
 ---
 
@@ -127,20 +153,23 @@ Black = reported only; blue = reported + filled; band = 80% range from the test 
 
 | | Status |
 |---|---|
-| Species ranking | ✅ done |
-| Correlation metrics | ✅ done: premise holds for a core group; 30 usable pairs |
+| Hierarchy | ✅ follows the 2025 paper; totals match its Table 2 |
+| Species ranking | ✅ done: groups (aggregates included) and single insects |
+| Correlation metrics | ✅ done: premise holds for a core group; 28 usable pairs; group level added |
 | Gap-filling method | ✅ works and is tested; clearly better than simple averages |
 | Filled dataset | ✅ v3 with ranges and confidence labels |
 | Europe-wide totals | ⚠️ nearly: a few insects still too high until the range list is checked |
 
 **Open points**
 
-- **Range list**: needs expert checks, especially `tha_pit` (*T. pityocampa* or *T. pinivora*? If *T. pityocampa*, its filled damage drops from about 11 million to 70,000 ha), *Pissodes pini*, *Polygraphus poligraphus* and *Ips duplicatus*.
+- **Range list**: needs expert checks. Still implausibly high filled damage: *Pissodes pini* (9x reported), *Polygraphus poligraphus* (7x), *Ips duplicatus* (3x).
+- **`xyl_lin`** (*Trypodendron lineatum*, Germany only, 12 million m3) is not in the paper's Table 1 and seems to be left out of its totals. We keep it in Borers on *P. abies*; worth confirming.
 - **Amounts** are still rough (a regional total is typically about 4x off). Adding drought and storm data is the main expected improvement, and it also answers objective 3 (drivers and anticipation).
 
 ## Files
 
 - Reports: `reports/correlation_metrics.html`, `reports/gapfilling.html`
 - Figures: `outputs/figures/` (CM_* = correlation metrics, GF* = gap-filling)
-- Tables: `outputs/tables/` (e.g. `CM_pairs_verdict.csv`, `GF3_europe_totals_with_ranges.csv`, `GF2_range_draft_for_correction.xlsx`)
+- Tables: `outputs/tables/` (e.g. `RANK_groups_level1_level2.csv`, `RANK_species_level3.csv`, `CHECK_totals_vs_paper_table2.csv`, `CM_pairs_verdict.csv`, `CM_groups_level1_level2.csv`, `GF3_europe_totals_by_paper_group.csv`, `GF2_range_draft_for_correction.xlsx`)
+- Code-to-group table: `data/lookup/paper_hierarchy_2025.csv`
 - Filled dataset (local only): `data/processed/eufordam_gapfilled_v3.csv`

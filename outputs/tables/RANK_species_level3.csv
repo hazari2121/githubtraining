@@ -1,0 +1,44 @@
+rank,species,n_units_with_damage,n_units_reported,n_countries_with_damage,cumulative_damage,name,code_type,level1,level2_paper,unit,in_paper_table1
+1,ips_typ,72,77,16,586756429.8964136,Ips typographus,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+2,pha_cya,44,50,5,14897744.739767345,Phaenops cyanea,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+3,tom_spp,42,50,5,5451826.6937934505,Tomicus spp.,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+4,ips_acu,34,43,6,7280634.350443249,Ips acuminatus,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+5,lym_mon,32,41,4,2435185.303801588,Lymantria monacha,species,Defoliators on gymnosperms,Defoliators on P. abies,ha,TRUE
+6,dip_sp,31,42,4,975240.6672648157,Diprion sp.,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+7,tor_vir,30,35,5,661625.6619292039,Tortrix viridana,species,Defoliators on angiosperms,NA,ha,TRUE
+8,agr_big,28,32,2,6799462.82840364,Agrilus biguttatus,species,Borers on angiosperms,NA,m3,TRUE
+8,geo_db,28,36,6,789910.4421105616,Geometridae on oaks,species group,Defoliators on angiosperms,NA,ha,TRUE
+8,lym_dis,28,39,10,2407298.5650517573,Lymantria dispar,species,Defoliators on angiosperms,NA,ha,TRUE
+11,mel_spp,26,32,2,1614818.8190826331,Melolontha spp.,species,Defoliators on angiosperms,NA,ha,TRUE
+12,pit_cha,24,28,6,28145986.36873766,Pityogenes chalcographus,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+13,pan_fla,23,41,4,642296.7086134454,Panolis flammea,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+14,bup_pin,22,32,2,229615.89229691878,Bupalus piniarius,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+15,den_pin,21,33,3,869314.4030408988,Dendrolimus pini,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+15,pit_spp,21,34,5,7849191.69812023,Pityokteines spp.,species,Borers on gymnosperms,Borers on A. alba,m3,TRUE
+17,tet_gab,18,32,3,339613.38069773366,Tetropium gabrieli,species,Borers on gymnosperms,NA,m3,TRUE
+18,ips_sex,17,24,3,1798309.5981792714,Ips sexdentatus,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+19,sco_int,16,23,2,515021.40056022373,Scolytus intricatus,species,Borers on angiosperms,NA,m3,TRUE
+20,pri_abi,15,23,2,502774.80633053184,Pristiphora abietina,species,Defoliators on gymnosperms,Defoliators on P. abies,ha,TRUE
+21,sco_rat,12,24,3,41296.00448179271,Scolytus ratzeburgii,species,Borers on angiosperms,NA,m3,TRUE
+22,era_def,11,15,1,158854.443977591,Erannis defoliaria,species,Defoliators on angiosperms,NA,ha,TRUE
+22,ips_cem,11,15,1,2893351.7467787107,Ips cembrae,species,Borers on gymnosperms,NA,m3,TRUE
+22,xyl_spp,11,15,1,1530595.675070028,Xyleborus / Xyloterus spp. (broadleaves),species,Borers on angiosperms,NA,m3,FALSE
+25,ips_dup,10,10,3,15247887.142857142,Ips duplicatus,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+25,tha_pro,10,15,1,314117.1708683473,Thaumetopoea processionea,species,Defoliators on angiosperms,NA,ha,TRUE
+25,xyl_lin,10,15,1,12308875.789915968,Trypodendron (Xyloterus) lineatum,species,Borers on gymnosperms,Borers on P. abies,m3,FALSE
+28,agr_vir,9,15,1,1954158.873949581,Agrilus viridis,species,Borers on angiosperms,NA,m3,TRUE
+28,ope_spp,9,15,1,262829.85154061613,Operophtera sp.,species,Defoliators on angiosperms,NA,ha,TRUE
+28,pol_pol,9,9,2,273712.00000000006,Polygraphus poligraphus,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+31,pis_pin,8,16,2,365654.5023579486,Pissodes pini,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+31,tet_spp,8,15,1,403855.82633053255,Tetropium spp.,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+31,zei_gri,8,23,2,957.6190476190476,Zeiraphera griseana,species,Defoliators on gymnosperms,Defoliators on P. abies,ha,TRUE
+34,cep_spp,7,8,1,13771.22857142857,Cephalcia sp.,species,Defoliators on gymnosperms,Defoliators on P. abies,ha,TRUE
+35,sco_sco,6,16,2,28819.19215686276,Scolytus scolytus,species,Borers on angiosperms,NA,m3,TRUE
+36,neo_ser,5,24,3,42466.45021645022,Neodiprion sertifer,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+36,pit_bid,5,15,1,187344.31372549012,Pityogenes bidentatus,species,Borers on gymnosperms,Borers on P. sylvestris,m3,TRUE
+38,uro_sir_spp,4,15,1,34720.58823529415,Siricinae,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+39,den_mic,3,24,3,3518.285714285714,Dendroctonus micans,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+39,tha_pit,3,17,3,120488.9411764706,Thaumetopoea pityocampa,species,Defoliators on gymnosperms,Defoliators on P. sylvestris,ha,TRUE
+41,ips_ami,2,15,1,436158.82352941175,Ips amitinus,species,Borers on gymnosperms,Borers on P. abies,m3,TRUE
+42,clo_ana,1,1,1,93,Clostera anastomosis,species,Defoliators on angiosperms,NA,ha,TRUE
+42,sap_car,1,15,1,29.4117647058824,Saperda carcharias,species,Borers on angiosperms,NA,m3,FALSE

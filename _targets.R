@@ -533,7 +533,8 @@ list(
   tar_target(v3_gtot, gapfill_group_totals(v3_data, v3_bt, ph_hier)),
   tar_target(v3_gtot_csv, tab(v3_gtot, "GF3_europe_totals_by_paper_group.csv"), format = "file"),
   tar_target(v3_gtot_sum_csv, tab(v3_gtot |> dplyr::group_by(level, group, unit) |>
-                                    dplyr::summarise(dplyr::across(c(reported, filled, total_mid), sum), .groups = "drop"),   # sum of yearly middles; ranges do not add up
+                                    dplyr::summarise(dplyr::across(c(reported, filled), sum), .groups = "drop") |>
+                                    dplyr::mutate(total = reported + filled, filled_vs_reported = filled / reported),
                                   "GF3_cumulative_totals_by_paper_group.csv"), format = "file"),
   tar_target(fig_v3_gtot, save_fig(plot_paper_group_totals(v3_gtot), "outputs/figures/GF3_europe_totals_by_paper_group.png", 12, 9),
              format = "file"),

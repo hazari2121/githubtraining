@@ -1,0 +1,6 @@
+species,name,level1,level2_paper,unit,countries,n_units_with_damage,cumulative_damage,counted_in
+CambXyl_con&BB_con&BO,Borers on pine (aggregate),Borers on gymnosperms,Borers on P. sylvestris,m3,"AT, DE, HR",12,873653.5602240897,levels 1 and 2
+CambXyl_con&BO,Borers on pine (aggregate; second code),Borers on gymnosperms,Borers on P. sylvestris,m3,"DE, SI",3,688752.9811698266,levels 1 and 2
+CambXyl_con&MD,Borers on larch (aggregate),Borers on gymnosperms,NA,m3,"CZ, DE",9,303829.74789915973,level 1 only
+Def_dec,Defoliators on angiosperms (aggregate),Defoliators on angiosperms,NA,ha,DE,2,132.33333333333334,level 1 only
+Def_dec&DB,Defoliators on oaks (aggregate),Defoliators on angiosperms,NA,ha,"AT, CZ, DE",21,419517.40868347324,level 1 only

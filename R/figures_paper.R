@@ -43,7 +43,8 @@ plot_paper_species_ranking <- function(sr, n_units = 77) {
                           linewidth = 0.5, alpha = 0.35) +
     ggplot2::geom_point(ggplot2::aes(colour = level1), size = 2.4) +
     ggplot2::geom_text(ggplot2::aes(label = n_units_with_damage), hjust = 0, nudge_x = 1.2, size = 2.5, colour = pal$ink2) +
-    ggplot2::scale_colour_manual(values = paper_level1_cols, name = "Level 1 group", drop = FALSE) +
+    ggplot2::scale_colour_manual(values = paper_level1_cols, name = "Level 1 group", drop = FALSE,
+                                 guide = ggplot2::guide_legend(nrow = 2)) +
     ggplot2::scale_x_continuous(limits = c(0, n_units), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0.02))) +
     ggplot2::labs(x = "NUTS units with damage (at least one year > 0, 2000-2022)", y = NULL,
                   title = "B. Single insects (level 3; aggregate reporting codes left out)",
@@ -94,14 +95,14 @@ plot_paper_group_totals <- function(gt) {
     dplyr::arrange(group) |> dplyr::mutate(lab = factor(lab, unique(lab)))
   ggplot2::ggplot(d, ggplot2::aes(year)) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = total_lo80, ymax = total_hi80), fill = "#86b6ef", alpha = 0.45) +
-    ggplot2::geom_line(ggplot2::aes(y = total_mid, colour = "reported + filled"), linewidth = 0.8) +
+    ggplot2::geom_line(ggplot2::aes(y = reported + filled, colour = "reported + filled"), linewidth = 0.8) +
     ggplot2::geom_line(ggplot2::aes(y = reported, colour = "reported only"), linewidth = 0.8) +
     ggplot2::scale_colour_manual(values = c(`reported only` = pal$ink, `reported + filled` = "#1c5cab"), name = NULL) +
     ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
     ggplot2::facet_wrap(~ lab, scales = "free_y", ncol = 3) +
     ggplot2::labs(x = NULL, y = "Europe-wide damage per year",
                   title = "Europe-wide damage by group of the 2025 EU-ForDAM paper: reported vs reported + gap-filled",
-                  subtitle = "Reported = every code, aggregates included. Filled = single insects only (aggregates are never filled). Band = 80% range from the hide-and-predict test",
+                  subtitle = "Reported = every code, aggregates included. Filled = single insects only (aggregates are never filled). Band = 80% range from the hide-and-predict test.\nLine = reported + the model's filled values (middles of the range are not used here: they do not add up across insects)",
                   caption = "Filled insects tested in >= 2 countries only; T. pityocampa (tha_pit) filled only in BG, CH, HR, IT, SI; other insects in reporting countries and their land neighbours.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
