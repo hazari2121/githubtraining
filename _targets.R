@@ -149,6 +149,12 @@ list(
   tar_target(p_rank_groups_csv, tab(p_rank_groups, "RANK_groups_level1_level2.csv"), format = "file"),
   tar_target(p_aggregates_csv, tab(p_aggregates, "RANK_aggregate_codes.csv"), format = "file"),
   tar_target(p_table2_csv, tab(p_table2, "CHECK_totals_vs_paper_table2.csv"), format = "file"),
+  tar_target(fig_rank_l1, save_fig(plot_rank_level1(p_rank_groups), "outputs/figures/RANK_1_level1_guild_x_host_type.png", 9, 3.6),
+             format = "file"),
+  tar_target(fig_rank_l2, save_fig(plot_rank_level2(p_rank_groups), "outputs/figures/RANK_2_level2_by_host_tree.png", 9, 4),
+             format = "file"),
+  tar_target(fig_rank_l3, save_fig(plot_rank_level3(p_rank_species), "outputs/figures/RANK_3_level3_single_insects.png", 9, 10),
+             format = "file"),
   tar_target(fig_p_rank, save_grob(plot_paper_ranking(p_rank_groups, p_rank_species),
                                    "outputs/figures/species_nuts_occurrence_ranking.png", 9, 13), format = "file"),
 

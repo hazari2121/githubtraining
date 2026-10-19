@@ -6,7 +6,9 @@ paper_level1_cols <- c(`Borers on gymnosperms` = "#184f95", `Borers on angiosper
 short_number <- function(x) scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.1)(x)
 
 # Group level: one bar per paper group (levels 1 and 2), aggregates included
-plot_paper_group_ranking <- function(gr, n_units = 77) {
+plot_paper_group_ranking <- function(gr, n_units = 77,
+                                     title = "A. Groups of the 2025 EU-ForDAM paper (aggregate codes included)",
+                                     caption = NULL) {
   d <- gr |>
     dplyr::mutate(level_lab = dplyr::if_else(level == "level1", "Level 1: feeding guild x host type",
                                              "Level 2: gymnosperm host"),
@@ -25,7 +27,7 @@ plot_paper_group_ranking <- function(gr, n_units = 77) {
     ggplot2::scale_x_continuous(limits = c(0, n_units + 45), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0))) +
     ggplot2::facet_grid(level_lab ~ ., scales = "free_y", space = "free_y") +
     ggplot2::labs(x = "NUTS units with damage (at least one year > 0, 2000-2022)", y = NULL,
-                  title = "A. Groups of the 2025 EU-ForDAM paper (aggregate codes included)",
+                  title = title, caption = caption,
                   subtitle = "In brackets: cumulative reported damage 2000-2022 (borers m3, defoliators ha) and the part reported under aggregate codes") +
     theme_eu(8.5) +
     ggplot2::theme(strip.text.y = ggplot2::element_text(angle = 0, hjust = 0, face = "bold"),
@@ -33,7 +35,8 @@ plot_paper_group_ranking <- function(gr, n_units = 77) {
 }
 
 # Species level: single insects only, coloured by the paper's level-1 group
-plot_paper_species_ranking <- function(sr, n_units = 77) {
+plot_paper_species_ranking <- function(sr, n_units = 77,
+                                       title = "B. Single insects (level 3; aggregate reporting codes left out)") {
   d <- sr |>
     dplyr::mutate(lab = paste0(species, "  ", name, dplyr::if_else(in_paper_table1, "", "  [not in Table 1]"))) |>
     dplyr::arrange(n_units_with_damage, dplyr::desc(species)) |>
@@ -47,13 +50,36 @@ plot_paper_species_ranking <- function(sr, n_units = 77) {
                                  guide = ggplot2::guide_legend(nrow = 2)) +
     ggplot2::scale_x_continuous(limits = c(0, n_units), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0.02))) +
     ggplot2::labs(x = "NUTS units with damage (at least one year > 0, 2000-2022)", y = NULL,
-                  title = "B. Single insects (level 3; aggregate reporting codes left out)",
+                  title = title,
                   caption = paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
                                   "\nAs in the 2025 EU-ForDAM paper, the spruce bark-borer group (CambXyl_con&BB_con&SM, CZ and DE) is counted as ips_typ.",
                                   "\nAggregate codes (borers on pine / larch, defoliators on angiosperms / oaks) lump several insects and are counted only in A.")) +
     theme_eu(8.5) +
     ggplot2::theme(legend.position = "bottom",
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+# The three levels as three separate figures
+rank_caption <- paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
+                      "\nAggregate codes (several insects reported together, e.g. borers on pine) are counted in the groups they belong to.",
+                      "\nAs in the 2025 EU-ForDAM paper, the spruce bark-borer group (CZ and DE) is counted as I. typographus.")
+
+plot_rank_level1 <- function(gr) {
+  plot_paper_group_ranking(dplyr::filter(gr, level == "level1"),
+                           title = "Level 1: borers and defoliators on gymnosperms and angiosperms",
+                           caption = rank_caption) +
+    ggplot2::facet_null()
+}
+
+plot_rank_level2 <- function(gr) {
+  plot_paper_group_ranking(dplyr::filter(gr, level == "level2"),
+                           title = "Level 2: borers and defoliators by gymnosperm host tree",
+                           caption = paste(rank_caption, "\nLevel 2 covers spruce, pine and fir only, as in the paper (larch and angiosperm insects have no level-2 group).")) +
+    ggplot2::facet_null()
+}
+
+plot_rank_level3 <- function(sr) {
+  plot_paper_species_ranking(sr, title = "Level 3: single insects (aggregate reporting codes left out)")
 }
 
 plot_paper_ranking <- function(gr, sr) {
