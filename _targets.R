@@ -153,7 +153,7 @@ list(
              format = "file"),
   tar_target(fig_rank_l2, save_fig(plot_rank_level2(p_rank_groups), "outputs/figures/RANK_2_level2_by_host_tree.png", 9, 4),
              format = "file"),
-  tar_target(fig_rank_l3, save_fig(plot_rank_level3(p_rank_species), "outputs/figures/RANK_3_level3_single_insects.png", 9, 10),
+  tar_target(fig_rank_l3, save_fig(plot_rank_level3(p_rank_species), "outputs/figures/RANK_3_level3_individual_species.png", 9, 8),
              format = "file"),
   tar_target(fig_p_rank, save_grob(plot_paper_ranking(p_rank_groups, p_rank_species),
                                    "outputs/figures/species_nuts_occurrence_ranking.png", 9, 13), format = "file"),

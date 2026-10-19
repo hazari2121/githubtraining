@@ -56,11 +56,11 @@ Three graphs, one per level of the 2025 paper.
 
 ![](../outputs/figures/RANK_2_level2_by_host_tree.png)
 
-![](../outputs/figures/RANK_3_level3_single_insects.png)
+![](../outputs/figures/RANK_3_level3_individual_species.png)
 
 - **Levels 1 and 2:** Borers on gymnosperms cause damage in **73 of 77** regions, almost all of it on spruce (Borers on *P. abies*: 72 regions, 644 million m3). Defoliators on angiosperms are next (51 regions).
 - **Aggregates are inside the groups now**, not ranked as insects. They are a small part of each group: 0.3% of Borers on gymnosperms, 5% of Borers on *P. sylvestris*, 6% of Defoliators on angiosperms.
-- **Level 3, single insects:** *Ips typographus* is everywhere (72 regions, all 16 countries). Next: *Phaenops cyanea* (44), *Tomicus* spp. (42), *Ips acuminatus* (34), *Lymantria monacha* (32). Most insects are local: half cause damage in 11 regions or fewer.
+- **Level 3, individual species** (33 codes that name one species; genus-level codes such as *Tomicus* spp. and the aggregates count only in the groups): *Ips typographus* is everywhere (72 regions, all 16 countries). Next: *Phaenops cyanea* (44), *Ips acuminatus* (34), *Lymantria monacha* (32), *Tortrix viridana* (30). Most species are local: half cause damage in 11 regions or fewer.
 
 ---
 

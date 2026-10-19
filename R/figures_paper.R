@@ -78,8 +78,20 @@ plot_rank_level2 <- function(gr) {
     ggplot2::facet_null()
 }
 
+# Individual species only: genus-level codes (spp. / sp.), Siricinae and the
+# species group Geometridae on oaks are left out, as are aggregate codes
+is_single_species <- function(sr) {
+  sr$code_type == "species" & !grepl("spp\\.|sp\\.|Siricinae", sr$name)
+}
+
 plot_rank_level3 <- function(sr) {
-  plot_paper_species_ranking(sr, title = "Level 3: single insects (aggregate reporting codes left out)")
+  left_out <- sr$species[!is_single_species(sr)]
+  plot_paper_species_ranking(sr[is_single_species(sr), ], title = "Level 3: individual species") +
+    ggplot2::labs(caption = paste0(
+      "77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
+      "\nOnly codes that name one species. Left out (they count in the level 1-2 groups): aggregate reporting codes,",
+      "\nand genus-level codes or species groups: ", paste(left_out, collapse = ", "), ".",
+      "\nAs in the 2025 EU-ForDAM paper, the spruce bark-borer group (CZ and DE) is counted as I. typographus."))
 }
 
 plot_paper_ranking <- function(gr, sr) {
