@@ -1,7 +1,7 @@
 code,name,code_type,paper_level1,paper_level2,in_paper_table1,note
 CambXyl_con&BB_con&BO,Borers on pine (aggregate),aggregate,Borers on gymnosperms,Borers on P. sylvestris,yes,"reported group: counted only at levels 1-2"
 CambXyl_con&BO,Borers on pine (aggregate; second code),aggregate,Borers on gymnosperms,Borers on P. sylvestris,yes,"reported group: counted only at levels 1-2"
-CambXyl_con&BB_con&SM,Borers on spruce (aggregate),aggregate,Borers on gymnosperms,Borers on P. abies,yes,"CZ: dominated by I. typographus, so counted as ips_typ (paper rule); elsewhere levels 1-2 only"
+CambXyl_con&BB_con&SM,Borers on spruce (aggregate),aggregate,Borers on gymnosperms,Borers on P. abies,yes,"CZ and DE: dominated by I. typographus, so counted as ips_typ (paper rule; reproduces the paper's I. typographus total to 0.01%)"
 CambXyl_con&MD,Borers on larch (aggregate),aggregate,Borers on gymnosperms,,yes,"reported group: level 1 only (no larch group at level 2)"
 Def_dec,Defoliators on angiosperms (aggregate),aggregate,Defoliators on angiosperms,,yes,"reported group: level 1 only"
 Def_dec&DB,Defoliators on oaks (aggregate),aggregate,Defoliators on angiosperms,,yes,"reported group: level 1 only"
@@ -11,8 +11,8 @@ agr_vir,Agrilus viridis,species,Borers on angiosperms,,yes,
 sco_int,Scolytus intricatus,species,Borers on angiosperms,,yes,
 sco_rat,Scolytus ratzeburgii,species,Borers on angiosperms,,yes,
 sco_sco,Scolytus scolytus,species,Borers on angiosperms,,yes,
-sap_car,Saperda carcharias,species,Borers on angiosperms,,no,"in the data but not listed in Table 1"
-xyl_spp,Xyleborus / Xyloterus spp. (broadleaves),species,Borers on angiosperms,,no,"in the data but not listed in Table 1"
+sap_car,Saperda carcharias,species,Borers on angiosperms,,no,"not listed in Table 1 but inside the paper's Borers on angiosperms total (exact match)"
+xyl_spp,Xyleborus / Xyloterus spp. (broadleaves),species,Borers on angiosperms,,no,"not listed in Table 1 but inside the paper's Borers on angiosperms total (exact match)"
 den_mic,Dendroctonus micans,species,Borers on gymnosperms,Borers on P. abies,yes,
 ips_ami,Ips amitinus,species,Borers on gymnosperms,Borers on P. abies,yes,
 ips_dup,Ips duplicatus,species,Borers on gymnosperms,Borers on P. abies,yes,
@@ -21,7 +21,7 @@ pit_cha,Pityogenes chalcographus,species,Borers on gymnosperms,Borers on P. abie
 pol_pol,Polygraphus poligraphus,species,Borers on gymnosperms,Borers on P. abies,yes,
 tet_spp,Tetropium spp.,species,Borers on gymnosperms,Borers on P. abies,yes,
 uro_sir_spp,Siricinae,species,Borers on gymnosperms,Borers on P. abies,yes,
-xyl_lin,Trypodendron (Xyloterus) lineatum,species,Borers on gymnosperms,Borers on P. abies,no,"in the data but not listed in Table 1"
+xyl_lin,Trypodendron (Xyloterus) lineatum,species,Borers on gymnosperms,Borers on P. abies,no,"not listed in Table 1 and apparently left out of the paper's totals (DE only; without it Borers on P. abies matches to 0.01%); kept here"
 ips_acu,Ips acuminatus,species,Borers on gymnosperms,Borers on P. sylvestris,yes,
 ips_sex,Ips sexdentatus,species,Borers on gymnosperms,Borers on P. sylvestris,yes,
 pha_cya,Phaenops cyanea,species,Borers on gymnosperms,Borers on P. sylvestris,yes,

@@ -15,8 +15,14 @@
 #  Shared rules
 #    - value1 only (value2 is the same damage in another unit)
 #    - 0 = monitored, no damage (kept); not reported = unknown (never set to 0)
-#    - the Czech spruce bark-borer group is counted as Ips typographus,
-#      as in the 2025 EU-ForDAM paper
+#    - groups follow Table 1 of the 2025 EU-ForDAM paper
+#      (data/lookup/paper_hierarchy_2025.csv): level 1 = guild x host type,
+#      level 2 = gymnosperm host, level 3 = single insects
+#    - aggregate reporting codes (several insects lumped together) count only
+#      in group totals at levels 1-2: never ranked, correlated or filled as one
+#      insect (the factor model may still learn from them)
+#    - the spruce bark-borer group (CZ and DE) is counted as Ips typographus,
+#      as in the paper; tha_pit = Thaumetopoea pityocampa
 #    - raw data are read only; outputs go to OUT (tables, figures) and DATA_OUT
 #
 #  How to run
@@ -43,6 +49,7 @@ suppressPackageStartupMessages({
 
 RAW_FILE  <- "data/raw/EUForDam_REW3.xlsx"
 HOST_FILE <- "data/raw/Appendix_NUTS_Forests_12.xlsx"
+HIER_FILE <- "data/lookup/paper_hierarchy_2025.csv"   # Table 1 of the 2025 EU-ForDAM paper
 OUT       <- "outputs"            # tables and figures
 DATA_OUT  <- "data/processed"     # full filled dataset (large; keep out of public repos)
 
@@ -60,22 +67,32 @@ run_all <- function() {
   raw          <- read_raw(RAW_FILE)               # the EU-ForDAM sheet, as is
   long         <- to_long(raw)                     # one row per region x year x insect
   species_meta <- species_meta_from_raw(raw)       # unit, host tree, borer / defoliator
-  dmg          <- prepare_damage(long, species_meta)   # value1; CZ sub-rows summed; CZ group -> ips_typ
+  # Hierarchy of the 2025 EU-ForDAM paper (Table 1): level 1 = guild x host type,
+  # level 2 = gymnosperm host, level 3 = single insects. Aggregate reporting
+  # codes count only at levels 1-2 (never ranked, correlated or filled as insects).
+  hier         <- paper_hier_table(read_paper_hierarchy(HIER_FILE), species_meta)
+  # value1; CZ sub-rows summed; CZ and DE spruce bark-borer group -> ips_typ (paper rule)
+  dmg          <- prepare_damage(long, species_meta, group_to_species_paper)
   cells        <- classify_cells(dmg)              # observed damage / observed zero / not reported
-  hier         <- hierarchy_table(species_meta)    # broad groups: borers/defoliators x conifers/broadleaves
+  species      <- intersect(sort(unique(cells$species)), paper_species_codes(hier))   # single insects
+  hier_sp      <- dplyr::filter(hier, species %in% .env$species)
+  tab(paper_table2_check(dmg, hier), "CHECK_totals_vs_paper_table2.csv")   # our totals vs the paper's Table 2
 
   # ---------------------------------------------------------------------------
   # PART 2  Species-NUTS occurrence ranking
-  #   number of NUTS units where each code caused damage (at least one year > 0)
+  #   number of NUTS units with damage (at least one year > 0): per paper group
+  #   (levels 1-2, aggregate codes included) and per single insect (level 3)
   # ---------------------------------------------------------------------------
   message("PART 2: species-NUTS ranking")
-  occ_rank <- occurrence_ranking_v2(long, species_meta)
-  tab(occ_rank, "species_nuts_occurrence_ranking_v2.csv")
-  save_fig(plot_occurrence_ranking_v2(occ_rank), fig("species_nuts_occurrence_ranking.png"), 8, 10)
+  rank_groups  <- paper_group_ranking(dmg, hier)
+  rank_species <- paper_species_ranking(dmg, hier)
+  tab(rank_groups, "RANK_groups_level1_level2.csv"); tab(rank_species, "RANK_species_level3.csv")
+  tab(paper_aggregate_table(dmg, hier), "RANK_aggregate_codes.csv")
+  save_grob(plot_paper_ranking(rank_groups, rank_species), fig("species_nuts_occurrence_ranking.png"), 9, 13)
 
   # ---------------------------------------------------------------------------
   # PART 3  Correlation metrics
-  #   For every pair of codes (49 codes -> 1,176 pairs), on region-years where
+  #   For every pair of single insects (43 -> 903 pairs), on region-years where
   #   both are recorded: log(1 + damage), each region series standardised
   #   against its own mean (z_within), pooled Pearson r, 95% range from
   #   resampling whole regions 999 times.
@@ -83,30 +100,38 @@ run_all <- function() {
   #   other | Q4 holds in every country | Q5 same broad group / host tree
   # ---------------------------------------------------------------------------
   message("PART 3: correlation metrics (a few minutes)")
-  tr      <- make_transforms(cells, min_nonzero = 0)          # log_damage, z_within, anomaly
-  species <- sort(unique(cells$species))
+  tr      <- make_transforms(cells, min_nonzero = 0)          # log_damage, z_within, anomaly (all codes)
   pw      <- pairwise_correlations(tr, species, versions = "z_within")
   pc      <- per_country_correlations(tr, species, versions = "z_within")      # Q4: r per country
   loco    <- loco_correlations(tr, species, "z_within")                         # Q4: leave one country out
   ts      <- transferability_summary(pw, pc, loco, "z_within")                  # consistent / inconsistent
   cm      <- correlation_metrics(tr, species, ts)                               # Q1-Q3 with bootstrap ranges
-  q5      <- dplyr::bind_rows(hierarchy_pair_test(cm, hier, "same_year"),       # Q5: permutation test
-                              hierarchy_pair_test(cm, hier, "beyond_year"))
+  q5      <- dplyr::bind_rows(hierarchy_pair_test(cm, hier_sp, "same_year"),    # Q5: permutation test
+                              hierarchy_pair_test(cm, hier_sp, "beyond_year"))
   verdict <- cm_verdict(cm_basic_table(cm, hier))   # usable / promising / unreliable / weak / no link
   tab(verdict, "CM_pairs_verdict.csv"); tab(q5, "CM_basic_Q5_structure_test.csv"); tab(pc, "CM_basic_Q4_per_country.csv")
 
-  save_fig(plot_cm_heatmap(verdict, hier, cm_basic_order(hier)), fig("CM_heatmap.png"), 11, 11)
+  save_fig(plot_cm_heatmap(verdict, hier_sp, cm_basic_order(hier_sp)), fig("CM_heatmap.png"), 11, 11)
   save_fig(plot_cm_verdict(verdict), fig("CM_verdict.png"), 8, 4.2)
   save_fig(plot_cm_usable(verdict), fig("CM_usable_pairs.png"), 8.5, 7)
   save_grob(plot_usable_table(usable_table(verdict, species_meta)), fig("CM_usable_pairs_table.png"), 10.5, 10.4)
   save_grob(plot_simple_table(cm_table_questions(), "Four questions per insect pair, and the objective each one serves"),
             fig("CM_table_questions.png"), 10, 3.4)
-  save_grob(plot_simple_table(cm_table_verdicts(verdict), "One verdict per insect pair (1,176 pairs)",
+  save_grob(plot_simple_table(cm_table_verdicts(verdict), paste0("One verdict per insect pair (", format(nrow(verdict), big.mark = ","), " pairs)"),
                               "strong = sure link (95% range excludes 0) with r >= 0.3; checked = recorded together in >= 2 countries"),
             fig("CM_table_verdicts.png"), 8.5, 3.6)
   save_grob(plot_simple_table(cm_table_groups(verdict), "Feeding type matters: strong links within vs between broad groups",
-                              "Broad groups: borers / defoliators on conifers / broadleaves. Permutation test (999 relabellings)."),
+                              "Level 1 groups of the 2025 paper: borers / defoliators on gymnosperms / angiosperms. Permutation test (999 relabellings)."),
             fig("CM_table_groups.png"), 8.5, 2.2)
+
+  # Group level (paper levels 1-2, aggregate codes included): same metrics on
+  # group series, plus the paper's Europe-wide-total correlation
+  group_cm <- dplyr::bind_rows(lapply(c("level1", "level2_paper"), function(l)
+    dplyr::left_join(paper_group_correlations(cells, hier, l), paper_group_europe_correlations(cells, hier, l),
+                     by = c("level", "species_a", "species_b"))))
+  tab(group_cm, "CM_groups_level1_level2.csv")
+  save_fig(plot_paper_group_heatmap(group_cm, "level1"), fig("CM_groups_level1.png"), 8, 6)
+  save_fig(plot_paper_group_heatmap(group_cm, "level2"), fig("CM_groups_level2.png"), 9, 7)
 
   # Check 1: Spearman (within-region ranks) instead of values
   sp_tr  <- rank_transforms(tr)
@@ -140,7 +165,7 @@ run_all <- function() {
   host_appx   <- read_host_appendix(HOST_FILE)                       # NUTS forest table
   host_long   <- host_area_long(host_appx, dash_means_absent = TRUE)
   host_status <- host_status_table(cells, species_meta, host_long)    # host area per region x insect
-  L      <- build_lfm_matrix(cells, tr)
+  L      <- build_lfm_matrix(cells, tr)                              # all codes: aggregates are model input only
   blocks <- make_cv_blocks(L, n_folds = 10)                           # hidden country x insect blocks
   group  <- hier$level1[match(L$species, hier$species)]
   K1 <- 2; lambda1 <- 10; K2 <- 2; lambda2 <- 20; tau <- 50
@@ -148,7 +173,7 @@ run_all <- function() {
   # 4a  Methods head to head: simple average, partner method, factor model (+ forest area)
   gf_cv <- gapfill_compare_cv(L, blocks, group, K1, lambda1, K2, lambda2, tau = tau,
                               Lh = host_scaled_L(L, host_status), absent = host_absent_matrix(L, host_status))
-  gf_scores <- gapfill_compare_scores(gf_cv)
+  gf_scores <- gapfill_compare_scores(dplyr::filter(gf_cv, species %in% .env$species))   # scored on single insects
   tab(gf_scores$overall, "GF_methods_overall.csv")
   save_fig(plot_gapfill_overall(gf_scores$overall), fig("GF_1_methods_overall.png"), 11, 7)
 
@@ -158,13 +183,14 @@ run_all <- function() {
     `M0 current`               = c(base, list(tau_links = 0, lambda_rc = 0)),
     `M1 region+year (pull 5)`  = c(base, list(tau_links = 0, lambda_rc = 5)),
     `M2 K=3 + group links`     = modifyList(c(base, list(tau_links = 50, lambda_rc = 5)), list(K1 = 3, K2 = 3)))
-  m_cv <- lapply(specs, function(s) variant_cv(L, blocks, host_status, group, s))
+  m_cv <- lapply(specs, function(s) dplyr::filter(variant_cv(L, blocks, host_status, group, s), species %in% .env$species))
   m_scores <- dplyr::bind_rows(lapply(names(specs), function(nm) variant_scores(m_cv[[nm]], nm))) |>
     dplyr::left_join(dplyr::bind_rows(lapply(names(specs), function(nm)
       variant_links(L, host_status, group, specs[[nm]], verdict, nm))), by = "model")
   tab(m_scores, "GF_M0_M1_M2_comparison.csv")
 
   # 4c  Final filled dataset: M2 + draft range rule, ranges from the test
+  #     (aggregate codes are never filled; tha_pit = T. pityocampa, southern range only)
   spec   <- specs[["M2 K=3 + group links"]]
   fcv    <- m_cv[["M2 K=3 + group links"]]
   bt     <- cv_block_totals(fcv)                                    # hidden totals: real vs predicted
@@ -177,18 +203,19 @@ run_all <- function() {
   writexl::write_xlsx(list(`in range (1 = yes)` = range_draft_wide(rd), reasons = rd),
                       file.path(OUT, "tables", "GF2_range_draft_for_correction.xlsx"))
   raw_fill <- gapfill_raw_rs(L, host_status, group, spec)           # fit M2 on all data
+  rd     <- apply_range_overrides(rd, range_overrides_pityocampa)     # T. pityocampa: BG, CH, HR, IT, SI only
   filled <- apply_range(gapfill_dataset_v2(raw_fill, conf, dplyr::select(species_meta, species, unit), L$species), rd)
   tot    <- gapfill_totals_v2(filled, rng, bt)                      # country and Europe totals + 80% ranges
   write_csv_out(filled, file.path(DATA_OUT, "eufordam_gapfilled_v3.csv"))
   tab(conf, "GF3_confidence_by_insect.csv")
   tab(tot$europe, "GF3_europe_totals_with_ranges.csv"); tab(tot$country, "GF3_country_totals_with_ranges.csv")
   tab(dplyr::count(filled, value_type, confidence), "GF3_dataset_summary.csv")
-  save_fig(plot_gf2_europe(tot$europe), fig("GF3_europe_totals_with_ranges.png"), 10, 10)
+  save_fig(plot_gf2_europe(dplyr::filter(tot$europe, species %in% .env$species)), fig("GF3_europe_totals_with_ranges.png"), 10, 10)
 
-  # Scenario: tha_pit as Thaumetopoea pityocampa (filled only in BG, CH, HR, IT, SI)
-  filled_p <- apply_range(gapfill_dataset_v2(raw_fill, conf, dplyr::select(species_meta, species, unit), L$species),
-                          apply_range_overrides(rd, range_overrides_pityocampa))
-  tab(range_effect(tot, gapfill_totals_v2(filled_p, rng, bt)), "GF3_scenario_pityocampa_vs_pinivora.csv")
+  # Totals per paper group (levels 1-2): reported (aggregates included) + filled insects
+  gtot <- gapfill_group_totals(filled, bt, hier)
+  tab(gtot, "GF3_europe_totals_by_paper_group.csv")
+  save_fig(plot_paper_group_totals(gtot), fig("GF3_europe_totals_by_paper_group.png"), 12, 9)
 
   message("Done. Tables in ", file.path(OUT, "tables"), ", figures in ", file.path(OUT, "figures"))
   invisible(list(verdict = verdict, gap_scores = gf_scores$overall, model_versions = m_scores, filled = filled, totals = tot))
@@ -1175,6 +1202,218 @@ hierarchy_pair_test <- function(cm, hier, var = "same_year", n_perm = 999, seed 
 
 
 # -----------------------------------------------------------------------------
+# paper_hier.R
+# -----------------------------------------------------------------------------
+# Hierarchy of the 2025 EU-ForDAM paper (Table 1), used for the ranking, the
+# correlation metrics and the gap-filling.
+#
+#   level 1: feeding guild x host type (4 groups)
+#            Borers / Defoliators on gymnosperms / angiosperms
+#   level 2: gymnosperm host genus (5 groups)
+#            Borers on P. abies / P. sylvestris / A. alba,
+#            Defoliators on P. abies / P. sylvestris
+#            (larch insects and all angiosperm insects have no level-2 group)
+#   level 3: single insects (species, genus, or the species group geo_db)
+#
+# Aggregate reporting codes (e.g. CambXyl_con&BO = "borers on pine") lump
+# several insects together. As in the paper they count only at levels 1-2:
+# they are added into the group totals, never ranked or correlated as if they
+# were one insect, and never gap-filled. The spruce bark-borer group
+# (CambXyl_con&BB_con&SM, reported by CZ and DE) is dominated by I. typographus
+# and is counted as ips_typ in both countries; this reproduces the paper's
+# I. typographus total (Table 2) to within 0.01%.
+
+paper_level1_order <- c("Borers on gymnosperms", "Borers on angiosperms",
+                        "Defoliators on gymnosperms", "Defoliators on angiosperms")
+paper_level2_order <- c("Borers on P. abies", "Borers on P. sylvestris", "Borers on A. alba",
+                        "Defoliators on P. abies", "Defoliators on P. sylvestris")
+
+# Aggregate codes recoded to one species (paper rule: dominated by one species)
+group_to_species_paper <- tibble::tribble(
+  ~country, ~from,                   ~to,       ~reason,
+  "CZ",     "CambXyl_con&BB_con&SM", "ips_typ", "Spruce bark-borer group, dominated by I. typographus (paper rule)",
+  "DE",     "CambXyl_con&BB_con&SM", "ips_typ", "Spruce bark-borer group, dominated by I. typographus (paper rule; matches the paper's Table 2 total)"
+)
+
+read_paper_hierarchy <- function(path) {
+  readr::read_csv(path, show_col_types = FALSE)
+}
+
+# One row per code: level1, level2_paper (NA where the paper has no level-2
+# group) and level2 (level2_paper, or level1 where missing; used only to class
+# pairs as "same host-tree group" in the permutation test, as before).
+paper_hier_table <- function(ph, species_meta) {
+  ph |>
+    dplyr::transmute(species = code, name, code_type,
+                     level1 = paper_level1,
+                     level2_paper = dplyr::na_if(paper_level2, ""),
+                     level2 = dplyr::coalesce(level2_paper, level1),
+                     in_paper_table1 = in_paper_table1 == "yes") |>
+    dplyr::left_join(dplyr::select(species_meta, species, unit), by = "species")
+}
+
+# Codes that are single insects (everything except aggregate reporting codes)
+paper_species_codes <- function(ph_hier) {
+  ph_hier$species[ph_hier$code_type != "aggregate"]
+}
+
+# ---- Ranking -------------------------------------------------------------------
+
+# Species level: single insects only; units = NUTS units with damage > 0 in at
+# least one year
+paper_species_ranking <- function(dmg, ph_hier) {
+  dmg |>
+    dplyr::filter(!is.na(damage), species %in% paper_species_codes(ph_hier)) |>
+    dplyr::group_by(species, country, nuts_id) |>
+    dplyr::summarise(occurs = any(damage > 0), total = sum(damage), .groups = "drop") |>
+    dplyr::group_by(species) |>
+    dplyr::summarise(n_units_with_damage = sum(occurs), n_units_reported = dplyr::n(),
+                     n_countries_with_damage = dplyr::n_distinct(country[occurs]),
+                     cumulative_damage = sum(total), .groups = "drop") |>
+    dplyr::left_join(dplyr::select(ph_hier, species, name, code_type, level1, level2_paper, unit,
+                                   in_paper_table1), by = "species") |>
+    dplyr::arrange(dplyr::desc(n_units_with_damage), species) |>
+    dplyr::mutate(rank = rank(-n_units_with_damage, ties.method = "min"), .before = 1)
+}
+
+# Group level (paper levels 1 and 2): a unit has damage from a group when any
+# member code, aggregates included, reports damage > 0 in any year
+paper_group_ranking <- function(dmg, ph_hier) {
+  one <- function(level) {
+    h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
+    d <- dmg |> dplyr::filter(!is.na(damage)) |>
+      dplyr::inner_join(dplyr::select(h, species, group = dplyr::all_of(level), code_type), by = "species")
+    d |>
+      dplyr::group_by(group, unit) |>
+      dplyr::summarise(
+        n_units_with_damage = dplyr::n_distinct(paste(country, nuts_id)[damage > 0]),
+        n_units_reported = dplyr::n_distinct(paste(country, nuts_id)),
+        n_countries_with_damage = dplyr::n_distinct(country[damage > 0]),
+        n_codes = dplyr::n_distinct(species),
+        cumulative_damage = sum(damage),
+        from_aggregate_codes = sum(damage[code_type == "aggregate"]),
+        .groups = "drop") |>
+      dplyr::mutate(level = sub("_paper", "", level), .before = 1)
+  }
+  dplyr::bind_rows(one("level1"), one("level2_paper")) |>
+    dplyr::mutate(share_from_aggregates = from_aggregate_codes / cumulative_damage)
+}
+
+# Aggregate reporting codes: who reports them and where they are counted
+paper_aggregate_table <- function(dmg, ph_hier) {
+  dmg |>
+    dplyr::filter(!is.na(damage)) |>
+    dplyr::inner_join(dplyr::filter(ph_hier, code_type == "aggregate") |>
+                        dplyr::select(species, name, level1, level2_paper), by = "species") |>
+    dplyr::group_by(species, name, level1, level2_paper, unit) |>
+    dplyr::summarise(countries = paste(sort(unique(country)), collapse = ", "),
+                     n_units_with_damage = dplyr::n_distinct(paste(country, nuts_id)[damage > 0]),
+                     cumulative_damage = sum(damage), .groups = "drop") |>
+    dplyr::mutate(counted_in = dplyr::if_else(is.na(level2_paper), "level 1 only", "levels 1 and 2"))
+}
+
+# ---- Check against Table 2 of the paper ----------------------------------------
+
+paper_table2 <- tibble::tribble(
+  ~level, ~group, ~paper_total,
+  "level1", "Borers on gymnosperms", 673169401,
+  "level1", "Borers on angiosperms", 10869383,
+  "level1", "Defoliators on gymnosperms", 5566820,
+  "level1", "Defoliators on angiosperms", 6393628,
+  "level2", "Borers on A. alba", 7845375,
+  "level2", "Borers on P. abies", 631243712,
+  "level2", "Borers on P. sylvestris", 30553861,
+  "level2", "Defoliators on P. abies", 2916474,
+  "level2", "Defoliators on P. sylvestris", 2650346,
+  "species", "ips_typ", 586715446,
+  "species", "pha_cya", 14865369,
+  "species", "tom_spp", 5432690,
+  "species", "ips_acu", 6845704,
+  "species", "pit_cha", 28145602,
+  "species", "tor_vir", 641455,
+  "species", "geo_db", 746724,
+  "species", "lym_dis", 2390823,
+  "species", "lym_mon", 2402944
+)
+
+# Our cumulative reported damage 2000-2022 next to the paper's, with and
+# without the codes that are not listed in the paper's Table 1
+paper_table2_check <- function(dmg, ph_hier) {
+  d <- dplyr::filter(dmg, !is.na(damage)) |>
+    dplyr::left_join(dplyr::select(ph_hier, species, level1, level2 = level2_paper, in_paper_table1), by = "species")
+  tot <- function(x) tibble::tibble(ours = sum(x$damage), ours_table1_codes_only = sum(x$damage[x$in_paper_table1]))
+  paper_table2 |>
+    dplyr::mutate(res = purrr::map2(level, group, function(l, g) {
+      tot(dplyr::filter(d, if (l == "species") species == g else .data[[l]] %in% g))
+    })) |>
+    tidyr::unnest(res) |>
+    dplyr::mutate(ours_vs_paper_pct = round(100 * (ours / paper_total - 1), 2),
+                  table1_only_vs_paper_pct = round(100 * (ours_table1_codes_only / paper_total - 1), 2))
+}
+
+# ---- Group-level correlations (levels 1 and 2, aggregates included) ------------
+
+# Same metrics as the species level, on group series (sum of all recorded
+# member codes in a region-year, aggregates included)
+paper_group_correlations <- function(cells, ph_hier, level) {
+  h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
+  level_correlations(dplyr::filter(cells, species %in% h$species), h, level) |>
+    dplyr::mutate(level = sub("_paper", "", level))
+}
+
+# Paper-style check (as in its Tables 4-6): Pearson r of the Europe-wide yearly
+# totals, log(1 + x)
+paper_group_europe_correlations <- function(cells, ph_hier, level) {
+  h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
+  hier_europe_correlations(dplyr::filter(cells, species %in% h$species), h, level) |>
+    dplyr::mutate(level = sub("_paper", "", level))
+}
+
+# ---- Gap-filling: group totals with ranges ---------------------------------------
+
+# Europe-wide yearly totals per paper group: reported values of every code
+# (aggregates included) + the tested filled values of the member insects.
+# The 80% range resamples each insect's test errors exactly as in
+# gapfill_totals_v2(), then adds the draws up within the group.
+gapfill_group_totals <- function(gd, bt, ph_hier, n_draw = 2000, min_n = 30, seed = 20261019) {
+  set.seed(seed)
+  ct <- gd |>
+    dplyr::group_by(country, species, unit, year) |>
+    dplyr::summarise(
+      reported = sum(damage[value_type %in% c("reported damage", "reported zero")]),
+      filled_tested = sum(damage[value_type == "filled" & confidence %in% c("reliable", "weak")]),
+      .groups = "drop")
+  pool_all <- bt$lr
+  pools <- split(bt$lr, bt$species)
+  pool_of <- function(s) if (!is.null(pools[[s]]) && length(pools[[s]]) >= min_n) pools[[s]] else pool_all
+  draws_of <- function(f, s) {
+    f <- f[f > 0]
+    if (length(f) == 0) return(rep(0, n_draw))
+    e <- matrix(sample(pool_of(s), n_draw * length(f), replace = TRUE), n_draw)
+    rowSums(pmax(exp(e) * matrix(f + 1, n_draw, length(f), byrow = TRUE) - 1, 0))
+  }
+  one <- function(level) {
+    h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
+    ct |>
+      dplyr::inner_join(dplyr::select(h, species, group = dplyr::all_of(level)), by = "species") |>
+      dplyr::group_by(group, unit, year) |>
+      dplyr::group_modify(function(d, key) {
+        draws <- rep(0, n_draw)
+        for (s in unique(d$species)) draws <- draws + draws_of(d$filled_tested[d$species == s], s)
+        r <- sum(d$reported)
+        tibble::tibble(reported = r, filled = sum(d$filled_tested),
+                       total_lo80 = r + stats::quantile(draws, 0.1, names = FALSE),
+                       total_mid = r + stats::quantile(draws, 0.5, names = FALSE),
+                       total_hi80 = r + stats::quantile(draws, 0.9, names = FALSE))
+      }) |>
+      dplyr::ungroup() |>
+      dplyr::mutate(level = sub("_paper", "", level), .before = 1)
+  }
+  dplyr::bind_rows(one("level1"), one("level2_paper"))
+}
+
+
+# -----------------------------------------------------------------------------
 # cm_basic.R
 # -----------------------------------------------------------------------------
 # Correlation metrics, back to basics (Oct 2026).
@@ -1230,12 +1469,16 @@ cm_basic_table <- function(cm, hier) {
       link)
 }
 
+# Broad-group order: the 2025 paper's names, then the older flag-based names
+level1_order_all <- c("Borers on gymnosperms", "Borers on angiosperms",
+                      "Defoliators on gymnosperms", "Defoliators on angiosperms",
+                      "borers on conifers", "borers on broadleaves",
+                      "defoliators on conifers", "defoliators on broadleaves")
+
 # Order of codes for the matrix: by broad group, host-tree group, then name
 cm_basic_order <- function(hier) {
   hier |>
-    dplyr::arrange(factor(level1, c("borers on conifers", "borers on broadleaves",
-                                    "defoliators on conifers", "defoliators on broadleaves")),
-                   level2, species) |>
+    dplyr::arrange(factor(level1, level1_order_all), level2, species) |>
     dplyr::pull(species)
 }
 
@@ -3941,8 +4184,7 @@ plot_occurrence_ranking_v2 <- function(occ2) {
 plot_hier_heatmap <- function(hier_cm, hier, level, title) {
   d <- dplyr::filter(hier_cm, level == !!level)
   ord <- hier |> dplyr::distinct(level1, g = .data[[level]]) |>
-    dplyr::arrange(factor(level1, c("borers on conifers", "borers on broadleaves",
-                                    "defoliators on conifers", "defoliators on broadleaves")), g) |>
+    dplyr::arrange(factor(level1, level1_order_all), g) |>
     dplyr::pull(g) |> unique()
   both <- dplyr::bind_rows(d, dplyr::rename(d, species_a = species_b, species_b = species_a)) |>
     dplyr::mutate(ia = match(species_a, ord), ib = match(species_b, ord)) |>
@@ -4227,7 +4469,7 @@ plot_cm_heatmap <- function(v, hier, ord) {
     ggplot2::geom_vline(xintercept = cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::geom_hline(yintercept = n - cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::annotate("text", x = c(0, cuts) + diff(c(0, cuts, n)) / 2 + 0.5, y = n + 1.6, size = 2.8, fontface = "bold",
-                      label = c("borers on\nconifers", "borers on\nbroadleaves", "defoliators\non conifers", "defoliators on\nbroadleaves"),
+                      label = sub(" on ", "\non ", unique(hier$level1[match(ord, hier$species)])),
                       lineheight = 0.9) +
     ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.8, 0.8),
                                   oob = scales::squish, name = "r (same year,\nwithin region)") +
@@ -4238,7 +4480,7 @@ plot_cm_heatmap <- function(v, hier, ord) {
                   subtitle = paste0("Red = bad years together, blue = opposite. Strong colour = sure link, faded = could be chance. ",
                                     "Black box = usable (strong and holds in every country checked, ", sum(v$verdict == "usable"), " pairs).",
                                     "\nBlank = recorded together too rarely to measure."),
-                  caption = "CZ spruce bark-borer group counted as ips_typ (as in the 2025 EU-ForDAM paper); log(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.") +
+                  caption = "Single insects only (aggregate reporting codes count at group level only); CZ and DE spruce bark-borer group counted as ips_typ, as in the 2025 EU-ForDAM paper.\nlog(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.") +
     theme_eu(7.5) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5), legend.position = "right")
 }
@@ -4280,7 +4522,7 @@ insect_names <- c(
   dip_sp = "Diprion spp.", ips_acu = "Ips acuminatus", ips_dup = "Ips duplicatus",
   ips_sex = "Ips sexdentatus", ips_typ = "Ips typographus", lym_mon = "Lymantria monacha",
   pan_fla = "Panolis flammea", pha_cya = "Phaenops cyanea", pis_pin = "Pissodes pini",
-  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus", tha_pit = "Thaumetopoea pinivora",
+  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus", tha_pit = "Thaumetopoea pityocampa",
   sco_int = "Scolytus intricatus", sco_rat = "Scolytus ratzeburgi", tom_spp = "Tomicus spp.")
 
 host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",
@@ -4294,8 +4536,9 @@ usable_table <- function(v, species_meta) {
     dplyr::mutate(
       group = dplyr::case_when(
         r < 0 ~ "4. Opposite link",
-        grepl("defoliators", group_a) & grepl("defoliators", group_b) ~ "3. Pine and spruce defoliators",
-        group_a == "borers on conifers" & group_b == "borers on conifers" ~ "1. Conifer bark beetles and borers",
+        grepl("defoliators", tolower(group_a)) & grepl("defoliators", tolower(group_b)) ~ "3. Pine and spruce defoliators",
+        tolower(group_a) %in% c("borers on conifers", "borers on gymnosperms") &
+          tolower(group_b) %in% c("borers on conifers", "borers on gymnosperms") ~ "1. Conifer bark beetles and borers",
         TRUE ~ "2. Conifer borers with oak and birch borers"),
       Pair = paste(nm(species_a), "x", nm(species_b)),
       Hosts = paste(h[species_a], "x", h[species_b]),
@@ -4329,7 +4572,7 @@ plot_usable_table <- function(ut) {
   title <- grid::textGrob("The 30 usable insect pairs: strong (r >= 0.3, sure) and consistent in every country checked",
                           x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
   note <- grid::textGrob(paste("r = same-year correlation within regions (log damage, each region against its own mean). * = link mostly reflects years bad all over Europe",
-                               "(r drops below 0.2 once they are removed).\nCZ spruce bark-borer group counted as I. typographus. Latin names from code abbreviations; group (pine)/(larch) = aggregate codes CambXyl_con&BB_con&BO / CambXyl_con&MD."),
+                               "(r drops below 0.2 once they are removed).\nCZ and DE spruce bark-borer group counted as I. typographus. Aggregate reporting codes are not included (they count at group level only)."),
                          x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e"))
   gridExtra::arrangeGrob(title, g, note, ncol = 1, heights = grid::unit(c(0.45, 1, 0.5), c("in", "null", "in")))
 }
@@ -4494,6 +4737,118 @@ cm_table_groups <- function(v) {
                      `share strong` = paste0(round(100 * mean(verdict %in% strong)), "%"),
                      usable = sum(verdict == "usable"), .groups = "drop") |>
     as.data.frame()
+}
+
+
+# -----------------------------------------------------------------------------
+# figures_paper.R
+# -----------------------------------------------------------------------------
+# Figures for the analyses on the 2025 paper's hierarchy (R/paper_hier.R)
+
+paper_level1_cols <- c(`Borers on gymnosperms` = "#184f95", `Borers on angiosperms` = "#5b8fd6",
+                       `Defoliators on gymnosperms` = "#eb6834", `Defoliators on angiosperms` = "#f2a33a")
+
+short_number <- function(x) scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.1)(x)
+
+# Group level: one bar per paper group (levels 1 and 2), aggregates included
+plot_paper_group_ranking <- function(gr, n_units = 77) {
+  d <- gr |>
+    dplyr::mutate(level_lab = dplyr::if_else(level == "level1", "Level 1: feeding guild x host type",
+                                             "Level 2: gymnosperm host"),
+                  l1 = dplyr::if_else(level == "level1", group,
+                                      dplyr::if_else(grepl("^Borers", group), "Borers on gymnosperms", "Defoliators on gymnosperms")),
+                  lab = paste0(n_units_with_damage, "   (", short_number(cumulative_damage), " ", unit,
+                               dplyr::if_else(from_aggregate_codes > 0,
+                                              paste0("; ", formatC(100 * share_from_aggregates, format = "f", digits = 1), "% from aggregate codes"), ""),
+                               ")")) |>
+    dplyr::arrange(n_units_with_damage) |>
+    dplyr::mutate(group = factor(group, unique(group)))
+  ggplot2::ggplot(d, ggplot2::aes(n_units_with_damage, group)) +
+    ggplot2::geom_col(ggplot2::aes(fill = l1), width = 0.65) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), hjust = 0, nudge_x = 1, size = 2.7, colour = pal$ink2) +
+    ggplot2::scale_fill_manual(values = paper_level1_cols, guide = "none") +
+    ggplot2::scale_x_continuous(limits = c(0, n_units + 45), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0))) +
+    ggplot2::facet_grid(level_lab ~ ., scales = "free_y", space = "free_y") +
+    ggplot2::labs(x = "NUTS units with damage (at least one year > 0, 2000-2022)", y = NULL,
+                  title = "A. Groups of the 2025 EU-ForDAM paper (aggregate codes included)",
+                  subtitle = "In brackets: cumulative reported damage 2000-2022 (borers m3, defoliators ha) and the part reported under aggregate codes") +
+    theme_eu(8.5) +
+    ggplot2::theme(strip.text.y = ggplot2::element_text(angle = 0, hjust = 0, face = "bold"),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+# Species level: single insects only, coloured by the paper's level-1 group
+plot_paper_species_ranking <- function(sr, n_units = 77) {
+  d <- sr |>
+    dplyr::mutate(lab = paste0(species, "  ", name, dplyr::if_else(in_paper_table1, "", "  [not in Table 1]"))) |>
+    dplyr::arrange(n_units_with_damage, dplyr::desc(species)) |>
+    dplyr::mutate(lab = factor(lab, lab), level1 = factor(level1, paper_level1_order))
+  ggplot2::ggplot(d, ggplot2::aes(n_units_with_damage, lab)) +
+    ggplot2::geom_segment(ggplot2::aes(x = 0, xend = n_units_with_damage, yend = lab, colour = level1),
+                          linewidth = 0.5, alpha = 0.35) +
+    ggplot2::geom_point(ggplot2::aes(colour = level1), size = 2.4) +
+    ggplot2::geom_text(ggplot2::aes(label = n_units_with_damage), hjust = 0, nudge_x = 1.2, size = 2.5, colour = pal$ink2) +
+    ggplot2::scale_colour_manual(values = paper_level1_cols, name = "Level 1 group", drop = FALSE) +
+    ggplot2::scale_x_continuous(limits = c(0, n_units), breaks = seq(0, 70, 10), expand = ggplot2::expansion(mult = c(0, 0.02))) +
+    ggplot2::labs(x = "NUTS units with damage (at least one year > 0, 2000-2022)", y = NULL,
+                  title = "B. Single insects (level 3; aggregate reporting codes left out)",
+                  caption = paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
+                                  "\nAs in the 2025 EU-ForDAM paper, the spruce bark-borer group (CambXyl_con&BB_con&SM, CZ and DE) is counted as ips_typ.",
+                                  "\nAggregate codes (borers on pine / larch, defoliators on angiosperms / oaks) lump several insects and are counted only in A.")) +
+    theme_eu(8.5) +
+    ggplot2::theme(legend.position = "bottom",
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}
+
+plot_paper_ranking <- function(gr, sr) {
+  gridExtra::arrangeGrob(plot_paper_group_ranking(gr), plot_paper_species_ranking(sr), ncol = 1, heights = c(0.36, 1))
+}
+
+# Group-level correlations: lower-triangle heatmap of the same-year r
+# (within region) with the Europe-total r of the paper's approach underneath
+plot_paper_group_heatmap <- function(gc, level) {
+  d <- dplyr::filter(gc, level == !!level)
+  ord <- if (level == "level1") paper_level1_order else paper_level2_order
+  both <- dplyr::bind_rows(d, dplyr::rename(d, species_a = species_b, species_b = species_a)) |>
+    dplyr::mutate(ia = match(species_a, ord), ib = match(species_b, ord)) |>
+    dplyr::filter(ia > ib) |>
+    dplyr::mutate(a = factor(species_a, rev(ord)), b = factor(species_b, ord),
+                  lab = paste0(formatC(same_year, format = "f", digits = 2),
+                               "\n(", formatC(same_year_lo, format = "f", digits = 2), " to ",
+                               formatC(same_year_hi, format = "f", digits = 2), ")",
+                               "\nEurope: ", formatC(r_europe_total, format = "f", digits = 2)))
+  ggplot2::ggplot(both, ggplot2::aes(b, a)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = same_year, alpha = same_year_sure), colour = "white", linewidth = 0.8) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), size = 2.6, lineheight = 0.9) +
+    ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.8, 0.8),
+                                  oob = scales::squish, name = "r (same year,\nwithin region)") +
+    ggplot2::scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.3), guide = "none") +
+    ggplot2::scale_x_discrete(labels = function(x) sub(" on ", "\non ", x)) +
+    ggplot2::labs(x = NULL, y = NULL,
+                  title = if (level == "level1") "Level 1 groups: do they have bad years together?" else "Level 2 groups (gymnosperm hosts)",
+                  subtitle = "Top: r within regions, with 95% range (faded = range includes 0). Bottom: r of the Europe-wide yearly totals (the paper's approach)",
+                  caption = "Group value = sum of all recorded member codes in a region-year, aggregate codes included; borers m3, defoliators ha (never mixed within a group).") +
+    theme_eu(8.5) + ggplot2::theme(panel.grid = ggplot2::element_blank())
+}
+
+# Group totals: reported vs reported + filled, one panel per group
+plot_paper_group_totals <- function(gt) {
+  d <- gt |>
+    dplyr::mutate(group = factor(group, c(paper_level1_order, paper_level2_order)),
+                  lab = paste0(group, " (", unit, ")")) |>
+    dplyr::arrange(group) |> dplyr::mutate(lab = factor(lab, unique(lab)))
+  ggplot2::ggplot(d, ggplot2::aes(year)) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = total_lo80, ymax = total_hi80), fill = "#86b6ef", alpha = 0.45) +
+    ggplot2::geom_line(ggplot2::aes(y = total_mid, colour = "reported + filled"), linewidth = 0.8) +
+    ggplot2::geom_line(ggplot2::aes(y = reported, colour = "reported only"), linewidth = 0.8) +
+    ggplot2::scale_colour_manual(values = c(`reported only` = pal$ink, `reported + filled` = "#1c5cab"), name = NULL) +
+    ggplot2::scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+    ggplot2::facet_wrap(~ lab, scales = "free_y", ncol = 3) +
+    ggplot2::labs(x = NULL, y = "Europe-wide damage per year",
+                  title = "Europe-wide damage by group of the 2025 EU-ForDAM paper: reported vs reported + gap-filled",
+                  subtitle = "Reported = every code, aggregates included. Filled = single insects only (aggregates are never filled). Band = 80% range from the hide-and-predict test",
+                  caption = "Filled insects tested in >= 2 countries only; T. pityocampa (tha_pit) filled only in BG, CH, HR, IT, SI; other insects in reporting countries and their land neighbours.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
 
 

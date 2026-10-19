@@ -51,12 +51,16 @@ cm_basic_table <- function(cm, hier) {
       link)
 }
 
+# Broad-group order: the 2025 paper's names, then the older flag-based names
+level1_order_all <- c("Borers on gymnosperms", "Borers on angiosperms",
+                      "Defoliators on gymnosperms", "Defoliators on angiosperms",
+                      "borers on conifers", "borers on broadleaves",
+                      "defoliators on conifers", "defoliators on broadleaves")
+
 # Order of codes for the matrix: by broad group, host-tree group, then name
 cm_basic_order <- function(hier) {
   hier |>
-    dplyr::arrange(factor(level1, c("borers on conifers", "borers on broadleaves",
-                                    "defoliators on conifers", "defoliators on broadleaves")),
-                   level2, species) |>
+    dplyr::arrange(factor(level1, level1_order_all), level2, species) |>
     dplyr::pull(species)
 }
 

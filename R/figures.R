@@ -720,8 +720,7 @@ plot_occurrence_ranking_v2 <- function(occ2) {
 plot_hier_heatmap <- function(hier_cm, hier, level, title) {
   d <- dplyr::filter(hier_cm, level == !!level)
   ord <- hier |> dplyr::distinct(level1, g = .data[[level]]) |>
-    dplyr::arrange(factor(level1, c("borers on conifers", "borers on broadleaves",
-                                    "defoliators on conifers", "defoliators on broadleaves")), g) |>
+    dplyr::arrange(factor(level1, level1_order_all), g) |>
     dplyr::pull(g) |> unique()
   both <- dplyr::bind_rows(d, dplyr::rename(d, species_a = species_b, species_b = species_a)) |>
     dplyr::mutate(ia = match(species_a, ord), ib = match(species_b, ord)) |>
@@ -1006,7 +1005,7 @@ plot_cm_heatmap <- function(v, hier, ord) {
     ggplot2::geom_vline(xintercept = cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::geom_hline(yintercept = n - cuts + 0.5, colour = pal$ink, linewidth = 0.4) +
     ggplot2::annotate("text", x = c(0, cuts) + diff(c(0, cuts, n)) / 2 + 0.5, y = n + 1.6, size = 2.8, fontface = "bold",
-                      label = c("borers on\nconifers", "borers on\nbroadleaves", "defoliators\non conifers", "defoliators on\nbroadleaves"),
+                      label = sub(" on ", "\non ", unique(hier$level1[match(ord, hier$species)])),
                       lineheight = 0.9) +
     ggplot2::scale_fill_gradient2(low = "#2166ac", mid = "#f7f7f7", high = "#b2182b", limits = c(-0.8, 0.8),
                                   oob = scales::squish, name = "r (same year,\nwithin region)") +
@@ -1017,7 +1016,7 @@ plot_cm_heatmap <- function(v, hier, ord) {
                   subtitle = paste0("Red = bad years together, blue = opposite. Strong colour = sure link, faded = could be chance. ",
                                     "Black box = usable (strong and holds in every country checked, ", sum(v$verdict == "usable"), " pairs).",
                                     "\nBlank = recorded together too rarely to measure."),
-                  caption = "CZ spruce bark-borer group counted as ips_typ (as in the 2025 EU-ForDAM paper); log(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.") +
+                  caption = "Single insects only (aggregate reporting codes count at group level only); CZ and DE spruce bark-borer group counted as ips_typ, as in the 2025 EU-ForDAM paper.\nlog(1 + damage), each region's series against its own mean; 95% ranges from resampling whole regions 999 times.") +
     theme_eu(7.5) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5), legend.position = "right")
 }
@@ -1059,7 +1058,7 @@ insect_names <- c(
   dip_sp = "Diprion spp.", ips_acu = "Ips acuminatus", ips_dup = "Ips duplicatus",
   ips_sex = "Ips sexdentatus", ips_typ = "Ips typographus", lym_mon = "Lymantria monacha",
   pan_fla = "Panolis flammea", pha_cya = "Phaenops cyanea", pis_pin = "Pissodes pini",
-  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus", tha_pit = "Thaumetopoea pinivora",
+  pit_cha = "Pityogenes chalcographus", pit_spp = "Pityokteines spp.", pri_abi = "Pristiphora abietina", pol_pol = "Polygraphus poligraphus", tha_pit = "Thaumetopoea pityocampa",
   sco_int = "Scolytus intricatus", sco_rat = "Scolytus ratzeburgi", tom_spp = "Tomicus spp.")
 
 host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",
@@ -1073,8 +1072,9 @@ usable_table <- function(v, species_meta) {
     dplyr::mutate(
       group = dplyr::case_when(
         r < 0 ~ "4. Opposite link",
-        grepl("defoliators", group_a) & grepl("defoliators", group_b) ~ "3. Pine and spruce defoliators",
-        group_a == "borers on conifers" & group_b == "borers on conifers" ~ "1. Conifer bark beetles and borers",
+        grepl("defoliators", tolower(group_a)) & grepl("defoliators", tolower(group_b)) ~ "3. Pine and spruce defoliators",
+        tolower(group_a) %in% c("borers on conifers", "borers on gymnosperms") &
+          tolower(group_b) %in% c("borers on conifers", "borers on gymnosperms") ~ "1. Conifer bark beetles and borers",
         TRUE ~ "2. Conifer borers with oak and birch borers"),
       Pair = paste(nm(species_a), "x", nm(species_b)),
       Hosts = paste(h[species_a], "x", h[species_b]),
@@ -1108,7 +1108,7 @@ plot_usable_table <- function(ut) {
   title <- grid::textGrob("The 30 usable insect pairs: strong (r >= 0.3, sure) and consistent in every country checked",
                           x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
   note <- grid::textGrob(paste("r = same-year correlation within regions (log damage, each region against its own mean). * = link mostly reflects years bad all over Europe",
-                               "(r drops below 0.2 once they are removed).\nCZ spruce bark-borer group counted as I. typographus. Latin names from code abbreviations; group (pine)/(larch) = aggregate codes CambXyl_con&BB_con&BO / CambXyl_con&MD."),
+                               "(r drops below 0.2 once they are removed).\nCZ and DE spruce bark-borer group counted as I. typographus. Aggregate reporting codes are not included (they count at group level only)."),
                          x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e"))
   gridExtra::arrangeGrob(title, g, note, ncol = 1, heights = grid::unit(c(0.45, 1, 0.5), c("in", "null", "in")))
 }

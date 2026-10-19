@@ -67,8 +67,6 @@ list(
                                    "outputs/figures/occurrence_map_region_species.png", 11, 14), format = "file"),
   tar_target(occ_rank2, occurrence_ranking_v2(long, species_meta)),
   tar_target(occ_rank2_csv, tab(occ_rank2, "species_nuts_occurrence_ranking_v2.csv"), format = "file"),
-  tar_target(fig_occ_rank2, save_fig(plot_occurrence_ranking_v2(occ_rank2),
-                                     "outputs/figures/species_nuts_occurrence_ranking.png", 8, 10), format = "file"),
   tar_target(ranking_xlsx, write_ranking_xlsx(sp_rank, reg_rank, occ_matrix,
                                               "outputs/tables/species_nuts_occurrence_ranking.xlsx"),
              format = "file"),
@@ -132,20 +130,49 @@ list(
   tar_target(cm_lags_csv, tab(cm_lags, "correlation_metrics_lagged.csv"), format = "file"),
 
   # ---- Correlation metrics, back to basics (paper's CZ rule, Q1-Q5) ---------
-  tar_target(cb_dmg, prepare_damage(long, species_meta)),   # CZ spruce group -> ips_typ, as in the paper
+  # Hierarchy of the 2025 paper (Table 1; R/paper_hier.R). Aggregate reporting
+  # codes count only at group level: not ranked, correlated or filled as insects
+  tar_target(ph_file, "data/lookup/paper_hierarchy_2025.csv", format = "file"),
+  tar_target(ph_hier, paper_hier_table(read_paper_hierarchy(ph_file), species_meta)),
+  tar_target(cb_dmg, prepare_damage(long, species_meta, group_to_species_paper)),   # CZ + DE spruce group -> ips_typ, as in the paper
   tar_target(cb_cells, classify_cells(cb_dmg)),
-  tar_target(cb_tr, make_transforms(cb_cells, min_nonzero = 0)),
-  tar_target(cb_species, sort(unique(cb_cells$species))),
+  tar_target(cb_tr, make_transforms(cb_cells, min_nonzero = 0)),     # all codes (the factor model also learns from aggregates)
+  tar_target(cb_species, intersect(sort(unique(cb_cells$species)), paper_species_codes(ph_hier))),   # single insects only
+  tar_target(ph_hier_sp, dplyr::filter(ph_hier, species %in% cb_species)),
+
+  # ---- Ranking and Table 2 check on the paper's hierarchy -------------------
+  tar_target(p_rank_species, paper_species_ranking(cb_dmg, ph_hier)),
+  tar_target(p_rank_groups, paper_group_ranking(cb_dmg, ph_hier)),
+  tar_target(p_aggregates, paper_aggregate_table(cb_dmg, ph_hier)),
+  tar_target(p_table2, paper_table2_check(cb_dmg, ph_hier)),
+  tar_target(p_rank_species_csv, tab(p_rank_species, "RANK_species_level3.csv"), format = "file"),
+  tar_target(p_rank_groups_csv, tab(p_rank_groups, "RANK_groups_level1_level2.csv"), format = "file"),
+  tar_target(p_aggregates_csv, tab(p_aggregates, "RANK_aggregate_codes.csv"), format = "file"),
+  tar_target(p_table2_csv, tab(p_table2, "CHECK_totals_vs_paper_table2.csv"), format = "file"),
+  tar_target(fig_p_rank, save_grob(plot_paper_ranking(p_rank_groups, p_rank_species),
+                                   "outputs/figures/species_nuts_occurrence_ranking.png", 9, 13), format = "file"),
+
+  # ---- Group-level correlations (levels 1-2, aggregates included) ------------
+  tar_target(p_group_cm, dplyr::bind_rows(
+    dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),
+                     paper_group_europe_correlations(cb_cells, ph_hier, "level1"), by = c("level", "species_a", "species_b")),
+    dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level2_paper"),
+                     paper_group_europe_correlations(cb_cells, ph_hier, "level2_paper"), by = c("level", "species_a", "species_b")))),
+  tar_target(p_group_cm_csv, tab(p_group_cm, "CM_groups_level1_level2.csv"), format = "file"),
+  tar_target(fig_p_group_l1, save_fig(plot_paper_group_heatmap(p_group_cm, "level1"), "outputs/figures/CM_groups_level1.png", 8, 6),
+             format = "file"),
+  tar_target(fig_p_group_l2, save_fig(plot_paper_group_heatmap(p_group_cm, "level2"), "outputs/figures/CM_groups_level2.png", 9, 7),
+             format = "file"),
   tar_target(cb_pw, pairwise_correlations(cb_tr, cb_species, versions = "z_within")),
   tar_target(cb_pc, per_country_correlations(cb_tr, cb_species, versions = "z_within")),
   tar_target(cb_loco, loco_correlations(cb_tr, cb_species, "z_within")),
   tar_target(cb_ts, transferability_summary(cb_pw, cb_pc, cb_loco, "z_within")),
   tar_target(cb_cm, correlation_metrics(cb_tr, cb_species, cb_ts)),
-  tar_target(cb_table, cm_basic_table(cb_cm, hier)),
+  tar_target(cb_table, cm_basic_table(cb_cm, ph_hier)),
   tar_target(cb_info, species_information(cb_cm, species_meta)),
   tar_target(cb_lags, lag_pairs(cb_cm)),
-  tar_target(cb_q5, dplyr::bind_rows(hierarchy_pair_test(cb_cm, hier, "same_year"),
-                                     hierarchy_pair_test(cb_cm, hier, "beyond_year"))),
+  tar_target(cb_q5, dplyr::bind_rows(hierarchy_pair_test(cb_cm, ph_hier_sp, "same_year"),
+                                     hierarchy_pair_test(cb_cm, ph_hier_sp, "beyond_year"))),
   tar_target(cb_table_csv, tab(cb_table, "CM_basic_all_pairs.csv"), format = "file"),
   tar_target(cb_verdict, cm_verdict(cb_table)),
   tar_target(cb_pred_country, predictive_by_country(cb_tr, cb_species)),
@@ -160,7 +187,7 @@ list(
   tar_target(sp_loco, loco_correlations(sp_tr, cb_species, "z_within")),
   tar_target(sp_ts, transferability_summary(sp_pw, sp_pc, sp_loco, "z_within")),
   tar_target(sp_cm, correlation_metrics(sp_tr, cb_species, sp_ts)),
-  tar_target(sp_verdict, cm_verdict(cm_basic_table(sp_cm, hier))),
+  tar_target(sp_verdict, cm_verdict(cm_basic_table(sp_cm, ph_hier))),
   tar_target(sp_compare, compare_rank_verdicts(cb_verdict, sp_verdict)),
   tar_target(sp_compare_csv, tab(sp_compare, "CM_pearson_vs_spearman.csv"), format = "file"),
   tar_target(cb_usable, usable_table(cb_verdict, species_meta)),
@@ -174,14 +201,15 @@ list(
                                                  "outputs/figures/CM_equation_example_ips_typ_pit_spp.png", 11, 5.6), format = "file"),
   tar_target(fig_cb_tab_questions, save_grob(plot_simple_table(cm_table_questions(), "Four questions per insect pair, and the objective each one serves"),
                                              "outputs/figures/CM_table_questions.png", 10, 3.4), format = "file"),
-  tar_target(fig_cb_tab_verdicts, save_grob(plot_simple_table(cm_table_verdicts(cb_verdict), "One verdict per insect pair (1,176 pairs)",
+  tar_target(fig_cb_tab_verdicts, save_grob(plot_simple_table(cm_table_verdicts(cb_verdict), paste0("One verdict per insect pair (", format(nrow(cb_verdict), big.mark = ","), " pairs)"),
                                                               "strong = sure link (95% range excludes 0) with r >= 0.3; checked = recorded together in >= 2 countries"),
                                             "outputs/figures/CM_table_verdicts.png", 8.5, 3.6), format = "file"),
   tar_target(fig_cb_tab_groups, save_grob(plot_simple_table(cm_table_groups(cb_verdict), "Feeding type matters: strong links within vs between broad groups",
-                                                            "Broad groups: borers / defoliators on conifers / broadleaves. Permutation test (999 relabellings): p = 0.005."),
+                                                            paste0("Level 1 groups of the 2025 paper: borers / defoliators on gymnosperms / angiosperms. Permutation test (999 relabellings): p = ",
+                                                                   formatC(cb_q5$p_value[cb_q5$metric == "same_year" & grepl("level 1", cb_q5$pair_class)], format = "f", digits = 3), ".")),
                                           "outputs/figures/CM_table_groups.png", 8.5, 2.2), format = "file"),
   tar_target(cb_verdict_csv, tab(cb_verdict, "CM_pairs_verdict.csv"), format = "file"),
-  tar_target(fig_cb_heatmap, save_fig(plot_cm_heatmap(cb_verdict, hier, cm_basic_order(hier)),
+  tar_target(fig_cb_heatmap, save_fig(plot_cm_heatmap(cb_verdict, ph_hier_sp, cm_basic_order(ph_hier_sp)),
                                       "outputs/figures/CM_heatmap.png", 11, 11), format = "file"),
   tar_target(fig_cb_verdict, save_fig(plot_cm_verdict(cb_verdict), "outputs/figures/CM_verdict.png", 8, 4.2), format = "file"),
   tar_target(fig_cb_usable, save_fig(plot_cm_usable(cb_verdict), "outputs/figures/CM_usable_pairs.png", 8.5, 7), format = "file"),
@@ -189,7 +217,7 @@ list(
   tar_target(cb_lags_csv, tab(cb_lags, "CM_basic_Q3_lead_effects.csv"), format = "file"),
   tar_target(cb_q5_csv, tab(cb_q5, "CM_basic_Q5_structure_test.csv"), format = "file"),
   tar_target(cb_pc_csv, tab(cb_pc, "CM_basic_Q4_per_country.csv"), format = "file"),
-  tar_target(fig_cb_matrix, save_fig(plot_cm_basic_matrix(cb_cm, hier, cm_basic_order(hier)),
+  tar_target(fig_cb_matrix, save_fig(plot_cm_basic_matrix(cb_cm, ph_hier_sp, cm_basic_order(ph_hier_sp)),
                                      "outputs/figures/CM_basic_1_matrix.png", 11, 10.5), format = "file"),
   tar_target(fig_cb_info, save_fig(plot_cm_species(cb_info), "outputs/figures/CM_basic_2_links_per_insect.png", 8.5, 9.5),
              format = "file"),
@@ -411,12 +439,12 @@ list(
   # ---- Gap-filling v3: same data as the correlation metrics (R/gapfill_v3.R) ----
   tar_target(gf3_L, build_lfm_matrix(cb_cells, cb_tr)),
   tar_target(gf3_blocks, make_cv_blocks(gf3_L, n_folds = 10)),
-  tar_target(gf3_group, hier$level1[match(gf3_L$species, hier$species)]),
+  tar_target(gf3_group, ph_hier$level1[match(gf3_L$species, ph_hier$species)]),
   tar_target(gf3_cv, gapfill_compare_cv(gf3_L, gf3_blocks, gf3_group, h_best1$K, h_best1$lambda,
                                         h_best2$K, h_best2$lambda, tau = 50,
                                         Lh = host_scaled_L(gf3_L, host_status),
                                         absent = host_absent_matrix(gf3_L, host_status))),
-  tar_target(gf3_scores, gapfill_compare_scores(gf3_cv)),
+  tar_target(gf3_scores, gapfill_compare_scores(dplyr::filter(gf3_cv, species %in% cb_species))),   # scored on single insects only
   tar_target(gf3_raw, gapfill_final(gf3_L, host_status, gf3_group, h_best1$K, h_best1$lambda,
                                     h_best2$K, h_best2$lambda, tau = 50)),
   tar_target(gf3_model_cor, model_vs_correlation(gf3_raw, cb_verdict)),
@@ -425,10 +453,10 @@ list(
   # ---- Gap-filled dataset v2: factor model only, ranges from the test ---------
   tar_target(gf3_fcv, final_method_cv(gf3_L, gf3_blocks, host_status, gf3_group, h_best1$K, h_best1$lambda,
                                       h_best2$K, h_best2$lambda, tau = 50)),
-  tar_target(gf3_bt, cv_block_totals(gf3_fcv)),
+  tar_target(gf3_bt, cv_block_totals(dplyr::filter(gf3_fcv, species %in% cb_species))),
   tar_target(gf3_simple, gf3_scores$by_species |> dplyr::filter(method == "simple average") |>
                dplyr::select(species, error_log_simple = error_log)),
-  tar_target(gf3_conf, final_method_scores(gf3_fcv, gf3_simple)),
+  tar_target(gf3_conf, final_method_scores(dplyr::filter(gf3_fcv, species %in% cb_species), gf3_simple)),
   tar_target(gf3_range, range_table(gf3_bt)),
   tar_target(gf3_calib, range_calibration(gf3_bt)),
   tar_target(gf3_data, gapfill_dataset_v2(gf3_raw, gf3_conf, dplyr::select(species_meta, species, unit), gf3_L$species)),
@@ -474,21 +502,23 @@ list(
   tar_target(m_name, names(m_specs)),
   tar_target(m_cv, variant_cv(gf3_L, gf3_blocks, host_status, gf3_group, m_specs[[m_name]]),
              pattern = map(m_name), iteration = "list"),
-  tar_target(m_scores, purrr::map2_dfr(m_cv, m_name, variant_scores)),
+  tar_target(m_scores, purrr::map2_dfr(m_cv, m_name, function(cv, nm) variant_scores(dplyr::filter(cv, species %in% cb_species), nm))),
   tar_target(m_links, purrr::map_dfr(m_name, function(nm) variant_links(gf3_L, host_status, gf3_group, m_specs[[nm]], cb_verdict, nm))),
   tar_target(m_scores_csv, tab(dplyr::left_join(m_scores, m_links, by = "model"), "GF_M0_M1_M2_comparison.csv"), format = "file"),
 
   # ---- Gap-filled dataset v3: model M2 (3 factors + group links) + draft range rule
+  #      (tha_pit = T. pityocampa as in the paper: southern range only)
   tar_target(v3_spec_name, "M2 K=3 + group links"),
   tar_target(v3_spec, m_specs[[v3_spec_name]]),
-  tar_target(v3_cv, m_cv[[which(m_name == v3_spec_name)]]),         # hide-and-predict test of M2
+  tar_target(v3_cv, dplyr::filter(m_cv[[which(m_name == v3_spec_name)]], species %in% cb_species)),   # hide-and-predict test of M2, single insects
   tar_target(v3_bt, cv_block_totals(v3_cv)),
   tar_target(v3_conf, final_method_scores(v3_cv, gf3_simple)),
   tar_target(v3_range, range_table(v3_bt)),
   tar_target(v3_calib, range_calibration(v3_bt)),
   tar_target(v3_raw, gapfill_raw_rs(gf3_L, host_status, gf3_group, v3_spec)),
+  tar_target(rng_pityo, apply_range_overrides(rng_draft, range_overrides_pityocampa)),
   tar_target(v3_data, apply_range(gapfill_dataset_v2(v3_raw, v3_conf, dplyr::select(species_meta, species, unit), gf3_L$species),
-                                  rng_draft)),
+                                  rng_pityo)),
   tar_target(v3_tot, gapfill_totals_v2(v3_data, v3_range, v3_bt)),
   tar_target(v3_data_csv, write_csv_out(v3_data, "data/processed/eufordam_gapfilled_v3.csv"), format = "file"),
   tar_target(v3_eu_csv, tab(v3_tot$europe, "GF3_europe_totals_with_ranges.csv"), format = "file"),
@@ -497,16 +527,16 @@ list(
   tar_target(v3_calib_csv, tab(v3_calib, "GF3_range_calibration.csv"), format = "file"),
   tar_target(v3_summary_csv, tab(dplyr::count(v3_data, value_type, confidence), "GF3_dataset_summary.csv"), format = "file"),
   tar_target(v3_effect_csv, tab(range_effect(gf3_tot, v3_tot), "GF3_vs_v2_filled_by_insect.csv"), format = "file"),
-  tar_target(fig_v3_europe, save_fig(plot_gf2_europe(v3_tot$europe), "outputs/figures/GF3_europe_totals_with_ranges.png", 10, 10),
+  tar_target(fig_v3_europe, save_fig(plot_gf2_europe(dplyr::filter(v3_tot$europe, species %in% cb_species)),
+                                     "outputs/figures/GF3_europe_totals_with_ranges.png", 10, 10), format = "file"),
+  # Totals per group of the paper (levels 1-2): reported (aggregates included) + filled
+  tar_target(v3_gtot, gapfill_group_totals(v3_data, v3_bt, ph_hier)),
+  tar_target(v3_gtot_csv, tab(v3_gtot, "GF3_europe_totals_by_paper_group.csv"), format = "file"),
+  tar_target(v3_gtot_sum_csv, tab(v3_gtot |> dplyr::group_by(level, group, unit) |>
+                                    dplyr::summarise(dplyr::across(c(reported, filled, total_mid), sum), .groups = "drop"),   # sum of yearly middles; ranges do not add up
+                                  "GF3_cumulative_totals_by_paper_group.csv"), format = "file"),
+  tar_target(fig_v3_gtot, save_fig(plot_paper_group_totals(v3_gtot), "outputs/figures/GF3_europe_totals_by_paper_group.png", 12, 9),
              format = "file"),
-
-  # ---- Scenario: tha_pit = Thaumetopoea pityocampa (southern range only) ---------
-  tar_target(rng_pityo, apply_range_overrides(rng_draft, range_overrides_pityocampa)),
-  tar_target(v3p_data, apply_range(gapfill_dataset_v2(v3_raw, v3_conf, dplyr::select(species_meta, species, unit), gf3_L$species),
-                                   rng_pityo)),
-  tar_target(v3p_tot, gapfill_totals_v2(v3p_data, v3_range, v3_bt)),
-  tar_target(v3p_effect_csv, tab(range_effect(v3_tot, v3p_tot), "GF3_scenario_pityocampa_vs_pinivora.csv"), format = "file"),
-  tar_target(v3p_eu_csv, tab(v3p_tot$europe, "GF3_europe_totals_scenario_pityocampa.csv"), format = "file"),
 
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
