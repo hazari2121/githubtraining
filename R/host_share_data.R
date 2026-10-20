@@ -195,3 +195,26 @@ plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
                   caption = share_data_caption) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# One guild, one number per species: the average % of its host affected per year
+plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
+  what <- if (guild == "Borers") "killed" else "defoliated"
+  base <- if (guild == "Borers") "growing stock (m3)" else "forest area (ha)"
+  d <- dplyr::filter(sa, level == "species", group %in% species_keep, guild == !!guild) |>
+    dplyr::left_join(dplyr::select(ph_hier, group = species, name), by = "group") |>
+    dplyr::arrange(share_pct_per_year) |>
+    dplyr::mutate(lab = factor(paste0(name, " (", host, ")"), paste0(name, " (", host, ")")),
+                  txt = dplyr::if_else(share_pct_per_year < 0.001, "<0.001%",
+                                       paste0(formatC(share_pct_per_year, format = "f", digits = 3), "%")))
+  ggplot2::ggplot(d, ggplot2::aes(share_pct_per_year, lab)) +
+    ggplot2::geom_col(fill = guild_cols[[guild]], width = 0.65) +
+    ggplot2::geom_text(ggplot2::aes(label = txt), hjust = 0, nudge_x = max(d$share_pct_per_year) * 0.01,
+                       size = 2.8, colour = pal$ink2) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.12))) +
+    ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
+                  title = paste0(guild, ": average share of the host tree ", what, " per year"),
+                  subtitle = "Host tree in brackets",
+                  caption = paste("Average = all recorded damage / all host forest of the regions and years where the species is recorded (0 included).",
+                                  "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
+    theme_eu(9)
+}

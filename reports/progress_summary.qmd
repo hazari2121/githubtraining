@@ -181,7 +181,9 @@ Made from the two datasets only: damage from EU-ForDAM (`value1`), host from the
 - **Host = what the insect feeds on:** specialists their tree (spruce, pine, fir, oak); insects on several trees the wider group (e.g. *L. monacha* all conifers, *Melolontha* all forest). Larch insects use all conifers, because the appendix has no larch column.
 - Check: no region-year is above 100% of its host; two are above 50% (`SHARE_check_region_years_over_50pct.csv`).
 
-![](../outputs/figures/SHARE_1_species_average.png)
+![](../outputs/figures/SHARE_1_borers_average.png)
+
+![](../outputs/figures/SHARE_2_defoliators_average.png)
 
 ```{r share}
 tb("SHARE_host_affected_average.csv") |>
@@ -196,9 +198,9 @@ tb("SHARE_host_affected_average.csv") |>
 - **Defoliators** affect a larger share of their host, but defoliate rather than kill: *Thaumetopoea processionea* 1.2% of oak area per year (4% in 2020), *Tortrix viridana* 1.0% of oak, *Lymantria monacha* 0.8% of conifers, *Pristiphora abietina*, *Dendrolimus pini* and *L. dispar* about 0.5%.
 - Year by year, most borers peak together in 2018-2020; defoliators come in outbreak waves (2003-2005, 2012-2013, 2018).
 
-![](../outputs/figures/SHARE_2_borers_by_year.png)
+![](../outputs/figures/SHARE_3_borers_by_year.png)
 
-![](../outputs/figures/SHARE_3_defoliators_by_year.png)
+![](../outputs/figures/SHARE_4_defoliators_by_year.png)
 
 **Open point:** in the appendix the single-species growing stocks of Bulgaria and Lithuania are about 1000x too small for their areas (e.g. BG spruce 31,157 m3 on 133,737 ha). They are read as 1000 m3 here; to be confirmed. Tables: `SHARE_host_affected_average.csv` (average per species), `SHARE_species_by_year.csv` (per species and year).
 

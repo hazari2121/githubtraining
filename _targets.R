@@ -178,12 +178,14 @@ list(
   tar_target(hs_check_csv, tab(hs_check, "SHARE_check_region_years_over_50pct.csv"), format = "file"),
   tar_target(hd_years_sp, host_share_years_species(cb_dmg, hd_units, hs_stock, heat_sp)),
   tar_target(hd_years_sp_csv, tab(hd_years_sp, "SHARE_species_by_year.csv"), format = "file"),
-  tar_target(fig_share_species, save_fig(plot_share_species_avg(hd_avg, ph_hier, heat_sp), "outputs/figures/SHARE_1_species_average.png", 10, 10),
-             format = "file"),
+  tar_target(fig_share_avg_b, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Borers"),
+                                       "outputs/figures/SHARE_1_borers_average.png", 9, 6.5), format = "file"),
+  tar_target(fig_share_avg_d, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Defoliators"),
+                                       "outputs/figures/SHARE_2_defoliators_average.png", 9, 5), format = "file"),
   tar_target(fig_share_years_b, save_fig(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Borers"),
-                                         "outputs/figures/SHARE_2_borers_by_year.png", 11, 8), format = "file"),
+                                         "outputs/figures/SHARE_3_borers_by_year.png", 11, 8), format = "file"),
   tar_target(fig_share_years_d, save_fig(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Defoliators"),
-                                         "outputs/figures/SHARE_3_defoliators_by_year.png", 11, 8), format = "file"),
+                                         "outputs/figures/SHARE_4_defoliators_by_year.png", 11, 8), format = "file"),
 
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
