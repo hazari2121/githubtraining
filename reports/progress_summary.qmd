@@ -178,7 +178,8 @@ Made from the two datasets only: damage from EU-ForDAM (`value1`), host from the
 - **Defoliators:** % of the host's forest area defoliated = ha defoliated / ha of that tree in the region (defoliated, not necessarily killed).
 - Only regions and years where the insect has a record (0 included). Regions that do not record an insect are left out of both sides. No gap-filling.
 - **Average per year** = all recorded damage / all host of the recorded region-years. **Per year** = that year's damage / host of the regions recording that year.
-- **Host = what the insect feeds on:** specialists their tree (spruce, pine, fir, oak); insects on several trees the wider group (e.g. *L. monacha* all conifers, *Melolontha* all forest). Larch insects use all conifers, because the appendix has no larch column.
+- **Host = what the insect feeds on:** specialists their tree (spruce, pine, fir, oak); insects on several trees the wider group (e.g. *L. monacha* all conifers, *Melolontha* all forest).
+- **Host trees missing from the forest file:** the EU-ForDAM file gives larch, elm, birch and poplar as hosts for some insects, but the forest appendix only has spruce, pine, oak, fir and the conifer / broadleaf totals. Those insects are divided by all conifers or all broadleaves, so their shares are too small and not comparable with the others.
 - Check: no region-year is above 100% of its host; two are above 50% (`SHARE_check_region_years_over_50pct.csv`).
 
 ![](../outputs/figures/SHARE_1_borers_average.png)
@@ -197,6 +198,8 @@ tb("SHARE_host_affected_average.csv") |>
 - ***Ips typographus*** kills about **0.5% of the spruce growing stock per year**, rising to 1.4% in 2020. No other borer comes close: the next ones (*I. duplicatus*, *Agrilus biguttatus* on oak, *Pityogenes chalcographus*) kill about 0.06% of their host per year.
 - **Defoliators** affect a larger share of their host, but defoliate rather than kill: *Thaumetopoea processionea* 1.2% of oak area per year (4% in 2020), *Tortrix viridana* 1.0% of oak, *Lymantria monacha* 0.8% of conifers, *Pristiphora abietina*, *Dendrolimus pini* and *L. dispar* about 0.5%.
 - Year by year, most borers peak together in 2018-2020; defoliators come in outbreak waves (2003-2005, 2012-2013, 2018).
+
+**Per year, same regions every year.** The regions reporting a species change over time (most countries start in 2003, more German and Czech regions from 2012), which would make lines jump when regions join. The per-year graphs therefore use only the regions that report the species in every year 2003-2021, so the same forest is followed every year (number of regions in each panel title).
 
 ![](../outputs/figures/SHARE_3_borers_by_year.png)
 

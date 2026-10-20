@@ -218,3 +218,50 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
                                   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
     theme_eu(9)
 }
+
+# ---- Year by year on a fixed set of regions -------------------------------------
+#
+# The regions reporting a species change over time (most countries join in
+# 2003, PL starts in 2003, more German and Czech regions from 2012), so a line
+# over all reporting regions partly shows who reported, not how much damage
+# there was. Here each species uses only the regions that report it in every
+# year of [from, to] (0 included), so the same forest is followed every year.
+host_share_years_fixed <- function(d, units, hs, species_keep, from = 2003, to = 2021) {
+  purrr::pmap_dfr(dplyr::filter(units, level == "species", group %in% species_keep),
+                  function(level, group, guild, unit, host_group, codes) {
+    ry <- share_region_years(d, codes, host_group, unit, hs)
+    keep <- ry |> dplyr::filter(year >= from, year <= to) |> dplyr::count(nuts_id) |>
+      dplyr::filter(n == to - from + 1) |> dplyr::pull(nuts_id)
+    ry |>
+      dplyr::filter(nuts_id %in% keep, year >= from, year <= to) |>
+      dplyr::group_by(year) |>
+      dplyr::summarise(damage = sum(damage), host = sum(host), n_regions = dplyr::n(), .groups = "drop") |>
+      dplyr::mutate(share_pct = 100 * damage / host, species = group, guild, unit,
+                    host_tree = host_label[[host_group]], .before = 1)
+  })
+}
+
+# Per year, one panel per species (the n with the largest share), fixed regions
+plot_share_years_fixed <- function(syf, ph_hier, guild, n = 9, from = 2003, to = 2021) {
+  what <- if (guild == "Borers") "% of host growing stock killed" else "% of host forest area defoliated"
+  nm <- stats::setNames(ph_hier$name, ph_hier$species)
+  avg <- syf |> dplyr::filter(guild == !!guild) |> dplyr::group_by(species, host_tree) |>
+    dplyr::summarise(s = 100 * sum(damage) / sum(host), n_regions = max(n_regions), .groups = "drop") |>
+    dplyr::slice_max(s, n = n) |>
+    dplyr::mutate(panel = paste0(nm[species], " (", host_tree, ", ", n_regions, dplyr::if_else(n_regions == 1, " region)", " regions)")))
+  d <- dplyr::inner_join(syf, dplyr::select(avg, species, panel), by = "species") |>
+    dplyr::mutate(panel = factor(panel, avg$panel))
+  ggplot2::ggplot(d, ggplot2::aes(year, share_pct)) +
+    ggplot2::geom_line(colour = guild_cols[[guild]], linewidth = 0.8) +
+    ggplot2::geom_point(colour = guild_cols[[guild]], size = 1) +
+    ggplot2::scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, NA)) +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 3) +
+    ggplot2::labs(x = NULL, y = paste(what, "that year"),
+                  title = paste0(guild, ": ", what, " per year, ", from, "-", to),
+                  subtitle = paste0("Same regions every year: only regions that report the species in every year ", from, "-", to,
+                                    " (number in brackets). Each panel has its own scale."),
+                  caption = paste0("Damage = EU-ForDAM value1; host = NUTS forest appendix; no gap-filling. ", from, "-", to,
+                                   " because most countries start reporting in 2003 and SK ends in 2021.",
+                                   "\nHost: L. monacha all conifers, L. dispar and Erannis all broadleaves (they feed on several trees). BG and LT single-species growing stocks read as 1000 m3.")) +
+    theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
+}
