@@ -172,7 +172,8 @@ share_long <- function(st) {
 
 share_caption <- paste(
   "Borers: % of host growing stock (m3) killed per year. Defoliators: % of host forest area (ha) defoliated per year (defoliated, not killed).",
-  "\nHost: level 1 = all conifers / all broadleaves; level 2 and species = spruce, pine, fir or oak (larch and other broadleaf hosts: all conifers / broadleaves).",
+  "\nHost = what the insect feeds on: specialists their tree (spruce, pine, fir, oak); insects on several trees the wider group (e.g. L. monacha all conifers, Melolontha all forest).",
+  "\nLevel 1 = all conifers / all broadleaves; level 2 = spruce, pine, fir (L. monacha left out of defoliators on P. abies, as it feeds mostly on pine in the data).",
   "\nAll host = host of all 77 regions, as in the 2025 EU-ForDAM paper (diamond = its Table 2). Only where recorded = host of the region-years where the insect has a record.",
   "\nBG and LT species growing stocks read as 1000 m3. Filled = factor model, tested insects only.")
 

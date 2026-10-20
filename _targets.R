@@ -174,6 +174,10 @@ list(
       dplyr::select(level, group, share_pct_paper_filled = share_pct_paper)
     rep |> dplyr::left_join(fil, by = c("level", "group")) |>
       dplyr::left_join(paper_table2_share, by = c("level", "group")) |>
+      # the paper divides these by a different host (L. monacha by spruce, L. dispar and
+      # geometrids by oak), so its numbers are not comparable with ours
+      dplyr::mutate(paper_share_pct = dplyr::if_else(group %in% c("lym_mon", "lym_dis", "geo_db", "Defoliators on P. abies"),
+                                                     NA_real_, paper_share_pct)) |>
       dplyr::relocate(share_pct_paper_filled, paper_share_pct, .after = share_pct_paper)
   }),
   tar_target(hs_year, host_share_by_year(cb_dmg, hs_units, hs_stock, hs_regions)),
@@ -182,6 +186,8 @@ list(
   tar_target(hs_table_csv, tab(hs_table, "SHARE_host_affected_per_year.csv"), format = "file"),
   tar_target(hs_year_csv, tab(dplyr::left_join(hs_year, dplyr::select(hs_year_filled, level, group, year, share_pct_paper_filled = share_pct_paper),
                                                by = c("level", "group", "year")), "SHARE_host_affected_by_year.csv"), format = "file"),
+  tar_target(hs_check, host_share_check(cb_dmg, hs_units, hs_stock)),
+  tar_target(hs_check_csv, tab(hs_check, "SHARE_check_region_years_over_50pct.csv"), format = "file"),
   tar_target(hs_region_csv, tab(hs_region, "SHARE_host_affected_by_region.csv"), format = "file"),
   tar_target(fig_share_groups, save_fig(plot_share_groups(hs_table), "outputs/figures/SHARE_1_paper_groups.png", 10, 7.5), format = "file"),
   tar_target(fig_share_species, save_fig(plot_share_species(hs_table, heat_sp), "outputs/figures/SHARE_2_individual_species.png", 10, 10),

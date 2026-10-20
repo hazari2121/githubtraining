@@ -31,6 +31,37 @@ host_group_of_level <- c(
 
 host_stock_fix_countries <- c("BG", "LT")
 
+# Host of each single insect, by what it actually feeds on. Specialists get
+# their tree; insects feeding on several trees get the wider group, otherwise
+# their damage is divided by the wrong forest (e.g. L. monacha in Polish pine
+# forests divided by spruce area gave up to 4,000% of the spruce defoliated).
+# The appendix has spruce, pine, fir, oak, all conifers and all broadleaves;
+# all_forest = all conifers + all broadleaves. Insects not listed keep their
+# paper level-2 host or the host tree in the data file.
+species_host <- c(
+  # generalists or other hosts than the ones in the appendix
+  lym_mon = "conifers_all",       # nun moth: spruce and pine (mostly pine in PL, Brandenburg)
+  mel_spp = "all_forest",         # cockchafer: larvae on roots in any young stand
+  lym_dis = "broadleaves_all",    # gypsy moth: oak first, but many broadleaves
+  geo_db = "broadleaves_all",     # winter moths and other geometrids: many broadleaves
+  ope_spp = "broadleaves_all", era_def = "broadleaves_all",
+  agr_vir = "broadleaves_all",    # Agrilus viridis: beech, oak, birch, willow
+  xyl_spp = "broadleaves_all",    # ambrosia beetles on broadleaves
+  xyl_lin = "conifers_all",       # Trypodendron lineatum: spruce, fir, pine
+  uro_sir_spp = "conifers_all",   # woodwasps: all conifers
+  zei_gri = "conifers_all",       # larch bud moth (larch has no column)
+  # specialists (stated for clarity)
+  ips_typ = "spruce", pit_cha = "spruce", ips_dup = "spruce", ips_ami = "spruce", den_mic = "spruce",
+  pol_pol = "spruce", tet_spp = "spruce", pri_abi = "spruce", cep_spp = "spruce",
+  ips_acu = "pine", ips_sex = "pine", pha_cya = "pine", tom_spp = "pine", pis_pin = "pine", pit_bid = "pine",
+  bup_pin = "pine", den_pin = "pine", dip_sp = "pine", neo_ser = "pine", pan_fla = "pine", tha_pit = "pine",
+  pit_spp = "fir",
+  tor_vir = "oak", tha_pro = "oak", agr_big = "oak", sco_int = "oak")
+
+# Codes left out of a group's share because the group's host is not what they
+# feed on (shown on their own at species level instead)
+group_share_exclude <- list(`Defoliators on P. abies` = "lym_mon")
+
 # Host area (ha) and growing stock (m3) per region, long format
 host_stock_long <- function(appx, dash_means_absent = TRUE, stock_x1000 = host_stock_fix_countries) {
   appx |>
@@ -46,7 +77,12 @@ host_stock_long <- function(appx, dash_means_absent = TRUE, stock_x1000 = host_s
       value = dplyr::if_else(stock_x1000, value * 1000, value)) |>
     dplyr::group_by(nuts_id = code, host_group, measure) |>
     dplyr::summarise(value = if (all(is.na(value))) NA_real_ else sum(value, na.rm = TRUE),
-                     stock_x1000 = any(stock_x1000), .groups = "drop")
+                     stock_x1000 = any(stock_x1000), .groups = "drop") |>
+    (\(x) dplyr::bind_rows(x, x |>
+      dplyr::filter(host_group %in% c("conifers_all", "broadleaves_all")) |>
+      dplyr::group_by(nuts_id, measure) |>
+      dplyr::summarise(value = sum(value), stock_x1000 = FALSE, .groups = "drop") |>
+      dplyr::mutate(host_group = "all_forest")))()
 }
 
 # What is measured: one row per level-group or single insect, with its codes
@@ -55,14 +91,15 @@ share_units <- function(ph_hier, species_meta) {
   grp <- function(level) {
     h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
     h |> dplyr::group_by(group = .data[[level]], unit) |>
-      dplyr::summarise(codes = list(species), .groups = "drop") |>
+      dplyr::summarise(codes = list(setdiff(species, group_share_exclude[[dplyr::cur_group()$group]])), .groups = "drop") |>
       dplyr::mutate(level = sub("_paper", "", level), host_group = unname(host_group_of_level[group]))
   }
   sp <- ph_hier |>
     dplyr::filter(code_type != "aggregate") |>
     dplyr::left_join(dplyr::select(species_meta, species, host_tree), by = "species") |>
     dplyr::transmute(level = "species", group = species, unit, codes = as.list(species),
-                     host_group = dplyr::coalesce(unname(host_group_of_level[level2_paper]),
+                     host_group = dplyr::coalesce(unname(species_host[species]),
+                                                  unname(host_group_of_level[level2_paper]),
                                                   host_group_of(host_tree)))
   dplyr::bind_rows(grp("level1"), grp("level2_paper"), sp)
 }
@@ -149,3 +186,16 @@ paper_table2_share <- tibble::tribble(
   "species", "ips_typ", 0.49, "species", "pha_cya", 0.02, "species", "tom_spp", 0.01,
   "species", "ips_acu", 0.01, "species", "pit_cha", 0.02, "species", "tor_vir", 0.46,
   "species", "geo_db", 0.53, "species", "lym_dis", 1.70, "species", "lym_mon", 0.43)
+
+
+# Sanity check: region-years where the damage is more than a given share of
+# the host in that region (impossible above 100%; very unusual above 50%)
+host_share_check <- function(d, units, hs, over = c(50, 100)) {
+  purrr::pmap_dfr(dplyr::filter(units, level == "species"), function(level, group, unit, codes, host_group) {
+    share_one(d, codes, host_group, unit, hs)$region_year |>
+      dplyr::mutate(species = group, host_group, unit, pct = 100 * damage / host) |>
+      dplyr::filter(pct > min(over))
+  }) |>
+    dplyr::mutate(over_100 = pct > 100) |>
+    dplyr::arrange(dplyr::desc(pct))
+}

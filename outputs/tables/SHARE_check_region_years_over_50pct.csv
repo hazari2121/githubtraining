@@ -1,0 +1,3 @@
+country,nuts_id,year,damage,host,species,host_group,unit,pct,over_100
+LT,LT,2003,22894.6378923766,34380,tor_vir,oak,ha,66.59289672011809,FALSE
+DE,DEF,2018,5670000,10517270,ips_typ,spruce,m3,53.91132870031862,FALSE

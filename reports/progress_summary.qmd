@@ -172,11 +172,13 @@ Per insect: `outputs/figures/GF3_europe_totals_with_ranges.png`.
 
 ## 4. How much of the host is hit each year?
 
-For **borers**: % of the host's growing stock (m3) killed per year. For **defoliators**: % of the host's forest area (ha) defoliated per year (defoliated, not necessarily killed). Host values come from the NUTS forest appendix: spruce, pine, fir, oak, or all conifers / broadleaves.
+For **borers**: % of the host's growing stock (m3) killed per year. For **defoliators**: % of the host's forest area (ha) defoliated per year (defoliated, not necessarily killed). Host values come from the NUTS forest appendix: spruce, pine, fir, oak, all conifers, all broadleaves (and all forest = both).
+
+**Which host each insect is divided by** = what it actually feeds on. Specialists get their tree (*I. typographus* spruce, *T. viridana* oak, *Pityokteines* fir). Insects that feed on several trees get the wider group: *Lymantria monacha* all conifers (in Poland and Brandenburg it is in pine forests), *Melolontha* all forest, *L. dispar* and the geometrids all broadleaves. Giving them a single tree produced impossible numbers (up to 4,000% of a region's spruce "defoliated" by *L. monacha*). *L. monacha* is therefore also left out of the group "defoliators on *P. abies*". Check: no region-year is now above 100% of its host, and only two are above 50% (an oak defoliation outbreak in Lithuania in 2003 and *I. typographus* in Schleswig-Holstein in 2018); `SHARE_check_region_years_over_50pct.csv`.
 
 Three versions:
 
-- **Reported, all host (the paper's way):** damage divided by the host in all 77 regions. This reproduces the paper's Table 2 (e.g. borers on spruce 0.51% vs 0.53%; *L. dispar* 1.67% vs 1.70%; *T. viridana* 0.46% vs 0.46%).
+- **Reported, all host (the paper's way):** damage divided by the host in all 77 regions. Where we use the same host as the paper it reproduces its Table 2 (e.g. borers on spruce 0.51% vs 0.53%; *T. viridana* 0.46% vs 0.46%). Where we changed the host (*L. monacha*, *L. dispar*, geometrids, defoliators on spruce) the paper's number is not comparable and is not shown.
 - **Reported, only where recorded:** damage divided by the host only where the insect is actually monitored. This is the share of the *watched* host that is hit.
 - **Reported + filled, all host:** gap-filled damage divided by all host. This is the gap-filling's answer to "what would the paper's number be if every region were monitored?"
 
@@ -196,6 +198,7 @@ tb("SHARE_host_affected_per_year.csv") |>
 
 - **Borers:** all three versions agree. About **0.5% of spruce growing stock is killed per year** (up to 1.5% in 2019-2020), 0.26-0.29% of all conifers. Bark-beetle damage is reported almost everywhere spruce grows, so there is little to fill.
 - **Defoliators:** the versions differ a lot. The paper's way gives 0.44% of conifer area per year. Counting only where defoliators are monitored gives 1.5%, and gap-filling gives 0.76%. The paper's figures for defoliators are therefore **lower bounds**: they divide by host forest that nobody monitors for defoliators.
+- **Spruce defoliators are small once *L. monacha* is moved to all conifers**: 0.09% of spruce area per year (paper's way), not the paper's 0.52%. Almost all of the rest is *Pristiphora abietina*, mostly one Bavarian year (200,000 ha in 2003).
 - **Caution:** for a few insects the filled share is higher than the share where they are recorded (*Zeiraphera griseana*, *Dendroctonus micans*, *Scolytus* spp., *Pissodes pini*). The model fills too much for them, the same insects already flagged in the range list.
 
 ![](../outputs/figures/SHARE_2_individual_species.png)
