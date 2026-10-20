@@ -43,7 +43,25 @@ paper_hier_table <- function(ph, species_meta) {
                      level2_paper = dplyr::na_if(paper_level2, ""),
                      level2 = dplyr::coalesce(level2_paper, level1),
                      in_paper_table1 = in_paper_table1 == "yes") |>
-    dplyr::left_join(dplyr::select(species_meta, species, unit), by = "species")
+    dplyr::left_join(dplyr::select(species_meta, species, unit), by = "species") |>
+    (\(h) dplyr::mutate(h, level2_all = host_tree_group(h, species_meta)))()
+}
+
+# Level 2 extended to every host tree (the paper has level 2 for spruce, pine
+# and fir only): guild x host tree from the data file's HOSTTREE column, with
+# the paper's names for the gymnosperm groups. Def_dec is a generic
+# "defoliators on angiosperms" code, so it gets an unspecified-host group.
+host_tree_group <- function(ph_hier, species_meta) {
+  host <- species_meta$host_tree[match(ph_hier$species, species_meta$species)]
+  guild <- sub(" on .*", "", ph_hier$level1)
+  tree <- dplyr::case_when(
+    ph_hier$species == "Def_dec" ~ "unspecified broadleaves",
+    grepl("^Picea", host) ~ "P. abies", grepl("^Pinus", host) ~ "P. sylvestris",
+    grepl("^Abies", host) ~ "A. alba", grepl("^Larix", host) ~ "L. decidua",
+    grepl("^Quercus", host) ~ "Quercus", grepl("^Betula", host) ~ "Betula",
+    grepl("^Ulmus", host) ~ "Ulmus", grepl("^Populus", host) ~ "Populus / Salix",
+    TRUE ~ host)
+  paste(guild, "on", tree)
 }
 
 # Codes that are single insects (everything except aggregate reporting codes)
@@ -76,9 +94,9 @@ paper_group_ranking <- function(dmg, ph_hier) {
   one <- function(level) {
     h <- dplyr::filter(ph_hier, !is.na(.data[[level]]))
     d <- dmg |> dplyr::filter(!is.na(damage)) |>
-      dplyr::inner_join(dplyr::select(h, species, group = dplyr::all_of(level), code_type), by = "species")
+      dplyr::inner_join(dplyr::transmute(h, species, group = .data[[level]], code_type, level1), by = "species")
     d |>
-      dplyr::group_by(group, unit) |>
+      dplyr::group_by(group, unit, level1) |>
       dplyr::summarise(
         n_units_with_damage = dplyr::n_distinct(paste(country, nuts_id)[damage > 0]),
         n_units_reported = dplyr::n_distinct(paste(country, nuts_id)),
@@ -89,7 +107,7 @@ paper_group_ranking <- function(dmg, ph_hier) {
         .groups = "drop") |>
       dplyr::mutate(level = sub("_paper", "", level), .before = 1)
   }
-  dplyr::bind_rows(one("level1"), one("level2_paper")) |>
+  dplyr::bind_rows(one("level1"), one("level2_paper"), one("level2_all")) |>
     dplyr::mutate(share_from_aggregates = from_aggregate_codes / cumulative_damage)
 }
 

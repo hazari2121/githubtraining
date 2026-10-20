@@ -151,12 +151,10 @@ list(
   tar_target(p_table2_csv, tab(p_table2, "CHECK_totals_vs_paper_table2.csv"), format = "file"),
   tar_target(fig_rank_l1, save_fig(plot_rank_level1(p_rank_groups), "outputs/figures/RANK_1_level1_guild_x_host_type.png", 9, 3.6),
              format = "file"),
-  tar_target(fig_rank_l2, save_fig(plot_rank_level2(p_rank_groups), "outputs/figures/RANK_2_level2_by_host_tree.png", 9, 4),
+  tar_target(fig_rank_l2, save_fig(plot_rank_level2(p_rank_groups), "outputs/figures/RANK_2_level2_by_host_tree.png", 9, 6),
              format = "file"),
   tar_target(fig_rank_l3, save_fig(plot_rank_level3(p_rank_species), "outputs/figures/RANK_3_level3_individual_species.png", 9, 8),
              format = "file"),
-  tar_target(fig_p_rank, save_grob(plot_paper_ranking(p_rank_groups, p_rank_species),
-                                   "outputs/figures/species_nuts_occurrence_ranking.png", 9, 13), format = "file"),
 
   # ---- Share of the host affected per year (R/host_share.R) ---------------------
   tar_target(hs_stock, host_stock_long(host_appx)),

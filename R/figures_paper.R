@@ -3,7 +3,12 @@
 paper_level1_cols <- c(`Borers on gymnosperms` = "#184f95", `Borers on angiosperms` = "#5b8fd6",
                        `Defoliators on gymnosperms` = "#eb6834", `Defoliators on angiosperms` = "#f2a33a")
 
-short_number <- function(x) scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.1)(x)
+# 686.5M / 31.5K / 132 (plain number below 1,000)
+short_number <- function(x) {
+  dplyr::case_when(x >= 1e6 ~ paste0(formatC(x / 1e6, format = "f", digits = 1), "M"),
+                   x >= 1e3 ~ paste0(formatC(x / 1e3, format = "f", digits = 1), "K"),
+                   TRUE ~ formatC(x, format = "f", digits = 0))
+}
 
 # Group level: one bar per paper group (levels 1 and 2), aggregates included
 plot_paper_group_ranking <- function(gr, n_units = 77,
@@ -12,8 +17,7 @@ plot_paper_group_ranking <- function(gr, n_units = 77,
   d <- gr |>
     dplyr::mutate(level_lab = dplyr::if_else(level == "level1", "Level 1: feeding guild x host type",
                                              "Level 2: gymnosperm host"),
-                  l1 = dplyr::if_else(level == "level1", group,
-                                      dplyr::if_else(grepl("^Borers", group), "Borers on gymnosperms", "Defoliators on gymnosperms")),
+                  l1 = level1,
                   lab = paste0(n_units_with_damage, "   (", short_number(cumulative_damage), " ", unit,
                                dplyr::if_else(from_aggregate_codes > 0,
                                               paste0("; ", formatC(100 * share_from_aggregates, format = "f", digits = 1), "% from aggregate codes"), ""),
@@ -72,10 +76,14 @@ plot_rank_level1 <- function(gr) {
 }
 
 plot_rank_level2 <- function(gr) {
-  plot_paper_group_ranking(dplyr::filter(gr, level == "level2"),
-                           title = "Level 2: borers and defoliators by gymnosperm host tree",
-                           caption = paste(rank_caption, "\nLevel 2 covers spruce, pine and fir only, as in the paper (larch and angiosperm insects have no level-2 group).")) +
-    ggplot2::facet_null()
+  plot_paper_group_ranking(dplyr::filter(gr, level == "level2_all"),
+                           title = "Level 2: borers and defoliators by host tree",
+                           caption = paste(rank_caption,
+                                           "\nThe paper's level 2 covers spruce, pine and fir only; here every host tree is shown, from the HOSTTREE column of the data file.",
+                                           "\nColour = level 1 group. Def_dec is a generic code (defoliators on angiosperms) with no single host.")) +
+    ggplot2::facet_null() +
+    ggplot2::scale_fill_manual(values = paper_level1_cols, name = NULL) +
+    ggplot2::theme(legend.position = "bottom")
 }
 
 # Individual species only: genus-level codes (spp. / sp.), Siricinae and the
