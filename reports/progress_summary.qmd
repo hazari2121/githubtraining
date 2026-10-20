@@ -44,7 +44,7 @@ The thesis rests on one idea: **damage from different insects tends to rise and 
 
 Some codes are **aggregates**: several insects reported together (e.g. `CambXyl_con&BO` = "borers on pine"). As in the paper, they count **only in the group totals** (levels 1-2). They are never ranked, correlated or gap-filled as if they were one insect. The spruce bark-borer group (`CambXyl_con&BB_con&SM`, Czechia and Germany) is mostly *Ips typographus* and is counted as *I. typographus*, again as in the paper. `tha_pit` is *Thaumetopoea pityocampa* (the paper's name). The code-to-group table is `data/lookup/paper_hierarchy_2025.csv`.
 
-**Check against the paper.** Our cumulative totals reproduce the paper's Table 2 closely: *I. typographus* to 0.01%, Borers on angiosperms exactly, *P. chalcographus* exactly, Borers on *P. abies* to 0.01% once *Trypodendron lineatum* (`xyl_lin`, Germany only) is left out, as the paper apparently did. The rest are within 0-9% (defoliators slightly higher in our file, probably later data corrections; the paper used 15 countries). Table: `outputs/tables/CHECK_totals_vs_paper_table2.csv`.
+**Check against the paper.** Our cumulative totals reproduce the paper's Table 2 closely: *I. typographus* to 0.01%, Borers on angiosperms exactly, *P. chalcographus* exactly, Borers on *P. abies* within 2% (the paper's total appears not to include *Trypodendron lineatum*, which is in our data and counted here). The rest are within 0-9% (defoliators slightly higher in our file, probably later data corrections; the paper used 15 countries). Table: `outputs/tables/CHECK_totals_vs_paper_table2.csv`.
 
 ---
 
@@ -221,7 +221,6 @@ tb("SHARE_host_affected_per_year.csv") |>
 **Open points**
 
 - **Range list**: needs expert checks. Still implausibly high filled damage: *Pissodes pini* (9x reported), *Polygraphus poligraphus* (7x), *Ips duplicatus* (3x).
-- **`xyl_lin`** (*Trypodendron lineatum*, Germany only, 12 million m3) is not in the paper's Table 1 and seems to be left out of its totals. We keep it in Borers on *P. abies*; worth confirming.
 - **Amounts** are still rough (a regional total is typically about 4x off). Adding drought and storm data is the main expected improvement, and it also answers objective 3 (drivers and anticipation).
 
 ## Files

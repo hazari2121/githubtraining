@@ -42,7 +42,7 @@ plot_paper_group_ranking <- function(gr, n_units = 77,
 plot_paper_species_ranking <- function(sr, n_units = 77,
                                        title = "B. Single insects (level 3; aggregate reporting codes left out)") {
   d <- sr |>
-    dplyr::mutate(lab = paste0(species, "  ", name, dplyr::if_else(in_paper_table1, "", "  [not in Table 1]"))) |>
+    dplyr::mutate(lab = paste0(species, "  ", name)) |>
     dplyr::arrange(n_units_with_damage, dplyr::desc(species)) |>
     dplyr::mutate(lab = factor(lab, lab), level1 = factor(level1, paper_level1_order))
   ggplot2::ggplot(d, ggplot2::aes(n_units_with_damage, lab)) +
@@ -244,7 +244,7 @@ plot_damage_by_species <- function(sr, guild_totals) {
                   share = cumulative_damage / guild_totals[guild],
                   lab = paste0(short_number(cumulative_damage), " ", unit, "  (",
                                dplyr::if_else(share >= 0.001, paste0(formatC(100 * share, format = "f", digits = 1), "%"), "<0.1%"), ")"),
-                  name_lab = paste0(name, dplyr::if_else(in_paper_table1, "", " *"))) |>
+                  name_lab = name) |>
     dplyr::arrange(panel, cumulative_damage) |>
     dplyr::mutate(name_lab = factor(paste(panel, name_lab), paste(panel, name_lab)))
   ggplot2::ggplot(d, ggplot2::aes(cumulative_damage, name_lab)) +
@@ -258,7 +258,7 @@ plot_damage_by_species <- function(sr, guild_totals) {
     ggplot2::labs(x = "Cumulative reported damage 2000-2022 (log scale)", y = NULL,
                   title = "Damage caused by each species, 2000-2022",
                   subtitle = "Reported damage only (no gap-filling). In brackets: share of the guild's total damage (all codes, aggregates included)",
-                  caption = paste("Individual species only (genus-level codes, species groups and aggregate codes left out). * = not listed in Table 1 of the 2025 EU-ForDAM paper.",
+                  caption = paste("Individual species only (genus-level codes, species groups and aggregate codes left out).",
                                   "\nBorers in m3 of killed trees, defoliators in ha defoliated; the two cannot be added. CZ and DE spruce bark-borer group counted as I. typographus.")) +
     theme_eu(8.5) +
     ggplot2::theme(legend.position = "bottom", strip.text = ggplot2::element_text(face = "bold", hjust = 0),
