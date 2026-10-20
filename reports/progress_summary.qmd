@@ -205,6 +205,29 @@ tb("SHARE_host_affected_average.csv") |>
 
 **Open point:** in the appendix the single-species growing stocks of Bulgaria and Lithuania are about 1000x too small for their areas (e.g. BG spruce 31,157 m3 on 133,737 ha). They are read as 1000 m3 here; to be confirmed. Tables: `SHARE_host_affected_average.csv` (average per species), `SHARE_species_by_year.csv` (per species and year).
 
+## 5. Total damage
+
+All reported damage 2000-2022 added up (EU-ForDAM `value1`, no gap-filling). Borers (m3 of trees killed) and defoliators (ha defoliated) are never added together. Zeros count as 0, missing values are left out, aggregate codes count once in the totals.
+
+![](../outputs/figures/TOTAL_A_by_guild.png)
+
+- **Borers: 697 million m3** killed, 98% on gymnosperms (spruce, pine, fir, larch).
+- **Defoliators: 12.5 million ha** defoliated, 53% on angiosperms (mostly oak).
+
+![](../outputs/figures/TOTAL_B1_borers_by_species.png)
+
+![](../outputs/figures/TOTAL_B2_defoliators_by_species.png)
+
+Per species (individual species only): *Ips typographus* 587 million m3, 86% of the borer species' total; *Lymantria monacha* and *L. dispar* 2.4 million ha each. Not shown because they are not single species: e.g. *Melolontha* spp. (1.6 million ha), Geometridae on oaks, *Tomicus* spp. and the aggregate codes; they are in the totals above.
+
+![](../outputs/figures/TOTAL_C1_borers_per_year.png)
+
+![](../outputs/figures/TOTAL_C2_defoliators_per_year.png)
+
+Per year: borer damage rises from about 10-30 million m3 a year to 85-88 million m3 in 2019-2020; defoliators peak in 2003-2005 (up to 1.4 million ha) and again in 2012-2013 and 2018-2019.
+
+**Check: damage cannot exceed the host.** For every region and year, all insects on the same tree were added up and compared with that tree's growing stock (borers) or area (defoliators) in the forest appendix (`CHECK_damage_vs_host.csv`). Damage never exceeds the host. Highest: 72.5% of the spruce stock in Schleswig-Holstein in 2018 (a region with little spruce). One conflict in the data: Vienna (AT13) reports small spruce bark-beetle damage every year (3,191 m3 in total), but the forest appendix gives it 0 spruce.
+
 ---
 
 ## Where we stand

@@ -187,6 +187,24 @@ list(
   tar_target(fig_share_years_d, save_fig(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Defoliators"),
                                          "outputs/figures/SHARE_4_defoliators_by_year.png", 11, 8), format = "file"),
 
+  # ---- Total damage (R/totals.R): A per guild, B per species, C per year ------
+  tar_target(tot_guild, total_by_guild(cb_dmg, ph_hier)),
+  tar_target(tot_species, total_by_species(cb_dmg, ph_hier, heat_sp)),
+  tar_target(tot_year, total_by_year(cb_dmg, ph_hier)),
+  tar_target(tot_check, damage_vs_host_check(cb_dmg, hd_hosts, hs_stock)),
+  tar_target(tot_guild_csv, tab(tot_guild, "TOTAL_A_by_guild.csv"), format = "file"),
+  tar_target(tot_species_csv, tab(tot_species, "TOTAL_B_by_species.csv"), format = "file"),
+  tar_target(tot_year_csv, tab(tot_year, "TOTAL_C_by_year.csv"), format = "file"),
+  tar_target(tot_check_csv, tab(tot_check, "CHECK_damage_vs_host.csv"), format = "file"),
+  tar_target(fig_tot_guild, save_fig(plot_total_by_guild(tot_guild), "outputs/figures/TOTAL_A_by_guild.png", 9, 4), format = "file"),
+  tar_target(fig_tot_sp_b, save_fig(plot_total_by_species(tot_species, "Borers"), "outputs/figures/TOTAL_B1_borers_by_species.png", 9, 6.5),
+             format = "file"),
+  tar_target(fig_tot_sp_d, save_fig(plot_total_by_species(tot_species, "Defoliators"), "outputs/figures/TOTAL_B2_defoliators_by_species.png", 9, 5),
+             format = "file"),
+  tar_target(fig_tot_yr_b, save_fig(plot_total_by_year(tot_year, "Borers"), "outputs/figures/TOTAL_C1_borers_per_year.png", 9, 5), format = "file"),
+  tar_target(fig_tot_yr_d, save_fig(plot_total_by_year(tot_year, "Defoliators"), "outputs/figures/TOTAL_C2_defoliators_per_year.png", 9, 5),
+             format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),

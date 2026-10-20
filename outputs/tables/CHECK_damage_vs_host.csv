@@ -1,0 +1,24 @@
+country,nuts_id,year,guild,host_group,unit,damage,insects,host,pct_of_host,problem
+AT,AT13,2003,Borers,spruce,m3,44,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2004,Borers,spruce,m3,265,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2005,Borers,spruce,m3,410,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2006,Borers,spruce,m3,95,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2007,Borers,spruce,m3,170,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2008,Borers,spruce,m3,169,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2009,Borers,spruce,m3,175,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2010,Borers,spruce,m3,135,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2011,Borers,spruce,m3,30,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2012,Borers,spruce,m3,30,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2013,Borers,spruce,m3,17,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2014,Borers,spruce,m3,30,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2015,Borers,spruce,m3,60,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2016,Borers,spruce,m3,35,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2017,Borers,spruce,m3,30,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2018,Borers,spruce,m3,358,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2019,Borers,spruce,m3,700,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2020,Borers,spruce,m3,358,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2021,Borers,spruce,m3,30,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+AT,AT13,2022,Borers,spruce,m3,50,"ips_typ, pit_cha",0,Inf,damage but host is 0 in the forest file
+DE,DEF,2018,Borers,spruce,m3,7626500,"den_mic, ips_ami, ips_typ, pit_cha, tet_spp",10517270,72.51406496172486,above 50% of host
+LT,LT,2003,Defoliators,oak,ha,22894.6378923766,tor_vir,34380,66.59289672011809,above 50% of host
+DE,DE4,2012,Defoliators,oak,ha,38755.8823529411,"Def_dec&DB, tha_pro, tor_vir",70515,54.96118890015047,above 50% of host
