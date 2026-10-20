@@ -226,6 +226,14 @@ Per species (individual species only): *Ips typographus* 587 million m3, 86% of 
 
 Per year: borer damage rises from about 10-30 million m3 a year to 85-88 million m3 in 2019-2020; defoliators peak in 2003-2005 (up to 1.4 million ha) and again in 2012-2013 and 2018-2019.
 
+**Average per year** = total / 23 years (every species has records in all 23 years): borers **30.3 million m3 per year**, defoliators **542,000 ha per year**; *Ips typographus* 25.5 million m3 per year.
+
+![](../outputs/figures/AVERAGE_A_per_year_by_guild.png)
+
+![](../outputs/figures/AVERAGE_B1_borers_per_year_by_species.png)
+
+![](../outputs/figures/AVERAGE_B2_defoliators_per_year_by_species.png)
+
 **Check: damage cannot exceed the host.** For every region and year, all insects on the same tree were added up and compared with that tree's growing stock (borers) or area (defoliators) in the forest appendix (`CHECK_damage_vs_host.csv`). Damage never exceeds the host. Highest: 72.5% of the spruce stock in Schleswig-Holstein in 2018 (a region with little spruce). One conflict in the data: Vienna (AT13) reports small spruce bark-beetle damage every year (3,191 m3 in total), but the forest appendix gives it 0 spruce.
 
 ---

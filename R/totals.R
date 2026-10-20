@@ -66,13 +66,13 @@ host_type_cols <- c(gymnosperms = "#184f95", angiosperms = "#86b6ef")
 total_caption <- paste("All reported damage 2000-2022 (EU-ForDAM value1), no gap-filling. Borers in m3 of trees killed, defoliators in ha defoliated: never added together.",
                        "\nAggregate codes counted in the totals; CZ and DE spruce bark-borer group counted as I. typographus.")
 
-plot_total_by_guild <- function(tg) {
+plot_total_by_guild <- function(tg, word = "total") {
   d <- tg |> dplyr::mutate(panel = paste0(guild, " (", unit, ")"),
                            host_type = factor(host_type, c("angiosperms", "gymnosperms")))
   lab <- d |> dplyr::group_by(panel, unit) |> dplyr::summarise(total = sum(total), .groups = "drop")
   ggplot2::ggplot(d, ggplot2::aes(total, panel)) +
     ggplot2::geom_col(ggplot2::aes(fill = host_type), width = 0.55) +
-    ggplot2::geom_text(data = lab, ggplot2::aes(label = paste("  total", short_number(total), unit)),
+    ggplot2::geom_text(data = lab, ggplot2::aes(label = paste(" ", word, short_number(total), unit)),
                        hjust = 0, nudge_x = 0, size = 3.2, colour = pal$ink) +
     ggplot2::geom_text(data = dplyr::filter(d, share_of_guild > 0.04),
                        ggplot2::aes(label = paste0(host_type, " ", round(100 * share_of_guild), "%"), group = host_type),
@@ -151,4 +151,26 @@ suspicious_values <- function(dmg) {
                      detail = paste0(species, ": ", formatC(damage, format = "f", digits = 0), " vs about ",
                                      formatC(around, format = "f", digits = 0), " in the years around"))
   dplyr::bind_rows(zero, thirds, drop) |> dplyr::arrange(check, country, nuts_id)
+}
+
+# ---- Average per year ----------------------------------------------------------------
+# Average damage per year = total 2000-2022 / 23 years (every species has
+# records, 0 included, in all 23 years)
+average_per_year <- function(tot, n_years = 23) dplyr::mutate(tot, total = total / n_years)
+
+plot_avg_by_guild <- function(tg) {
+  plot_total_by_guild(average_per_year(tg), word = "average") +
+    ggplot2::labs(x = "Average damage per year (2000-2022)",
+                  title = "Average damage per year, borers and defoliators (2000-2022)",
+                  caption = paste("Average = total reported damage 2000-2022 / 23 years (EU-ForDAM value1), no gap-filling.",
+                                  "\nBorers in m3 of trees killed, defoliators in ha defoliated: never added together. Aggregate codes included; CZ and DE spruce bark-borer group counted as I. typographus."))
+}
+
+plot_avg_by_species <- function(ts, guild) {
+  what <- if (guild == "Borers") "m3 of trees killed" else "ha defoliated"
+  plot_total_by_species(average_per_year(ts), guild) +
+    ggplot2::labs(x = paste0("Average ", what, " per year (2000-2022)"), subtitle = "In brackets: share of the average of these species",
+                  title = paste0(guild, ": average damage per year per species (2000-2022)"),
+                  caption = paste("Average = total reported damage 2000-2022 / 23 years. Individual species only (genus-level codes, species groups and aggregate codes left out).",
+                                  "\nEU-ForDAM value1, no gap-filling. CZ and DE spruce bark-borer group counted as I. typographus."))
 }
