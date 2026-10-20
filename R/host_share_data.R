@@ -26,9 +26,9 @@ host_label <- c(spruce = "spruce", pine = "pine", fir = "fir", oak = "oak",
 # Host of every code (single insects and aggregates)
 code_hosts <- function(ph_hier, species_meta) {
   ph_hier |>
-    dplyr::left_join(dplyr::select(species_meta, species, host_tree), by = "species") |>
     dplyr::transmute(species, name, code_type, unit, guild = sub(" on .*", "", level1),
-                     host_group = dplyr::coalesce(unname(species_host[species]), host_group_of(host_tree)),
+                     host_tree = host_tree_of(species, species_meta),
+                     host_group = unname(forest_column_of[host_tree]),
                      group = paste(guild, "on", host_label[host_group]))
 }
 
@@ -47,17 +47,20 @@ share_region_years <- function(d, codes, host_group, unit, hs) {
 # single insects
 share_units_data <- function(ch) {
   grp <- ch |> dplyr::group_by(level = "host group", group, guild, unit, host_group) |>
-    dplyr::summarise(codes = list(species), .groups = "drop")
+    dplyr::summarise(codes = list(species), .groups = "drop") |>
+    dplyr::mutate(host_tree = unname(host_label[host_group]))
   sp <- ch |> dplyr::filter(code_type != "aggregate") |>
-    dplyr::transmute(level = "species", group = species, guild, unit, host_group, codes = as.list(species))
+    dplyr::transmute(level = "species", group = species, guild, unit, host_group, host_tree, codes = as.list(species))
   dplyr::bind_rows(grp, sp)
 }
 
+# host = host tree label (same as the ranking); host_group = forest-file column
+# actually divided by
 host_share_average <- function(d, units, hs) {
-  purrr::pmap_dfr(units, function(level, group, guild, unit, host_group, codes) {
+  purrr::pmap_dfr(units, function(level, group, guild, unit, host_group, host_tree, codes) {
     ry <- share_region_years(d, codes, host_group, unit, hs)
     yr <- ry |> dplyr::group_by(year) |> dplyr::summarise(s = 100 * sum(damage) / sum(host), .groups = "drop")
-    tibble::tibble(level, group, guild, unit, host = host_label[[host_group]],
+    tibble::tibble(level, group, guild, unit, host = host_tree, divided_by = host_label[[host_group]],
                    n_regions = dplyr::n_distinct(ry$nuts_id), n_region_years = nrow(ry),
                    damage_total = sum(ry$damage),
                    share_pct_per_year = 100 * sum(ry$damage) / sum(ry$host),
@@ -67,11 +70,11 @@ host_share_average <- function(d, units, hs) {
 }
 
 host_share_years <- function(d, units, hs) {
-  purrr::pmap_dfr(dplyr::filter(units, level == "host group"), function(level, group, guild, unit, host_group, codes) {
+  purrr::pmap_dfr(dplyr::filter(units, level == "host group"), function(level, group, guild, unit, host_group, host_tree, codes) {
     share_region_years(d, codes, host_group, unit, hs) |>
       dplyr::group_by(year) |>
       dplyr::summarise(damage = sum(damage), host = sum(host), n_regions = dplyr::n(), .groups = "drop") |>
-      dplyr::mutate(share_pct = 100 * damage / host, group, guild, unit, host_tree = host_label[[host_group]], .before = 1)
+      dplyr::mutate(share_pct = 100 * damage / host, group, guild, unit, host_tree = host_tree, .before = 1)
   })
 }
 
@@ -80,7 +83,7 @@ host_share_years <- function(d, units, hs) {
 share_data_caption <- paste(
   "Borers: % of the host's growing stock (m3) killed. Defoliators: % of the host's forest area (ha) defoliated (not necessarily killed).",
   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. Only regions and years where the insect has a record (0 included); no gap-filling.",
-  "\nHost = what the insects feed on (e.g. L. monacha all conifers, Melolontha all forest; larch insects all conifers, as the appendix has no larch).",
+  "\nHost tree as in the ranking. Larch, birch, elm, poplar and several-tree hosts are divided by all conifers / all broadleaves (not separate in the forest file).",
   "\nBG and LT single-species growing stocks read as 1000 m3.")
 
 guild_cols <- c(Borers = "#184f95", Defoliators = "#eb6834")
@@ -141,12 +144,12 @@ plot_share_years_data <- function(sy) {
 # Year-by-year share for single insects
 host_share_years_species <- function(d, units, hs, species_keep) {
   purrr::pmap_dfr(dplyr::filter(units, level == "species", group %in% species_keep),
-                  function(level, group, guild, unit, host_group, codes) {
+                  function(level, group, guild, unit, host_group, host_tree, codes) {
     share_region_years(d, codes, host_group, unit, hs) |>
       dplyr::group_by(year) |>
       dplyr::summarise(damage = sum(damage), host = sum(host), n_regions = dplyr::n(), .groups = "drop") |>
       dplyr::mutate(share_pct = 100 * damage / host, species = group, guild, unit,
-                    host_tree = host_label[[host_group]], .before = 1)
+                    host_tree = host_tree, .before = 1)
   })
 }
 

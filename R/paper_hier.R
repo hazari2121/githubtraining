@@ -52,16 +52,8 @@ paper_hier_table <- function(ph, species_meta) {
 # the paper's names for the gymnosperm groups. Def_dec is a generic
 # "defoliators on angiosperms" code, so it gets an unspecified-host group.
 host_tree_group <- function(ph_hier, species_meta) {
-  host <- species_meta$host_tree[match(ph_hier$species, species_meta$species)]
-  guild <- sub(" on .*", "", ph_hier$level1)
-  tree <- dplyr::case_when(
-    ph_hier$species == "Def_dec" ~ "unspecified broadleaves",
-    grepl("^Picea", host) ~ "P. abies", grepl("^Pinus", host) ~ "P. sylvestris",
-    grepl("^Abies", host) ~ "A. alba", grepl("^Larix", host) ~ "L. decidua",
-    grepl("^Quercus", host) ~ "Quercus", grepl("^Betula", host) ~ "Betula",
-    grepl("^Ulmus", host) ~ "Ulmus", grepl("^Populus", host) ~ "Populus / Salix",
-    TRUE ~ host)
-  paste(guild, "on", tree)
+  # same host table as the host-share graphs (host_tree_of in R/host_share.R)
+  paste(sub(" on .*", "", ph_hier$level1), "on", host_tree_of(ph_hier$species, species_meta))
 }
 
 # Codes that are single insects (everything except aggregate reporting codes)

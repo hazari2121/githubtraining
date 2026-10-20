@@ -58,6 +58,34 @@ species_host <- c(
   pit_spp = "fir",
   tor_vir = "oak", tha_pro = "oak", agr_big = "oak", sco_int = "oak")
 
+# ---- One host table for every graph ------------------------------------------------
+# Host tree of each code = the host tree in the data file (HOSTTREE), except
+# for insects that feed on several trees, which get the wider group. The same
+# label is used in the ranking (level 2), the host-share graphs and the checks.
+# Larch, birch, elm and poplar are not in the forest appendix, so their damage
+# is divided by all conifers / all broadleaves (forest_column_of).
+host_tree_override <- c(
+  lym_mon = "spruce and pine", mel_spp = "all forest",
+  lym_dis = "broadleaves", geo_db = "broadleaves", ope_spp = "broadleaves", era_def = "broadleaves",
+  agr_vir = "broadleaves", xyl_spp = "broadleaves", Def_dec = "broadleaves",
+  xyl_lin = "conifers", uro_sir_spp = "conifers", zei_gri = "larch")
+
+forest_column_of <- c(spruce = "spruce", pine = "pine", fir = "fir", oak = "oak",
+                      larch = "conifers_all", `spruce and pine` = "conifers_all", conifers = "conifers_all",
+                      birch = "broadleaves_all", elm = "broadleaves_all", `poplar / willow` = "broadleaves_all",
+                      broadleaves = "broadleaves_all", `all forest` = "all_forest")
+
+host_tree_of <- function(species, species_meta) {
+  file_host <- species_meta$host_tree[match(species, species_meta$species)]
+  from_file <- dplyr::case_when(
+    grepl("^Picea", file_host) ~ "spruce", grepl("^Pinus", file_host) ~ "pine",
+    grepl("^Abies", file_host) ~ "fir", grepl("^Larix", file_host) ~ "larch",
+    grepl("^Quercus", file_host) ~ "oak", grepl("^Betula", file_host) ~ "birch",
+    grepl("^Ulmus", file_host) ~ "elm", grepl("^Populus", file_host) ~ "poplar / willow",
+    TRUE ~ "broadleaves")
+  dplyr::coalesce(unname(host_tree_override[species]), from_file)
+}
+
 # Codes left out of a group's share because the group's host is not what they
 # feed on (shown on their own at species level instead)
 group_share_exclude <- list(`Defoliators on P. abies` = "lym_mon")
@@ -98,9 +126,7 @@ share_units <- function(ph_hier, species_meta) {
     dplyr::filter(code_type != "aggregate") |>
     dplyr::left_join(dplyr::select(species_meta, species, host_tree), by = "species") |>
     dplyr::transmute(level = "species", group = species, unit, codes = as.list(species),
-                     host_group = dplyr::coalesce(unname(species_host[species]),
-                                                  unname(host_group_of_level[level2_paper]),
-                                                  host_group_of(host_tree)))
+                     host_group = unname(forest_column_of[host_tree_of(species, species_meta)]))
   dplyr::bind_rows(grp("level1"), grp("level2_paper"), sp)
 }
 

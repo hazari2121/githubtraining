@@ -79,8 +79,8 @@ plot_rank_level2 <- function(gr) {
   plot_paper_group_ranking(dplyr::filter(gr, level == "level2_all"),
                            title = "Level 2: borers and defoliators by host tree",
                            caption = paste(rank_caption,
-                                           "\nThe paper's level 2 covers spruce, pine and fir only; here every host tree is shown, from the HOSTTREE column of the data file.",
-                                           "\nColour = level 1 group. Def_dec is a generic code (defoliators on angiosperms) with no single host.")) +
+                                           "\nHost tree = HOSTTREE column of the data file; insects feeding on several trees get the wider group (e.g. L. monacha spruce and pine,",
+                                           "\nL. dispar broadleaves, Melolontha all forest). Same host trees as in the host-share graphs. Colour = level 1 group.")) +
     ggplot2::facet_null() +
     ggplot2::scale_fill_manual(values = paper_level1_cols, name = NULL) +
     ggplot2::theme(legend.position = "bottom")
