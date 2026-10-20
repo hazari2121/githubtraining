@@ -135,3 +135,63 @@ plot_share_years_data <- function(sy) {
                   caption = share_data_caption) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# ---- Species as the unit ------------------------------------------------------------
+
+# Year-by-year share for single insects
+host_share_years_species <- function(d, units, hs, species_keep) {
+  purrr::pmap_dfr(dplyr::filter(units, level == "species", group %in% species_keep),
+                  function(level, group, guild, unit, host_group, codes) {
+    share_region_years(d, codes, host_group, unit, hs) |>
+      dplyr::group_by(year) |>
+      dplyr::summarise(damage = sum(damage), host = sum(host), n_regions = dplyr::n(), .groups = "drop") |>
+      dplyr::mutate(share_pct = 100 * damage / host, species = group, guild, unit,
+                    host_tree = host_label[[host_group]], .before = 1)
+  })
+}
+
+# Average % of its host affected per year, one bar per species (normal scale,
+# borers and defoliators in separate panels with their own scale)
+plot_share_species_avg <- function(sa, ph_hier, species_keep) {
+  pc <- function(x, k) dplyr::if_else(x < 10^-k, paste0("<", formatC(10^-k, format = "f", digits = k)), formatC(x, format = "f", digits = k))
+  d <- dplyr::filter(sa, level == "species", group %in% species_keep) |>
+    dplyr::left_join(dplyr::select(ph_hier, group = species, name), by = "group") |>
+    dplyr::mutate(panel = dplyr::if_else(guild == "Borers", "Borers: % of host growing stock killed per year",
+                                         "Defoliators: % of host forest area defoliated per year"),
+                  lab = paste0(name, " (", host, ")"),
+                  txt = paste0(pc(share_pct_per_year, 3), "%   worst ", worst_year, ": ", pc(share_pct_worst_year, 2), "%   (",
+                               n_regions, dplyr::if_else(n_regions == 1, " region)", " regions)"))) |>
+    dplyr::arrange(panel, share_pct_per_year) |>
+    dplyr::mutate(key = factor(paste(panel, lab), paste(panel, lab)))
+  ggplot2::ggplot(d, ggplot2::aes(share_pct_per_year, key)) +
+    ggplot2::geom_col(ggplot2::aes(fill = guild), width = 0.65) +
+    ggplot2::geom_text(ggplot2::aes(label = txt), hjust = 0, nudge_x = 0.005, size = 2.5, colour = pal$ink2) +
+    ggplot2::scale_fill_manual(values = guild_cols, guide = "none") +
+    ggplot2::scale_y_discrete(labels = function(x) sub("^.*per year ", "", x)) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.75))) +
+    ggplot2::facet_wrap(~ panel, scales = "free", ncol = 1) +
+    ggplot2::labs(x = "Average % of the host affected per year, 2000-2022", y = NULL,
+                  title = "How much of its host tree does each species kill or defoliate per year?",
+                  caption = share_data_caption) +
+    theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", hjust = 0))
+}
+
+# Year by year for the species with the largest average share in one guild
+plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
+  top <- dplyr::filter(sa, level == "species", guild == !!guild, group %in% unique(sys$species)) |>
+    dplyr::slice_max(share_pct_per_year, n = n) |> dplyr::pull(group)
+  nm <- stats::setNames(ph_hier$name, ph_hier$species)
+  d <- dplyr::filter(sys, species %in% top) |>
+    dplyr::mutate(panel = factor(paste0(nm[species], " (", host_tree, ")"),
+                                 paste0(nm[top], " (", dplyr::distinct(sys, species, host_tree)$host_tree[match(top, dplyr::distinct(sys, species, host_tree)$species)], ")")))
+  what <- if (guild == "Borers") "% of host growing stock killed" else "% of host forest area defoliated"
+  ggplot2::ggplot(d, ggplot2::aes(year, share_pct)) +
+    ggplot2::geom_line(colour = guild_cols[[guild]], linewidth = 0.8) +
+    ggplot2::geom_point(colour = guild_cols[[guild]], size = 1) +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 3) +
+    ggplot2::labs(x = NULL, y = paste(what, "that year"),
+                  title = paste0(guild, ": ", what, ", year by year"),
+                  subtitle = paste("The", n, "species with the largest average share. Each panel has its own scale."),
+                  caption = share_data_caption) +
+    theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
+}
