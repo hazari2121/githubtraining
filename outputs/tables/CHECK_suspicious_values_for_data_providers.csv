@@ -1,0 +1,33 @@
+country,nuts_id,check,years,detail
+AT,AT13,all insects 0 in these years,2002,"10 insects reported, all 0"
+DE,DE3,all insects 0 in these years,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DE5,all insects 0 in these years,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DE6,all insects 0 in these years,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DE7,all insects 0 in these years,"2006, 2007, 2008, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DE8,all insects 0 in these years,2022,"44 insects reported, all 0"
+DE,DE9,all insects 0 in these years,"2000, 2001, 2002, 2003, 2005, 2006, 2007, 2008, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DEE,all insects 0 in these years,"2007, 2008, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022","44 insects reported, all 0"
+DE,DEF,all insects 0 in these years,"2004, 2005, 2006, 2014","44 insects reported, all 0"
+DE,DE1,sudden drop,2005,pit_cha: 0 vs about 457725 in the years around
+DE,DE1,sudden drop,2018,xyl_lin: 0 vs about 120537 in the years around
+DE,DE2,sudden drop,2007,ips_typ: 6000 vs about 4833333 in the years around
+DE,DE2,sudden drop,2009,ips_typ: 3633 vs about 2250000 in the years around
+DE,DE2,sudden drop,2015,ips_typ: 0 vs about 3683333 in the years around
+DE,DE2,sudden drop,2015,pit_cha: 0 vs about 316667 in the years around
+DE,DE7,sudden drop,2006,ips_typ: 0 vs about 179229 in the years around
+DE,DE8,sudden drop,2022,ips_typ: 0 vs about 266300 in the years around
+DE,DEA,sudden drop,2018,ips_typ: 0 vs about 108541 in the years around
+DE,DEB; DEC,sudden drop,2005,pit_cha: 0 vs about 130961 in the years around
+DE,DED,sudden drop,2018,ips_sex: 0 vs about 141333 in the years around
+DE,DEE,sudden drop,2007,ips_typ: 0 vs about 111370 in the years around
+DE,DEF,sudden drop,2002,ips_ami: 0 vs about 102000 in the years around
+DE,DEF,sudden drop,2000,ips_typ: 0 vs about 108000 in the years around
+DE,DEF,sudden drop,2001,ips_typ: 0 vs about 200000 in the years around
+SE,SE,sudden drop,2005,ips_typ: 0 vs about 400000 in the years around
+SE,SE,sudden drop,2012,ips_typ: 0 vs about 400000 in the years around
+SE,SE,sudden drop,2013,ips_typ: 0 vs about 200000 in the years around
+SE,SE,sudden drop,2017,ips_typ: 0 vs about 1900000 in the years around
+DE,DE2,values ending in .333 / .667,2000-2022,"227 values, e.g. 15333.33 agr_big"
+DE,DE7,values ending in .333 / .667,2000-2005,"20 values, e.g. 66.67 dip_sp"
+DE,DED,values ending in .333 / .667,2000-2022,"285 values, e.g. 833.33 ips_acu"
+DE,DEE,values ending in .333 / .667,2000-2009,"95 values, e.g. 416.67 bup_pin"

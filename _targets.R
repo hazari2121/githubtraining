@@ -196,6 +196,8 @@ list(
   tar_target(tot_species_csv, tab(tot_species, "TOTAL_B_by_species.csv"), format = "file"),
   tar_target(tot_year_csv, tab(tot_year, "TOTAL_C_by_year.csv"), format = "file"),
   tar_target(tot_check_csv, tab(tot_check, "CHECK_damage_vs_host.csv"), format = "file"),
+  tar_target(tot_suspicious, suspicious_values(cb_dmg)),
+  tar_target(tot_suspicious_csv, tab(tot_suspicious, "CHECK_suspicious_values_for_data_providers.csv"), format = "file"),
   tar_target(fig_tot_guild, save_fig(plot_total_by_guild(tot_guild), "outputs/figures/TOTAL_A_by_guild.png", 9, 4), format = "file"),
   tar_target(fig_tot_sp_b, save_fig(plot_total_by_species(tot_species, "Borers"), "outputs/figures/TOTAL_B1_borers_by_species.png", 9, 6.5),
              format = "file"),

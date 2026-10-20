@@ -120,3 +120,35 @@ plot_total_by_year <- function(ty, guild) {
                                   "\nThe number of reporting regions changes over time (most countries start in 2003)."))+
     theme_eu(9) + ggplot2::theme(legend.position = "top")
 }
+
+# ---- Data checks for the totals ------------------------------------------------------
+# Lists entries that look like recording problems rather than real damage, for
+# the data providers. Nothing is changed; this only flags.
+#   all zero        : every insect reported in a region-year is exactly 0
+#                     (likely "not reported", not "no damage", in large forests)
+#   split values    : values ending in .333 / .667 (look like 3-year totals
+#                     divided evenly)
+#   sudden drop     : a value below 1% of the median of the 2 years before and
+#                     after, where those are large (> 100,000)
+suspicious_values <- function(dmg) {
+  d <- dplyr::filter(dmg, !is.na(damage))
+  zero <- d |> dplyr::group_by(country, nuts_id, year) |>
+    dplyr::summarise(n_insects = dplyr::n(), all0 = all(damage == 0), .groups = "drop") |>
+    dplyr::filter(all0, n_insects >= 5) |>
+    dplyr::group_by(country, nuts_id) |>
+    dplyr::summarise(check = "all insects 0 in these years", years = paste(year, collapse = ", "),
+                     detail = paste(max(n_insects), "insects reported, all 0"), .groups = "drop")
+  thirds <- d |> dplyr::filter(abs(damage %% 1 - 1 / 3) < 1e-6 | abs(damage %% 1 - 2 / 3) < 1e-6) |>
+    dplyr::group_by(country, nuts_id) |>
+    dplyr::summarise(check = "values ending in .333 / .667", years = paste(range(year), collapse = "-"),
+                     detail = paste(dplyr::n(), "values, e.g.", formatC(damage[1], format = "f", digits = 2), species[1]), .groups = "drop")
+  drop <- d |> dplyr::arrange(country, nuts_id, species, year) |>
+    dplyr::group_by(country, nuts_id, species) |>
+    dplyr::mutate(around = purrr::map_dbl(year, function(y) stats::median(damage[abs(year - y) %in% 1:2]))) |>
+    dplyr::ungroup() |>
+    dplyr::filter(around > 1e5, damage < 0.01 * around) |>
+    dplyr::transmute(country, nuts_id, check = "sudden drop", years = as.character(year),
+                     detail = paste0(species, ": ", formatC(damage, format = "f", digits = 0), " vs about ",
+                                     formatC(around, format = "f", digits = 0), " in the years around"))
+  dplyr::bind_rows(zero, thirds, drop) |> dplyr::arrange(check, country, nuts_id)
+}
