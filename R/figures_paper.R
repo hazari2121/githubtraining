@@ -230,3 +230,37 @@ plot_share_by_year <- function(sy, sy_filled) {
                   caption = share_caption) +
     theme_eu(8.5) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# Damage caused per species: cumulative reported damage 2000-2022, individual
+# species only. Borers (m3) and defoliators (ha) in separate panels because the
+# units cannot be added or compared. Log scale, because I. typographus alone is
+# about 85% of all borer damage; labels give the value and the share of the
+# guild's total (all codes of that guild, aggregates included).
+plot_damage_by_species <- function(sr, guild_totals) {
+  d <- sr[is_single_species(sr), ] |>
+    dplyr::filter(cumulative_damage > 0) |>
+    dplyr::mutate(guild = sub(" on .*", "", level1),
+                  panel = paste0(guild, " (", unit, ")"),
+                  share = cumulative_damage / guild_totals[guild],
+                  lab = paste0(short_number(cumulative_damage), " ", unit, "  (",
+                               dplyr::if_else(share >= 0.001, paste0(formatC(100 * share, format = "f", digits = 1), "%"), "<0.1%"), ")"),
+                  name_lab = paste0(name, dplyr::if_else(in_paper_table1, "", " *"))) |>
+    dplyr::arrange(panel, cumulative_damage) |>
+    dplyr::mutate(name_lab = factor(paste(panel, name_lab), paste(panel, name_lab)))
+  ggplot2::ggplot(d, ggplot2::aes(cumulative_damage, name_lab)) +
+    ggplot2::geom_col(ggplot2::aes(fill = level1), width = 0.7) +
+    ggplot2::geom_text(ggplot2::aes(label = lab), hjust = 0, nudge_x = 0.05, size = 2.6, colour = pal$ink2) +
+    ggplot2::scale_fill_manual(values = paper_level1_cols, name = NULL) +
+    ggplot2::scale_x_log10(labels = scales::label_number(scale_cut = scales::cut_short_scale()),
+                           expand = ggplot2::expansion(mult = c(0, 0.25))) +
+    ggplot2::scale_y_discrete(labels = function(x) sub("^[^)]*\\) ", "", x)) +
+    ggplot2::facet_wrap(~ panel, scales = "free", ncol = 1) +
+    ggplot2::labs(x = "Cumulative reported damage 2000-2022 (log scale)", y = NULL,
+                  title = "Damage caused by each species, 2000-2022",
+                  subtitle = "Reported damage only (no gap-filling). In brackets: share of the guild's total damage (all codes, aggregates included)",
+                  caption = paste("Individual species only (genus-level codes, species groups and aggregate codes left out). * = not listed in Table 1 of the 2025 EU-ForDAM paper.",
+                                  "\nBorers in m3 of killed trees, defoliators in ha defoliated; the two cannot be added. CZ and DE spruce bark-borer group counted as I. typographus.")) +
+    theme_eu(8.5) +
+    ggplot2::theme(legend.position = "bottom", strip.text = ggplot2::element_text(face = "bold", hjust = 0),
+                   panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
+}

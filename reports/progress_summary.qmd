@@ -58,6 +58,14 @@ Three graphs, one per level of the 2025 paper.
 
 ![](../outputs/figures/RANK_3_level3_individual_species.png)
 
+How much damage each species caused (reported, 2000-2022):
+
+![](../outputs/figures/RANK_4_damage_by_species.png)
+
+- **Borers:** *Ips typographus* alone caused 84% of all borer damage (587 million m3), as in the paper (85.8%). Next: *Pityogenes chalcographus* (4%), *Ips duplicatus* (2.2%), *Phaenops cyanea* (2.1%).
+- **Defoliators** are much more even: *Lymantria monacha* and *L. dispar* about 19% each, then *Dendrolimus pini* (7%), *Tortrix viridana* and *Panolis flammea* (5% each).
+- Being widespread is not the same as causing much damage: *Ips acuminatus* is in 34 regions but causes only 1% of borer damage; *Ips duplicatus* is in 10 regions and causes 2.2%.
+
 - **Level 1:** Borers on gymnosperms cause damage in **73 of 77** regions; defoliators on angiosperms are next (51).
 - **Level 2, every host tree:** borers on spruce (*P. abies*) lead with 72 regions and 644 million m3, then defoliators on oak (*Quercus*, 51), borers on pine (49), defoliators on pine (37), borers on oak (36), defoliators on spruce (35), borers on larch (26) and borers on fir (21). Birch, elm and poplar/willow insects are rare (1-12 regions). The paper's own level 2 covers spruce, pine and fir only; the other host trees come from the data file's host-tree column.
 - **Aggregates are inside the groups now**, not ranked as insects. They are a small part of each group: 0.3% of Borers on gymnosperms, 5% of Borers on *P. sylvestris*, 6% of Defoliators on angiosperms.
