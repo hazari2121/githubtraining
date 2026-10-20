@@ -228,6 +228,8 @@ Per year: borer damage rises from about 10-30 million m3 a year to 85-88 million
 
 **Average per year** = total / 23 years (every species has records in all 23 years): borers **30.3 million m3 per year**, defoliators **542,000 ha per year**; *Ips typographus* 25.5 million m3 per year.
 
+Damage comes in outbreaks, so the average is pulled up by a few big years. The graphs therefore also show the **typical year** (median, dot) and the **lowest and highest year** (line). Borers: average 30.3 million m3, typical year 24.3 million, from 5.4 million (2000) to 87.5 million (2020); 2018-2021 alone is 43% of all borer damage. *Lymantria dispar*: average 105,000 ha but typical year only 29,000 ha, because its 3 biggest years are 59% of its damage (`AVERAGE_typical_year_and_range.csv`).
+
 ![](../outputs/figures/AVERAGE_A_per_year_by_guild.png)
 
 ![](../outputs/figures/AVERAGE_B1_borers_per_year_by_species.png)

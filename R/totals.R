@@ -174,3 +174,53 @@ plot_avg_by_species <- function(ts, guild) {
                   caption = paste("Average = total reported damage 2000-2022 / 23 years. Individual species only (genus-level codes, species groups and aggregate codes left out).",
                                   "\nEU-ForDAM value1, no gap-filling. CZ and DE spruce bark-borer group counted as I. typographus."))
 }
+
+# ---- Average per year with the typical year and the range ------------------------
+# Per species (or guild) and year: the yearly total; then the average (mean),
+# the typical year (median) and the lowest / highest year over 2000-2022.
+yearly_stats <- function(dmg, ph_hier, species_keep = NULL) {
+  d <- dplyr::filter(dmg, !is.na(damage)) |>
+    dplyr::inner_join(dplyr::select(ph_hier, species, name, level1), by = "species") |>
+    dplyr::mutate(guild = guild_of(level1))
+  if (!is.null(species_keep)) d <- dplyr::filter(d, species %in% species_keep)
+  key <- if (is.null(species_keep)) c("guild", "unit") else c("species", "name", "guild", "unit")
+  d |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(key)), year) |>
+    dplyr::summarise(t = sum(damage), .groups = "drop") |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(key))) |>
+    dplyr::summarise(average = mean(t), typical_year = stats::median(t),
+                     lowest = min(t), lowest_year = year[which.min(t)],
+                     highest = max(t), highest_year = year[which.max(t)],
+                     top3_share = sum(sort(t, decreasing = TRUE)[1:3]) / sum(t), .groups = "drop")
+}
+
+# Bar = average year, dot = typical (median) year, line = lowest to highest year
+plot_yearly_stats <- function(st, guild = NULL) {
+  by_guild <- is.null(guild)
+  d <- if (by_guild) dplyr::mutate(st, name = paste0(guild, " (", unit, ")")) else dplyr::filter(st, guild == !!guild, highest > 0)
+  d <- d |> dplyr::arrange(average) |>
+    dplyr::mutate(name = factor(name, name),
+                  txt = paste0("average ", short_number(average), "  |  typical year ", short_number(typical_year),
+                               "  |  ", lowest_year, ": ", short_number(lowest), " to ", highest_year, ": ", short_number(highest)))
+  col <- if (by_guild) pal$ink else guild_cols[[guild]]
+  what <- if (by_guild) "damage per year" else if (guild == "Borers") "m3 of trees killed per year" else "ha defoliated per year"
+  p <- ggplot2::ggplot(d, ggplot2::aes(y = name)) +
+    ggplot2::geom_col(ggplot2::aes(x = average), fill = col, alpha = 0.35, width = 0.7) +
+    ggplot2::geom_segment(ggplot2::aes(x = lowest, xend = highest, yend = name), colour = col, linewidth = 0.5) +
+    ggplot2::geom_point(ggplot2::aes(x = typical_year), colour = col, size = 2.4) +
+    ggplot2::geom_text(ggplot2::aes(x = highest, label = txt), hjust = 0, nudge_x = max(d$highest) * 0.015,
+                       size = 2.5, colour = pal$ink2) +
+    ggplot2::scale_x_continuous(labels = function(x) short_number(x), expand = ggplot2::expansion(mult = c(0, 0.9))) +
+    ggplot2::labs(x = what, y = NULL,
+                  subtitle = "Bar = average year (total / 23). Dot = typical year (median). Line = lowest to highest year.",
+                  caption = paste("Reported damage 2000-2022 (EU-ForDAM value1), no gap-filling. Borers in m3 of trees killed, defoliators in ha defoliated: never added together.",
+                                  if (by_guild) "\nAll codes, aggregates included." else "\nIndividual species only. CZ and DE spruce bark-borer group counted as I. typographus.")) +
+    theme_eu(9)
+  if (by_guild) {
+    p + ggplot2::facet_wrap(~ name, scales = "free", ncol = 1) +
+      ggplot2::theme(axis.text.y = ggplot2::element_blank(), strip.text = ggplot2::element_text(face = "bold", hjust = 0)) +
+      ggplot2::labs(title = "Damage per year: average, typical year and range (2000-2022)")
+  } else {
+    p + ggplot2::labs(title = paste0(guild, ": damage per year per species (2000-2022)"))
+  }
+}
