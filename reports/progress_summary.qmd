@@ -199,8 +199,6 @@ tb("SHARE_host_affected_average.csv") |>
 - **Defoliators** affect a larger share of their host, but defoliate rather than kill: *Thaumetopoea processionea* 1.2% of oak area per year (4% in 2020), *Tortrix viridana* 1.0% of oak, *Lymantria monacha* 0.8% of conifers, *Pristiphora abietina*, *Dendrolimus pini* and *L. dispar* about 0.5%.
 - Year by year, most borers peak together in 2018-2020; defoliators come in outbreak waves (2003-2005, 2012-2013, 2018).
 
-**Per year, same regions every year.** The regions reporting a species change over time (most countries start in 2003, more German and Czech regions from 2012), which would make lines jump when regions join. The per-year graphs therefore use only the regions that report the species in every year 2003-2021, so the same forest is followed every year (number of regions in each panel title).
-
 ![](../outputs/figures/SHARE_3_borers_by_year.png)
 
 ![](../outputs/figures/SHARE_4_defoliators_by_year.png)
