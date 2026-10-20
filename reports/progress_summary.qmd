@@ -170,42 +170,37 @@ Per insect: `outputs/figures/GF3_europe_totals_with_ranges.png`.
 
 ---
 
-## 4. How much of the host is hit each year?
+## 4. How much of the host is killed each year?
 
-For **borers**: % of the host's growing stock (m3) killed per year. For **defoliators**: % of the host's forest area (ha) defoliated per year (defoliated, not necessarily killed). Host values come from the NUTS forest appendix: spruce, pine, fir, oak, all conifers, all broadleaves (and all forest = both).
+Made from the two datasets only: damage from EU-ForDAM (`value1`), host from the NUTS forest appendix.
 
-**Which host each insect is divided by** = what it actually feeds on. Specialists get their tree (*I. typographus* spruce, *T. viridana* oak, *Pityokteines* fir). Insects that feed on several trees get the wider group: *Lymantria monacha* all conifers (in Poland and Brandenburg it is in pine forests), *Melolontha* all forest, *L. dispar* and the geometrids all broadleaves. Giving them a single tree produced impossible numbers (up to 4,000% of a region's spruce "defoliated" by *L. monacha*). *L. monacha* is therefore also left out of the group "defoliators on *P. abies*". Check: no region-year is now above 100% of its host, and only two are above 50% (an oak defoliation outbreak in Lithuania in 2003 and *I. typographus* in Schleswig-Holstein in 2018); `SHARE_check_region_years_over_50pct.csv`.
+- **Borers:** % of the host's growing stock killed = m3 killed / m3 of that tree in the region.
+- **Defoliators:** % of the host's forest area defoliated = ha defoliated / ha of that tree in the region (defoliated, not necessarily killed).
+- Only regions and years where the insect has a record (0 included). Regions that do not record an insect are left out of both sides. No gap-filling.
+- **Average per year** = all recorded damage / all host of the recorded region-years. **Per year** = that year's damage / host of the regions recording that year.
+- **Host = what the insect feeds on:** specialists their tree (spruce, pine, fir, oak); insects on several trees the wider group (e.g. *L. monacha* all conifers, *Melolontha* all forest). Larch insects use all conifers, because the appendix has no larch column.
+- Check: no region-year is above 100% of its host; two are above 50% (`SHARE_check_region_years_over_50pct.csv`).
 
-Three versions:
-
-- **Reported, all host (the paper's way):** damage divided by the host in all 77 regions. Where we use the same host as the paper it reproduces its Table 2 (e.g. borers on spruce 0.51% vs 0.53%; *T. viridana* 0.46% vs 0.46%). Where we changed the host (*L. monacha*, *L. dispar*, geometrids, defoliators on spruce) the paper's number is not comparable and is not shown.
-- **Reported, only where recorded:** damage divided by the host only where the insect is actually monitored. This is the share of the *watched* host that is hit.
-- **Reported + filled, all host:** gap-filled damage divided by all host. This is the gap-filling's answer to "what would the paper's number be if every region were monitored?"
-
-![](../outputs/figures/SHARE_1_paper_groups.png)
+![](../outputs/figures/SHARE_1_by_host_tree.png)
 
 ```{r share}
-tb("SHARE_host_affected_per_year.csv") |>
-  filter(level != "species") |>
-  transmute(Level = sub("level", "", level), Group = group, Host = host_group,
-            `Paper's way` = formatC(share_pct_paper, format = "f", digits = 2),
-            `Paper Table 2` = formatC(paper_share_pct, format = "f", digits = 2),
-            `Reported + filled` = formatC(share_pct_paper_filled, format = "f", digits = 2),
-            `Only where recorded` = formatC(share_pct_where_recorded, format = "f", digits = 2))
+tb("SHARE_host_affected_average.csv") |>
+  filter(level == "host group", damage_total > 0) |>
+  arrange(guild, desc(share_pct_per_year)) |>
+  transmute(Group = group, Regions = n_regions,
+            `% per year` = formatC(share_pct_per_year, format = "f", digits = 2),
+            `Worst year` = worst_year, `% in worst year` = formatC(share_pct_worst_year, format = "f", digits = 2))
 ```
 
-**What it shows**
-
-- **Borers:** all three versions agree. About **0.5% of spruce growing stock is killed per year** (up to 1.5% in 2019-2020), 0.26-0.29% of all conifers. Bark-beetle damage is reported almost everywhere spruce grows, so there is little to fill.
-- **Defoliators:** the versions differ a lot. The paper's way gives 0.44% of conifer area per year. Counting only where defoliators are monitored gives 1.5%, and gap-filling gives 0.76%. The paper's figures for defoliators are therefore **lower bounds**: they divide by host forest that nobody monitors for defoliators.
-- **Spruce defoliators are small once *L. monacha* is moved to all conifers**: 0.09% of spruce area per year (paper's way), not the paper's 0.52%. Almost all of the rest is *Pristiphora abietina*, mostly one Bavarian year (200,000 ha in 2003).
-- **Caution:** for a few insects the filled share is higher than the share where they are recorded (*Zeiraphera griseana*, *Dendroctonus micans*, *Scolytus* spp., *Pissodes pini*). The model fills too much for them, the same insects already flagged in the range list.
+- **Spruce:** 0.55% of the growing stock is killed per year, rising to 1.47% in 2020. Almost all of it is *Ips typographus* (0.51%).
+- **Fir** 0.17%, **oak** 0.07%, **pine** 0.06% killed per year; pine borers peak in 2019-2020 like spruce.
+- **Defoliators** hit a larger share of their host each year: oak 1.9% of its area, pine 1.5%, all conifers 0.8% (*L. monacha*), with big outbreak years (oak 6% in 2005, pine 4% in 2000).
 
 ![](../outputs/figures/SHARE_2_individual_species.png)
 
 ![](../outputs/figures/SHARE_3_by_year.png)
 
-**Assumption:** in the appendix the species growing stocks of Bulgaria and Lithuania are about 1000x too small for their areas (e.g. BG spruce 31,157 m3 on 133,737 ha). They are read as 1000 m3. This changes the results by less than 2%. Tables: `SHARE_host_affected_per_year.csv`, `SHARE_host_affected_by_year.csv`, `SHARE_host_affected_by_region.csv`.
+**Open point:** in the appendix the single-species growing stocks of Bulgaria and Lithuania are about 1000x too small for their areas (e.g. BG spruce 31,157 m3 on 133,737 ha). They are read as 1000 m3 here; to be confirmed. Tables: `SHARE_host_affected_average.csv`, `SHARE_host_affected_by_year.csv`.
 
 ---
 

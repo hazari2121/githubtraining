@@ -167,32 +167,19 @@ list(
   tar_target(hs_stock, host_stock_long(host_appx)),
   tar_target(hs_units, share_units(ph_hier, species_meta)),
   tar_target(hs_regions, dplyr::distinct(cb_dmg, country, nuts_id)),
-  tar_target(hs_filled_d, filled_as_damage(v3_data)),
-  tar_target(hs_table, {
-    rep <- host_share_table(cb_dmg, hs_units, hs_stock, hs_regions)
-    fil <- host_share_table(hs_filled_d, hs_units, hs_stock, hs_regions) |>
-      dplyr::select(level, group, share_pct_paper_filled = share_pct_paper)
-    rep |> dplyr::left_join(fil, by = c("level", "group")) |>
-      dplyr::left_join(paper_table2_share, by = c("level", "group")) |>
-      # the paper divides these by a different host (L. monacha by spruce, L. dispar and
-      # geometrids by oak), so its numbers are not comparable with ours
-      dplyr::mutate(paper_share_pct = dplyr::if_else(group %in% c("lym_mon", "lym_dis", "geo_db", "Defoliators on P. abies"),
-                                                     NA_real_, paper_share_pct)) |>
-      dplyr::relocate(share_pct_paper_filled, paper_share_pct, .after = share_pct_paper)
-  }),
-  tar_target(hs_year, host_share_by_year(cb_dmg, hs_units, hs_stock, hs_regions)),
-  tar_target(hs_year_filled, host_share_by_year(hs_filled_d, hs_units, hs_stock, hs_regions)),
-  tar_target(hs_region, host_share_by_region(cb_dmg, hs_units, hs_stock)),
-  tar_target(hs_table_csv, tab(hs_table, "SHARE_host_affected_per_year.csv"), format = "file"),
-  tar_target(hs_year_csv, tab(dplyr::left_join(hs_year, dplyr::select(hs_year_filled, level, group, year, share_pct_paper_filled = share_pct_paper),
-                                               by = c("level", "group", "year")), "SHARE_host_affected_by_year.csv"), format = "file"),
+  # Proportion of the host killed / defoliated, from the data only (R/host_share_data.R)
+  tar_target(hd_hosts, code_hosts(ph_hier, species_meta)),
+  tar_target(hd_units, share_units_data(hd_hosts)),
+  tar_target(hd_avg, host_share_average(cb_dmg, hd_units, hs_stock)),
+  tar_target(hd_years, host_share_years(cb_dmg, hd_units, hs_stock)),
+  tar_target(hd_avg_csv, tab(hd_avg, "SHARE_host_affected_average.csv"), format = "file"),
+  tar_target(hd_years_csv, tab(hd_years, "SHARE_host_affected_by_year.csv"), format = "file"),
   tar_target(hs_check, host_share_check(cb_dmg, hs_units, hs_stock)),
   tar_target(hs_check_csv, tab(hs_check, "SHARE_check_region_years_over_50pct.csv"), format = "file"),
-  tar_target(hs_region_csv, tab(hs_region, "SHARE_host_affected_by_region.csv"), format = "file"),
-  tar_target(fig_share_groups, save_fig(plot_share_groups(hs_table), "outputs/figures/SHARE_1_paper_groups.png", 10, 7.5), format = "file"),
-  tar_target(fig_share_species, save_fig(plot_share_species(hs_table, heat_sp), "outputs/figures/SHARE_2_individual_species.png", 10, 10),
+  tar_target(fig_share_groups, save_fig(plot_share_avg_groups(hd_avg), "outputs/figures/SHARE_1_by_host_tree.png", 10, 5.5), format = "file"),
+  tar_target(fig_share_species, save_fig(plot_share_avg_species(hd_avg, ph_hier, heat_sp), "outputs/figures/SHARE_2_individual_species.png", 9, 9),
              format = "file"),
-  tar_target(fig_share_year, save_fig(plot_share_by_year(hs_year, hs_year_filled), "outputs/figures/SHARE_3_by_year.png", 12, 8.5),
+  tar_target(fig_share_year, save_fig(plot_share_years_data(hd_years), "outputs/figures/SHARE_3_by_year.png", 12, 8.5),
              format = "file"),
 
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
