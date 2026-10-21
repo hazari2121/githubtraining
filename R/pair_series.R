@@ -36,8 +36,9 @@ plot_pair_series <- function(ps, grp) {
     ggplot2::facet_wrap(~ panel, ncol = 3) +
     ggplot2::labs(x = NULL, y = "Damage compared with the region's normal (0 = normal year)",
                   title = sub("^[0-9]+\\. ", "Usable pairs: ", grp),
-                  subtitle = "Both insects year by year, in the regions where both are recorded. Lines moving together = the correlation.",
-                  caption = paste("Each region's log(1 + damage) series standardised against its own mean (+1 = one standard deviation above normal), then averaged over the regions each year.",
+                  subtitle = "Both insects year by year, in the regions where both are recorded.\nLines moving together = the correlation.",
+                  caption = paste("Each region's log(1 + damage) series standardised against its own mean (+1 = one standard deviation above normal),",
+                                  "\nthen averaged over the regions each year.",
                                   "\nr = same-year correlation from the correlation metrics (within region). Reported data, no gap-filling.")) +
     theme_eu(8.5) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold", size = 7.5))
 }

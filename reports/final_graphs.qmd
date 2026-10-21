@@ -97,13 +97,17 @@ All reported damage 2000–2022 added up.
 
 The 28 usable pairs from the correlation metrics (strong link that holds in every country checked), shown year by year. Only region-years where both insects are recorded; each region's series compared with its own normal (0 = normal year, +1 = one standard deviation worse), then averaged over the regions. Lines moving together = the correlation r.
 
-![](../outputs/figures/final/5_usable_pairs_time_series/5a_conifer_bark_beetles_and_borers.png)
+Pairs are grouped by the paper's level-1 groups of the two insects.
 
-![](../outputs/figures/final/5_usable_pairs_time_series/5b_conifer_borers_with_oak_and_birch_borers.png)
+![](../outputs/figures/final/5_usable_pairs_time_series/5a_borers_on_gymnosperms_x_borers_on_gymnosperms.png)
 
-![](../outputs/figures/final/5_usable_pairs_time_series/5c_pine_and_spruce_defoliators.png)
+![](../outputs/figures/final/5_usable_pairs_time_series/5b_borers_on_gymnosperms_x_borers_on_angiosperms.png)
 
-![](../outputs/figures/final/5_usable_pairs_time_series/5d_opposite_link.png)
+![](../outputs/figures/final/5_usable_pairs_time_series/5c_borers_on_angiosperms_x_borers_on_angiosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5d_defoliators_on_gymnosperms_x_defoliators_on_gymnosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5e_borers_x_defoliators_across_guilds.png)
 
 ---
 

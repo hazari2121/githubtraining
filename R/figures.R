@@ -1064,18 +1064,28 @@ insect_names <- c(
 host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies alba` = "fir",
                 `Larix decidua` = "larch", `Quercus spp.` = "oak", `Betula spp.` = "birch")
 
+# Pair groups from the paper's level-1 groups of the two insects, numbered in
+# a fixed order (same group, then across host types, then across guilds)
+pair_group_order <- c("Borers on gymnosperms x Borers on gymnosperms", "Borers on gymnosperms x Borers on angiosperms",
+                      "Borers on angiosperms x Borers on angiosperms",
+                      "Defoliators on gymnosperms x Defoliators on gymnosperms", "Defoliators on gymnosperms x Defoliators on angiosperms",
+                      "Defoliators on angiosperms x Defoliators on angiosperms", "Borers x defoliators (across guilds)")
+
+pair_group_label <- function(a, b) {
+  first <- ifelse(match(a, paper_level1_order) <= match(b, paper_level1_order), a, b)
+  second <- ifelse(first == a, b, a)
+  lab <- ifelse(sub(" on .*", "", a) != sub(" on .*", "", b), "Borers x defoliators (across guilds)", paste(first, "x", second))
+  present <- pair_group_order[pair_group_order %in% lab]
+  paste0(match(lab, present), ". ", lab)
+}
+
 usable_table <- function(v, species_meta) {
   h <- setNames(host_short[species_meta$host_tree], species_meta$species)
   nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
   v |>
     dplyr::filter(verdict == "usable") |>
     dplyr::mutate(
-      group = dplyr::case_when(
-        r < 0 ~ "4. Opposite link",
-        grepl("defoliators", tolower(group_a)) & grepl("defoliators", tolower(group_b)) ~ "3. Pine and spruce defoliators",
-        tolower(group_a) %in% c("borers on conifers", "borers on gymnosperms") &
-          tolower(group_b) %in% c("borers on conifers", "borers on gymnosperms") ~ "1. Conifer bark beetles and borers",
-        TRUE ~ "2. Conifer borers with oak and birch borers"),
+      group = pair_group_label(group_a, group_b),
       Pair = paste(nm(species_a), "x", nm(species_b)),
       Hosts = paste(h[species_a], "x", h[species_b]),
       r_txt = formatC(r, format = "f", digits = 2),
@@ -1086,8 +1096,8 @@ usable_table <- function(v, species_meta) {
 }
 
 plot_usable_table <- function(ut) {
-  fills <- c(`1. Conifer bark beetles and borers` = "#e3eef9", `2. Conifer borers with oak and birch borers` = "#fdf0e3",
-             `3. Pine and spruce defoliators` = "#e6f2e6", `4. Opposite link` = "#ececf6")
+  g_all <- sort(unique(ut$group))
+  fills <- stats::setNames(c("#e3eef9", "#fdf0e3", "#e6f2e6", "#ececf6", "#f3e9f3", "#eaf4f4", "#f4f1e6")[seq_along(g_all)], g_all)
   rows <- list(); fill <- character(); bold <- logical(); i <- 0
   for (g in unique(ut$group)) {
     rows[[length(rows) + 1]] <- data.frame(`#` = "", Pair = g, Hosts = "", r = "", rw = "", Countries = "", check.names = FALSE)

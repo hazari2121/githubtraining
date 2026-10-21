@@ -255,10 +255,11 @@ list(
   tar_target(fig_pairs_ts, {
     dir.create("outputs/figures/final/5_usable_pairs_time_series", recursive = TRUE, showWarnings = FALSE)
     g <- sort(unique(cb_usable$group))
-    h <- c(13, 10.5, 7.5, 3.6)
+    n_pairs <- table(cb_usable$group)[g]
     purrr::map2_chr(g, seq_along(g), function(x, i) save_fig(plot_pair_series(pairs_ts, x),
-      file.path("outputs/figures/final/5_usable_pairs_time_series", paste0("5", letters[i], "_", gsub("[^a-z]+", "_", tolower(sub("^[0-9]+\\. ", "", x))), ".png")),
-      11, h[i]))
+      file.path("outputs/figures/final/5_usable_pairs_time_series",
+                paste0("5", letters[i], "_", gsub("_+$", "", gsub("[^a-z]+", "_", tolower(sub("^[0-9]+\\. ", "", x)))), ".png")),
+      if (n_pairs[[i]] == 1) 8 else 11, 1.8 + 3.2 * ceiling(n_pairs[[i]] / 3)))
   }, format = "file"),
 
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
