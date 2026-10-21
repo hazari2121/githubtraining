@@ -219,7 +219,7 @@ list(
              format = "file"),
 
   # ---- Final graph sets (outputs/figures/final/): guild and species kept apart ----
-  tar_target(g_units, guild_share_units(ph_hier)),
+  tar_target(g_units, guild_share_units(ph_hier, hd_hosts)),
   tar_target(g_years, guild_share_years(cb_dmg, g_units, hs_stock)),
   tar_target(g_avg, guild_share_average(g_years)),
   tar_target(g_years_csv, tab(g_years, "SHARE_guild_by_year.csv"), format = "file"),

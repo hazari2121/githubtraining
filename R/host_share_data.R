@@ -226,8 +226,15 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
 # Guild x host type (the paper's level 1): all codes of the group, aggregates
 # included, divided by all conifers (gymnosperms) or all broadleaves
 # (angiosperms) of the regions and years where the group has a record.
-guild_share_units <- function(ph_hier) {
+# Only codes whose own host belongs to the group's host type are counted:
+# Melolontha (host = all forest, larvae mostly in pine stands) would otherwise
+# be divided by broadleaves only and push some Polish regions above 100%.
+guild_share_units <- function(ph_hier, hosts) {
+  conifer_hosts <- c("spruce", "pine", "fir", "conifers_all")
+  broadleaf_hosts <- c("oak", "broadleaves_all")
   ph_hier |>
+    dplyr::left_join(dplyr::select(hosts, species, host_group), by = "species") |>
+    dplyr::filter(dplyr::if_else(grepl("gymnosperms$", level1), host_group %in% conifer_hosts, host_group %in% broadleaf_hosts)) |>
     dplyr::group_by(group = level1, unit) |>
     dplyr::summarise(codes = list(species), .groups = "drop") |>
     dplyr::mutate(guild = sub(" on .*", "", group), host_type = sub("^.* on ", "", group),
@@ -250,7 +257,7 @@ guild_share_average <- function(gy) {
 }
 
 guild_share_caption <- paste(
-  "All codes of the guild, aggregates included. Gymnosperms divided by all conifers, angiosperms by all broadleaves (NUTS forest appendix),",
+  "All codes of the guild, aggregates included, except Melolontha (feeds in all forest). Gymnosperms divided by all conifers, angiosperms by all broadleaves (NUTS forest appendix),",
   "\nonly in regions and years with a record (0 included). EU-ForDAM value1, no gap-filling. BG and LT single-species growing stocks read as 1000 m3.")
 
 plot_guild_share_years <- function(gy, guild) {
