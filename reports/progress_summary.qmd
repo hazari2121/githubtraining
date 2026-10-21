@@ -100,7 +100,7 @@ Red = bad years together. Strong colour = sure link; faded = could be chance; bl
 ![](../outputs/figures/CM_table_groups.png)
 
 1. **The premise holds for a core of insects**, mainly bark beetles on spruce and pine and pine defoliators.
-2. **Links are mostly regional**: 21 of the 28 are still clear when the Europe-wide part of each year (the part all regions share) is separated out. The rest are mostly carried by years that were bad everywhere.
+2. **Links are mostly regional**: 21 of the 28 stay clear in the **r of the regional part** (each value minus the same insect's average in all other regions that year; nothing is removed, each value is split into a Europe-wide and a regional part). The rest are mostly carried by years that were bad everywhere.
 3. **The paper's level-1 groups matter**: pairs in the same level-1 group are strongly linked 28% of the time vs 6% across groups (permutation test p = 0.001).
 4. **Checks**: Spearman (rank) correlation gives the same answer (agreement 0.97); hiding one country at a time, all 28 usable links help predict the hidden country (typically 11% less error).
 

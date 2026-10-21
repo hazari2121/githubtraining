@@ -33,7 +33,7 @@ The thesis rests on one sentence: *damage from different agents tends to fluctua
 |---|---|---|
 | 1. Does insect A have bad years when insect B does, in the same region? | same-year r, within region | the premise |
 | 2. Does that link hold in every country? | r per country | 1, gap-filling (links learnt in one country fill gaps in another) |
-| 3. Is it regional, or just years bad all over Europe? Does one come first? | r after removing Europe-wide years; A this year vs B next year | 3, drivers and anticipation |
+| 3. Is the link regional or Europe-wide? Does one come first? | r of the regional part; A this year vs B next year | 3, drivers and anticipation |
 | 4. Do linked insects share feeding type or host tree? | share of strong links within vs between groups | 2, damage across agents and host trees |
 
 **How r is measured.** `value1` only (`value2` is the same damage in another unit). 0 = monitored, no damage; not reported = unknown, left out. Damage on a log(1 + x) scale, each region's series compared with its own average, so a large and a small region count the same. Only region-years where both insects were recorded. The 95% range comes from resampling whole regions 999 times; a link is *sure* when the range excludes 0, *strong* when also r ≥ 0.3. As in the 2025 EU-ForDAM paper, the spruce bark-borer group of Czechia and Germany is counted as *I. typographus*.
@@ -69,7 +69,7 @@ v |> count(verdict, name = "pairs", .drop = FALSE) |>
 
 ## 3: regional or Europe-wide, and does one come first?
 
-- `r sum(!u$mostly_europe_wide_years)` of the `r nrow(u)` usable links stay strong after removing years that were bad all over Europe (open circles near the green dots). So most links are **regional**, not just shared European weather. Regional drivers (local drought, storms) are the likely cause and are what the driver data should test (objective 3).
+- `r sum(!u$mostly_europe_wide_part)` of the `r nrow(u)` usable links stay strong in the **r of the regional part** (each value minus the same insect's average in all other regions that year; open circles near the green dots). So most links are **regional**, not just shared European weather. Regional drivers (local drought, storms) are the likely cause and are what the driver data should test (objective 3).
 - In `r sum(u$lead != "none clear")` of the `r nrow(u)` usable pairs, one insect's bad year also tends to come before the other's in the next year. This is weaker and less certain than the same-year link, but it is the first hint that damage can be **anticipated** from the records (`outputs/tables/CM_pairs_verdict.csv`, column `lead`).
 
 ## 4: feeding type matters, host tree adds little
@@ -108,7 +108,7 @@ ps |> filter(verdict %in% c("usable", "unreliable")) |> count(verdict, predictiv
 ```
 
 - **The correlation verdicts hold up.** All `r nrow(pu)` usable pairs help predict a country left out: `r sum(pu$predictive == "predicts well")` predict well, `r sum(pu$predictive == "predicts a little")` a little, none mislead. Of the `r sum(ps$verdict == "unreliable")` unreliable pairs, `r sum(ps$verdict == "unreliable" & ps$predictive == "misleads")` make guesses worse, which is exactly why they were flagged.
-- **The gain from one partner insect is modest.** For usable pairs the error is typically `r round(100 * median(pu$skill))`% smaller (range `r round(100 * min(pu$skill))`-`r round(100 * max(pu$skill))`%), and still `r round(100 * median(pu$skill_beyond_year))`% after removing years bad all over Europe. The best: *I. acuminatus* with *I. duplicatus*, *I. typographus* with *Pityokteines*, *I. sexdentatus* with *Phaenops cyanea* (about 25%).
+- **The gain from one partner insect is modest.** For usable pairs the error is typically `r round(100 * median(pu$skill))`% smaller (range `r round(100 * min(pu$skill))`-`r round(100 * max(pu$skill))`%), and still `r round(100 * median(pu$skill_beyond_year))`% in the regional part. The best: *I. acuminatus* with *I. duplicatus*, *I. typographus* with *Pityokteines*, *I. sexdentatus* with *Phaenops cyanea* (about 25%).
 - **High correlation is not enough.** *I. typographus* with *Pityogenes chalcographus* has the highest pooled r and a high pooled skill, but the link differs between countries (strong in DE and AT, not in IT or SK), so it is "unreliable".
 - **Most pairs cannot be tested** (`r sum(ps$predictive == "cannot test")` of `r nrow(ps)`): they are recorded together in only one country.
 

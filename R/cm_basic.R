@@ -14,7 +14,7 @@
 #
 # Five questions per pair:
 #   Q1 same_year   : do they have bad years together?
-#   Q2 beyond_year : still linked after removing Europe-wide bad years?
+#   Q2 beyond_year : r of the regional part (each value minus the same insect's mean in all other regions that year)
 #   Q3 lag_ab/ba   : does one's bad year come before the other's (t -> t+1),
 #                    beyond the follower's own persistence?
 #   Q4 transfer    : does the link hold in each country separately?
@@ -85,10 +85,10 @@ cm_verdict <- function(t) {
       link %in% strong & Q4_holds_across_countries == "insufficient data" ~ "promising",
       link %in% strong ~ "unreliable"),
       verdict = factor(verdict, verdict_levels),
-      # TRUE when the link is mostly years that were bad all over Europe
-      mostly_europe_wide_years = link == "strong, mostly shared bad years") |>
+      # TRUE when the link mostly comes from the Europe-wide part of the years
+      mostly_europe_wide_part = link == "strong, mostly shared bad years") |>
     dplyr::select(species_a, species_b, group_a, group_b, verdict,
                   r = Q1_same_year_r, r_lo = Q1_lo, r_hi = Q1_hi,
-                  r_without_europe_wide_years = Q2_beyond_shared_years_r, mostly_europe_wide_years,
+                  r_regional_part = Q2_beyond_shared_years_r, mostly_europe_wide_part,
                   countries = Q4_countries, lead = Q3_lead, n_region_years, n_regions, n_countries)
 }

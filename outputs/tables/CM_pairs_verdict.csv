@@ -1,4 +1,4 @@
-species_a,species_b,group_a,group_b,verdict,r,r_lo,r_hi,r_without_europe_wide_years,mostly_europe_wide_years,countries,lead,n_region_years,n_regions,n_countries
+species_a,species_b,group_a,group_b,verdict,r,r_lo,r_hi,r_regional_part,mostly_europe_wide_part,countries,lead,n_region_years,n_regions,n_countries
 agr_big,agr_vir,Borers on angiosperms,Borers on angiosperms,promising,0.4023832540310443,0.17338716488748346,0.6167952896456831,0.33162141450420557,FALSE,DE,none clear,207,9,1
 agr_big,bup_pin,Borers on angiosperms,Defoliators on gymnosperms,weak,0.23914367957071236,0.062231477314332095,0.41279780749915845,0.12892119586338108,FALSE,"DE,PL",none clear,464,22,2
 agr_big,cep_spp,Borers on angiosperms,Defoliators on gymnosperms,not enough data,NA,NA,NA,NA,FALSE,NA,none clear,0,0,0

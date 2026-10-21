@@ -977,12 +977,12 @@ plot_cm_usable <- function(v) {
     ggplot2::geom_vline(xintercept = 0, colour = "#9c9b97") +
     ggplot2::geom_errorbarh(ggplot2::aes(xmin = r_lo, xmax = r_hi), height = 0, colour = "#86b6ef") +
     ggplot2::geom_point(ggplot2::aes(x = r), colour = "#008300", size = 2.2) +
-    ggplot2::geom_point(ggplot2::aes(x = r_without_europe_wide_years), shape = 21, colour = pal$ink, size = 2) +
+    ggplot2::geom_point(ggplot2::aes(x = r_regional_part), shape = 21, colour = pal$ink, size = 2) +
     ggplot2::geom_text(ggplot2::aes(x = 0.95, label = countries), hjust = 1, size = 2.6, colour = pal$ink2) +
     ggplot2::scale_x_continuous(limits = c(min(0, d$r_lo) - 0.05, 0.95)) +
     ggplot2::labs(x = "r (same year, within region)", y = NULL,
                   title = "The usable links: insects that move together in every country checked",
-                  subtitle = "Green dot = r, bar = 95% range; open circle = r after removing years bad all over Europe; right = countries",
+                  subtitle = "Green dot = r, bar = 95% range; open circle = r of the regional part (Europe-wide part of each year taken out); right = countries",
                   caption = "Open circle close to the green dot = the link is regional, not just shared European bad years.") +
     theme_eu(8.5)
 }
@@ -1089,8 +1089,8 @@ usable_table <- function(v, species_meta) {
       Pair = paste(nm(species_a), "x", nm(species_b)),
       Hosts = paste(h[species_a], "x", h[species_b]),
       r_txt = formatC(r, format = "f", digits = 2),
-      rw_txt = paste0(formatC(r_without_europe_wide_years, format = "f", digits = 2),
-                      ifelse(mostly_europe_wide_years, " *", "")),
+      rw_txt = paste0(formatC(r_regional_part, format = "f", digits = 2),
+                      ifelse(mostly_europe_wide_part, " *", "")),
       Countries = gsub(",", ", ", countries)) |>
     dplyr::arrange(group, dplyr::desc(abs(r)))
 }
@@ -1108,7 +1108,7 @@ plot_usable_table <- function(ut) {
     fill <- c(fill, rep(fills[[g]], nrow(d))); bold <- c(bold, rep(FALSE, nrow(d))); i <- i + nrow(d)
   }
   tab <- do.call(rbind, rows)
-  names(tab) <- c("#", "Pair", "Host trees", "r", "r without\nEurope-wide years", "Countries where it holds")
+  names(tab) <- c("#", "Pair", "Host trees", "r", "r of the\nregional part", "Countries where it holds")
   th <- gridExtra::ttheme_minimal(
     base_size = 10,
     core = list(bg_params = list(fill = fill, col = "white"),
@@ -1117,7 +1117,7 @@ plot_usable_table <- function(ut) {
   g <- gridExtra::tableGrob(tab, rows = NULL, theme = th)
   title <- grid::textGrob("The 30 usable insect pairs: strong (r >= 0.3, sure) and consistent in every country checked",
                           x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
-  note <- grid::textGrob(paste("r = same-year correlation within regions (log damage, each region against its own mean). * = link mostly reflects years bad all over Europe",
+  note <- grid::textGrob(paste("r = same-year correlation within regions (log damage, each region against its own mean). * = link mostly comes from the Europe-wide part of the years",
                                "(r drops below 0.2 once they are removed).\nCZ and DE spruce bark-borer group counted as I. typographus. Aggregate reporting codes are not included (they count at group level only)."),
                          x = 0.02, hjust = 0, gp = grid::gpar(fontsize = 8.5, col = "#52514e"))
   gridExtra::arrangeGrob(title, g, note, ncol = 1, heights = grid::unit(c(0.45, 1, 0.5), c("in", "null", "in")))
@@ -1252,10 +1252,10 @@ cm_table_questions <- function() {
   data.frame(
     Question = c("1. Does insect A have bad years when insect B does,\n    in the same region?",
                  "2. Does that link hold in every country?",
-                 "3. Is it regional, or just years bad all over Europe?\n    Does one come first?",
+                 "3. Is the link regional or Europe-wide?\n    Does one come first?",
                  "4. Do linked insects share feeding type or host tree?"),
     Metric = c("same-year r, within region", "r per country",
-               "r after removing Europe-wide years;\nA this year vs B next year",
+               "r of the regional part;\nA this year vs B next year",
                "share of strong links within vs\nbetween groups"),
     Objective = c("the premise", "1, gap-filling (links learnt in one\ncountry fill gaps in another)",
                   "3, drivers and anticipation", "2, damage across agents\nand host trees"),
