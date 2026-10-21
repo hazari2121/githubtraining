@@ -1,0 +1,103 @@
+---
+title: "EU-ForDAM: damage graphs"
+subtitle: "Host killed per year and on average, NUTS occurrence, total damage — guilds and species"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+execute:
+  echo: false
+---
+
+**Data.** EU-ForDAM (`value1`, 2000–2022, 16 countries, 77 NUTS units) and the NUTS forest appendix (area and growing stock of spruce, pine, fir, oak, all conifers, all broadleaves). Reported damage only, no gap-filling. 0 = recorded, no damage; missing = left out.
+
+**Units.** Borers = m³ of trees killed; defoliators = ha defoliated (not necessarily killed). The two are never added together.
+
+**Guild vs species.** Guild graphs add up all codes of the guild (aggregate codes included). Species graphs show individual species only. Borers and defoliators are always shown on separate graphs.
+
+**Host tree.** The host tree in the data file; insects feeding on several trees get the wider group (e.g. *L. monacha* spruce and pine, *L. dispar* broadleaves, *Melolontha* all forest). Larch, birch, elm and poplar are not separate in the forest appendix, so those species are divided by all conifers / all broadleaves. Check: damage never exceeds the host in any region and year (except Vienna, where the appendix gives 0 spruce but small spruce bark-beetle damage is reported).
+
+---
+
+## 1. Proportion of host killed per year
+
+% of the host's growing stock killed (borers) or forest area defoliated (defoliators) in each year = that year's damage / host of the regions recording it.
+
+### Guild
+
+![](../outputs/figures/final/1_host_killed_per_year/1a_guild_borers.png)
+
+![](../outputs/figures/final/1_host_killed_per_year/1b_guild_defoliators.png)
+
+### Species
+
+![](../outputs/figures/final/1_host_killed_per_year/1c_species_borers.png)
+
+![](../outputs/figures/final/1_host_killed_per_year/1d_species_defoliators.png)
+
+---
+
+## 2. Proportion of host killed on average
+
+Average per year = all recorded damage 2000–2022 / all host of the region-years where it is recorded.
+
+### Guild
+
+![](../outputs/figures/final/2_host_killed_average/2a_guild_borers.png)
+
+![](../outputs/figures/final/2_host_killed_average/2b_guild_defoliators.png)
+
+### Species
+
+![](../outputs/figures/final/2_host_killed_average/2c_species_borers.png)
+
+![](../outputs/figures/final/2_host_killed_average/2d_species_defoliators.png)
+
+---
+
+## 3. NUTS: where damage occurs
+
+Number of NUTS units with damage (at least one year > 0). Note: 11 countries report as one unit, while Finland, Poland and Germany report 15–17 units each.
+
+### Guild
+
+![](../outputs/figures/final/3_NUTS/3a_guild.png)
+
+### Species
+
+![](../outputs/figures/final/3_NUTS/3b_species_borers.png)
+
+![](../outputs/figures/final/3_NUTS/3c_species_defoliators.png)
+
+---
+
+## 4. Total damage
+
+All reported damage 2000–2022 added up.
+
+### Guild
+
+![](../outputs/figures/final/4_total_damage/4a_guild_total.png)
+
+![](../outputs/figures/final/4_total_damage/4b_guild_borers_per_year.png)
+
+![](../outputs/figures/final/4_total_damage/4c_guild_defoliators_per_year.png)
+
+### Species
+
+![](../outputs/figures/final/4_total_damage/4d_species_borers.png)
+
+![](../outputs/figures/final/4_total_damage/4e_species_defoliators.png)
+
+---
+
+## Things to keep in mind
+
+- Germany carries 52% of all borer damage and Poland 50% of all defoliation; most countries start reporting in 2003 (Austria 2002, Poland 2003, Finland 2012).
+- Some dips come from how values were recorded, not from the insects: Bavaria *I. typographus* 2007 (6,000 m³) and 2009 (3,633 m³) next to millions in other years, and 0 in 2015; Hesse and Saxony-Anhalt report 0 for every insect from 2006–2007 on. These are listed in `outputs/tables/CHECK_suspicious_values_for_data_providers.csv`.
+- Defoliated hectares are hectare-years: the same stand can count in several years and under several species.
+- Averages hide outbreaks: e.g. *L. dispar* averages about 105,000 ha a year but a typical year is about 29,000 ha.
+- In the defoliator guild share graphs *Melolontha* is left out (it feeds in all forest, not only broadleaves); it is included in the total-damage graphs.
+- Bulgaria and Lithuania single-species growing stocks in the forest appendix are read as 1,000 m³ (otherwise far below their reported damage).
