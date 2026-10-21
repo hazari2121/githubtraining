@@ -218,6 +218,37 @@ list(
   tar_target(fig_tot_yr_d, save_fig(plot_total_by_year(tot_year, "Defoliators"), "outputs/figures/TOTAL_C2_defoliators_per_year.png", 9, 5),
              format = "file"),
 
+  # ---- Final graph sets (outputs/figures/final/): guild and species kept apart ----
+  tar_target(g_units, guild_share_units(ph_hier)),
+  tar_target(g_years, guild_share_years(cb_dmg, g_units, hs_stock)),
+  tar_target(g_avg, guild_share_average(g_years)),
+  tar_target(g_years_csv, tab(g_years, "SHARE_guild_by_year.csv"), format = "file"),
+  tar_target(g_avg_csv, tab(g_avg, "SHARE_guild_average.csv"), format = "file"),
+  tar_target(final_figs, {
+    f <- function(p, name, w, h) save_fig(p, file.path("outputs/figures/final", name), w, h)
+    dir.create("outputs/figures/final/1_host_killed_per_year", recursive = TRUE, showWarnings = FALSE)
+    dir.create("outputs/figures/final/2_host_killed_average", showWarnings = FALSE)
+    dir.create("outputs/figures/final/3_NUTS", showWarnings = FALSE)
+    dir.create("outputs/figures/final/4_total_damage", showWarnings = FALSE)
+    c(
+      f(plot_guild_share_years(g_years, "Borers"), "1_host_killed_per_year/1a_guild_borers.png", 10, 4.5),
+      f(plot_guild_share_years(g_years, "Defoliators"), "1_host_killed_per_year/1b_guild_defoliators.png", 10, 4.5),
+      f(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Borers"), "1_host_killed_per_year/1c_species_borers.png", 11, 8),
+      f(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Defoliators"), "1_host_killed_per_year/1d_species_defoliators.png", 11, 8),
+      f(plot_guild_share_avg(g_avg, "Borers"), "2_host_killed_average/2a_guild_borers.png", 9, 3),
+      f(plot_guild_share_avg(g_avg, "Defoliators"), "2_host_killed_average/2b_guild_defoliators.png", 9, 3),
+      f(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Borers"), "2_host_killed_average/2c_species_borers.png", 9, 6.5),
+      f(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Defoliators"), "2_host_killed_average/2d_species_defoliators.png", 9, 5),
+      f(plot_rank_level1(p_rank_groups), "3_NUTS/3a_guild.png", 9, 3.6),
+      f(plot_rank_species_guild(p_rank_species, "Borers"), "3_NUTS/3b_species_borers.png", 9, 6.5),
+      f(plot_rank_species_guild(p_rank_species, "Defoliators"), "3_NUTS/3c_species_defoliators.png", 9, 5),
+      f(plot_total_by_guild(tot_guild), "4_total_damage/4a_guild_total.png", 9, 4),
+      f(plot_total_by_year(tot_year, "Borers"), "4_total_damage/4b_guild_borers_per_year.png", 9, 5),
+      f(plot_total_by_year(tot_year, "Defoliators"), "4_total_damage/4c_guild_defoliators_per_year.png", 9, 5),
+      f(plot_total_by_species(tot_species, "Borers"), "4_total_damage/4d_species_borers.png", 9, 6.5),
+      f(plot_total_by_species(tot_species, "Defoliators"), "4_total_damage/4e_species_defoliators.png", 9, 5))
+  }, format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),

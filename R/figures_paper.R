@@ -265,3 +265,13 @@ plot_damage_by_species <- function(sr, guild_totals) {
     ggplot2::theme(legend.position = "bottom", strip.text = ggplot2::element_text(face = "bold", hjust = 0),
                    panel.grid.major.x = ggplot2::element_line(colour = "#ecebe7", linewidth = 0.3))
 }
+
+# NUTS ranking of individual species, one guild per graph
+plot_rank_species_guild <- function(sr, guild) {
+  keep <- sr[is_single_species(sr), ]
+  keep <- keep[sub(" on .*", "", keep$level1) == guild, ]
+  plot_paper_species_ranking(keep, title = paste0(guild, ": number of NUTS units with damage, individual species")) +
+    ggplot2::scale_colour_manual(values = paper_level1_cols, name = NULL, drop = TRUE) +
+    ggplot2::labs(caption = paste("77 NUTS units in total; 11 countries report one national unit; PL district codes are NUTS2.",
+                                  "\nIndividual species only. CZ and DE spruce bark-borer group counted as I. typographus."))
+}

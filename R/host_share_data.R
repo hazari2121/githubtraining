@@ -221,3 +221,63 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
                                   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
     theme_eu(9)
 }
+
+# ---- Guild level: share of the host per year and on average ------------------------
+# Guild x host type (the paper's level 1): all codes of the group, aggregates
+# included, divided by all conifers (gymnosperms) or all broadleaves
+# (angiosperms) of the regions and years where the group has a record.
+guild_share_units <- function(ph_hier) {
+  ph_hier |>
+    dplyr::group_by(group = level1, unit) |>
+    dplyr::summarise(codes = list(species), .groups = "drop") |>
+    dplyr::mutate(guild = sub(" on .*", "", group), host_type = sub("^.* on ", "", group),
+                  host_group = dplyr::if_else(host_type == "gymnosperms", "conifers_all", "broadleaves_all"))
+}
+
+guild_share_years <- function(d, gu, hs) {
+  purrr::pmap_dfr(gu, function(group, unit, codes, guild, host_type, host_group) {
+    share_region_years(d, codes, host_group, unit, hs) |>
+      dplyr::group_by(year) |>
+      dplyr::summarise(damage = sum(damage), host = sum(host), .groups = "drop") |>
+      dplyr::mutate(share_pct = 100 * damage / host, group, guild, host_type, unit, .before = 1)
+  })
+}
+
+guild_share_average <- function(gy) {
+  gy |> dplyr::group_by(group, guild, host_type, unit) |>
+    dplyr::summarise(share_pct_per_year = 100 * sum(damage) / sum(host),
+                     worst_year = year[which.max(share_pct)], share_pct_worst_year = max(share_pct), .groups = "drop")
+}
+
+guild_share_caption <- paste(
+  "All codes of the guild, aggregates included. Gymnosperms divided by all conifers, angiosperms by all broadleaves (NUTS forest appendix),",
+  "\nonly in regions and years with a record (0 included). EU-ForDAM value1, no gap-filling. BG and LT single-species growing stocks read as 1000 m3.")
+
+plot_guild_share_years <- function(gy, guild) {
+  what <- if (guild == "Borers") "% of host growing stock killed" else "% of host forest area defoliated"
+  d <- dplyr::filter(gy, guild == !!guild) |> dplyr::mutate(panel = paste(guild, "on", host_type))
+  ggplot2::ggplot(d, ggplot2::aes(year, share_pct)) +
+    ggplot2::geom_line(colour = guild_cols[[guild]], linewidth = 0.8) +
+    ggplot2::geom_point(colour = guild_cols[[guild]], size = 1.2) +
+    ggplot2::scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, NA)) +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 2) +
+    ggplot2::labs(x = NULL, y = paste(what, "that year"), title = paste0(guild, ": ", what, " per year (2000-2022)"),
+                  subtitle = "Each panel has its own scale", caption = guild_share_caption) +
+    theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
+}
+
+plot_guild_share_avg <- function(ga, guild) {
+  what <- if (guild == "Borers") "killed" else "defoliated"
+  base <- if (guild == "Borers") "growing stock (m3)" else "forest area (ha)"
+  d <- dplyr::filter(ga, guild == !!guild) |>
+    dplyr::mutate(lab = factor(paste(guild, "on", host_type)),
+                  txt = paste0(formatC(share_pct_per_year, format = "f", digits = 3), "% per year   (worst ", worst_year, ": ",
+                               formatC(share_pct_worst_year, format = "f", digits = 2), "%)"))
+  ggplot2::ggplot(d, ggplot2::aes(share_pct_per_year, lab)) +
+    ggplot2::geom_col(fill = guild_cols[[guild]], width = 0.55) +
+    ggplot2::geom_text(ggplot2::aes(label = txt), hjust = 0, nudge_x = max(d$share_pct_per_year) * 0.02, size = 3, colour = pal$ink2) +
+    ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.8))) +
+    ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
+                  title = paste0(guild, ": average share of the host ", what, " per year"), caption = guild_share_caption) +
+    theme_eu(9.5)
+}
