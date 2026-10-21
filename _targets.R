@@ -249,6 +249,18 @@ list(
       f(plot_total_by_species(tot_species, "Defoliators"), "4_total_damage/4e_species_defoliators.png", 9, 5))
   }, format = "file"),
 
+  # ---- Usable pairs as time series (R/pair_series.R) ---------------------------
+  tar_target(pairs_ts, pair_series(cb_tr, cb_usable)),
+  tar_target(pairs_ts_csv, tab(pairs_ts, "CM_usable_pairs_time_series.csv"), format = "file"),
+  tar_target(fig_pairs_ts, {
+    dir.create("outputs/figures/final/5_usable_pairs_time_series", recursive = TRUE, showWarnings = FALSE)
+    g <- sort(unique(cb_usable$group))
+    h <- c(13, 10.5, 7.5, 3.6)
+    purrr::map2_chr(g, seq_along(g), function(x, i) save_fig(plot_pair_series(pairs_ts, x),
+      file.path("outputs/figures/final/5_usable_pairs_time_series", paste0("5", letters[i], "_", gsub("[^a-z]+", "_", tolower(sub("^[0-9]+\\. ", "", x))), ".png")),
+      11, h[i]))
+  }, format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),

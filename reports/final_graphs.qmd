@@ -93,6 +93,20 @@ All reported damage 2000–2022 added up.
 
 ---
 
+## 5. Usable pairs as time series
+
+The 28 usable pairs from the correlation metrics (strong link that holds in every country checked), shown year by year. Only region-years where both insects are recorded; each region's series compared with its own normal (0 = normal year, +1 = one standard deviation worse), then averaged over the regions. Lines moving together = the correlation r.
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5a_conifer_bark_beetles_and_borers.png)
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5b_conifer_borers_with_oak_and_birch_borers.png)
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5c_pine_and_spruce_defoliators.png)
+
+![](../outputs/figures/final/5_usable_pairs_time_series/5d_opposite_link.png)
+
+---
+
 ## Things to keep in mind
 
 - Germany carries 52% of all borer damage and Poland 50% of all defoliation; most countries start reporting in 2003 (Austria 2002, Poland 2003, Finland 2012).
