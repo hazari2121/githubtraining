@@ -144,7 +144,25 @@ Ranges: `r pct(100 * v3c$share_inside_80pct_range)` of hidden real totals fall i
 
 With the range rule, for most insects the filled part is 0.1-1x the reported damage. Still implausibly high and needing expert range checks: *Pissodes pini* (9x reported), *Polygraphus poligraphus* (7x), *Ips duplicatus* (3x).
 
-## How to read it
+## The gap-filled dataset v4 (current): v3 rebuilt on the shared host table
+
+Same model (M2) and range rule as v3. What changed is the host information each insect gets: it is now the same host table used for the host-share, totals and correlation work. For example, *L. monacha* is "spruce and pine" (all conifers), *Melolontha* is "all forest", *Zeiraphera* is "larch", and *L. dispar* and *A. viridis* are "broadleaves". Recorded damage on a tree shows that the wider forest column is there too (spruce, pine, fir → conifers; oak → broadleaves).
+
+```{r v4}
+read.csv("../outputs/tables/GF4_v3_vs_v4_scores.csv") |>
+  transmute(model, `error (log)` = f2(error_log), AUC = f2(damage_vs_none_auc), `totals within 2x` = pct(100 * totals_within_2x),
+            `typical total off (x)` = f2(typical_total_error_x), `usable pairs linked` = paste(usable_linked, "of", usable_n))
+read.csv("../outputs/tables/GF4_cumulative_totals_by_paper_group.csv") |> filter(level == "level1") |>
+  transmute(group, unit, reported = big(round(reported)), filled = big(round(filled)), `filled vs reported` = pct(100 * filled_vs_reported))
+```
+
+- **Test scores:** slightly better on every measure. This was not tuned on the test, so it is a fair gain.
+- **Generalists** (*L. dispar*, *Melolontha*, *Geometridae*, …) are no longer set to 0 in the 19 regions without oak.
+- ***L. monacha***: filled damage falls from 2.7 to 0.4 million ha. v3 scaled it by spruce area: Poland has little spruce, so the rate per spruce hectare was huge, and Austria got 1.5 million ha. It is now scaled by all conifers.
+- **Check:** no filled region-year is above 10% of its host (the highest is 9.5%). Reported values go up to 67%, so the fills are typical years and never outbreaks.
+- **Still implausible:** *Zeiraphera griseana* (larch bud moth), with 616,000 ha filled from 958 ha reported, 446,000 ha of it in Poland. Larch has no column in the forest appendix, and scaling by all conifers gives Poland's pine forests to a larch insect. Also insects reported by only 2–3 countries and filled into AT, CH, PL and SK: *S. ratzeburgi*, *S. scolytus*, *Neodiprion*, *Polygraphus*, *P. pini* (9–22x reported).
+
+
 
 - Reported values are untouched; every filled value carries its method and confidence.
 - Filled values are good for **whether and when** damage occurred, rough for **how much** (a single regional total is typically several times off).

@@ -1,0 +1,16 @@
+species,v3_host,v4_host,v3_status,v4_status,regions
+CambXyl_con&MD,conifers_all,larch,not specific,present,73
+Def_dec,broadleaves_all,broadleaves,not specific,present,73
+agr_vir,oak,broadleaves,absent,present,19
+clo_ana,broadleaves_all,poplar / willow,not specific,present,73
+era_def,oak,broadleaves,absent,present,19
+geo_db,oak,broadleaves,absent,present,19
+ips_cem,conifers_all,larch,not specific,present,73
+lym_dis,oak,broadleaves,absent,present,19
+mel_spp,oak,all forest,absent,present,19
+ope_spp,oak,broadleaves,absent,present,19
+sap_car,broadleaves_all,poplar / willow,not specific,present,73
+sco_rat,broadleaves_all,birch,not specific,present,73
+sco_sco,broadleaves_all,elm,not specific,present,73
+tet_gab,conifers_all,larch,not specific,present,73
+xyl_spp,oak,broadleaves,absent,present,19
