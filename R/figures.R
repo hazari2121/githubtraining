@@ -1083,7 +1083,8 @@ pair_group_label <- function(a, b) {
 }
 
 usable_table <- function(v, species_meta) {
-  h <- setNames(host_short[species_meta$host_tree], species_meta$species)
+  # same host table as the ranking and host-share graphs (R/host_share.R)
+  h <- setNames(host_tree_of(species_meta$species, species_meta), species_meta$species)
   nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
   v |>
     dplyr::filter(verdict == "usable") |>
