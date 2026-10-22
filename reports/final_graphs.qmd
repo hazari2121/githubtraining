@@ -152,4 +152,6 @@ Species pairs can only be tested where both insects are reported, mostly Germany
 
 ![](../outputs/figures/final/CM_usable_pairs_summary_table.png)
 
+Two further checks are in `outputs/tables/CM_usable_pairs_robustness.csv`. In the time-shift test, one insect's years are moved round inside each region; all 28 pairs stay well above what trends alone give. In the leave-one-country-out test, no pair changes sign.
+
 Table: `outputs/tables/CM_usable_pairs_summary.csv`; every pair with p and q: `outputs/tables/CM_pairs_fdr.csv`.

@@ -46,7 +46,11 @@ format:
   - **partly shared years (6):** mostly the *S. ratzeburgi* × conifer borer pairs;
   - **mostly shared years (7):** e.g. *I. acuminatus* × *I. duplicatus* (0.51 → 0.13), and most of the pine defoliator pairs;
   - **thin data (3):** the *Pissodes pini* pairs, with few regions; they get weaker without the German regions that stop reporting.
-- Every usable pair includes Germany, so species-level results lean on Germany, Czechia, Lithuania and Poland.
+- 27 of the 28 usable pairs include Germany (the exception is *I. acuminatus* × *I. duplicatus*: Czechia and Slovakia). 16 of the 28 rest on only two countries. So the species-level results lean on Germany, Czechia, Lithuania and Poland.
+- **Robustness checks (new):**
+  - *Time-shift test.* Inside each region, one insect's years are moved round so they no longer line up, while each series keeps its own trend. Two unrelated trending series give |r| up to 0.09–0.23 by chance (95% level, depending on the pair). All 28 pairs are well above that (p ≤ 0.003).
+  - *Leave one country out.* No pair changes sign when any single country is removed. The weakest is *P. chalcographus* × *Pityokteines*, which drops from 0.32 to 0.17 without Austria.
+- **What the labels are not.** The cut-offs (0.25 / 0.20 / 10 regions / 0.3) are reading aids, not tests. A pair just under a line is not really different from one just over it.
 
 ## 6. Bringing in more countries
 

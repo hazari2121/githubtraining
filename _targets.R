@@ -315,6 +315,8 @@ list(
   tar_target(cm_r_wo, r_without_regions(cb_tr, cb_usable)),
   tar_target(cm_usable_sum, usable_summary(cb_usable, cm_fdr, cm_r_wo)),
   tar_target(cm_questions, data_questions(tot_suspicious)),
+  tar_target(cm_robust, usable_robustness(cb_tr, cb_usable)),
+  tar_target(cm_robust_csv, tab(cm_robust, "CM_usable_pairs_robustness.csv"), format = "file"),
   tar_target(cm_final_csv, c(tab(cm_fdr, "CM_pairs_fdr.csv"), tab(cm_fdr_sum, "CM_fdr_summary.csv"),
                              tab(cm_usable_sum, "CM_usable_pairs_summary.csv"),
                              tab(cm_questions, "QUESTIONS_for_data_providers.csv")), format = "file"),

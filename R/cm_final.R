@@ -137,3 +137,31 @@ data_questions <- function(susp) {
     dplyr::select(topic, where, question)
   dplyr::bind_rows(fixed, auto)
 }
+
+# ---- Robustness of the usable pairs ----------------------------------------------
+# (a) Time-shift test: inside each region the second insect's series is moved
+#     round in time by a random number of years. That keeps each series' own
+#     trend and run of good/bad years but breaks which years line up, so it asks
+#     "is r bigger than two trending series give by chance?" (999 shifts, seeded).
+# (b) Leave one country out: r again without each country in turn; the lowest
+#     value and the country whose removal gives it.
+usable_robustness <- function(tr, usable, B = 999, seed = 1) {
+  z <- dplyr::filter(tr, !is.na(z_within)) |> dplyr::select(country, nuts_id, year, species, z_within)
+  set.seed(seed)
+  purrr::map2_dfr(usable$species_a, usable$species_b, function(a, b) {
+    j <- dplyr::inner_join(dplyr::filter(z, species == a), dplyr::filter(z, species == b), by = c("country", "nuts_id", "year"))
+    r0 <- stats::cor(j$z_within.x, j$z_within.y)
+    idx <- split(seq_len(nrow(j)), j$nuts_id)
+    null <- replicate(B, {
+      yb <- j$z_within.y
+      for (i in idx) if (length(i) > 1) { k <- sample.int(length(i) - 1, 1); yb[i] <- yb[i][(seq_along(i) + k - 1) %% length(i) + 1] }
+      stats::cor(j$z_within.x, yb)
+    })
+    loo <- vapply(unique(j$country), function(cn) { k <- j[j$country != cn, ]; if (nrow(k) < 20) NA_real_ else stats::cor(k$z_within.x, k$z_within.y) }, 0)
+    tibble::tibble(species_a = a, species_b = b, r = r0,
+                   p_time_shift = (sum(abs(null) >= abs(r0)) + 1) / (B + 1), r_by_chance_95 = stats::quantile(abs(null), 0.95),
+                   lowest_r_one_country_out = if (r0 > 0) min(loo, na.rm = TRUE) else max(loo, na.rm = TRUE),
+                   country_dropped = names(loo)[if (r0 > 0) which.min(loo) else which.max(loo)],
+                   share_region_years_DE = mean(j$country == "DE"))
+  })
+}
