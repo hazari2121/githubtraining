@@ -793,6 +793,10 @@ list(
                         tab(v45_calib, "GF5_range_calibration.csv"), tab(v45_hostcheck, "GF5_check_damage_vs_host.csv"),
                         tab(v45_versions, "GF5_filled_by_insect_all_versions.csv")), format = "file"),
 
+  # ---- Range list for expert correction (R/range_list.R) -------------------------
+  tar_target(rng_list, range_list_long(v4b_data, rng_pityo, cb_species, species_meta)),
+  tar_target(rng_list_xlsx, write_range_list(rng_list, "outputs/tables/RANGE_list_for_correction.xlsx"), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
