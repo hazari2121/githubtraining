@@ -9,13 +9,14 @@
 
 pair_series <- function(tr, usable) {
   z <- dplyr::filter(tr, !is.na(z_within)) |> dplyr::select(country, nuts_id, year, species, z_within)
-  purrr::pmap_dfr(dplyr::select(usable, species_a, species_b, r, group, Pair), function(species_a, species_b, r, group, Pair) {
+  purrr::pmap_dfr(dplyr::select(usable, species_a, species_b, r, group, Pair, group_a, group_b, Hosts),
+                  function(species_a, species_b, r, group, Pair, group_a, group_b, Hosts) {
     dplyr::inner_join(dplyr::filter(z, species == species_a) |> dplyr::select(-species, z_a = z_within),
                       dplyr::filter(z, species == species_b) |> dplyr::select(-species, z_b = z_within),
                       by = c("country", "nuts_id", "year")) |>
       dplyr::group_by(year) |>
       dplyr::summarise(z_a = mean(z_a), z_b = mean(z_b), n_regions = dplyr::n(), .groups = "drop") |>
-      dplyr::mutate(species_a, species_b, r, group, Pair, .before = 1)
+      dplyr::mutate(species_a, species_b, r, group, Pair, group_a, group_b, Hosts, .before = 1)
   }) |>
     dplyr::group_by(species_a, species_b) |>
     dplyr::mutate(n_regions_max = max(n_regions)) |>
@@ -23,20 +24,32 @@ pair_series <- function(tr, usable) {
 }
 
 plot_pair_series <- function(ps, grp) {
+  # "Ips typographus x Pityokteines spp." + "spruce x fir" + guilds -> one line per insect
+  split2 <- function(x, i) vapply(strsplit(x, " x ", fixed = TRUE), `[`, "", i)
+  guild1 <- function(g) tolower(sub("s on .*", "", g))
   d <- dplyr::filter(ps, group == grp) |>
-    dplyr::mutate(panel = paste0(Pair, "\nr = ", formatC(r, format = "f", digits = 2), "  (", n_regions_max, " regions)"))
+    dplyr::mutate(name_a = split2(Pair, 1), name_b = split2(Pair, 2),
+                  lab_a = paste0(name_a, " (", guild1(group_a), ", ", split2(Hosts, 1), ")"),
+                  lab_b = paste0(name_b, " (", guild1(group_b), ", ", split2(Hosts, 2), ")"),
+                  panel = paste0(lab_a, "\nx ", lab_b, "\nr = ", formatC(r, format = "f", digits = 2), "  (", n_regions_max, " regions)"))
   d <- d |> dplyr::mutate(panel = factor(panel, unique(panel[order(-abs(r))])))
   long <- tidyr::pivot_longer(d, c(z_a, z_b), names_to = "which", values_to = "z") |>
-    dplyr::mutate(which = dplyr::if_else(which == "z_a", "first insect in the title", "second insect in the title"))
+    dplyr::mutate(which = dplyr::if_else(which == "z_a", "a", "b"),
+                  name = dplyr::if_else(which == "a", name_a, name_b))
+  ends <- long |> dplyr::group_by(panel, which) |> dplyr::slice_max(year, n = 1) |> dplyr::ungroup()
   ggplot2::ggplot(long, ggplot2::aes(year, z, colour = which)) +
     ggplot2::geom_hline(yintercept = 0, colour = "#c9c8c3", linewidth = 0.4) +
     ggplot2::geom_line(linewidth = 0.7) +
     ggplot2::geom_point(size = 0.9) +
-    ggplot2::scale_colour_manual(values = c(`first insect in the title` = "#184f95", `second insect in the title` = "#eb6834"), name = NULL) +
+    ggrepel::geom_text_repel(data = ends, ggplot2::aes(label = dplyr::if_else(grepl(" spp?\\.$", name), name, sub("^(\\w)\\w+ ", "\\1. ", name))),
+                             hjust = 0, nudge_x = 0.6, direction = "y", segment.colour = NA, min.segment.length = Inf,
+                             size = 2.4, fontface = "italic", show.legend = FALSE, seed = 1) +
+    ggplot2::scale_colour_manual(values = c(a = "#184f95", b = "#eb6834"), guide = "none") +
+    ggplot2::scale_x_continuous(limits = c(2000, 2027), breaks = seq(2000, 2020, 5)) +
     ggplot2::facet_wrap(~ panel, ncol = 3) +
     ggplot2::labs(x = NULL, y = "Damage compared with the region's normal (0 = normal year)",
-                  title = sub("^[0-9]+\\. ", "Usable pairs: ", grp),
-                  subtitle = "Both insects year by year, in the regions where both are recorded.\nLines moving together = the correlation.",
+                  title = paste0("Usable pairs: ", sub("^[0-9]+\\. ", "", grp)),
+                  subtitle = "Two insects year by year, in the regions where both are recorded (blue = first insect, orange = second).\nLines moving together = the correlation.",
                   caption = paste("Each region's log(1 + damage) series standardised against its own mean (+1 = one standard deviation above normal),",
                                   "\nthen averaged over the regions each year.",
                                   "\nr = same-year correlation from the correlation metrics (within region). Reported data, no gap-filling.")) +

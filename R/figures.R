@@ -1066,15 +1066,18 @@ host_short <- c(`Pinus sylvestris` = "pine", `Picea abies` = "spruce", `Abies al
 
 # Pair groups from the paper's level-1 groups of the two insects, numbered in
 # a fixed order (same group, then across host types, then across guilds)
-pair_group_order <- c("Borers on gymnosperms x Borers on gymnosperms", "Borers on gymnosperms x Borers on angiosperms",
-                      "Borers on angiosperms x Borers on angiosperms",
-                      "Defoliators on gymnosperms x Defoliators on gymnosperms", "Defoliators on gymnosperms x Defoliators on angiosperms",
-                      "Defoliators on angiosperms x Defoliators on angiosperms", "Borers x defoliators (across guilds)")
+pair_group_order <- c("Both insects are borers on gymnosperms", "A borer on gymnosperms with a borer on angiosperms",
+                      "Both insects are borers on angiosperms",
+                      "Both insects are defoliators on gymnosperms", "A defoliator on gymnosperms with a defoliator on angiosperms",
+                      "Both insects are defoliators on angiosperms", "A borer with a defoliator")
 
 pair_group_label <- function(a, b) {
-  first <- ifelse(match(a, paper_level1_order) <= match(b, paper_level1_order), a, b)
-  second <- ifelse(first == a, b, a)
-  lab <- ifelse(sub(" on .*", "", a) != sub(" on .*", "", b), "Borers x defoliators (across guilds)", paste(first, "x", second))
+  host <- function(x) sub("^.* on ", "", x)
+  guild_a <- tolower(sub(" on .*", "", a)); guild_b <- tolower(sub(" on .*", "", b))
+  lab <- dplyr::case_when(
+    guild_a != guild_b ~ "A borer with a defoliator",
+    a == b ~ paste("Both insects are", guild_a, "on", host(a)),
+    TRUE ~ paste0("A ", sub("s$", "", guild_a), " on gymnosperms with a ", sub("s$", "", guild_a), " on angiosperms"))
   present <- pair_group_order[pair_group_order %in% lab]
   paste0(match(lab, present), ". ", lab)
 }
