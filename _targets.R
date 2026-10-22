@@ -797,6 +797,19 @@ list(
   tar_target(rng_list, range_list_long(v4b_data, rng_pityo, cb_species, species_meta)),
   tar_target(rng_list_xlsx, write_range_list(rng_list, "outputs/tables/RANGE_list_for_correction.xlsx"), format = "file"),
 
+  # ---- Gap-filling with the expert range list (R/range_list.R) --------------------
+  #      Test run: every "y?" set to R (in range), "n?" left as guesses.
+  tar_target(rng_file, "data/lookup/range_list_TEST_all_y_as_R.xlsx", format = "file"),
+  tar_target(rng_expert, read_range_list(rng_file, rng_pityo)),
+  tar_target(vr_data, apply_range(gapfill_dataset_v2(gapfill_raw_from_fit(v4b_fit, gf3_L, host_status4b), v4b_conf,
+                                                     dplyr::select(species_meta, species, unit), gf3_L$species), rng_expert)),
+  tar_target(vr_tot, gapfill_totals_v2(vr_data, v4b_range, v4b_bt)),
+  tar_target(vr_check, tibble::tibble(
+    cells_changed_vs_v4b = sum(vr_data$value_type != v4b_data$value_type | !mapply(identical, vr_data$damage, v4b_data$damage)),
+    range_cells_changed = sum(rng_expert$in_range != rng_pityo$in_range),
+    filled_total_v4b = sum(v4b_tot$europe$filled), filled_total_range_list = sum(vr_tot$europe$filled))),
+  tar_target(vr_csv, c(tab(vr_check, "RANGE_test_run_check.csv"), tab(vr_tot$europe, "GF_range_list_europe_totals.csv")), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
