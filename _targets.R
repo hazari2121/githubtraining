@@ -804,6 +804,31 @@ list(
   tar_target(vr_data, apply_range(gapfill_dataset_v2(gapfill_raw_from_fit(v4b_fit, gf3_L, host_status4b), v4b_conf,
                                                      dplyr::select(species_meta, species, unit), gf3_L$species), rng_expert)),
   tar_target(vr_tot, gapfill_totals_v2(vr_data, v4b_range, v4b_bt)),
+  # Current totals: reported + RELIABLE fills only; weak fills reported separately, never added
+  tar_target(cur_tot, gapfill_totals_v2(vr_data, v4b_range, v4b_bt, count = "reliable")),
+  tar_target(cur_gtot, gapfill_group_totals(vr_data, v4b_bt, ph_hier, count = "reliable")),
+  tar_target(cur_gsum, cur_gtot |> dplyr::group_by(level, group, unit) |>
+               dplyr::summarise(dplyr::across(c(reported, filled, filled_weak_not_counted), sum), .groups = "drop") |>
+               dplyr::transmute(level, group, unit, reported, filled_reliable = filled, total = reported + filled,
+                                filled_reliable_vs_reported = round(filled / reported, 3),
+                                filled_weak_not_counted, weak_vs_reported = round(filled_weak_not_counted / reported, 3))),
+  tar_target(cur_species, cur_tot$europe |> dplyr::group_by(species, unit) |>
+               dplyr::summarise(dplyr::across(c(reported, filled, filled_weak_not_counted, filled_untested), sum), .groups = "drop") |>
+               dplyr::left_join(dplyr::select(v4b_conf, species, confidence), by = "species") |>
+               dplyr::transmute(species, unit, confidence, reported, filled_reliable = filled, total = reported + filled,
+                                filled_weak_not_counted, filled_untested_not_counted = filled_untested) |>
+               dplyr::arrange(unit, dplyr::desc(reported))),
+  tar_target(cur_csv, c(tab(cur_tot$europe, "GF_CURRENT_europe_totals_reliable_only.csv"),
+                        tab(cur_tot$country, "GF_CURRENT_country_totals_reliable_only.csv"),
+                        tab(cur_gsum, "GF_CURRENT_totals_by_paper_group.csv"),
+                        tab(cur_species, "GF_CURRENT_totals_by_insect.csv")), format = "file"),
+  tar_target(fig_cur_europe, save_fig(plot_gf2_europe(dplyr::filter(cur_tot$europe, species %in% cb_species),
+                                                      caption = paste("Filled = factor model (v4b); RELIABLE insects only. Weak and untested fills are not added (see GF_CURRENT_totals_by_insect.csv).",
+                                                                      "\nLine = middle, band = 80% range: each country's filled total x test errors resampled from hidden totals of that insect.")),
+                                      "outputs/figures/GF_CURRENT_europe_totals_reliable_only.png", 10, 10), format = "file"),
+  tar_target(fig_cur_gtot, save_fig(plot_paper_group_totals(cur_gtot, caption = paste("Filled = RELIABLE insects only (weak and untested fills not added); range list applied.",
+                                                                       "\nT. pityocampa filled only in BG, CH, HR, IT, SI.")), "outputs/figures/GF_CURRENT_totals_by_paper_group.png", 12, 9),
+             format = "file"),
   tar_target(vr_check, tibble::tibble(
     cells_changed_vs_v4b = sum(vr_data$value_type != v4b_data$value_type | !mapply(identical, vr_data$damage, v4b_data$damage)),
     range_cells_changed = sum(rng_expert$in_range != rng_pityo$in_range),

@@ -1215,7 +1215,8 @@ plot_partner_eq_scatter <- function(tr, a, b) {
 
 # Gap-filled dataset v2: Europe-wide yearly totals, reported only vs reported +
 # filled (tested insects), with the 80% range of the filled part
-plot_gf2_europe <- function(eu, n = 8) {
+plot_gf2_europe <- function(eu, n = 8,
+                            caption = "Filled = factor model; insects tested in >= 2 countries only (untested fills and aggregate reporting codes excluded).\nLine = middle, band = 80% range: each country's filled total x test errors resampled from hidden totals of that insect.") {
   nm <- function(x) dplyr::coalesce(unname(insect_names[x]), x)
   top <- eu |> dplyr::group_by(species) |> dplyr::summarise(f = sum(total_mid - reported)) |>
     dplyr::slice_max(f, n = n) |> dplyr::pull(species)
@@ -1231,7 +1232,7 @@ plot_gf2_europe <- function(eu, n = 8) {
     ggplot2::labs(x = NULL, y = "Europe-wide damage per year",
                   title = "Europe-wide damage: reported vs reported + gap-filled",
                   subtitle = paste0("The ", n, " insects with the most filled damage. Band = 80% range of the filled part, from the hide-and-predict test"),
-                  caption = "Filled = factor model; insects tested in >= 2 countries only (untested fills and aggregate reporting codes excluded).\nLine = middle, band = 80% range: each country's filled total x test errors resampled from hidden totals of that insect.") +
+                  caption = caption) +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
 

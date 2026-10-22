@@ -134,7 +134,8 @@ plot_paper_group_heatmap <- function(gc, level) {
 }
 
 # Group totals: reported vs reported + filled, one panel per group
-plot_paper_group_totals <- function(gt) {
+plot_paper_group_totals <- function(gt,
+                                    caption = "Filled insects tested in >= 2 countries only; T. pityocampa (tha_pit) filled only in BG, CH, HR, IT, SI; other insects in reporting countries and their land neighbours.") {
   d <- gt |>
     dplyr::mutate(group = factor(group, c(paper_level1_order, paper_level2_order)),
                   lab = paste0(group, " (", unit, ")")) |>
@@ -149,7 +150,7 @@ plot_paper_group_totals <- function(gt) {
     ggplot2::labs(x = NULL, y = "Europe-wide damage per year",
                   title = "Europe-wide damage by group of the 2025 EU-ForDAM paper: reported vs reported + gap-filled",
                   subtitle = "Reported = every code, aggregates included. Filled = single insects only (aggregates are never filled). Band = 80% range from the hide-and-predict test.\nLine = reported + the model's filled values (middles of the range are not used here: they do not add up across insects)",
-                  caption = "Filled insects tested in >= 2 countries only; T. pityocampa (tha_pit) filled only in BG, CH, HR, IT, SI; other insects in reporting countries and their land neighbours.") +
+                  caption = caption) +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
 

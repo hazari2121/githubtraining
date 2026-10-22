@@ -182,13 +182,14 @@ paper_group_europe_correlations <- function(cells, ph_hier, level) {
 # (aggregates included) + the tested filled values of the member insects.
 # The 80% range resamples each insect's test errors exactly as in
 # gapfill_totals_v2(), then adds the draws up within the group.
-gapfill_group_totals <- function(gd, bt, ph_hier, n_draw = 2000, min_n = 30, seed = 20261019) {
+gapfill_group_totals <- function(gd, bt, ph_hier, n_draw = 2000, min_n = 30, seed = 20261019, count = c("reliable", "weak")) {
   set.seed(seed)
   ct <- gd |>
     dplyr::group_by(country, species, unit, year) |>
     dplyr::summarise(
       reported = sum(damage[value_type %in% c("reported damage", "reported zero")]),
-      filled_tested = sum(damage[value_type == "filled" & confidence %in% c("reliable", "weak")]),
+      filled_tested = sum(damage[value_type == "filled" & confidence %in% count]),
+      filled_weak_not_counted = sum(damage[value_type == "filled" & confidence == "weak" & !"weak" %in% count]),
       .groups = "drop")
   pool_all <- bt$lr
   pools <- split(bt$lr, bt$species)
@@ -209,6 +210,7 @@ gapfill_group_totals <- function(gd, bt, ph_hier, n_draw = 2000, min_n = 30, see
         for (s in unique(d$species)) draws <- draws + draws_of(d$filled_tested[d$species == s], s)
         r <- sum(d$reported)
         tibble::tibble(reported = r, filled = sum(d$filled_tested),
+                       filled_weak_not_counted = sum(d$filled_weak_not_counted),
                        total_lo80 = r + stats::quantile(draws, 0.1, names = FALSE),
                        total_mid = r + stats::quantile(draws, 0.5, names = FALSE),
                        total_hi80 = r + stats::quantile(draws, 0.9, names = FALSE))

@@ -171,13 +171,17 @@ gapfill_dataset_v2 <- function(raw, conf, unit_lookup, all_species) {
 # range from 2000 draws: each country's filled total is multiplied by a test
 # error log(real / predicted) resampled from that insect's hidden totals
 # (all insects pooled when it has < min_n), countries drawn independently.
-gapfill_totals_v2 <- function(gd, rt, bt, n_draw = 2000, min_n = 30, seed = 20261015) {
+# count: which filled confidences count in the totals. Older versions counted
+# reliable + weak; the current one counts reliable only and reports the weak
+# fills separately (filled_weak_not_counted), never added in.
+gapfill_totals_v2 <- function(gd, rt, bt, n_draw = 2000, min_n = 30, seed = 20261015, count = c("reliable", "weak")) {
   set.seed(seed)
   ct <- gd |>
     dplyr::group_by(country, species, unit, year) |>
     dplyr::summarise(
       reported = sum(damage[value_type %in% c("reported damage", "reported zero")]),
-      filled_tested = sum(damage[value_type == "filled" & confidence %in% c("reliable", "weak")]),
+      filled_tested = sum(damage[value_type == "filled" & confidence %in% count]),
+      filled_weak_not_counted = sum(damage[value_type == "filled" & confidence == "weak" & !"weak" %in% count]),
       filled_untested = sum(damage[value_type == "filled" & confidence == "untested"]),
       .groups = "drop") |>
     dplyr::left_join(dplyr::select(rt, species, q10, q90), by = "species") |>
@@ -195,6 +199,7 @@ gapfill_totals_v2 <- function(gd, rt, bt, n_draw = 2000, min_n = 30, seed = 2026
         rowSums(pmax(exp(e) * matrix(f + 1, n_draw, length(f), byrow = TRUE) - 1, 0))
       } else rep(0, n_draw)
       tibble::tibble(reported = sum(d$reported), filled = sum(d$filled_tested),
+                     filled_weak_not_counted = sum(d$filled_weak_not_counted),
                      filled_untested = sum(d$filled_untested),
                      total = sum(d$reported) + sum(d$filled_tested),
                      total_lo80 = sum(d$reported) + stats::quantile(draws, 0.1, names = FALSE),
