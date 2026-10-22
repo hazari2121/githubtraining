@@ -1,0 +1,89 @@
+level,group_a,group_b,country,n,r
+level1,Borers on angiosperms,Borers on gymnosperms,CZ,184,0.295615016355319
+level1,Borers on angiosperms,Borers on gymnosperms,DE,253,0.41705838389471855
+level1,Borers on angiosperms,Borers on gymnosperms,LT,23,0.20463292274230346
+level1,Borers on angiosperms,Borers on gymnosperms,PL,340,0.31497695611887666
+level1,Borers on angiosperms,Defoliators on angiosperms,CZ,184,-0.02964036427020564
+level1,Borers on angiosperms,Defoliators on angiosperms,DE,253,0.21859029295593285
+level1,Borers on angiosperms,Defoliators on angiosperms,LT,23,0.21488584566259672
+level1,Borers on angiosperms,Defoliators on angiosperms,PL,340,0.2140057887458907
+level1,Borers on angiosperms,Defoliators on gymnosperms,CZ,184,-0.22748655271149573
+level1,Borers on angiosperms,Defoliators on gymnosperms,DE,230,0.10588515771340948
+level1,Borers on angiosperms,Defoliators on gymnosperms,LT,23,-0.370410650479783
+level1,Borers on angiosperms,Defoliators on gymnosperms,PL,320,0.18103305823326912
+level1,Borers on gymnosperms,Defoliators on angiosperms,AT,147,-0.05903591812100818
+level1,Borers on gymnosperms,Defoliators on angiosperms,BG,18,-0.29000369723216
+level1,Borers on gymnosperms,Defoliators on angiosperms,CZ,184,-0.15114381610343364
+level1,Borers on gymnosperms,Defoliators on angiosperms,DE,276,0.24301064519645654
+level1,Borers on gymnosperms,Defoliators on angiosperms,HR,23,0.14245600914622575
+level1,Borers on gymnosperms,Defoliators on angiosperms,HU,23,0.5668328408377148
+level1,Borers on gymnosperms,Defoliators on angiosperms,LT,23,0.23761574384369125
+level1,Borers on gymnosperms,Defoliators on angiosperms,PL,340,0.1489698972743839
+level1,Borers on gymnosperms,Defoliators on angiosperms,RO,22,-0.2501099023090342
+level1,Borers on gymnosperms,Defoliators on angiosperms,RS,20,-0.17328058309654423
+level1,Borers on gymnosperms,Defoliators on angiosperms,SK,22,-0.5394679473109046
+level1,Borers on gymnosperms,Defoliators on gymnosperms,AT,105,-0.17861887358542416
+level1,Borers on gymnosperms,Defoliators on gymnosperms,BG,18,-0.17373957002294954
+level1,Borers on gymnosperms,Defoliators on gymnosperms,CZ,184,-0.4359552866322307
+level1,Borers on gymnosperms,Defoliators on gymnosperms,DE,253,0.13073419821652832
+level1,Borers on gymnosperms,Defoliators on gymnosperms,HR,23,-0.12676215309517525
+level1,Borers on gymnosperms,Defoliators on gymnosperms,LT,23,0.05943764782838282
+level1,Borers on gymnosperms,Defoliators on gymnosperms,PL,320,0.11972788607874121
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,AT,84,0.4258351423927028
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,BG,18,0.23968264464980626
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,CZ,184,0.28985305180101467
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,DE,253,0.24918475068295637
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,HR,23,0.2926221467627722
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,LT,23,0.09828037543873848
+level1,Defoliators on angiosperms,Defoliators on gymnosperms,PL,320,0.19400936259105203
+level2,Borers on A. alba,Borers on P. abies,AT,147,0.5394036656162852
+level2,Borers on A. alba,Borers on P. abies,CZ,184,0.6796002543337586
+level2,Borers on A. alba,Borers on P. abies,DE,92,0.32455187905904254
+level2,Borers on A. alba,Borers on P. abies,HR,23,0.47956124208516043
+level2,Borers on A. alba,Borers on P. abies,SI,23,0.30692283807107223
+level2,Borers on A. alba,Borers on P. sylvestris,AT,126,0.38445813969417364
+level2,Borers on A. alba,Borers on P. sylvestris,CZ,184,0.6906977636843105
+level2,Borers on A. alba,Borers on P. sylvestris,DE,92,0.18812100400711607
+level2,Borers on A. alba,Borers on P. sylvestris,HR,23,0.49060379219057193
+level2,Borers on A. alba,Borers on P. sylvestris,SI,23,0.45338204362045226
+level2,Borers on A. alba,Defoliators on P. abies,CZ,184,-0.4022501656500325
+level2,Borers on A. alba,Defoliators on P. abies,DE,69,-0.24822044074752003
+level2,Borers on A. alba,Defoliators on P. sylvestris,AT,84,-0.10938676752484373
+level2,Borers on A. alba,Defoliators on P. sylvestris,CZ,46,-0.011039239819377576
+level2,Borers on A. alba,Defoliators on P. sylvestris,DE,92,0.08519297545677673
+level2,Borers on A. alba,Defoliators on P. sylvestris,HR,23,0.0395373576969938
+level2,Borers on P. abies,Borers on P. sylvestris,AT,168,0.36593151359016174
+level2,Borers on P. abies,Borers on P. sylvestris,BG,18,0.35456478972656125
+level2,Borers on P. abies,Borers on P. sylvestris,CZ,184,0.7083943308468926
+level2,Borers on P. abies,Borers on P. sylvestris,DE,253,0.534240076942895
+level2,Borers on P. abies,Borers on P. sylvestris,HR,23,0.9211927344218434
+level2,Borers on P. abies,Borers on P. sylvestris,LT,23,0.1986121353424386
+level2,Borers on P. abies,Borers on P. sylvestris,PL,340,0.3531414179822912
+level2,Borers on P. abies,Borers on P. sylvestris,SI,23,0.25335704381367263
+level2,Borers on P. abies,Borers on P. sylvestris,SK,22,0.44791292916131936
+level2,Borers on P. abies,Defoliators on P. abies,CZ,184,-0.4534747626741203
+level2,Borers on P. abies,Defoliators on P. abies,DE,207,0.018156834228677254
+level2,Borers on P. abies,Defoliators on P. abies,LT,23,-0.09778430188614862
+level2,Borers on P. abies,Defoliators on P. abies,PL,320,0.09173982185204123
+level2,Borers on P. abies,Defoliators on P. sylvestris,AT,105,-0.19181808270283754
+level2,Borers on P. abies,Defoliators on P. sylvestris,BG,18,-0.44219001228939253
+level2,Borers on P. abies,Defoliators on P. sylvestris,CZ,46,-0.017123409840029507
+level2,Borers on P. abies,Defoliators on P. sylvestris,DE,230,0.27063191363504036
+level2,Borers on P. abies,Defoliators on P. sylvestris,HR,23,-0.5156774761015955
+level2,Borers on P. abies,Defoliators on P. sylvestris,LT,23,0.20121628460494426
+level2,Borers on P. abies,Defoliators on P. sylvestris,PL,320,-0.009733031946655472
+level2,Borers on P. sylvestris,Defoliators on P. abies,CZ,184,-0.25764426680958097
+level2,Borers on P. sylvestris,Defoliators on P. abies,DE,207,0.0482031875947733
+level2,Borers on P. sylvestris,Defoliators on P. abies,LT,23,-0.2485133083444935
+level2,Borers on P. sylvestris,Defoliators on P. abies,PL,320,0.14510205831286985
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,AT,105,0.09927727974970237
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,BG,18,0.21468160171314463
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,CZ,46,0.10822111421168301
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,DE,230,0.08966823534415831
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,HR,23,-0.6217247719356802
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,LT,23,0.01187811804998368
+level2,Borers on P. sylvestris,Defoliators on P. sylvestris,PL,320,2.5565756561086745e-4
+level2,Defoliators on P. abies,Defoliators on P. sylvestris,CZ,46,0.24860638914577815
+level2,Defoliators on P. abies,Defoliators on P. sylvestris,DE,230,0.32558328911520973
+level2,Defoliators on P. abies,Defoliators on P. sylvestris,LT,23,-0.13751196722239742
+level2,Defoliators on P. abies,Defoliators on P. sylvestris,PL,320,0.42553579505944633

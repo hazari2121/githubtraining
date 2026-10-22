@@ -278,6 +278,37 @@ list(
     save_fig(plot_pair_damage(pairs_dmg, ph_hier), "outputs/figures/final/7_top_pairs_real_damage/7_top6_pairs_damage_per_year.png", 10, 13)
   }, format = "file"),
 
+  # ---- More countries: group-level pairs and Europe-wide totals (R/group_pairs.R)
+  tar_target(gp_tr1, group_transforms(cb_cells, ph_hier, "level1")),
+  tar_target(gp_tr2, group_transforms(cb_cells, ph_hier, "level2_paper")),
+  tar_target(gp_country, dplyr::bind_rows(group_country_r(gp_tr1, "level1"), group_country_r(gp_tr2, "level2_paper"))),
+  tar_target(gp_series, dplyr::bind_rows(group_pair_series(gp_tr1, p_group_cm, "level1"), group_pair_series(gp_tr2, p_group_cm, "level2_paper"))),
+  tar_target(eu_sp, europe_totals(cb_cells)),
+  tar_target(eu_g1, europe_totals(cb_cells, ph_hier, "level1")),
+  tar_target(eu_g2, europe_totals(cb_cells, ph_hier, "level2_paper")),
+  tar_target(eu_usable, europe_r(eu_sp, dplyr::transmute(cb_usable, a = species_a, b = species_b, label = paste(species_a, "x", species_b), r_within = r, Pair, group))),
+  tar_target(eu_groups, dplyr::bind_rows(
+    europe_r(eu_g1, dplyr::filter(p_group_cm, level == "level1") |> dplyr::transmute(a = species_a, b = species_b, label = paste(a, "x", b), r_within = same_year)),
+    europe_r(eu_g2, dplyr::filter(p_group_cm, level == "level2") |> dplyr::transmute(a = species_a, b = species_b, label = paste(a, "x", b), r_within = same_year)))),
+  tar_target(gp_csv, {
+    p1 <- tab(gp_country, "CM_groups_r_per_country.csv"); p2 <- tab(eu_usable, "CM_usable_pairs_within_vs_europe_totals.csv")
+    p3 <- tab(eu_groups, "CM_groups_within_vs_europe_totals.csv"); c(p1, p2, p3)
+  }, format = "file"),
+  tar_target(fig_more_countries, {
+    dir.create("outputs/figures/final/6_more_countries", recursive = TRUE, showWarnings = FALSE)
+    f <- function(p, name, w, h) save_fig(p, file.path("outputs/figures/final/6_more_countries", name), w, h)
+    top_eu <- eu_usable |> dplyr::arrange(dplyr::desc(abs(r_within))) |> dplyr::slice_head(n = 9)
+    c(f(plot_group_country_r(gp_country, p_group_cm, "level1"), "6a_level1_r_per_country.png", 11, 4.5),
+      f(plot_group_country_r(gp_country, p_group_cm, "level2_paper"), "6b_level2_r_per_country.png", 11, 6),
+      f(plot_group_pair_series(gp_series, "level1"), "6c_level1_time_series.png", 11, 6.6),
+      f(plot_group_pair_series(gp_series, "level2_paper"), "6d_level2_time_series.png", 11, 11),
+      f(plot_europe_pairs(eu_g1, dplyr::filter(eu_groups, a %in% paper_level1_order), "Level 1 groups: Europe-wide yearly totals (all countries)",
+                          "The 2025 paper's approach: sum over every reporting region each year."), "6e_level1_europe_totals.png", 11, 6.6),
+      f(plot_europe_pairs(eu_sp, dplyr::mutate(top_eu, label = Pair), "Strongest usable pairs: Europe-wide yearly totals (all countries)",
+                          "The 2025 paper's approach: sum over every reporting region each year."), "6f_usable_pairs_europe_totals.png", 11, 10),
+      f(plot_within_vs_europe(eu_usable), "6g_usable_pairs_within_vs_europe.png", 9, 7.5))
+  }, format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),

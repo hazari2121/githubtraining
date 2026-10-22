@@ -1,0 +1,17 @@
+a,b,label,r_within,r_europe
+Borers on angiosperms,Borers on gymnosperms,Borers on angiosperms x Borers on gymnosperms,0.3397062292369409,0.3896803098087118
+Borers on angiosperms,Defoliators on angiosperms,Borers on angiosperms x Defoliators on angiosperms,0.15928375511570037,-0.18573651106948447
+Borers on angiosperms,Defoliators on gymnosperms,Borers on angiosperms x Defoliators on gymnosperms,0.041748084227265135,0.15890156121412322
+Borers on gymnosperms,Defoliators on angiosperms,Borers on gymnosperms x Defoliators on angiosperms,0.07231198403112057,0.10725793260402747
+Borers on gymnosperms,Defoliators on gymnosperms,Borers on gymnosperms x Defoliators on gymnosperms,-0.035096009372296046,-0.05420521659270735
+Defoliators on angiosperms,Defoliators on gymnosperms,Defoliators on angiosperms x Defoliators on gymnosperms,0.25111026084181515,0.27062035437536563
+Borers on A. alba,Borers on P. abies,Borers on A. alba x Borers on P. abies,0.5379227077447641,0.7035882511341387
+Borers on A. alba,Borers on P. sylvestris,Borers on A. alba x Borers on P. sylvestris,0.47901897175749586,0.743542392176696
+Borers on A. alba,Defoliators on P. abies,Borers on A. alba x Defoliators on P. abies,-0.3602420588584382,0.05386331496387084
+Borers on A. alba,Defoliators on P. sylvestris,Borers on A. alba x Defoliators on P. sylvestris,-0.003717368566281608,-0.12503156255412554
+Borers on P. abies,Borers on P. sylvestris,Borers on P. abies x Borers on P. sylvestris,0.4698712000680536,0.905729245469297
+Borers on P. abies,Defoliators on P. abies,Borers on P. abies x Defoliators on P. abies,-0.07211264835977402,-0.031928010684291616
+Borers on P. abies,Defoliators on P. sylvestris,Borers on P. abies x Defoliators on P. sylvestris,0.03046579501074699,-0.04270301835376126
+Borers on P. sylvestris,Defoliators on P. abies,Borers on P. sylvestris x Defoliators on P. abies,0.004060818755446337,-0.08182671191040597
+Borers on P. sylvestris,Defoliators on P. sylvestris,Borers on P. sylvestris x Defoliators on P. sylvestris,0.0339192723176721,0.05956573187437678
+Defoliators on P. abies,Defoliators on P. sylvestris,Defoliators on P. abies x Defoliators on P. sylvestris,0.3540756324524395,0.5383632633520167

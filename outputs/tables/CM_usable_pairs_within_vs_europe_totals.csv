@@ -1,0 +1,29 @@
+a,b,label,r_within,Pair,group,r_europe
+ips_typ,pit_spp,ips_typ x pit_spp,0.5252801198061381,Ips typographus x Pityokteines spp.,1. Both insects are borers on gymnosperms,0.6909476549673177
+ips_acu,ips_dup,ips_acu x ips_dup,0.5118176598021795,Ips acuminatus x Ips duplicatus,1. Both insects are borers on gymnosperms,0.7391331810074381
+ips_sex,pha_cya,ips_sex x pha_cya,0.5083318670172224,Ips sexdentatus x Phaenops cyanea,1. Both insects are borers on gymnosperms,0.6377050342380671
+ips_sex,tom_spp,ips_sex x tom_spp,0.4735130068663596,Ips sexdentatus x Tomicus spp.,1. Both insects are borers on gymnosperms,-0.1059711369035369
+ips_acu,ips_sex,ips_acu x ips_sex,0.4483831596781036,Ips acuminatus x Ips sexdentatus,1. Both insects are borers on gymnosperms,0.5966993925559051
+pis_pin,pit_cha,pis_pin x pit_cha,0.43155102237460574,Pissodes pini x Pityogenes chalcographus,1. Both insects are borers on gymnosperms,-0.23481591460295737
+pha_cya,pis_pin,pha_cya x pis_pin,0.38143548702689134,Phaenops cyanea x Pissodes pini,1. Both insects are borers on gymnosperms,-0.1473892612311041
+ips_acu,pis_pin,ips_acu x pis_pin,0.35840602764970364,Ips acuminatus x Pissodes pini,1. Both insects are borers on gymnosperms,-0.33687870488245025
+pha_cya,pit_cha,pha_cya x pit_cha,0.3495793541687242,Phaenops cyanea x Pityogenes chalcographus,1. Both insects are borers on gymnosperms,0.7491600263517358
+ips_typ,pha_cya,ips_typ x pha_cya,0.3396463873776411,Ips typographus x Phaenops cyanea,1. Both insects are borers on gymnosperms,0.8238337062618488
+pit_cha,pit_spp,pit_cha x pit_spp,0.31562567503059846,Pityogenes chalcographus x Pityokteines spp.,1. Both insects are borers on gymnosperms,0.6628727957399528
+ips_acu,ips_typ,ips_acu x ips_typ,0.3138657534052671,Ips acuminatus x Ips typographus,1. Both insects are borers on gymnosperms,0.7364405815121133
+ips_typ,sco_rat,ips_typ x sco_rat,0.41405897755919985,Ips typographus x Scolytus ratzeburgi,2. A borer on gymnosperms with a borer on angiosperms,0.5942280988628026
+agr_big,pha_cya,agr_big x pha_cya,0.3929146419422751,Agrilus biguttatus x Phaenops cyanea,2. A borer on gymnosperms with a borer on angiosperms,-0.013050646887991383
+ips_acu,sco_rat,ips_acu x sco_rat,0.3670454702313205,Ips acuminatus x Scolytus ratzeburgi,2. A borer on gymnosperms with a borer on angiosperms,0.5187127369762172
+sco_rat,tom_spp,sco_rat x tom_spp,0.3645841960605989,Scolytus ratzeburgi x Tomicus spp.,2. A borer on gymnosperms with a borer on angiosperms,0.07572547403894608
+ips_sex,sco_rat,ips_sex x sco_rat,0.35142625797883975,Ips sexdentatus x Scolytus ratzeburgi,2. A borer on gymnosperms with a borer on angiosperms,0.3893585847976685
+pha_cya,sco_rat,pha_cya x sco_rat,0.34923850849324495,Phaenops cyanea x Scolytus ratzeburgi,2. A borer on gymnosperms with a borer on angiosperms,0.6428924743230431
+agr_big,tom_spp,agr_big x tom_spp,0.33320232030004104,Agrilus biguttatus x Tomicus spp.,2. A borer on gymnosperms with a borer on angiosperms,0.30031646950328733
+ips_acu,sco_int,ips_acu x sco_int,0.31747639352144724,Ips acuminatus x Scolytus intricatus,2. A borer on gymnosperms with a borer on angiosperms,0.4687373656738471
+sco_int,sco_rat,sco_int x sco_rat,0.43571267708369443,Scolytus intricatus x Scolytus ratzeburgi,3. Both insects are borers on angiosperms,0.3645699819792105
+bup_pin,pan_fla,bup_pin x pan_fla,0.37370528267476955,Bupalus piniaria x Panolis flammea,4. Both insects are defoliators on gymnosperms,0.4485847141741033
+bup_pin,den_pin,bup_pin x den_pin,0.36819042668057694,Bupalus piniaria x Dendrolimus pini,4. Both insects are defoliators on gymnosperms,0.19572787733588945
+bup_pin,dip_sp,bup_pin x dip_sp,0.31976033256971936,Bupalus piniaria x Diprion spp.,4. Both insects are defoliators on gymnosperms,0.43895051979550914
+lym_mon,pan_fla,lym_mon x pan_fla,0.3137447090653971,Lymantria monacha x Panolis flammea,4. Both insects are defoliators on gymnosperms,0.2884656496366436
+bup_pin,lym_mon,bup_pin x lym_mon,0.3136177982309187,Bupalus piniaria x Lymantria monacha,4. Both insects are defoliators on gymnosperms,0.18479673125900503
+den_pin,pan_fla,den_pin x pan_fla,0.30165047017685614,Dendrolimus pini x Panolis flammea,4. Both insects are defoliators on gymnosperms,0.19065398686592944
+pit_spp,pri_abi,pit_spp x pri_abi,-0.3893076355577473,Pityokteines spp. x Pristiphora abietina,5. A borer with a defoliator,-0.1684148030316199

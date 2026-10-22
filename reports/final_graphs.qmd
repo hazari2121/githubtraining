@@ -111,6 +111,30 @@ Pairs are grouped by what the two insects are (the paper's level-1 groups): both
 
 ---
 
+## 6. Bringing in more countries
+
+Species pairs can only be tested where both insects are reported, mostly Germany, Czechia, Poland and Lithuania (Finland, Sweden and Switzerland report only *I. typographus*). Two ways to use more countries:
+
+**(1) The paper's groups.** Group value = sum of all member codes in a region-year (aggregates included), so countries reporting few insects still contribute. Correlation per country and pooled.
+
+![](../outputs/figures/final/6_more_countries/6a_level1_r_per_country.png)
+
+![](../outputs/figures/final/6_more_countries/6b_level2_r_per_country.png)
+
+![](../outputs/figures/final/6_more_countries/6c_level1_time_series.png)
+
+![](../outputs/figures/final/6_more_countries/6d_level2_time_series.png)
+
+**(2) Europe-wide yearly totals (the 2025 paper's approach).** For each insect or group, the sum over every reporting region of every country each year, log(1 + x), correlated over the 23 years.
+
+![](../outputs/figures/final/6_more_countries/6e_level1_europe_totals.png)
+
+![](../outputs/figures/final/6_more_countries/6f_usable_pairs_europe_totals.png)
+
+![](../outputs/figures/final/6_more_countries/6g_usable_pairs_within_vs_europe.png)
+
+---
+
 ## Things to keep in mind
 
 - Germany carries 52% of all borer damage and Poland 50% of all defoliation; most countries start reporting in 2003 (Austria 2002, Poland 2003, Finland 2012).
