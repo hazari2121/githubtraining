@@ -1,0 +1,80 @@
+---
+title: "EU-ForDAM: summary notes"
+subtitle: "What has been done so far, in plain words"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+---
+
+## 1. The data and the rules
+
+- **Data:** EU-ForDAM insect damage database, 2000–2022, 16 countries, 77 regions (NUTS units), plus the forest appendix (area and growing stock per region).
+- **Raw data is never changed.** Everything we make goes to `data/processed/` and `outputs/`.
+- **"Data is data":** values are used as reported. Zeros stay zeros. Odd values are only listed as questions for the data providers (section 8).
+- **Units are never mixed:** borers in m³ of trees killed, defoliators in ha defoliated. There is no ha → m³ conversion.
+- **Only `value1`** is used. Czech sub-rows are added up. The Czech and German group "CambXyl_con & BB_con & SM" is counted as *Ips typographus*; this reproduces the 2025 EU-ForDAM paper's *I. typographus* total to 0.01%.
+
+## 2. Grouping the insects
+
+- The paper's groups are used as a guide: level 1 = guild × host type (e.g. borers on gymnosperms); level 2 = guild × host tree.
+- Every insect gets one host tree from the data file. Generalists get the wider group (*L. monacha* spruce and pine; *L. dispar* broadleaves; *Melolontha* all forest).
+- Species graphs show individual species only. Genus codes and aggregates count only in the group totals.
+
+## 3. How much damage (totals)
+
+- **Borers:** 697 million m³ in total (98% on conifers), about 30 million m³ per year on average. In a typical (median) year it is 24 million m³.
+- **Defoliators:** 12.5 million ha in total (53% on broadleaves), about 540,000 ha per year on average. In a typical year it is 390,000 ha.
+- **Germany** has 52% of all borer damage; **Poland** has 50% of all defoliation.
+- Averages are pushed up by outbreak years, so the typical year is lower.
+
+## 4. How much of the host is killed (host share)
+
+- Host share = damage ÷ the host's growing stock (borers) or forest area (defoliators). It is worked out for each year and as an average.
+- **Check passed:** damage never exceeds the host. The highest single species-year is 67%, and the highest guild-year is 51%. The one exception is Vienna, where the appendix gives 0 spruce but spruce bark-beetle damage is reported.
+- Larch, birch, elm and poplar are not in the appendix, so all conifers or all broadleaves are used for them. Four regions have no forest data.
+
+## 5. Do insects go up and down together? (correlation metrics)
+
+- **The method:** each region's series is compared with its own normal (log, then standardised). The correlation r is taken over all region-years where both insects are recorded. The 95% ranges come from resampling whole regions.
+- **The regional part:** from each value we take away the same insect's average in all other regions that year. What is left is the region's own up-and-down. If r stays high, the link is local. If it drops, the link was mostly years that were bad all over Europe (weather, storms).
+- **Result:** 903 pairs; 786 could be measured; 28 are **usable** (strong, and holding in every country checked).
+- **Multiple testing (new):** 786 tests would give about 39 "sure" links by luck alone. After the FDR correction, 150 links stay sure, and **all 28 usable pairs stay sure**. For 21 of them the regional part is sure as well.
+- **Summary table (new),** with each usable pair labelled:
+  - **regional link (12):** e.g. *I. typographus* × *Pityokteines* (r 0.53, regional 0.32, 5 countries); *I. typographus* × *P. cyanea* (0.34 / 0.32, 44 regions); *I. sexdentatus* × *P. cyanea* (0.51 / 0.42); *S. intricatus* × *S. ratzeburgi* (0.44 / 0.36); *B. piniaria* × *P. flammea* (0.37 / 0.32);
+  - **partly shared years (6):** mostly the *S. ratzeburgi* × conifer borer pairs;
+  - **mostly shared years (7):** e.g. *I. acuminatus* × *I. duplicatus* (0.51 → 0.13), and most of the pine defoliator pairs;
+  - **thin data (3):** the *Pissodes pini* pairs, with few regions; they get weaker without the German regions that stop reporting.
+- Every usable pair includes Germany, so species-level results lean on Germany, Czechia, Lithuania and Poland.
+
+## 6. Bringing in more countries
+
+- **Group level:** the members of the paper's groups are added up, so countries reporting only a few insects still count.
+  - Spruce borers × pine borers: r = 0.47 (regional part 0.39). It is positive in all 9 countries and sure in 6 of them.
+  - Fir × spruce borers: 0.54. Fir × pine borers: 0.48. Spruce × pine defoliators: 0.35.
+  - Borers × defoliators: about 0, with the sign flipping between countries.
+- **Europe-wide totals (the paper's way):** these make links look stronger (spruce × pine borers: 0.47 within regions → 0.91 as Europe totals), because big shared years and countries joining over time move both totals together.
+
+## 7. Gap-filling (earlier work)
+
+- A model to fill the missing years was built (AUC 0.79; 22 of the 28 usable pairs are linked in it). It needs to be revisited with the new host table and the guild rules before it is used.
+
+## 8. Open questions for the data providers
+
+See `reports/questions_for_data_providers.html` (36 items). The main ones:
+
+- **German regions where every insect is 0:** the city-states Berlin, Bremen and Hamburg (DE3/5/6) every year; Lower Saxony (DE9) most years; Hesse (DE7) from 2006 and Saxony-Anhalt (DEE) from 2007. Are these not monitored, or really no damage?
+- **Bavaria *I. typographus*:** 6,000 m³ in 2007 and 3,633 m³ in 2009, next to millions in other years, and 0 in 2015.
+- **Values ending in .333 / .667** in Bavaria, Hesse, Saxony and Saxony-Anhalt. Are these 3-year totals divided by 3?
+- **Sweden *I. typographus*:** 0 in 2005, 2012, 2013 and 2017.
+- **Bavaria *P. abietina*:** 58,000–200,000 ha in 2000–2003, then 0.
+- **Bulgaria and Lithuania growing stock units:** these look like 1000 m³ (the sheets cite Schelhaas).
+- **Vienna:** 0 spruce in the appendix, but spruce bark-beetle damage is reported.
+- **Forest area:** 87.7 million ha in the appendix vs 102.75 million ha in the paper.
+
+## 9. Next steps
+
+1. Get answers to the data questions (they mainly affect Germany, which is in every usable pair).
+2. Redo the gap-filling with the shared host table and the guild rules, then check whether the 28 links hold with gap-filled data.
+3. Drivers: test whether the shared years line up with drought (VPD) and storms, which would explain the "mostly shared years" pairs.

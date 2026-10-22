@@ -143,3 +143,13 @@ Species pairs can only be tested where both insects are reported, mostly Germany
 - Averages hide outbreaks: e.g. *L. dispar* averages about 105,000 ha a year but a typical year is about 29,000 ha.
 - In the defoliator guild share graphs *Melolontha* is left out (it feeds in all forest, not only broadleaves); it is included in the total-damage graphs.
 - Bulgaria and Lithuania single-species growing stocks in the forest appendix are read as 1,000 m³ (otherwise far below their reported damage).
+
+---
+
+## 7. Summary of the usable pairs (with the multiple-testing check)
+
+786 pairs could be measured. Testing that many, about 39 would look "sure" by luck alone. The false discovery rate (FDR, Benjamini-Hochberg) correction allows for this: after it, 150 links stay sure, and **all 28 usable pairs stay sure** (q < 0.05). For 21 of them the regional part is sure on its own as well. p-values come from the same region bootstrap as the 95% ranges (whole regions resampled, 9,999 draws).
+
+![](../outputs/figures/final/CM_usable_pairs_summary_table.png)
+
+Table: `outputs/tables/CM_usable_pairs_summary.csv`; every pair with p and q: `outputs/tables/CM_pairs_fdr.csv`.

@@ -309,6 +309,20 @@ list(
       f(plot_within_vs_europe(eu_usable), "6g_usable_pairs_within_vs_europe.png", 9, 7.5))
   }, format = "file"),
 
+  # ---- Finishing the correlation metrics (R/cm_final.R) ------------------------
+  tar_target(cm_fdr, pair_fdr(cb_tr, cb_species, cb_verdict)),
+  tar_target(cm_fdr_sum, fdr_summary(cm_fdr)),
+  tar_target(cm_r_wo, r_without_regions(cb_tr, cb_usable)),
+  tar_target(cm_usable_sum, usable_summary(cb_usable, cm_fdr, cm_r_wo)),
+  tar_target(cm_questions, data_questions(tot_suspicious)),
+  tar_target(cm_final_csv, c(tab(cm_fdr, "CM_pairs_fdr.csv"), tab(cm_fdr_sum, "CM_fdr_summary.csv"),
+                             tab(cm_usable_sum, "CM_usable_pairs_summary.csv"),
+                             tab(cm_questions, "QUESTIONS_for_data_providers.csv")), format = "file"),
+  tar_target(cm_questions_xlsx, { p <- "outputs/tables/QUESTIONS_for_data_providers.xlsx"; writexl::write_xlsx(list(questions = cm_questions), p); p },
+             format = "file"),
+  tar_target(fig_usable_sum, save_grob(plot_usable_summary(cm_usable_sum), "outputs/figures/final/CM_usable_pairs_summary_table.png", 15, 9.3),
+             format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),

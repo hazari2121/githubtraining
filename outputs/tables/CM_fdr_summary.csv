@@ -1,0 +1,8 @@
+measure,value
+Measurable pairs,786
+Sure before correction (95% range excludes 0),194
+Sure after FDR correction (q < 0.05),150
+Expected chance links before correction (5% of measurable),39
+Usable pairs,28
+Usable pairs still sure after FDR,28
+Usable pairs whose regional part is sure after FDR,21

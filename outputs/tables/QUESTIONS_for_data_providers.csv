@@ -1,0 +1,38 @@
+topic,where,question
+Units of growing stock,"Forest appendix, BG and LT sheets","Single-species growing stocks are about 1000x smaller than their areas suggest (e.g. BG spruce 31,157 m3 on 133,737 ha). Are they in 1000 m3? (Read as 1000 m3 for now.)"
+Host 0 but damage reported,"Forest appendix, Vienna (AT13)","The appendix gives 0 spruce for Vienna, but I. typographus and P. chalcographus damage is reported every year (3,191 m3 in total). Is there spruce that is not split out?"
+Not separately in the appendix,Forest appendix,"Larch, birch, elm and poplar have no area or growing stock. Is there a source for them? (All conifers / all broadleaves used for now.)"
+Forest area total,Forest appendix vs 2025 paper,The appendix adds up to 87.7 million ha in the reporting regions; the paper gives 102.75 million ha. Which forest area is the paper's figure?
+Very large single values,"DE DE2 Bavaria, P. abietina (2000-2003)","Pristiphora abietina 58,333 / 76,667 / 113,333 / 200,000 ha in 2000-2003, then 0 from 2004 on. Are these ha defoliated, and are they 3-year averages?"
+Every insect reported as 0,AT AT13 (2002),"10 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,DE DE3 (2000-2022),"44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,DE DE5 (2000-2022),"44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,DE DE6 (2000-2022),"44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,"DE DE7 (2006-2008, 2011-2022)","44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,DE DE8 (2022),"44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,"DE DE9 (2000-2003, 2005-2008, 2010-2015, 2017-2022)","44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,"DE DEE (2007-2008, 2010-2022)","44 insects reported, all 0 - not monitored, or really no damage?"
+Every insect reported as 0,"DE DEF (2004-2006, 2014)","44 insects reported, all 0 - not monitored, or really no damage?"
+Sudden drop to (almost) 0,DE DE1 (2005),pit_cha: 0 vs about 457725 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE1 (2018),xyl_lin: 0 vs about 120537 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE2 (2007),ips_typ: 6000 vs about 4833333 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE2 (2009),ips_typ: 3633 vs about 2250000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE2 (2015),ips_typ: 0 vs about 3683333 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE2 (2015),pit_cha: 0 vs about 316667 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE7 (2006),ips_typ: 0 vs about 179229 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DE8 (2022),ips_typ: 0 vs about 266300 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEA (2018),ips_typ: 0 vs about 108541 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEB; DEC (2005),pit_cha: 0 vs about 130961 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DED (2018),ips_sex: 0 vs about 141333 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEE (2007),ips_typ: 0 vs about 111370 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEF (2002),ips_ami: 0 vs about 102000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEF (2000),ips_typ: 0 vs about 108000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,DE DEF (2001),ips_typ: 0 vs about 200000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,SE SE (2005),ips_typ: 0 vs about 400000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,SE SE (2012),ips_typ: 0 vs about 400000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,SE SE (2013),ips_typ: 0 vs about 200000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Sudden drop to (almost) 0,SE SE (2017),ips_typ: 0 vs about 1900000 in the years around - typing error (e.g. in 1000 m3) or missing year?
+Values that look like 3-year totals divided by 3,DE DE2 (2000-2022),"227 values, e.g. 15333.33 agr_big - are these multi-year totals divided evenly?"
+Values that look like 3-year totals divided by 3,DE DE7 (2000-2005),"20 values, e.g. 66.67 dip_sp - are these multi-year totals divided evenly?"
+Values that look like 3-year totals divided by 3,DE DED (2000-2022),"285 values, e.g. 833.33 ips_acu - are these multi-year totals divided evenly?"
+Values that look like 3-year totals divided by 3,DE DEE (2000-2009),"95 values, e.g. 416.67 bup_pin - are these multi-year totals divided evenly?"

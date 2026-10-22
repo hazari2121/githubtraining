@@ -1,0 +1,19 @@
+---
+title: "EU-ForDAM: questions for the data providers"
+date: today
+format:
+  html:
+    embed-resources: true
+execute:
+  echo: false
+---
+
+Values in the database that look odd. **They are used as reported**; nothing has been changed or removed. This list only asks whether they are right. The same list is in `outputs/tables/QUESTIONS_for_data_providers.xlsx`.
+
+```{r}
+q <- read.csv("../outputs/tables/QUESTIONS_for_data_providers.csv")
+for (t in unique(q$topic)) {
+  cat("")
+  print(knitr::kable(q[q$topic == t, c("where", "question")], row.names = FALSE, caption = t))
+}
+```
