@@ -144,7 +144,7 @@ Ranges: `r pct(100 * v3c$share_inside_80pct_range)` of hidden real totals fall i
 
 With the range rule, for most insects the filled part is 0.1-1x the reported damage. Still implausibly high and needing expert range checks: *Pissodes pini* (9x reported), *Polygraphus poligraphus* (7x), *Ips duplicatus* (3x).
 
-## The gap-filled dataset v4 (current): v3 rebuilt on the shared host table
+## The gap-filled dataset v4: v3 rebuilt on the shared host table
 
 Same model (M2) and range rule as v3. What changed is the host information each insect gets: it is now the same host table used for the host-share, totals and correlation work. For example, *L. monacha* is "spruce and pine" (all conifers), *Melolontha* is "all forest", *Zeiraphera* is "larch", and *L. dispar* and *A. viridis* are "broadleaves". Recorded damage on a tree shows that the wider forest column is there too (spruce, pine, fir → conifers; oak → broadleaves).
 
@@ -163,6 +163,27 @@ read.csv("../outputs/tables/GF4_cumulative_totals_by_paper_group.csv") |> filter
 - **Still implausible:** *Zeiraphera griseana* (larch bud moth), with 616,000 ha filled from 958 ha reported, 446,000 ha of it in Poland. Larch has no column in the forest appendix, and scaling by all conifers gives Poland's pine forests to a larch insect. Also insects reported by only 2–3 countries and filled into AT, CH, PL and SK: *S. ratzeburgi*, *S. scolytus*, *Neodiprion*, *Polygraphus*, *P. pini* (9–22x reported).
 
 
+
+## v4b (current) and v5: hosts without their own forest data
+
+Two ways to stop larch, birch, elm and poplar insects being scaled by a stand-in area (all conifers / all broadleaves):
+
+- **v4b:** v4, but these insects get the model's plain (unscaled) amount.
+- **v5:** the 2025 paper's approach. Nothing is scaled; log(host area) is a model input, and the model learns for each insect how strongly damage rises with it.
+
+```{r v5}
+read.csv("../outputs/tables/GF5_v4_v4b_v5_scores.csv") |>
+  transmute(model, `error (log)` = f2(error_log), AUC = f2(damage_vs_none_auc), `totals within 2x` = pct(100 * totals_within_2x),
+            `typical total off (x)` = f2(typical_total_error_x), `usable pairs linked` = paste(usable_linked, "of", usable_n))
+read.csv("../outputs/tables/GF5_check_damage_vs_host.csv") |> filter(value_type == "filled") |>
+  transmute(version, `filled cells` = cells, `highest share of host` = pct(100 * max_share), `above 100% of host` = above_100pct)
+```
+
+- **v4b is kept as the current version.** Its scores are the same as v4's or slightly better, and no filled value is above 10.1% of its host. *Zeiraphera* falls from 616,000 to 155,000 ha filled; *S. ratzeburgi* and *S. scolytus* fall by a third.
+- **v5 fails as a gap-filler.** Totals are typically 8x off, and 138 filled cells are above 100% of their host. The learned slopes go up to 2.9 (damage rising much faster than host), and they extrapolate badly to regions with very large host areas. The paper used host area to explain differences between regions in a trend model. It was never used to predict new regions, and that is where it breaks.
+- **Still to fix:** most of *Zeiraphera*'s remaining fill is in Poland (128,000 ha), and *Dendroctonus micans*'s fill is 1.7 million m³ from 3,500 m³ reported. Both are "weak" insects; *D. micans* is filled worse than a simple average. They come from the draft range rule and from weak fills being counted in the totals.
+
+## How to read it
 
 - Reported values are untouched; every filled value carries its method and confidence.
 - Filled values are good for **whether and when** damage occurred, rough for **how much** (a single regional total is typically several times off).
