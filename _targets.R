@@ -764,6 +764,35 @@ list(
   tar_target(fig_v4_gtot, save_fig(plot_paper_group_totals(v4_gtot), "outputs/figures/GF4_europe_totals_by_paper_group.png", 12, 9),
              format = "file"),
 
+  # ---- v4b (no stand-in host areas) and v5 (host area as a model input) (R/gapfill_v5.R)
+  tar_target(host_status4b, host_status_v4b(host_status4)),
+  tar_target(v4b_cv, dplyr::filter(variant_cv(gf3_L, gf3_blocks, host_status4b, gf3_group, v3_spec), species %in% cb_species)),
+  tar_target(v4b_fit, gapfill_final_rs(gf3_L, host_status4b, gf3_group, v3_spec)),
+  tar_target(v5_cv, dplyr::filter(variant_cv_hp(gf3_L, gf3_blocks, host_status4b, gf3_group, v3_spec), species %in% cb_species)),
+  tar_target(v5_fit, gapfill_final_hp(gf3_L, host_status4b, gf3_group, v3_spec)),
+  tar_target(v45_scores, dplyr::bind_rows(
+    dplyr::left_join(v4_scores, v4_links, by = "model"),
+    dplyr::left_join(variant_scores(v4b_cv, "v4b (no stand-in host areas)"),
+                     links_of_fit(v4b_fit, gf3_L, cb_verdict, "v4b (no stand-in host areas)"), by = "model"),
+    dplyr::left_join(variant_scores(v5_cv, "v5 (host area as a model input)"),
+                     links_of_fit(v5_fit, gf3_L, cb_verdict, "v5 (host area as a model input)"), by = "model"))),
+  tar_target(v5_beta, host_effects(v5_fit, species_meta, host_status4b)),
+  tar_target(v4b_bt, cv_block_totals(v4b_cv)), tar_target(v5_bt, cv_block_totals(v5_cv)),
+  tar_target(v4b_conf, final_method_scores(v4b_cv, gf3_simple)), tar_target(v5_conf, final_method_scores(v5_cv, gf3_simple)),
+  tar_target(v4b_range, range_table(v4b_bt)), tar_target(v5_range, range_table(v5_bt)),
+  tar_target(v45_calib, dplyr::bind_rows(v4 = v4_calib, v4b = range_calibration(v4b_bt), v5 = range_calibration(v5_bt), .id = "version")),
+  tar_target(v4b_data, apply_range(gapfill_dataset_v2(gapfill_raw_from_fit(v4b_fit, gf3_L, host_status4b), v4b_conf,
+                                                      dplyr::select(species_meta, species, unit), gf3_L$species), rng_pityo)),
+  tar_target(v5_data, apply_range(gapfill_dataset_v2(gapfill_raw_from_fit(v5_fit, gf3_L, host_status4b), v5_conf,
+                                                     dplyr::select(species_meta, species, unit), gf3_L$species), rng_pityo)),
+  tar_target(v4b_tot, gapfill_totals_v2(v4b_data, v4b_range, v4b_bt)), tar_target(v5_tot, gapfill_totals_v2(v5_data, v5_range, v5_bt)),
+  tar_target(v45_hostcheck, dplyr::bind_rows(v4b = gapfill_host_check(v4b_data, host_status4, hs_stock, cb_species),
+                                             v5 = gapfill_host_check(v5_data, host_status4, hs_stock, cb_species), .id = "version")),
+  tar_target(v45_versions, gapfill_versions(list(v3 = v3_tot, v4 = v4_tot, v4b = v4b_tot, v5 = v5_tot), cb_species)),
+  tar_target(v45_csv, c(tab(v45_scores, "GF5_v4_v4b_v5_scores.csv"), tab(v5_beta, "GF5_host_effect_by_insect.csv"),
+                        tab(v45_calib, "GF5_range_calibration.csv"), tab(v45_hostcheck, "GF5_check_damage_vs_host.csv"),
+                        tab(v45_versions, "GF5_filled_by_insect_all_versions.csv")), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),

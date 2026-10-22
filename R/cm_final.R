@@ -121,6 +121,8 @@ data_questions <- function(susp) {
     "The appendix gives 0 spruce for Vienna, but I. typographus and P. chalcographus damage is reported every year (3,191 m3 in total). Is there spruce that is not split out?",
     "Not separately in the appendix", "Forest appendix",
     "Larch, birch, elm and poplar have no area or growing stock. Is there a source for them? (All conifers / all broadleaves used for now.)",
+    "Host data used in the 2025 paper", "Paper, Appendix D / Supporting Information",
+    "The paper compiled host abundance from national forest inventories for Quercus, Fagus, Larix, Picea, Pinus and Abies. Can we have that table? It would give larch and beech their own host data (the forest appendix has neither).",
     "Forest area total", "Forest appendix vs 2025 paper",
     "The appendix adds up to 87.7 million ha in the reporting regions; the paper gives 102.75 million ha. Which forest area is the paper's figure?",
     "Very large single values", "DE DE2 Bavaria, P. abietina (2000-2003)",
