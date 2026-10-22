@@ -1,0 +1,49 @@
+species,beta,host_tree
+CambXyl_con&BB_con&BO,0.478,pine
+CambXyl_con&BO,-0.162,pine
+CambXyl_con&MD,0,larch
+Def_dec,1.056,broadleaves
+Def_dec&DB,2.597,oak
+agr_big,2.323,oak
+agr_vir,2.488,broadleaves
+bup_pin,0.482,pine
+cep_spp,1.935,spruce
+clo_ana,0,poplar / willow
+den_mic,-0.054,spruce
+den_pin,1.876,pine
+dip_sp,1.398,pine
+era_def,1.376,broadleaves
+geo_db,0.293,broadleaves
+ips_acu,1.835,pine
+ips_ami,0.497,spruce
+ips_cem,0,larch
+ips_dup,0.1,spruce
+ips_sex,1.453,pine
+ips_typ,1.645,spruce
+lym_dis,1.333,broadleaves
+lym_mon,-0.458,spruce and pine
+mel_spp,0.082,all forest
+neo_ser,1.388,pine
+ope_spp,1.135,broadleaves
+pan_fla,1.245,pine
+pha_cya,2.928,pine
+pis_pin,1.283,pine
+pit_bid,-0.089,pine
+pit_cha,0.903,spruce
+pit_spp,1.225,fir
+pol_pol,-0.497,spruce
+pri_abi,1.273,spruce
+sap_car,0,poplar / willow
+sco_int,2.848,oak
+sco_rat,0,birch
+sco_sco,0,elm
+tet_gab,0,larch
+tet_spp,-1.207,spruce
+tha_pit,0.447,pine
+tha_pro,1.215,oak
+tom_spp,0.866,pine
+tor_vir,0.676,oak
+uro_sir_spp,0.897,conifers
+xyl_lin,1.075,conifers
+xyl_spp,-0.152,broadleaves
+zei_gri,0,larch

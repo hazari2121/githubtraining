@@ -93,7 +93,7 @@ gapfill_raw_from_fit <- function(r, L, hs) {
 }
 
 host_effects <- function(r, species_meta, hs) {
-  tibble::tibble(species = names(r$beta), beta = round(unname(r$beta), 3)) |>
+  tibble::tibble(species = names(r$beta), beta = round(as.numeric(r$beta), 3)) |>
     dplyr::left_join(dplyr::distinct(hs, species, host_tree), by = "species")
 }
 
