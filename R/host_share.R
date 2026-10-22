@@ -76,14 +76,18 @@ forest_column_of <- c(spruce = "spruce", pine = "pine", fir = "fir", oak = "oak"
                       broadleaves = "broadleaves_all", `all forest` = "all_forest")
 
 host_tree_of <- function(species, species_meta) {
+  dplyr::coalesce(unname(host_tree_override[species]), host_tree_in_file(species, species_meta))
+}
+
+# Host tree as written in the data file (HOSTTREE), without the overrides
+host_tree_in_file <- function(species, species_meta) {
   file_host <- species_meta$host_tree[match(species, species_meta$species)]
-  from_file <- dplyr::case_when(
+  dplyr::case_when(
     grepl("^Picea", file_host) ~ "spruce", grepl("^Pinus", file_host) ~ "pine",
     grepl("^Abies", file_host) ~ "fir", grepl("^Larix", file_host) ~ "larch",
     grepl("^Quercus", file_host) ~ "oak", grepl("^Betula", file_host) ~ "birch",
     grepl("^Ulmus", file_host) ~ "elm", grepl("^Populus", file_host) ~ "poplar / willow",
     TRUE ~ "broadleaves")
-  dplyr::coalesce(unname(host_tree_override[species]), from_file)
 }
 
 # Codes left out of a group's share because the group's host is not what they

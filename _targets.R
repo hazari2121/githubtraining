@@ -726,6 +726,44 @@ list(
   tar_target(fig_v3_gtot, save_fig(plot_paper_group_totals(v3_gtot), "outputs/figures/GF3_europe_totals_by_paper_group.png", 12, 9),
              format = "file"),
 
+  # ---- Gap-filled dataset v4: v3 rebuilt on the shared host table (R/gapfill_v4.R)
+  tar_target(host_status4, host_status_v4(cb_cells, species_meta, host_long)),
+  tar_target(v4_host_change, host_status_change(host_status, host_status4)),
+  tar_target(v4_cv, dplyr::filter(variant_cv(gf3_L, gf3_blocks, host_status4, gf3_group, v3_spec), species %in% cb_species)),
+  tar_target(v4_scores, variant_scores(v4_cv, "v4 (M2, shared host table)")),
+  tar_target(v4_links, variant_links(gf3_L, host_status4, gf3_group, v3_spec, cb_verdict, "v4 (M2, shared host table)")),
+  tar_target(v4_bt, cv_block_totals(v4_cv)),
+  tar_target(v4_conf, final_method_scores(v4_cv, gf3_simple)),
+  tar_target(v4_range, range_table(v4_bt)),
+  tar_target(v4_calib, range_calibration(v4_bt)),
+  tar_target(v4_raw, gapfill_raw_rs(gf3_L, host_status4, gf3_group, v3_spec)),
+  tar_target(v4_data, apply_range(gapfill_dataset_v2(v4_raw, v4_conf, dplyr::select(species_meta, species, unit), gf3_L$species),
+                                  rng_pityo)),
+  tar_target(v4_tot, gapfill_totals_v2(v4_data, v4_range, v4_bt)),
+  tar_target(v4_hostcheck, gapfill_host_check(v4_data, host_status4, hs_stock, cb_species)),
+  tar_target(v4_vs_v3, gapfill_v3_v4(v3_tot, v4_tot)),
+  tar_target(v4_gtot, gapfill_group_totals(v4_data, v4_bt, ph_hier)),
+  tar_target(v4_data_csv, write_csv_out(v4_data, "data/processed/eufordam_gapfilled_v4.csv"), format = "file"),
+  tar_target(v4_csv, c(tab(dplyr::bind_rows(dplyr::left_join(m_scores, m_links, by = "model") |> dplyr::filter(model == v3_spec_name) |>
+                                              dplyr::mutate(model = "v3 (M2, old host labels)"),
+                                            dplyr::left_join(v4_scores, v4_links, by = "model")), "GF4_v3_vs_v4_scores.csv"),
+                       tab(v4_host_change, "GF4_host_status_changes.csv"),
+                       tab(v4_hostcheck, "GF4_check_damage_vs_host.csv"),
+                       tab(v4_vs_v3, "GF4_v3_vs_v4_filled_by_insect.csv"),
+                       tab(v4_tot$europe, "GF4_europe_totals_with_ranges.csv"),
+                       tab(v4_tot$country, "GF4_country_totals_with_ranges.csv"),
+                       tab(v4_conf, "GF4_confidence_by_insect.csv"),
+                       tab(v4_calib, "GF4_range_calibration.csv"),
+                       tab(dplyr::count(v4_data, value_type, confidence), "GF4_dataset_summary.csv"),
+                       tab(v4_gtot |> dplyr::group_by(level, group, unit) |>
+                             dplyr::summarise(dplyr::across(c(reported, filled), sum), .groups = "drop") |>
+                             dplyr::mutate(total = reported + filled, filled_vs_reported = filled / reported),
+                           "GF4_cumulative_totals_by_paper_group.csv")), format = "file"),
+  tar_target(fig_v4_europe, save_fig(plot_gf2_europe(dplyr::filter(v4_tot$europe, species %in% cb_species)),
+                                     "outputs/figures/GF4_europe_totals_with_ranges.png", 10, 10), format = "file"),
+  tar_target(fig_v4_gtot, save_fig(plot_paper_group_totals(v4_gtot), "outputs/figures/GF4_europe_totals_by_paper_group.png", 12, 9),
+             format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
