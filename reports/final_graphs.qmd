@@ -111,6 +111,30 @@ Pairs are grouped by the paper's level-1 groups of the two insects.
 
 ---
 
+## 6. Usable pairs: every region-year (scatter)
+
+One dot = one region in one year where both insects are recorded, each compared with that region's normal. This is exactly what r measures: the tighter the dots around the line, the stronger the link. Rows of dots at the same value are years with 0 damage in a region.
+
+![](../outputs/figures/final/6_usable_pairs_scatter/6a_borers_on_gymnosperms_x_borers_on_gymnosperms.png)
+
+![](../outputs/figures/final/6_usable_pairs_scatter/6b_borers_on_gymnosperms_x_borers_on_angiosperms.png)
+
+![](../outputs/figures/final/6_usable_pairs_scatter/6c_borers_on_angiosperms_x_borers_on_angiosperms.png)
+
+![](../outputs/figures/final/6_usable_pairs_scatter/6d_defoliators_on_gymnosperms_x_defoliators_on_gymnosperms.png)
+
+![](../outputs/figures/final/6_usable_pairs_scatter/6e_borers_x_defoliators_across_guilds.png)
+
+---
+
+## 7. The 6 strongest pairs: real damage per year
+
+Reported damage per year (m³ killed), summed over the regions and years where both insects are recorded. Each insect on its own scale. Totals are dominated by the regions with the most damage, so they can look less in step than r, which weights every region equally (e.g. the *Scolytus intricatus* peak of 2012-2017 comes mostly from Brandenburg/Mecklenburg).
+
+![](../outputs/figures/final/7_top_pairs_real_damage/7_top6_pairs_damage_per_year.png)
+
+---
+
 ## Things to keep in mind
 
 - Germany carries 52% of all borer damage and Poland 50% of all defoliation; most countries start reporting in 2003 (Austria 2002, Poland 2003, Finland 2012).

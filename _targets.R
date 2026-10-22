@@ -262,6 +262,22 @@ list(
       if (n_pairs[[i]] == 1) 8 else 11, 1.8 + 3.2 * ceiling(n_pairs[[i]] / 3)))
   }, format = "file"),
 
+  tar_target(pairs_pts, pair_points(cb_tr, cb_usable)),
+  tar_target(fig_pairs_scatter, {
+    dir.create("outputs/figures/final/6_usable_pairs_scatter", recursive = TRUE, showWarnings = FALSE)
+    g <- sort(unique(cb_usable$group)); n_pairs <- table(cb_usable$group)[g]
+    purrr::map2_chr(g, seq_along(g), function(x, i) save_fig(plot_pair_scatter(pairs_pts, x),
+      file.path("outputs/figures/final/6_usable_pairs_scatter",
+                paste0("6", letters[i], "_", gsub("_+$", "", gsub("[^a-z]+", "_", tolower(sub("^[0-9]+\\. ", "", x)))), ".png")),
+      if (n_pairs[[i]] == 1) 6 else 10, 1.8 + 3 * ceiling(n_pairs[[i]] / 3)))
+  }, format = "file"),
+  tar_target(pairs_dmg, pair_damage(cb_tr, cb_usable)),
+  tar_target(pairs_dmg_csv, tab(pairs_dmg, "CM_top_pairs_damage_per_year.csv"), format = "file"),
+  tar_target(fig_pairs_dmg, {
+    dir.create("outputs/figures/final/7_top_pairs_real_damage", recursive = TRUE, showWarnings = FALSE)
+    save_fig(plot_pair_damage(pairs_dmg, ph_hier), "outputs/figures/final/7_top_pairs_real_damage/7_top6_pairs_damage_per_year.png", 10, 13)
+  }, format = "file"),
+
   # ---- Group-level correlations (levels 1-2, aggregates included) ------------
   tar_target(p_group_cm, dplyr::bind_rows(
     dplyr::left_join(paper_group_correlations(cb_cells, ph_hier, "level1"),
