@@ -1,0 +1,134 @@
+---
+title: "EU-ForDAM: our numbers vs the 2025 paper"
+subtitle: "Every number in the paper that can be recomputed from the database, side by side"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    df-print: kable
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(dplyr)
+rd <- function(f) read.csv(file.path("../outputs/tables", f), check.names = FALSE)
+f2 <- function(x) formatC(x, format = "f", digits = 2)
+big <- function(x) format(round(x), big.mark = ",")
+yn <- function(x) ifelse(x, "yes", "**no**")
+s <- rd("PAPER_comparison_summary.csv"); t1 <- rd("PAPER_table1_series_countries.csv"); t2 <- rd("PAPER_table2_totals.csv")
+t2s <- rd("PAPER_table2_host_share.csv"); t45 <- rd("PAPER_tables4_5_group_correlations.csv")
+t6 <- rd("PAPER_table6_species_correlations.csv"); tx <- rd("PAPER_text_numbers.csv")
+```
+
+## In short
+
+We recomputed every number in the 2025 EU-ForDAM paper that can be recomputed from the database: Tables 1, 2, 4, 5 and 6, and the numbers in the Results text. Table 3 (trends) needs the climate (VPD) data, so it is not done yet.
+
+```{r summary}
+s |> transmute(Check = check, Result = result, `What it means` = meaning)
+```
+
+**Overall: our data reproduce the paper**, often to the last digit, once the paper's own data preparation is copied (section 1). Doing this showed **four things in the paper that look like mistakes** (section 6) and **two places where our setup differs from the paper's** (section 7).
+
+## 1. How the paper prepared the data (worked out from the checks)
+
+1. **A "time series" is one region × insect code × sub-row.** The Czech and German sheets have several rows per region, and the paper counts each one as a separate series. With that, our series counts match Table 1 exactly for 14 of 18 groups (e.g. *I. typographus* 98, *L. dispar* 45, *P. chalcographus* 28).
+2. **Series with fewer than 6 non-zero years are removed, and this is done before the totals too.** The paper says this in Methods 2.5; Table 2's totals turn out to be after this filter.
+3. **The Czech and German spruce bark-borer group is counted as *I. typographus*.** We already did this.
+4. ***Trypodendron (Xyloterus) lineatum* is not one of the paper's conifer borers.** Table 1 does not list it, and the totals only match without it.
+5. **Tables 4–6 are squared correlations (r²) of Europe-wide yearly totals on the original scale.** See section 4.
+
+## 2. Table 1: countries and number of time series
+
+```{r t1}
+t1 |> transmute(level, group, `series: paper` = paper_series, `series: ours` = ours_series,
+                `kept (≥ 6 non-zero years): paper` = paper_series_kept, `kept: ours` = ours_series_kept,
+                `same countries` = yn(countries_same), `only in our data` = countries_only_ours)
+```
+
+- **Countries:** 17 of 18 groups list exactly the same countries. The one exception is defoliators on *P. sylvestris*: Croatia reports damage (*T. pityocampa*), but the paper does not list it there.
+- **Series:** most match exactly. The differences are small (e.g. *L. monacha* 47 in the data vs 32 in the paper; borers on angiosperms 152 vs 167). They may come from rows the paper dropped or split, which is a question for Roman.
+
+## 3. Table 2: total damage and share of host
+
+**Totals.** Without the paper's filter, our totals are 0–9% higher. With the filter, they are the same:
+
+```{r t2}
+t2 |> transmute(level, group, paper = big(paper_total), `ours, all data` = big(ours_all_data),
+                `ours, paper's filter, no T. lineatum` = big(ours_paper_filter_no_xyl_lin),
+                `difference, all data` = paste0(f2(diff_all_pct), "%"),
+                `difference, paper's way` = paste0(f2(diff_filter_no_xyl_lin_pct), "%"))
+```
+
+17 of 18 totals are within 0.1%. The one that is not, borers on angiosperms, matches exactly **without** the filter. It also includes *Xyleborus* and *Saperda* damage, which Table 1 does not list. So this row seems to have been made in a different way from the others.
+
+**Share of host per year.** The damage is the same, so any difference comes from the division. The paper's values fit better when divided by **22** years than by 23, although 2000–2022 is 23 years:
+
+```{r t2s}
+t2s |> transmute(level, group, host = host_group, paper = paper_share_pct,
+                 `ours, ÷ 23 years` = round(ours_23_years, 3), `ours, ÷ 22 years` = round(ours_22_years, 3),
+                 `match ÷ 23` = yn(match_23), `match ÷ 22` = yn(match_22))
+```
+
+Dividing by 22 matches 11 of 18 (e.g. *I. typographus* 0.49, borers on *P. abies* 0.53); dividing by 23 matches 6. The remaining differences (defoliators on pine, *L. dispar*, *P. cyanea*) probably come from the host data: the paper used national forest inventory data (its Appendix D), while we have the NUTS forest appendix.
+
+## 4. Tables 4–5: correlations between groups
+
+The paper calls these "Pearson correlations". Our Pearson r on the same Europe-wide totals does **not** match them, but **r squared does**:
+
+```{r t45}
+t45 |> transmute(table, pair = paste(a, "×", b), paper, `our r` = f2(r), `our r²` = f2(r_squared), p = signif(p, 2),
+                 `paper = r²` = yn(paper_matches_r_squared), `r is negative` = ifelse(sign_hidden, "**yes**", ""))
+```
+
+- 15 of 16 values match r² to within 0.01, and none match r. The one that misses (borers × defoliators on angiosperms: paper 0.04, our r² 0.00) matches the log scale instead (r = −0.19, r² = 0.035). That one value may have been computed differently.
+- **6 of the 16 correlations are negative**, but squaring makes them look positive. The paper's sentence "Correlations between pairs of time series were non-negative" comes from the squaring.
+- The text's "r = 0.21" for borers on gymnosperms × angiosperms is really **r = 0.46**.
+- The paper marks 0.21 and 0.20 in red as "significant at α < 0.001". Their p-values are 0.029 and 0.032. With 23 years, r² = 0.21 cannot reach p < 0.001; that needs r² of about 0.4 or more.
+- The values match the **original scale**, but the paper's Methods say "All analyses were conducted using log transformed values (log(x+1))". On the log scale the numbers would be different (column not shown; in `PAPER_tables4_5_group_correlations.csv`).
+
+## 5. Table 6: correlations between species
+
+Same pattern:
+
+```{r t6}
+t6 |> transmute(pair = paste(species_a, "×", species_b), paper, `our r` = f2(r), `our r²` = f2(r_squared),
+                `paper = r²` = yn(paper_matches_r_squared), `r is negative` = ifelse(sign_hidden, "**yes**", ""))
+```
+
+35 of 36 match r² (the other misses by 0.02), and 0 match r. **8 pairs are negative**: for example *I. acuminatus* × *T. viridana* has r = −0.42, which the paper shows as 0.17.
+
+**Numbers in the Results text.** All 14 match our data, done the paper's way:
+
+```{r tx}
+tx |> transmute(item, paper, ours = round(ours, 2), match = yn(match))
+```
+
+## 6. Things in the paper that look like mistakes
+
+These are for discussion with Roman, not criticism. The paper's main conclusions (borers up, defoliators down, synchrony within guilds) do not depend on them, but some numbers and sentences would change.
+
+1. **Tables 4–6 show r², not r.** They are called "Pearson correlations", and the text quotes them as r ("r = 0.21"). Negative correlations are hidden by the squaring: 6 of 16 group pairs and 8 of 36 species pairs. So "correlations were non-negative" is not right.
+2. **The correlations are on the original scale, not log(x + 1)** as Methods says. On the original scale, a few huge outbreak years (spruce bark beetles after 2018) dominate the result.
+3. **The significance marks in Table 4 do not fit.** 0.21 and 0.20 are marked as p < 0.001, but recomputed they are p ≈ 0.03.
+4. **The share of host per year fits dividing by 22 years.** 2000–2022 is 23 years, so the percentages in Table 2 may be about 4.5% too high. Not certain: the host data also differ.
+5. Small things:
+   - The paper says **15 countries**, but Table 1 and the data have **16** (AT, BG, CH, CZ, DE, FI, HR, HU, IT, LT, PL, RO, RS, SE, SI, SK).
+   - Slovenia is written "SL" once in Table 1.
+   - The Table 1 note says series with "more than six" non-zero values were kept, but Methods says series with "less than six" were removed. The data fit "at least six".
+   - The borers on angiosperms total is not filtered, and it includes *Xyleborus* and *Saperda*, which Table 1 does not list.
+
+## 7. Where our setup differs from the paper's (on purpose, or to decide)
+
+1. ***T. lineatum* is in our conifer borers** (our hierarchy file), but not in the paper's. It adds 1.6% to borers on gymnosperms and on spruce. **Decide:** keep it ("data is data"), or drop it to match the paper.
+2. **We use all series; the paper drops series with fewer than 6 non-zero years.** That is why our totals were 0–9% higher. We keep everything on purpose: zeros are real records. When we compare with the paper, we now do it the paper's way.
+3. **Our correlations are r, not r², and within regions, not Europe-wide totals.** So our numbers cannot be put next to Tables 4–6 directly. To compare, square ours or take the square root of theirs. For example, spruce × pine borers: paper 0.88 = r² → r = 0.94 on Europe totals; ours 0.47 within regions.
+4. **Hosts:** the paper puts *L. monacha* on spruce. We use spruce and pine, because most nun-moth damage is in Poland's pine forests. This changes only the host-share graphs and the gap-filling, not the totals.
+
+## Files
+
+`outputs/tables/PAPER_*.csv`, made by `R/paper_compare.R` (targets `ppr_*`). Rerun after any data change to check nothing moved.

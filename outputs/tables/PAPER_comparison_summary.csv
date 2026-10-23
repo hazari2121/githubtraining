@@ -1,0 +1,8 @@
+check,result,meaning
+Table 1: countries per group,17 of 18 groups list exactly the same countries,Same countries in our data as in the paper.
+Table 1: number of time series,14 of 18 totals and 9 of 18 kept series match exactly,The paper counts Czech and German sub-rows as separate series; kept = series with at least 6 non-zero years.
+Table 2: total damage,17 of 18 within 0.1% with the paper's filter and without T. lineatum (without the filter: 4 of 18 ),The paper's totals are after removing series with fewer than 6 non-zero years; T. lineatum is not in its conifer borers.
+Table 2: share of host per year,6 of 18 match dividing by 23 years; 11 of 18 dividing by 22 years,"Same damage, so the difference is in the division: 2000-2022 is 23 years, but the paper's numbers fit 22 better (question for Roman)."
+Tables 4-5: group correlations,15 of 16 match r squared; 0 match r; 6 are negative r shown as positive,"The tables are called Pearson correlations, but they are r squared of untransformed Europe totals."
+Table 6: species correlations,35 of 36 match r squared; 0 match r; 8 are negative r shown as positive,Same as Tables 4-5.
+Numbers in the text,14 of 14 match,"The text is consistent with the paper's own Table 2, and with our data."

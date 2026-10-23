@@ -835,6 +835,22 @@ list(
     filled_total_v4b = sum(v4b_tot$europe$filled), filled_total_range_list = sum(vr_tot$europe$filled))),
   tar_target(vr_csv, c(tab(vr_check, "RANGE_test_run_check.csv"), tab(vr_tot$europe, "GF_range_list_europe_totals.csv")), format = "file"),
 
+  # ---- Comparison with the 2025 paper, table by table (R/paper_compare.R) --------
+  tar_target(ppr_ps, paper_series(long)),
+  tar_target(ppr_st, paper_series_table(ppr_ps)),
+  tar_target(ppr_pf, paper_filtered(ppr_ps, ppr_st)),
+  tar_target(ppr_t1, cmp_table1(ppr_st, ph_hier)),
+  tar_target(ppr_t2, cmp_table2_totals(ppr_ps, ppr_pf, ph_hier)),
+  tar_target(ppr_t2s, cmp_table2_share(ppr_pf, ph_hier, species_meta, hs_stock, hs_regions)),
+  tar_target(ppr_t45, cmp_table45(cb_dmg, ph_hier)),
+  tar_target(ppr_t6, cmp_table6(paper_t6)),
+  tar_target(ppr_tx, cmp_text(ppr_pf, ph_hier)),
+  tar_target(ppr_sum, cmp_summary(ppr_t1, ppr_t2, ppr_t2s, ppr_t45, ppr_t6, ppr_tx)),
+  tar_target(ppr_csv, c(tab(ppr_sum, "PAPER_comparison_summary.csv"), tab(ppr_t1, "PAPER_table1_series_countries.csv"),
+                       tab(ppr_t2, "PAPER_table2_totals.csv"), tab(ppr_t2s, "PAPER_table2_host_share.csv"),
+                       tab(ppr_t45, "PAPER_tables4_5_group_correlations.csv"), tab(ppr_t6, "PAPER_table6_species_correlations.csv"),
+                       tab(ppr_tx, "PAPER_text_numbers.csv")), format = "file"),
+
   # ---- Gap-filled dataset v1 ---------------------------------------------------
   tar_target(gf_partner_species, gf_scores$by_species |> dplyr::filter(as.character(best) == "partner method") |>
                dplyr::distinct(species) |> dplyr::pull(species)),
