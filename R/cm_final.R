@@ -112,7 +112,7 @@ year_ranges <- function(txt) {
   paste(vapply(runs, function(r) if (length(r) == 1) as.character(r) else paste0(r[1], "-", r[length(r)]), ""), collapse = ", ")
 }
 
-data_questions <- function(susp) {
+data_questions <- function(susp, rd = NULL, over_pct = 25) {
   fixed <- tibble::tribble(
     ~topic, ~where, ~question,
     "Units of growing stock", "Forest appendix, BG and LT sheets",
@@ -137,7 +137,16 @@ data_questions <- function(susp) {
                     check == "values ending in .333 / .667" ~ paste(detail, "- are these multi-year totals divided evenly?"),
                     TRUE ~ paste(detail, "- typing error (e.g. in 1000 m3) or missing year?"))) |>
     dplyr::select(topic, where, question)
-  dplyr::bind_rows(fixed, auto)
+  # region-years where one insect damaged more than over_pct % of its host (R/relative_damage.R)
+  host <- if (is.null(rd)) NULL else rd |>
+    dplyr::filter(level == "1_species", relative_pct > over_pct) |>
+    dplyr::transmute(topic = paste0("More than ", over_pct, "% of the host in one year"),
+                     where = paste0(country, " ", nuts_id, " (", year, ")"),
+                     question = paste0(group, ": ", format(round(damage), big.mark = ","), " ", unit, " = ",
+                                       round(relative_pct), "% of the region's ", host_tree,
+                                       dplyr::if_else(unit == "m3", " growing stock", " forest area"),
+                                       " in one year. Typing error, wrong unit, or a real outbreak?"))
+  dplyr::bind_rows(fixed, host, auto)
 }
 
 # ---- Robustness of the usable pairs ----------------------------------------------

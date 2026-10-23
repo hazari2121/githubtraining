@@ -309,12 +309,29 @@ list(
       f(plot_within_vs_europe(eu_usable), "6g_usable_pairs_within_vs_europe.png", 9, 7.5))
   }, format = "file"),
 
+  # ---- Levels of aggregation and relative damage (R/levels.R, R/relative_damage.R)
+  tar_target(lv_map, levels_map(ph_hier, species_meta, cb_species)),
+  tar_target(rel_dmg, relative_damage(cb_dmg, lv_map, hs_stock)),
+  tar_target(rel_years, relative_damage_years(rel_dmg)),
+  tar_target(rel_sum, relative_damage_summary(rel_dmg, rel_years)),
+  tar_target(rel_country, relative_damage_country(rel_dmg)),
+  tar_target(rel_csv, c(write_csv_out(rel_dmg, "data/processed/relative_damage_region_year.csv"),
+                        tab(rel_sum, "RELATIVE_damage_by_group_all_levels.csv"),
+                        tab(rel_years, "RELATIVE_damage_by_group_per_year.csv"),
+                        tab(rel_country, "RELATIVE_damage_by_country.csv"),
+                        tab(lv_map, "LEVELS_insect_to_group_and_host.csv")), format = "file"),
+  tar_target(fig_rel_levels, {
+    dir.create("outputs/figures/final/2_host_killed_average", showWarnings = FALSE)
+    c(save_fig(plot_relative_damage_levels(rel_sum, "Borers"), "outputs/figures/final/2_host_killed_average/2e_all_levels_borers.png", 10, 7),
+      save_fig(plot_relative_damage_levels(rel_sum, "Defoliators"), "outputs/figures/final/2_host_killed_average/2f_all_levels_defoliators.png", 10, 6.5))
+  }, format = "file"),
+
   # ---- Finishing the correlation metrics (R/cm_final.R) ------------------------
   tar_target(cm_fdr, pair_fdr(cb_tr, cb_species, cb_verdict)),
   tar_target(cm_fdr_sum, fdr_summary(cm_fdr)),
   tar_target(cm_r_wo, r_without_regions(cb_tr, cb_usable)),
   tar_target(cm_usable_sum, usable_summary(cb_usable, cm_fdr, cm_r_wo)),
-  tar_target(cm_questions, data_questions(tot_suspicious)),
+  tar_target(cm_questions, data_questions(tot_suspicious, rel_dmg)),
   tar_target(cm_robust, usable_robustness(cb_tr, cb_usable)),
   tar_target(cm_robust_csv, tab(cm_robust, "CM_usable_pairs_robustness.csv"), format = "file"),
   tar_target(cm_final_csv, c(tab(cm_fdr, "CM_pairs_fdr.csv"), tab(cm_fdr_sum, "CM_fdr_summary.csv"),

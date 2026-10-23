@@ -1,0 +1,191 @@
+level,group,code,guild,unit,host_tree,host_col,host_is_proxy
+1_species,geo_db,geo_db,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+1_species,agr_big,agr_big,Borers,m3,oak,oak,FALSE
+1_species,agr_vir,agr_vir,Borers,m3,broadleaves,broadleaves_all,FALSE
+1_species,sco_int,sco_int,Borers,m3,oak,oak,FALSE
+1_species,sco_rat,sco_rat,Borers,m3,birch,broadleaves_all,TRUE
+1_species,sco_sco,sco_sco,Borers,m3,elm,broadleaves_all,TRUE
+1_species,sap_car,sap_car,Borers,m3,poplar / willow,broadleaves_all,TRUE
+1_species,xyl_spp,xyl_spp,Borers,m3,broadleaves,broadleaves_all,FALSE
+1_species,den_mic,den_mic,Borers,m3,spruce,spruce,FALSE
+1_species,ips_ami,ips_ami,Borers,m3,spruce,spruce,FALSE
+1_species,ips_dup,ips_dup,Borers,m3,spruce,spruce,FALSE
+1_species,ips_typ,ips_typ,Borers,m3,spruce,spruce,FALSE
+1_species,pit_cha,pit_cha,Borers,m3,spruce,spruce,FALSE
+1_species,pol_pol,pol_pol,Borers,m3,spruce,spruce,FALSE
+1_species,tet_spp,tet_spp,Borers,m3,spruce,spruce,FALSE
+1_species,uro_sir_spp,uro_sir_spp,Borers,m3,conifers,conifers_all,FALSE
+1_species,xyl_lin,xyl_lin,Borers,m3,conifers,conifers_all,FALSE
+1_species,ips_acu,ips_acu,Borers,m3,pine,pine,FALSE
+1_species,ips_sex,ips_sex,Borers,m3,pine,pine,FALSE
+1_species,pha_cya,pha_cya,Borers,m3,pine,pine,FALSE
+1_species,pis_pin,pis_pin,Borers,m3,pine,pine,FALSE
+1_species,pit_bid,pit_bid,Borers,m3,pine,pine,FALSE
+1_species,tom_spp,tom_spp,Borers,m3,pine,pine,FALSE
+1_species,pit_spp,pit_spp,Borers,m3,fir,fir,FALSE
+1_species,ips_cem,ips_cem,Borers,m3,larch,conifers_all,TRUE
+1_species,tet_gab,tet_gab,Borers,m3,larch,conifers_all,TRUE
+1_species,cep_spp,cep_spp,Defoliators,ha,spruce,spruce,FALSE
+1_species,lym_mon,lym_mon,Defoliators,ha,spruce and pine,conifers_all,FALSE
+1_species,pri_abi,pri_abi,Defoliators,ha,spruce,spruce,FALSE
+1_species,zei_gri,zei_gri,Defoliators,ha,larch,conifers_all,TRUE
+1_species,bup_pin,bup_pin,Defoliators,ha,pine,pine,FALSE
+1_species,den_pin,den_pin,Defoliators,ha,pine,pine,FALSE
+1_species,dip_sp,dip_sp,Defoliators,ha,pine,pine,FALSE
+1_species,neo_ser,neo_ser,Defoliators,ha,pine,pine,FALSE
+1_species,pan_fla,pan_fla,Defoliators,ha,pine,pine,FALSE
+1_species,tha_pit,tha_pit,Defoliators,ha,pine,pine,FALSE
+1_species,clo_ana,clo_ana,Defoliators,ha,poplar / willow,broadleaves_all,TRUE
+1_species,era_def,era_def,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+1_species,lym_dis,lym_dis,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+1_species,mel_spp,mel_spp,Defoliators,ha,all forest,all_forest,FALSE
+1_species,ope_spp,ope_spp,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+1_species,tha_pro,tha_pro,Defoliators,ha,oak,oak,FALSE
+1_species,tor_vir,tor_vir,Defoliators,ha,oak,oak,FALSE
+2_host_tree,Borers on pine,CambXyl_con&BB_con&BO,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,CambXyl_con&BO,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on spruce,CambXyl_con&BB_con&SM,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on larch,CambXyl_con&MD,Borers,m3,larch,conifers_all,TRUE
+2_host_tree,Defoliators on broadleaves,Def_dec,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+2_host_tree,Defoliators on oak,Def_dec&DB,Defoliators,ha,oak,oak,FALSE
+2_host_tree,Defoliators on broadleaves,geo_db,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+2_host_tree,Borers on oak,agr_big,Borers,m3,oak,oak,FALSE
+2_host_tree,Borers on broadleaves,agr_vir,Borers,m3,broadleaves,broadleaves_all,FALSE
+2_host_tree,Borers on oak,sco_int,Borers,m3,oak,oak,FALSE
+2_host_tree,Borers on birch,sco_rat,Borers,m3,birch,broadleaves_all,TRUE
+2_host_tree,Borers on elm,sco_sco,Borers,m3,elm,broadleaves_all,TRUE
+2_host_tree,Borers on poplar / willow,sap_car,Borers,m3,poplar / willow,broadleaves_all,TRUE
+2_host_tree,Borers on broadleaves,xyl_spp,Borers,m3,broadleaves,broadleaves_all,FALSE
+2_host_tree,Borers on spruce,den_mic,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,ips_ami,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,ips_dup,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,ips_typ,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,pit_cha,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,pol_pol,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on spruce,tet_spp,Borers,m3,spruce,spruce,FALSE
+2_host_tree,Borers on conifers,uro_sir_spp,Borers,m3,conifers,conifers_all,FALSE
+2_host_tree,Borers on conifers,xyl_lin,Borers,m3,conifers,conifers_all,FALSE
+2_host_tree,Borers on pine,ips_acu,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,ips_sex,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,pha_cya,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,pis_pin,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,pit_bid,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on pine,tom_spp,Borers,m3,pine,pine,FALSE
+2_host_tree,Borers on fir,pit_spp,Borers,m3,fir,fir,FALSE
+2_host_tree,Borers on larch,ips_cem,Borers,m3,larch,conifers_all,TRUE
+2_host_tree,Borers on larch,tet_gab,Borers,m3,larch,conifers_all,TRUE
+2_host_tree,Defoliators on spruce,cep_spp,Defoliators,ha,spruce,spruce,FALSE
+2_host_tree,Defoliators on spruce and pine,lym_mon,Defoliators,ha,spruce and pine,conifers_all,FALSE
+2_host_tree,Defoliators on spruce,pri_abi,Defoliators,ha,spruce,spruce,FALSE
+2_host_tree,Defoliators on larch,zei_gri,Defoliators,ha,larch,conifers_all,TRUE
+2_host_tree,Defoliators on pine,bup_pin,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on pine,den_pin,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on pine,dip_sp,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on pine,neo_ser,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on pine,pan_fla,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on pine,tha_pit,Defoliators,ha,pine,pine,FALSE
+2_host_tree,Defoliators on poplar / willow,clo_ana,Defoliators,ha,poplar / willow,broadleaves_all,TRUE
+2_host_tree,Defoliators on broadleaves,era_def,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+2_host_tree,Defoliators on broadleaves,lym_dis,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+2_host_tree,Defoliators on all forest,mel_spp,Defoliators,ha,all forest,all_forest,FALSE
+2_host_tree,Defoliators on broadleaves,ope_spp,Defoliators,ha,broadleaves,broadleaves_all,FALSE
+2_host_tree,Defoliators on oak,tha_pro,Defoliators,ha,oak,oak,FALSE
+2_host_tree,Defoliators on oak,tor_vir,Defoliators,ha,oak,oak,FALSE
+3_host_type,Borers on gymnosperms,CambXyl_con&BB_con&BO,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,CambXyl_con&BO,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,CambXyl_con&BB_con&SM,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,CambXyl_con&MD,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on angiosperms,Def_dec,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,Def_dec&DB,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,geo_db,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,agr_big,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,agr_vir,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,sco_int,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,sco_rat,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,sco_sco,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,sap_car,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on angiosperms,xyl_spp,Borers,m3,angiosperms,broadleaves_all,FALSE
+3_host_type,Borers on gymnosperms,den_mic,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_ami,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_dup,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_typ,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pit_cha,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pol_pol,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,tet_spp,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,uro_sir_spp,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,xyl_lin,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_acu,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_sex,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pha_cya,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pis_pin,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pit_bid,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,tom_spp,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,pit_spp,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,ips_cem,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Borers on gymnosperms,tet_gab,Borers,m3,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,cep_spp,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,lym_mon,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,pri_abi,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,zei_gri,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,bup_pin,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,den_pin,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,dip_sp,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,neo_ser,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,pan_fla,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on gymnosperms,tha_pit,Defoliators,ha,gymnosperms,conifers_all,FALSE
+3_host_type,Defoliators on angiosperms,clo_ana,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,era_def,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,lym_dis,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,mel_spp,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,ope_spp,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,tha_pro,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+3_host_type,Defoliators on angiosperms,tor_vir,Defoliators,ha,angiosperms,broadleaves_all,FALSE
+4_guild,All borers,CambXyl_con&BB_con&BO,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,CambXyl_con&BO,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,CambXyl_con&BB_con&SM,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,CambXyl_con&MD,Borers,m3,all forest,all_forest,FALSE
+4_guild,All defoliators,Def_dec,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,Def_dec&DB,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,geo_db,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All borers,agr_big,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,agr_vir,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,sco_int,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,sco_rat,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,sco_sco,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,sap_car,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,xyl_spp,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,den_mic,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_ami,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_dup,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_typ,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pit_cha,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pol_pol,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,tet_spp,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,uro_sir_spp,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,xyl_lin,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_acu,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_sex,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pha_cya,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pis_pin,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pit_bid,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,tom_spp,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,pit_spp,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,ips_cem,Borers,m3,all forest,all_forest,FALSE
+4_guild,All borers,tet_gab,Borers,m3,all forest,all_forest,FALSE
+4_guild,All defoliators,cep_spp,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,lym_mon,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,pri_abi,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,zei_gri,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,bup_pin,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,den_pin,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,dip_sp,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,neo_ser,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,pan_fla,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,tha_pit,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,clo_ana,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,era_def,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,lym_dis,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,mel_spp,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,ope_spp,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,tha_pro,Defoliators,ha,all forest,all_forest,FALSE
+4_guild,All defoliators,tor_vir,Defoliators,ha,all forest,all_forest,FALSE
