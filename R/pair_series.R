@@ -61,31 +61,54 @@ plot_pair_series <- function(ps, grp) {
 # with that region's normal, y = insect B. r = the correlation of these dots.
 pair_points <- function(tr, usable) {
   z <- dplyr::filter(tr, !is.na(z_within)) |> dplyr::select(country, nuts_id, year, species, z_within)
-  purrr::pmap_dfr(dplyr::select(usable, species_a, species_b, r, group, Pair), function(species_a, species_b, r, group, Pair) {
+  purrr::pmap_dfr(dplyr::select(usable, species_a, species_b, r, group, Pair, group_a, group_b, Hosts),
+                  function(species_a, species_b, r, group, Pair, group_a, group_b, Hosts) {
     dplyr::inner_join(dplyr::filter(z, species == species_a) |> dplyr::select(-species, z_a = z_within),
                       dplyr::filter(z, species == species_b) |> dplyr::select(-species, z_b = z_within),
                       by = c("country", "nuts_id", "year")) |>
-      dplyr::mutate(species_a, species_b, r, group, Pair, .before = 1)
+      dplyr::mutate(species_a, species_b, r, group, Pair, group_a, group_b, Hosts, .before = 1)
   })
 }
 
+# Scatter per pair with a straight-line (least-squares) fit and its 95% band.
+# Same data as r: x = first insect, y = second insect, each region against its
+# own normal. Panel titles as in the time-series figures.
 plot_pair_scatter <- function(pp, grp) {
+  split2 <- function(x, i) vapply(strsplit(x, " x ", fixed = TRUE), `[`, "", i)
+  guild1 <- function(g) tolower(sub("s on .*", "", g))
   d <- dplyr::filter(pp, group == grp) |>
     dplyr::group_by(Pair) |>
-    dplyr::mutate(panel = paste0(Pair, "\nr = ", formatC(r[1], format = "f", digits = 2), "  (", dplyr::n(), " region-years)")) |>
-    dplyr::ungroup()
-  d <- d |> dplyr::mutate(panel = factor(panel, unique(panel[order(-abs(r))])))
+    dplyr::mutate(n = dplyr::n(), n_regions = dplyr::n_distinct(nuts_id),
+                  slope = stats::coef(stats::lm(z_b ~ z_a))[2]) |>
+    dplyr::ungroup() |>
+    dplyr::mutate(lab_a = paste0(split2(Pair, 1), " (", guild1(group_a), ", ", split2(Hosts, 1), ")"),
+                  lab_b = paste0(split2(Pair, 2), " (", guild1(group_b), ", ", split2(Hosts, 2), ")"),
+                  panel = paste0("x: ", lab_a, "\ny: ", lab_b,
+                                 "\nr = ", formatC(r, format = "f", digits = 2), ", R\u00b2 = ", formatC(r^2, format = "f", digits = 2),
+                                 "  (", n, " region-years, ", n_regions, " regions)"))
+  d <- dplyr::mutate(d, panel = factor(panel, unique(panel[order(-abs(r))])))
+  lim <- stats::quantile(abs(c(d$z_a, d$z_b)), 0.995)
   ggplot2::ggplot(d, ggplot2::aes(z_a, z_b)) +
     ggplot2::geom_hline(yintercept = 0, colour = "#d9d8d3", linewidth = 0.3) +
     ggplot2::geom_vline(xintercept = 0, colour = "#d9d8d3", linewidth = 0.3) +
-    ggplot2::geom_point(colour = "#184f95", alpha = 0.25, size = 0.9) +
-    ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = FALSE, colour = "#eb6834", linewidth = 0.8) +
+    ggplot2::geom_point(colour = "#184f95", alpha = 0.22, size = 1, stroke = 0) +
+    ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = TRUE, level = 0.95,
+                         colour = "#eb6834", fill = "#eb6834", alpha = 0.18, linewidth = 0.9) +
+    ggplot2::coord_cartesian(xlim = c(-lim, lim), ylim = c(-lim, lim)) +
     ggplot2::facet_wrap(~ panel, ncol = 3) +
-    ggplot2::labs(x = "First insect in the title (0 = normal year for the region)", y = "Second insect (0 = normal year)",
-                  title = sub("^[0-9]+\\. ", "Usable pairs, every region-year: ", grp),
-                  subtitle = "One dot = one region in one year where both insects are recorded. Line = straight-line fit.\nThe tighter the dots around the line, the stronger the link (r).",
-                  caption = "Each region's log(1 + damage) series standardised against its own mean. Reported data, no gap-filling.") +
-    theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", size = 7.5))
+    ggplot2::labs(x = "x: first insect, damage compared with the region's normal (0 = normal year)",
+                  y = "y: second insect (0 = normal year)",
+                  title = paste0("Usable pairs as scatterplots: ", sub("^[0-9]+\\. ", "", grp)),
+                  subtitle = paste("One dot = one region in one year where both insects are recorded.",
+                                   "Orange line = straight-line fit, band = its 95% range.",
+                                   "\nDots rising to the right = bad years together; falling = opposite. The tighter the dots around the line, the higher r."),
+                  caption = paste("Each region's log(1 + damage) series standardised against its own mean",
+                                  "(+1 = one standard deviation above normal).",
+                                  "\nr = same-year correlation (correlation metrics); R\u00b2 = r x r, the share of one insect's",
+                                  "ups and downs the line explains.",
+                                  "\nVertical or horizontal stacks of dots = years with 0 damage in a region.",
+                                  "\nReported data, no gap-filling. A few extreme dots beyond the plotted range are not shown but are in the fit.")) +
+    theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", size = 7), aspect.ratio = 1)
 }
 
 # ---- C: real damage over time for the strongest pairs -----------------------------

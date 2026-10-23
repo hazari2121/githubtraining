@@ -109,6 +109,20 @@ Pairs are grouped by what the two insects are (the paper's level-1 groups): both
 
 ![](../outputs/figures/final/5_usable_pairs_time_series/5e_a_borer_with_a_defoliator.png)
 
+### The same pairs as scatterplots
+
+One dot = one region in one year where both insects are recorded (x = first insect, y = second, each against the region's own normal). Orange line = straight-line fit, band = its 95% range. This is exactly the data r is computed from; R² = r × r.
+
+![](../outputs/figures/final/5_usable_pairs_scatter/5f_scatter_both_insects_are_borers_on_gymnosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_scatter/5g_scatter_a_borer_on_gymnosperms_with_a_borer_on_angiosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_scatter/5h_scatter_both_insects_are_borers_on_angiosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_scatter/5i_scatter_both_insects_are_defoliators_on_gymnosperms.png)
+
+![](../outputs/figures/final/5_usable_pairs_scatter/5j_scatter_a_borer_with_a_defoliator.png)
+
 ---
 
 ## 6. Bringing in more countries
