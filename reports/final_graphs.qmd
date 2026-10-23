@@ -21,7 +21,7 @@ execute:
 
 ---
 
-## 1. Proportion of host killed per year
+## 1. Proportion of host plants killed per year
 
 % of the host's growing stock killed (borers) or forest area defoliated (defoliators) in each year = that year's damage / host of the regions recording it.
 
@@ -39,7 +39,7 @@ execute:
 
 ---
 
-## 2. Proportion of host killed on average
+## 2. Proportion of host plants killed on average
 
 Average per year = all recorded damage 2000–2022 / all host of the region-years where it is recorded.
 

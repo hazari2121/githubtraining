@@ -180,6 +180,13 @@ plot_share_species_avg <- function(sa, ph_hier, species_keep) {
 }
 
 # Year by year for the species with the largest average share in one guild
+# Plain titles for the host-share graphs (sets 1 and 2): "proportion of host plants killed".
+# For defoliators the measure is the host forest area defoliated, said in the subtitle.
+killed_note <- function(guild) {
+  if (guild == "Borers") "Measured as % of the host's growing stock (m3) killed."
+  else "For defoliators: % of the host's forest area (ha) defoliated (stripped of leaves, not always killed)."
+}
+
 plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
   top <- dplyr::filter(sa, level == "species", guild == !!guild, group %in% unique(sys$species)) |>
     dplyr::slice_max(share_pct_per_year, n = n) |> dplyr::pull(group)
@@ -193,8 +200,8 @@ plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
     ggplot2::geom_point(colour = guild_cols[[guild]], size = 1) +
     ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 3) +
     ggplot2::labs(x = NULL, y = paste(what, "that year"),
-                  title = paste0(guild, ": ", what, ", year by year"),
-                  subtitle = paste("The", n, "species with the largest average share, 2000-2022. Each panel has its own scale."),
+                  title = paste0(guild, ": proportion of host plants killed per year, by species"),
+                  subtitle = paste("The", n, "species with the largest average share, 2000-2022. Each panel has its own scale.", killed_note(guild)),
                   caption = share_data_caption) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
@@ -215,8 +222,8 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
                        size = 2.8, colour = pal$ink2) +
     ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.12))) +
     ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
-                  title = paste0(guild, ": average share of the host tree ", what, " per year"),
-                  subtitle = "Host tree in brackets",
+                  title = paste0(guild, ": proportion of host plants killed per year on average, by species"),
+                  subtitle = paste("Host tree in brackets.", killed_note(guild)),
                   caption = paste("Average = all recorded damage / all host forest of the regions and years where the species is recorded (0 included).",
                                   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
     theme_eu(9)
@@ -268,8 +275,8 @@ plot_guild_share_years <- function(gy, guild) {
     ggplot2::geom_point(colour = guild_cols[[guild]], size = 1.2) +
     ggplot2::scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, NA)) +
     ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 2) +
-    ggplot2::labs(x = NULL, y = paste(what, "that year"), title = paste0(guild, ": ", what, " per year (2000-2022)"),
-                  subtitle = "Each panel has its own scale", caption = guild_share_caption) +
+    ggplot2::labs(x = NULL, y = paste(what, "that year"), title = paste0(guild, ": proportion of host plants killed per year (2000-2022)"),
+                  subtitle = paste("Each panel has its own scale.", killed_note(guild)), caption = guild_share_caption) +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
 
@@ -285,6 +292,7 @@ plot_guild_share_avg <- function(ga, guild) {
     ggplot2::geom_text(ggplot2::aes(label = txt), hjust = 0, nudge_x = max(d$share_pct_per_year) * 0.02, size = 3, colour = pal$ink2) +
     ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.8))) +
     ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
-                  title = paste0(guild, ": average share of the host ", what, " per year"), caption = guild_share_caption) +
+                  title = paste0(guild, ": proportion of host plants killed per year on average (2000-2022)"),
+                  subtitle = killed_note(guild), caption = guild_share_caption) +
     theme_eu(9.5)
 }
