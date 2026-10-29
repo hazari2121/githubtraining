@@ -187,20 +187,26 @@ killed_note <- function(guild) {
   else "For defoliators: % of the host's forest area (ha) defoliated (stripped of leaves, not always killed)."
 }
 
+# "Spruce killed by Ips typographus": the tree is what is measured, the insect what did it
+killed_label <- function(host, insect, guild) {
+  paste0(toupper(substr(host, 1, 1)), substring(host, 2), dplyr::if_else(guild == "Borers", " killed by ", " defoliated by "), insect)
+}
+
 plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
   top <- dplyr::filter(sa, level == "species", guild == !!guild, group %in% unique(sys$species)) |>
     dplyr::slice_max(share_pct_per_year, n = n) |> dplyr::pull(group)
   nm <- stats::setNames(ph_hier$name, ph_hier$species)
   d <- dplyr::filter(sys, species %in% top) |>
-    dplyr::mutate(panel = factor(paste0(nm[species], " (", host_tree, ")"),
-                                 paste0(nm[top], " (", dplyr::distinct(sys, species, host_tree)$host_tree[match(top, dplyr::distinct(sys, species, host_tree)$species)], ")")))
+    dplyr::mutate(panel = killed_label(host_tree, nm[species], guild))
+  hs <- dplyr::distinct(sys, species, host_tree)
+  d$panel <- factor(d$panel, killed_label(hs$host_tree[match(top, hs$species)], nm[top], guild))
   what <- if (guild == "Borers") "% of host growing stock killed" else "% of host forest area defoliated"
   ggplot2::ggplot(d, ggplot2::aes(year, share_pct)) +
     ggplot2::geom_line(colour = guild_cols[[guild]], linewidth = 0.8) +
     ggplot2::geom_point(colour = guild_cols[[guild]], size = 1) +
     ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 3) +
     ggplot2::labs(x = NULL, y = paste(what, "that year"),
-                  title = paste0(guild, ": proportion of host plants killed per year, by species"),
+                  title = paste0(guild, ": proportion of host plants killed per year, by insect species"),
                   subtitle = paste("The", n, "species with the largest average share, 2000-2022. Each panel has its own scale.", killed_note(guild)),
                   caption = share_data_caption) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
@@ -213,7 +219,7 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
   d <- dplyr::filter(sa, level == "species", group %in% species_keep, guild == !!guild) |>
     dplyr::left_join(dplyr::select(ph_hier, group = species, name), by = "group") |>
     dplyr::arrange(share_pct_per_year) |>
-    dplyr::mutate(lab = factor(paste0(name, " (", host, ")"), paste0(name, " (", host, ")")),
+    dplyr::mutate(lab = killed_label(host, name, guild), lab = factor(lab, lab),
                   txt = dplyr::if_else(share_pct_per_year < 0.001, "<0.001%",
                                        paste0(formatC(share_pct_per_year, format = "f", digits = 3), "%")))
   ggplot2::ggplot(d, ggplot2::aes(share_pct_per_year, lab)) +
@@ -222,8 +228,8 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
                        size = 2.8, colour = pal$ink2) +
     ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.12))) +
     ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
-                  title = paste0(guild, ": proportion of host plants killed per year on average, by species"),
-                  subtitle = paste("Host tree in brackets.", killed_note(guild)),
+                  title = paste0(guild, ": proportion of host plants killed per year on average, by insect species"),
+                  subtitle = killed_note(guild),
                   caption = paste("Average = all recorded damage / all host forest of the regions and years where the species is recorded (0 included).",
                                   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
     theme_eu(9)
