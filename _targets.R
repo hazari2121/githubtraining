@@ -326,35 +326,25 @@ list(
       save_fig(plot_relative_damage_levels(rel_sum, "Defoliators"), "outputs/figures/final/2_host_killed_average/2f_all_levels_defoliators.png", 10, 6.5))
   }, format = "file"),
 
-  # ---- Pairs of broader categories: host tree, host type, guild (R/level_pairs.R)
-  tar_target(lp_level, c("2_host_tree", "3_host_type", "4_guild")),
-  tar_target(lp_tr, level_transforms(cb_cells, lv_map, lp_level), pattern = map(lp_level), iteration = "list"),
-  tar_target(lp_m, purrr::map2_dfr(lp_tr, lp_level, function(tr, L) level_pair_metrics(tr, lv_map, L))),
+  # ---- Pairs of broader categories: the paper's groups (R/level_pairs.R) ---------
+  tar_target(pg_map, paper_group_map(ph_hier)),
+  tar_target(lp_level, c("level2", "level1", "total")),
+  tar_target(lp_tr, level_transforms(cb_cells, pg_map, lp_level), pattern = map(lp_level), iteration = "list"),
+  tar_target(lp_m, purrr::map2_dfr(lp_tr, lp_level, level_pair_metrics)),
   tar_target(lp_pts, purrr::map2_dfr(lp_tr, lp_level, function(tr, L) level_pair_points(tr, dplyr::filter(lp_m, level == L)))),
   tar_target(lp_csv, tab(lp_m, "CM_broader_category_pairs_all_levels.csv"), format = "file"),
   tar_target(fig_lp, {
-    dir.create("outputs/figures/final/5_broader_categories", recursive = TRUE, showWarnings = FALSE)
-    # host tree level: pairs whose 95% range excludes 0, in at least 15 regions and 4 countries
-    # (the 2025 EU-ForDAM paper's rule for species-level analyses), top 12 per type
-    sel <- lp_m |> dplyr::filter(level == "2_host_tree", sure, n_regions >= 15, n_countries >= 4) |>
-      dplyr::group_by(pair_type) |> dplyr::slice_max(abs(r), n = 12, with_ties = FALSE) |> dplyr::ungroup()
-    n_sure <- lp_m |> dplyr::filter(level == "2_host_tree", sure, n_regions >= 15, n_countries >= 4) |> dplyr::count(pair_type)
-    figs <- list(list(type = "both borers", tag = "a_host_tree_both_borers"),
-                 list(type = "both defoliators", tag = "b_host_tree_both_defoliators"),
-                 list(type = "a borer group with a defoliator group", tag = "c_host_tree_borers_x_defoliators"))
-    out <- unlist(lapply(figs, function(f) {
-      k <- dplyr::filter(sel, pair_type == f$type); pts <- dplyr::semi_join(lp_pts, k, by = c("level", "group_a", "group_b"))
-      ttl <- paste0("Broader categories, host tree level: ", f$type)
-      extra <- paste0("\nPairs whose 95% range excludes 0, in at least 15 regions and 4 countries (the 2025 paper's rule): ", nrow(k), " shown of ",
-                      n_sure$n[n_sure$pair_type == f$type], " (strongest first). All pairs: CM_broader_category_pairs_all_levels.csv.")
-      h <- 2.3 + 3.4 * ceiling(nrow(k) / 3)
-      c(save_fig(plot_level_series(pts, ttl, extra), file.path("outputs/figures/final/5_broader_categories", paste0(f$tag, "_time_series.png")), 11, h),
-        save_fig(plot_level_scatter(pts, ttl, extra), file.path("outputs/figures/final/5_broader_categories", paste0(f$tag, "_scatter.png")), 11, h + 0.4))
+    dir <- "outputs/figures/final/5_broader_categories"
+    unlink(list.files(dir, full.names = TRUE)); dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    figs <- list(list(L = "level2", tag = "a_fir_spruce_pine", ttl = "Broader categories: borers and defoliators on fir, spruce and pine (the paper's level 2)"),
+                 list(L = "level1", tag = "b_gymnosperms_angiosperms", ttl = "Broader categories: borers and defoliators on gymnosperms and angiosperms (the paper's level 1)"),
+                 list(L = "total", tag = "c_total_borers_x_total_defoliators", ttl = "Broader categories: total borers x total defoliators"))
+    unlist(lapply(figs, function(f) {
+      pts <- dplyr::filter(lp_pts, level == f$L); k <- dplyr::n_distinct(paste(pts$group_a, pts$group_b))
+      w <- if (k == 1) 9 else 11; h <- if (k == 1) 8 else 2.2 + 3.4 * ceiling(k / 3)
+      c(save_fig(plot_level_series(pts, f$ttl), file.path(dir, paste0(f$tag, "_time_series.png")), w, h),
+        save_fig(plot_level_scatter(pts, f$ttl), file.path(dir, paste0(f$tag, "_scatter.png")), w, h + 0.5))
     }))
-    pts34 <- dplyr::filter(lp_pts, level != "2_host_tree")
-    ttl <- "Broader categories: host type (gymnosperms / angiosperms) and guild (all borers x all defoliators)"
-    c(out, save_fig(plot_level_series(pts34, ttl), "outputs/figures/final/5_broader_categories/d_host_type_and_guild_time_series.png", 11, 2.3 + 3.4 * 3),
-      save_fig(plot_level_scatter(pts34, ttl), "outputs/figures/final/5_broader_categories/d_host_type_and_guild_scatter.png", 11, 2.7 + 3.4 * 3))
   }, format = "file"),
 
   # ---- Finishing the correlation metrics (R/cm_final.R) ------------------------

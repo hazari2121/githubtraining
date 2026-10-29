@@ -125,23 +125,19 @@ One dot = one region in one year where both insects are recorded (x = first inse
 
 ### Broader categories
 
-The same graphs for groups instead of single insects: host tree (e.g. borers on pine × borers on fir), host type (gymnosperms / angiosperms) and guild (all borers × all defoliators). Group value = sum of all recorded member codes in a region-year. At the host-tree level, the graphs show pairs whose 95% range excludes 0 and that are recorded in at least 15 regions and at least 4 countries, the same rule the 2025 EU-ForDAM paper used for its species-level analyses (at least 15 time series from at least 4 countries); every pair is in `outputs/tables/CM_broader_category_pairs_all_levels.csv`.
+The same graphs for the groups of the 2025 EU-ForDAM paper (its Table 1) instead of single insects: borers and defoliators on fir, spruce and pine (the paper's level 2), on gymnosperms and angiosperms (level 1), and total borers × total defoliators. Group value = sum of all recorded member codes in a region-year. Every pair is shown; all numbers are in `outputs/tables/CM_broader_category_pairs_all_levels.csv`.
 
-![](../outputs/figures/final/5_broader_categories/a_host_tree_both_borers_time_series.png)
+![](../outputs/figures/final/5_broader_categories/a_fir_spruce_pine_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/a_host_tree_both_borers_scatter.png)
+![](../outputs/figures/final/5_broader_categories/a_fir_spruce_pine_scatter.png)
 
-![](../outputs/figures/final/5_broader_categories/b_host_tree_both_defoliators_time_series.png)
+![](../outputs/figures/final/5_broader_categories/b_gymnosperms_angiosperms_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/b_host_tree_both_defoliators_scatter.png)
+![](../outputs/figures/final/5_broader_categories/b_gymnosperms_angiosperms_scatter.png)
 
-![](../outputs/figures/final/5_broader_categories/c_host_tree_borers_x_defoliators_time_series.png)
+![](../outputs/figures/final/5_broader_categories/c_total_borers_x_total_defoliators_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/c_host_tree_borers_x_defoliators_scatter.png)
-
-![](../outputs/figures/final/5_broader_categories/d_host_type_and_guild_time_series.png)
-
-![](../outputs/figures/final/5_broader_categories/d_host_type_and_guild_scatter.png)
+![](../outputs/figures/final/5_broader_categories/c_total_borers_x_total_defoliators_scatter.png)
 
 ---
 
