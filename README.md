@@ -14,13 +14,16 @@ damage record is about every other species, as groundwork for gap-filling.
 - `data/lookup/species_guild_TEMPLATE.csv` – fill in guild/host, save as `species_guild.csv`
 - `reports/report.qmd` – summary report (rendered: `reports/report.html`)
 
-## Run
-Put `EUForDam_REW3.xlsx` in `data/raw/`, then:
+## Run everything (one command)
+1. Put the two raw files in `data/raw/`: `EUForDam_REW3.xlsx` and `Appendix_NUTS_Forests_12.xlsx`.
+2. In RStudio, set the working directory to this folder and run `source("run_everything.R")`
+   (or in a terminal: `Rscript run_everything.R`).
 
-```
-Rscript -e 'targets::tar_make()'
-quarto render reports/report.qmd
-```
+The script installs missing packages, checks the input files, rebuilds every
+current result (figures, tables, gap-filled data, comparison with the 2025
+paper) and renders the reports if Quarto is installed. First run about
+15-45 minutes; after a data update only the affected steps are redone.
+Set `FULL <- TRUE` at the top to also rebuild every earlier experiment.
 
 Status: version 3. Zeros are real observations (0 = monitored, no damage;
 empty = not monitored), so all recorded values are used; the >= 6 damage-year
