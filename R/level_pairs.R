@@ -66,10 +66,8 @@ level_pair_points <- function(tr, pm) {
   })
 }
 
-level_panel <- function(d, xy = FALSE) {
-  lab <- if (xy) paste0(d$group_a, " (x) vs\n", d$group_b, " (y)") else paste0(d$group_a, " vs\n", d$group_b)
-  d |> dplyr::mutate(panel = paste0(lab, "\nr = ", formatC(r, format = "f", digits = 2),
-                                    " (", n_regions, " regions, ", n_countries, dplyr::if_else(n_countries == 1, " country)", " countries)")),
+level_panel <- function(d) {
+  d |> dplyr::mutate(panel = paste0(group_a, " vs\n", group_b, "\nr = ", formatC(r, format = "f", digits = 2)),
                      panel = factor(panel, unique(panel[order(-r)])))
 }
 
@@ -99,16 +97,22 @@ plot_level_series <- function(pts, title, subtitle) {
 }
 
 plot_level_scatter <- function(pts, title, subtitle) {
-  d <- level_panel(pts, xy = TRUE)
+  d <- level_panel(pts)
   lim <- stats::quantile(abs(c(d$z_a, d$z_b)), 0.995)
+  # each axis labelled inside its panel with the group it shows
+  ax <- dplyr::distinct(d, panel, group_a, group_b)
   ggplot2::ggplot(d, ggplot2::aes(z_a, z_b)) +
     ggplot2::geom_hline(yintercept = 0, colour = "#d9d8d3", linewidth = 0.3) +
     ggplot2::geom_vline(xintercept = 0, colour = "#d9d8d3", linewidth = 0.3) +
     ggplot2::geom_point(colour = "#184f95", alpha = 0.22, size = 1, stroke = 0) +
     ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = TRUE, colour = "#eb6834", fill = "#eb6834", alpha = 0.18, linewidth = 0.9) +
+    ggplot2::geom_text(data = ax, ggplot2::aes(x = lim, y = -lim, label = paste(short_group(group_a), "\u2192")),
+                       hjust = 1, vjust = 0, size = 2.5, colour = pal$ink2, inherit.aes = FALSE) +
+    ggplot2::geom_text(data = ax, ggplot2::aes(x = -lim, y = lim, label = paste(short_group(group_b), "\u2192")),
+                       angle = 90, hjust = 1, vjust = 1, size = 2.5, colour = pal$ink2, inherit.aes = FALSE) +
     ggplot2::coord_cartesian(xlim = c(-lim, lim), ylim = c(-lim, lim)) +
     ggplot2::facet_wrap(~ panel, ncol = 3) +
-    ggplot2::labs(x = "Damage anomaly of group x (z-score)", y = "Damage anomaly of group y (z-score)", title = title, subtitle = subtitle,
+    ggplot2::labs(x = "Damage anomaly (z-score)", y = "Damage anomaly (z-score)", title = title, subtitle = subtitle,
                   caption = paste0(level_caption, "\nPoints are region-years; lines are ordinary least-squares fits with 95% confidence bands.",
                                    " A few extreme points outside the plotted range are included in the fits.")) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold", size = 7), aspect.ratio = 1)
