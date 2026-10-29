@@ -125,19 +125,23 @@ One dot = one region in one year where both insects are recorded (x = first inse
 
 ### Broader categories
 
-The same graphs for the groups of the 2025 EU-ForDAM paper (its Table 1) instead of single insects: borers and defoliators on fir, spruce and pine (the paper's level 2), on gymnosperms and angiosperms (level 1), and total borers × total defoliators. Group value = sum of all recorded member codes in a region-year. Every pair is shown; all numbers are in `outputs/tables/CM_broader_category_pairs_all_levels.csv`.
+Synchrony of insect damage between host groups as defined in the 2025 EU-ForDAM study: bark and wood borers on *Abies alba*, *Picea abies* and *Pinus sylvestris*; defoliators on *Picea abies* and *Pinus sylvestris*; borers and defoliators on gymnosperms and angiosperms; and all borers vs all defoliators. A group's value is the sum of all agents recorded in that group in a region and year. All pairwise combinations are shown; numbers are in `outputs/tables/CM_broader_category_pairs_all_levels.csv`.
 
-![](../outputs/figures/final/5_broader_categories/a_fir_spruce_pine_time_series.png)
+![](../outputs/figures/final/5_broader_categories/a_conifer_hosts_within_guilds_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/a_fir_spruce_pine_scatter.png)
+![](../outputs/figures/final/5_broader_categories/a_conifer_hosts_within_guilds_scatter.png)
 
-![](../outputs/figures/final/5_broader_categories/b_gymnosperms_angiosperms_time_series.png)
+![](../outputs/figures/final/5_broader_categories/b_conifer_hosts_between_guilds_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/b_gymnosperms_angiosperms_scatter.png)
+![](../outputs/figures/final/5_broader_categories/b_conifer_hosts_between_guilds_scatter.png)
 
-![](../outputs/figures/final/5_broader_categories/c_total_borers_x_total_defoliators_time_series.png)
+![](../outputs/figures/final/5_broader_categories/c_gymnosperm_and_angiosperm_hosts_time_series.png)
 
-![](../outputs/figures/final/5_broader_categories/c_total_borers_x_total_defoliators_scatter.png)
+![](../outputs/figures/final/5_broader_categories/c_gymnosperm_and_angiosperm_hosts_scatter.png)
+
+![](../outputs/figures/final/5_broader_categories/d_all_borers_and_all_defoliators_time_series.png)
+
+![](../outputs/figures/final/5_broader_categories/d_all_borers_and_all_defoliators_scatter.png)
 
 ---
 

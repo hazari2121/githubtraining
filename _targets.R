@@ -336,14 +336,28 @@ list(
   tar_target(fig_lp, {
     dir <- "outputs/figures/final/5_broader_categories"
     unlink(list.files(dir, full.names = TRUE)); dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-    figs <- list(list(L = "level2", tag = "a_fir_spruce_pine", ttl = "Broader categories: borers and defoliators on fir, spruce and pine (the paper's level 2)"),
-                 list(L = "level1", tag = "b_gymnosperms_angiosperms", ttl = "Broader categories: borers and defoliators on gymnosperms and angiosperms (the paper's level 1)"),
-                 list(L = "total", tag = "c_total_borers_x_total_defoliators", ttl = "Broader categories: total borers x total defoliators"))
+    guild_of <- dplyr::distinct(pg_map, group, guild)
+    m <- lp_m |> dplyr::left_join(dplyr::rename(guild_of, group_a = group, guild_a = guild), by = "group_a") |>
+      dplyr::left_join(dplyr::rename(guild_of, group_b = group, guild_b = guild), by = "group_b") |>
+      dplyr::mutate(within = guild_a == guild_b)
+    figs <- list(
+      list(k = dplyr::filter(m, level == "level2", within), tag = "a_conifer_hosts_within_guilds",
+           ttl = "Synchrony of insect damage among conifer hosts within feeding guilds",
+           sub = "Bark and wood borers on Abies alba, Picea abies and Pinus sylvestris; defoliators on Picea abies and Pinus sylvestris"),
+      list(k = dplyr::filter(m, level == "level2", !within), tag = "b_conifer_hosts_between_guilds",
+           ttl = "Synchrony of insect damage between feeding guilds on conifer hosts",
+           sub = "Bark and wood borers on Abies alba, Picea abies and Pinus sylvestris, each paired with defoliators on Picea abies and Pinus sylvestris"),
+      list(k = dplyr::filter(m, level == "level1"), tag = "c_gymnosperm_and_angiosperm_hosts",
+           ttl = "Synchrony of insect damage on gymnosperm and angiosperm hosts",
+           sub = "Bark and wood borers and defoliators on gymnosperms and angiosperms, all pairwise combinations"),
+      list(k = dplyr::filter(m, level == "total"), tag = "d_all_borers_and_all_defoliators",
+           ttl = "Synchrony between total borer damage and total defoliation",
+           sub = "All bark and wood borer agents combined vs all defoliator agents combined"))
     unlist(lapply(figs, function(f) {
-      pts <- dplyr::filter(lp_pts, level == f$L); k <- dplyr::n_distinct(paste(pts$group_a, pts$group_b))
-      w <- if (k == 1) 9 else 11; h <- if (k == 1) 8 else 2.2 + 3.4 * ceiling(k / 3)
-      c(save_fig(plot_level_series(pts, f$ttl), file.path(dir, paste0(f$tag, "_time_series.png")), w, h),
-        save_fig(plot_level_scatter(pts, f$ttl), file.path(dir, paste0(f$tag, "_scatter.png")), w, h + 0.5))
+      pts <- dplyr::semi_join(lp_pts, f$k, by = c("level", "group_a", "group_b")); n <- nrow(f$k)
+      w <- if (n == 1) 9 else 11; h <- if (n == 1) 8 else 2.4 + 3.4 * ceiling(n / 3)
+      c(save_fig(plot_level_series(pts, f$ttl, f$sub), file.path(dir, paste0(f$tag, "_time_series.png")), w, h),
+        save_fig(plot_level_scatter(pts, f$ttl, f$sub), file.path(dir, paste0(f$tag, "_scatter.png")), w, h + 0.6))
     }))
   }, format = "file"),
 
