@@ -326,6 +326,36 @@ list(
       save_fig(plot_relative_damage_levels(rel_sum, "Defoliators"), "outputs/figures/final/2_host_killed_average/2f_all_levels_defoliators.png", 10, 6.5))
   }, format = "file"),
 
+  # ---- Pairs of broader categories: host tree, host type, guild (R/level_pairs.R)
+  tar_target(lp_level, c("2_host_tree", "3_host_type", "4_guild")),
+  tar_target(lp_tr, level_transforms(cb_cells, lv_map, lp_level), pattern = map(lp_level), iteration = "list"),
+  tar_target(lp_m, purrr::map2_dfr(lp_tr, lp_level, function(tr, L) level_pair_metrics(tr, lv_map, L))),
+  tar_target(lp_pts, purrr::map2_dfr(lp_tr, lp_level, function(tr, L) level_pair_points(tr, dplyr::filter(lp_m, level == L)))),
+  tar_target(lp_csv, tab(lp_m, "CM_broader_category_pairs_all_levels.csv"), format = "file"),
+  tar_target(fig_lp, {
+    dir.create("outputs/figures/final/5_broader_categories", recursive = TRUE, showWarnings = FALSE)
+    # host tree level: pairs whose 95% range excludes 0, in at least 10 regions, top 12 per type
+    sel <- lp_m |> dplyr::filter(level == "2_host_tree", sure, n_regions >= 10) |>
+      dplyr::group_by(pair_type) |> dplyr::slice_max(abs(r), n = 12, with_ties = FALSE) |> dplyr::ungroup()
+    n_sure <- lp_m |> dplyr::filter(level == "2_host_tree", sure, n_regions >= 10) |> dplyr::count(pair_type)
+    figs <- list(list(type = "both borers", tag = "a_host_tree_both_borers"),
+                 list(type = "both defoliators", tag = "b_host_tree_both_defoliators"),
+                 list(type = "a borer group with a defoliator group", tag = "c_host_tree_borers_x_defoliators"))
+    out <- unlist(lapply(figs, function(f) {
+      k <- dplyr::filter(sel, pair_type == f$type); pts <- dplyr::semi_join(lp_pts, k, by = c("level", "group_a", "group_b"))
+      ttl <- paste0("Broader categories, host tree level: ", f$type)
+      extra <- paste0("\nPairs whose 95% range excludes 0, in at least 10 regions: ", nrow(k), " shown of ",
+                      n_sure$n[n_sure$pair_type == f$type], " (strongest first). All pairs: CM_broader_category_pairs_all_levels.csv.")
+      h <- 2.3 + 3.4 * ceiling(nrow(k) / 3)
+      c(save_fig(plot_level_series(pts, ttl, extra), file.path("outputs/figures/final/5_broader_categories", paste0(f$tag, "_time_series.png")), 11, h),
+        save_fig(plot_level_scatter(pts, ttl, extra), file.path("outputs/figures/final/5_broader_categories", paste0(f$tag, "_scatter.png")), 11, h + 0.4))
+    }))
+    pts34 <- dplyr::filter(lp_pts, level != "2_host_tree")
+    ttl <- "Broader categories: host type (gymnosperms / angiosperms) and guild (all borers x all defoliators)"
+    c(out, save_fig(plot_level_series(pts34, ttl), "outputs/figures/final/5_broader_categories/d_host_type_and_guild_time_series.png", 11, 2.3 + 3.4 * 3),
+      save_fig(plot_level_scatter(pts34, ttl), "outputs/figures/final/5_broader_categories/d_host_type_and_guild_scatter.png", 11, 2.7 + 3.4 * 3))
+  }, format = "file"),
+
   # ---- Finishing the correlation metrics (R/cm_final.R) ------------------------
   tar_target(cm_fdr, pair_fdr(cb_tr, cb_species, cb_verdict)),
   tar_target(cm_fdr_sum, fdr_summary(cm_fdr)),
