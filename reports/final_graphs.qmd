@@ -17,7 +17,7 @@ execute:
 
 **Guild vs species.** Guild graphs add up all codes of the guild (aggregate codes included). Species graphs show individual species only. Borers and defoliators are always shown on separate graphs.
 
-**Host tree.** The host tree in the data file; insects feeding on several trees get the wider group (e.g. *L. monacha* spruce and pine, *L. dispar* broadleaves, *Melolontha* all forest). Larch, birch, elm and poplar are not separate in the forest appendix, so those species are divided by all conifers / all broadleaves. Check: damage never exceeds the host in any region and year (except Vienna, where the appendix gives 0 spruce but small spruce bark-beetle damage is reported).
+**Host tree.** The host tree in the data file, as in the 2025 EU-ForDAM paper. Only two insects are changed, because with the file's host their damage would exceed 100% of the host: *L. monacha* (file: spruce; used: spruce and pine) and *Melolontha* (file: oak; used: all forest). Larch, birch, elm and poplar are not separate in the forest appendix, so those species are divided by all conifers / all broadleaves. Check: damage never exceeds the host in any region and year (except Vienna, where the appendix gives 0 spruce but small spruce bark-beetle damage is reported).
 
 ---
 

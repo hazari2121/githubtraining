@@ -3,12 +3,12 @@ level1,Borers on angiosperms,0.01,0.006765458826207152,0.023703120201069898,Divi
 level1,Borers on gymnosperms,0.27,0.2560384150789106,0.29229254177370184,Same within rounding
 level1,Defoliators on angiosperms,0.95,0.9295678788085737,0.9677235955508141,Same within rounding
 level1,Defoliators on gymnosperms,0.46,0.41876640519841024,1.5054310647309281,Divided only by the host of the regions that record this insect
-species,Geometridae on oaks,0.53,0.5191425671519614,0.219893505732367,"Divided by all broadleaves (paper: oak), because it feeds on more than one tree"
+species,Geometridae on oaks,0.53,0.5191425671519614,0.9950858474514425,Divided only by the host of the regions that record this insect
 species,Ips typographus,0.49,0.46677280020966117,0.5090121158336338,Same within rounding
 species,Pityogenes chalcographus,0.02,0.02239032347046743,0.057943716683564704,Divided only by the host of the regions that record this insect
 species,Ips acuminatus,0.01,0.006364131996402664,0.01562280653323439,Divided only by the host of the regions that record this insect
 species,Phaenops cyanea,0.02,0.013819639763913661,0.03140759915482644,Divided only by the host of the regions that record this insect
 species,Tomicus spp.,0.01,0.0050505184918510524,0.011493843243675526,Same within rounding
-species,Lymantria monacha,0.43,0.41256181410839765,0.8022714872841427,"Divided by all conifers (paper: spruce), because it feeds on more than one tree"
-species,Lymantria dispar,1.7,1.6621838861749205,0.5077542605945625,"Divided by all broadleaves (paper: oak), because it feeds on more than one tree"
+species,Lymantria monacha,0.43,0.41256181410839765,0.8022714872841427,"Divided by all conifers (paper: spruce): on spruce alone, damage exceeds 100% of it"
+species,Lymantria dispar,1.7,1.6621838861749205,2.23154624319676,Divided only by the host of the regions that record this insect
 species,Tortrix viridana,0.46,0.44596202468257395,0.9820804867736695,Divided only by the host of the regions that record this insect

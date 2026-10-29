@@ -59,16 +59,14 @@ species_host <- c(
   tor_vir = "oak", tha_pro = "oak", agr_big = "oak", sco_int = "oak")
 
 # ---- One host table for every graph ------------------------------------------------
-# Host tree of each code = the host tree in the data file (HOSTTREE), except
-# for insects that feed on several trees, which get the wider group. The same
-# label is used in the ranking (level 2), the host-share graphs and the checks.
+# Host tree of each code = the host tree in the data file (HOSTTREE), as in the
+# 2025 EU-ForDAM paper. Changed only where the data prove the file's host
+# impossible (damage above 100% of that host in some region-years):
+#   L. monacha  file: spruce -> spruce and pine (98 region-years above 100% of spruce)
+#   Melolontha  file: oak    -> all forest      (13 region-years above 100% of oak)
 # Larch, birch, elm and poplar are not in the forest appendix, so their damage
 # is divided by all conifers / all broadleaves (forest_column_of).
-host_tree_override <- c(
-  lym_mon = "spruce and pine", mel_spp = "all forest",
-  lym_dis = "broadleaves", geo_db = "broadleaves", ope_spp = "broadleaves", era_def = "broadleaves",
-  agr_vir = "broadleaves", xyl_spp = "broadleaves", Def_dec = "broadleaves",
-  xyl_lin = "conifers", uro_sir_spp = "conifers", zei_gri = "larch")
+host_tree_override <- c(lym_mon = "spruce and pine", mel_spp = "all forest")
 
 forest_column_of <- c(spruce = "spruce", pine = "pine", fir = "fir", oak = "oak",
                       larch = "conifers_all", `spruce and pine` = "conifers_all", conifers = "conifers_all",

@@ -241,7 +241,7 @@ list(
       f(plot_guild_share_avg(g_avg, "Defoliators"), "2_host_killed_average/2b_guild_defoliators.png", 9, 3),
       f(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Borers"), "2_host_killed_average/2c_species_borers.png", 9, 6.5),
       f(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Defoliators"), "2_host_killed_average/2d_species_defoliators.png", 9, 5),
-      save_grob(plot_paper_share_comparison(share_vs_paper), "outputs/figures/final/2_host_killed_average/2g_comparison_with_2025_paper.png", 13, 5.6),
+      save_grob(plot_paper_share_comparison(share_vs_paper), "outputs/figures/final/2_host_killed_average/2g_comparison_with_2025_paper.png", 13.5, 5.8),
       f(plot_rank_level1(p_rank_groups), "3_NUTS/3a_guild.png", 9, 3.6),
       f(plot_rank_species_guild(p_rank_species, "Borers"), "3_NUTS/3b_species_borers.png", 9, 6.5),
       f(plot_rank_species_guild(p_rank_species, "Defoliators"), "3_NUTS/3c_species_defoliators.png", 9, 5),

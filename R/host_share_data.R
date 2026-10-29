@@ -321,7 +321,7 @@ paper_share_comparison <- function(g_avg, hd_avg, t2s, ph_hier, species_meta) {
     dplyr::mutate(paper_host = unname(paper_host[host_group]),
                   name = dplyr::if_else(level == "species", nm[group], group),
                   why = dplyr::case_when(
-                    our_host != paper_host ~ paste0("Divided by ", our_host, " (paper: ", paper_host, "), because it feeds on more than one tree"),
+                    our_host != paper_host ~ paste0("Divided by ", our_host, " (paper: ", paper_host, "): on ", paper_host, " alone, damage exceeds 100% of it"),
                     abs(ours_graph / paper_share_pct - 1) <= 0.15 ~ "Same within rounding",
                     TRUE ~ "Divided only by the host of the regions that record this insect")) |>
     dplyr::transmute(level, name, paper = paper_share_pct, ours_paper_way = ours_23_years, ours_graph, why)
@@ -340,7 +340,8 @@ plot_paper_share_comparison <- function(cmp) {
                         gp = grid::gpar(fontsize = 13, fontface = "bold"))
   note <- grid::textGrob(paste(
     "Paper's way = the paper's data preparation (series with fewer than 6 non-zero years removed), its host for each insect, and damage / host of ALL regions.",
-    "\nIn the graphs = all reported data; damage / host of only the regions where the insect is recorded; insects feeding on several trees divided by all of them.",
+    "\nIn the graphs = all reported data; damage / host of only the regions where the insect is recorded; host from the data file, except L. monacha (spruce and pine)",
+    "\nand Melolontha (all forest), whose damage would exceed 100% of the file's host.",
     "\nGreen = same as the paper; yellow = differs for the reason given. Remaining small gaps in 'the paper's way': the paper's percentages fit dividing by 22 years, not 23.",
     "\nBorers: % of host growing stock (m3) killed; defoliators: % of host forest area (ha) defoliated. Average per year, 2000-2022."),
     x = 0.01, hjust = 0, gp = grid::gpar(fontsize = 8, col = "#555555"))
