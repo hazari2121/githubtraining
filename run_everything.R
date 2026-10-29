@@ -104,7 +104,8 @@ t0 <- Sys.time()
 if (FULL) {
   tar_make()
 } else {
-  tar_make(names = tidyselect::any_of(current_results))
+  # (the list is written into the call, because the pipeline runs in a separate R process)
+  eval(bquote(tar_make(names = tidyselect::any_of(.(current_results)))))
 }
 message("Pipeline finished in ", round(difftime(Sys.time(), t0, units = "mins"), 1), " minutes.")
 
