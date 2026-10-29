@@ -13,7 +13,7 @@
 # series standardised against its own mean, r pooled over the region-years
 # where both groups are recorded.
 
-paper_tree_names <- c(`A. alba` = "Abies alba", `P. abies` = "Picea abies", `P. sylvestris` = "Pinus sylvestris")
+paper_tree_names <- c(`A. alba` = "fir", `P. abies` = "spruce", `P. sylvestris` = "pine")
 
 # Codes in our hierarchy file that the paper's Table 1 does not list (its
 # Table 2 totals also match only without them; R/paper_compare.R)
@@ -30,12 +30,8 @@ paper_group_map <- function(ph_hier) {
     dplyr::transmute(h, level = "total", code = species, guild, group = paste("All", tolower(guild))))
 }
 
-# Line labels: "Borers on Abies alba" -> "Borers, A. alba"; "All borers" unchanged
-short_group <- function(g) {
-  host <- sub("^.* on ", "", g)
-  host <- sub("^([A-Z])[a-z]+ ([a-z]+)$", "\\1. \\2", host)
-  dplyr::if_else(grepl("^All ", g), g, paste0(sub(" on .*", "", g), ", ", host))
-}
+# Line and axis labels: the group name itself ("Borers on fir", "All borers")
+short_group <- function(g) g
 
 level_transforms <- function(cells, gm, level) make_transforms(level_cells(cells, gm, level), min_nonzero = 0)
 

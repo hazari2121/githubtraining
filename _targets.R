@@ -343,10 +343,10 @@ list(
     figs <- list(
       list(k = dplyr::filter(m, level == "level2", within), tag = "a_conifer_hosts_within_guilds",
            ttl = "Synchrony of insect damage among conifer hosts within feeding guilds",
-           sub = "Bark and wood borers on Abies alba, Picea abies and Pinus sylvestris; defoliators on Picea abies and Pinus sylvestris"),
+           sub = "Bark and wood borers on fir, spruce and pine; defoliators on spruce and pine"),
       list(k = dplyr::filter(m, level == "level2", !within), tag = "b_conifer_hosts_between_guilds",
            ttl = "Synchrony of insect damage between feeding guilds on conifer hosts",
-           sub = "Bark and wood borers on Abies alba, Picea abies and Pinus sylvestris, each paired with defoliators on Picea abies and Pinus sylvestris"),
+           sub = "Bark and wood borers on fir, spruce and pine, each paired with defoliators on spruce and pine"),
       list(k = dplyr::filter(m, level == "level1"), tag = "c_gymnosperm_and_angiosperm_hosts",
            ttl = "Synchrony of insect damage on gymnosperm and angiosperm hosts",
            sub = "Bark and wood borers and defoliators on gymnosperms and angiosperms, all pairwise combinations"),
