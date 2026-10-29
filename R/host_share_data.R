@@ -180,7 +180,9 @@ plot_share_species_avg <- function(sa, ph_hier, species_keep) {
 }
 
 # Year by year for the species with the largest average share in one guild
-# Plain titles for the host-share graphs (sets 1 and 2): "proportion of host plants killed".
+# Plain titles for the host-share graphs (sets 1 and 2): borers "proportion of
+# host plants killed", defoliators "proportion of host area defoliated".
+share_title <- function(guild) if (guild == "Borers") "proportion of host plants killed" else "proportion of host area defoliated"
 # For defoliators the measure is the host forest area defoliated, said in the subtitle.
 killed_note <- function(guild) {
   if (guild == "Borers") "Measured as % of the host's growing stock (m3) killed."
@@ -206,7 +208,7 @@ plot_share_species_years <- function(sys, sa, ph_hier, guild, n = 9) {
     ggplot2::geom_point(colour = guild_cols[[guild]], size = 1) +
     ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 3) +
     ggplot2::labs(x = NULL, y = paste(what, "that year"),
-                  title = paste0(guild, ": proportion of host plants killed per year, by insect species"),
+                  title = paste0(guild, ": ", share_title(guild), " per year, by insect species"),
                   subtitle = paste("The", n, "species with the largest average share, 2000-2022. Each panel has its own scale.", killed_note(guild)),
                   caption = share_data_caption) +
     theme_eu(8.5) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
@@ -228,7 +230,7 @@ plot_share_species_avg_guild <- function(sa, ph_hier, species_keep, guild) {
                        size = 2.8, colour = pal$ink2) +
     ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.12))) +
     ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
-                  title = paste0(guild, ": proportion of host plants killed per year on average, by insect species"),
+                  title = paste0(guild, ": ", share_title(guild), " per year on average, by insect species"),
                   subtitle = killed_note(guild),
                   caption = paste("Average = all recorded damage / all host forest of the regions and years where the species is recorded (0 included).",
                                   "\nDamage = EU-ForDAM value1; host = NUTS forest appendix. No gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
@@ -281,7 +283,7 @@ plot_guild_share_years <- function(gy, guild) {
     ggplot2::geom_point(colour = guild_cols[[guild]], size = 1.2) +
     ggplot2::scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, NA)) +
     ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 2) +
-    ggplot2::labs(x = NULL, y = paste(what, "that year"), title = paste0(guild, ": proportion of host plants killed per year (2000-2022)"),
+    ggplot2::labs(x = NULL, y = paste(what, "that year"), title = paste0(guild, ": ", share_title(guild), " per year (2000-2022)"),
                   subtitle = paste("Each panel has its own scale.", killed_note(guild)), caption = guild_share_caption) +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
@@ -298,7 +300,49 @@ plot_guild_share_avg <- function(ga, guild) {
     ggplot2::geom_text(ggplot2::aes(label = txt), hjust = 0, nudge_x = max(d$share_pct_per_year) * 0.02, size = 3, colour = pal$ink2) +
     ggplot2::scale_x_continuous(labels = function(x) paste0(x, "%"), expand = ggplot2::expansion(mult = c(0, 0.8))) +
     ggplot2::labs(x = paste0("Average % of the host's ", base, " ", what, " per year (2000-2022)"), y = NULL,
-                  title = paste0(guild, ": proportion of host plants killed per year on average (2000-2022)"),
+                  title = paste0(guild, ": ", share_title(guild), " per year on average (2000-2022)"),
                   subtitle = killed_note(guild), caption = guild_share_caption) +
     theme_eu(9.5)
+}
+
+# ---- Comparison with the 2025 paper's Table 2 (share of host per year) ------------------
+# Three numbers per row: the paper's, ours done the paper's way (R/paper_compare.R:
+# its series filter, its hosts, damage / host of all regions), and ours as in the
+# graphs (damage / host of the regions where the insect is recorded, shared host table).
+paper_share_comparison <- function(g_avg, hd_avg, t2s, ph_hier, species_meta) {
+  nm <- stats::setNames(ph_hier$name, ph_hier$species)
+  ours <- dplyr::bind_rows(
+    dplyr::transmute(g_avg, group, ours_graph = share_pct_per_year, our_host = dplyr::if_else(host_type == "gymnosperms", "all conifers", "all broadleaves")),
+    dplyr::transmute(hd_avg, group, ours_graph = share_pct_per_year, our_host = divided_by))
+  paper_host <- c(conifers_all = "all conifers", broadleaves_all = "all broadleaves", spruce = "spruce", pine = "pine", fir = "fir", oak = "oak")
+  t2s |>
+    dplyr::filter(level != "level2") |>
+    dplyr::left_join(ours, by = "group") |>
+    dplyr::mutate(paper_host = unname(paper_host[host_group]),
+                  name = dplyr::if_else(level == "species", nm[group], group),
+                  why = dplyr::case_when(
+                    our_host != paper_host ~ paste0("Divided by ", our_host, " (paper: ", paper_host, "), because it feeds on more than one tree"),
+                    abs(ours_graph / paper_share_pct - 1) <= 0.15 ~ "Same within rounding",
+                    TRUE ~ "Divided only by the host of the regions that record this insect")) |>
+    dplyr::transmute(level, name, paper = paper_share_pct, ours_paper_way = ours_23_years, ours_graph, why)
+}
+
+plot_paper_share_comparison <- function(cmp) {
+  f <- function(x) paste0(formatC(x, format = "f", digits = 2), "%")
+  d <- cmp |> dplyr::transmute(`Insect or group` = name, `2025 paper` = f(paper), `Ours, the paper's way` = f(ours_paper_way),
+                               `Ours, in the graphs` = f(ours_graph), `Why the graphs differ` = why)
+  fill <- dplyr::if_else(cmp$why == "Same within rounding", "#e6f2e6", "#fdf6e3")
+  th <- gridExtra::ttheme_minimal(base_size = 9,
+    core = list(bg_params = list(fill = fill, col = "white"), fg_params = list(hjust = 0, x = 0.03)),
+    colhead = list(bg_params = list(fill = "#16302B"), fg_params = list(col = "white", fontface = "bold", hjust = 0, x = 0.03)))
+  g <- gridExtra::tableGrob(d, rows = NULL, theme = th)
+  ttl <- grid::textGrob("Share of the host affected per year: our numbers vs the 2025 EU-ForDAM paper (Table 2)", x = 0.01, hjust = 0,
+                        gp = grid::gpar(fontsize = 13, fontface = "bold"))
+  note <- grid::textGrob(paste(
+    "Paper's way = the paper's data preparation (series with fewer than 6 non-zero years removed), its host for each insect, and damage / host of ALL regions.",
+    "\nIn the graphs = all reported data; damage / host of only the regions where the insect is recorded; insects feeding on several trees divided by all of them.",
+    "\nGreen = same as the paper; yellow = differs for the reason given. Remaining small gaps in 'the paper's way': the paper's percentages fit dividing by 22 years, not 23.",
+    "\nBorers: % of host growing stock (m3) killed; defoliators: % of host forest area (ha) defoliated. Average per year, 2000-2022."),
+    x = 0.01, hjust = 0, gp = grid::gpar(fontsize = 8, col = "#555555"))
+  gridExtra::arrangeGrob(ttl, g, note, ncol = 1, heights = grid::unit.c(grid::unit(0.45, "in"), sum(g$heights), grid::unit(0.85, "in")))
 }

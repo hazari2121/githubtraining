@@ -178,13 +178,13 @@ list(
   tar_target(hs_check_csv, tab(hs_check, "SHARE_check_region_years_over_50pct.csv"), format = "file"),
   tar_target(hd_years_sp, host_share_years_species(cb_dmg, hd_units, hs_stock, heat_sp)),
   tar_target(hd_years_sp_csv, tab(hd_years_sp, "SHARE_species_by_year.csv"), format = "file"),
-  tar_target(fig_share_avg_b, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Borers"),
+  tar_target(fig_share_avg_b, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Borers"),
                                        "outputs/figures/SHARE_1_borers_average.png", 9, 6.5), format = "file"),
-  tar_target(fig_share_avg_d, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Defoliators"),
+  tar_target(fig_share_avg_d, save_fig(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Defoliators"),
                                        "outputs/figures/SHARE_2_defoliators_average.png", 9, 5), format = "file"),
-  tar_target(fig_share_years_b, save_fig(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Borers"),
+  tar_target(fig_share_years_b, save_fig(plot_share_species_years(dplyr::filter(hd_years_sp, !species %in% not_in_paper_groups), dplyr::filter(hd_avg, !group %in% not_in_paper_groups), ph_hier, "Borers"),
                                          "outputs/figures/SHARE_3_borers_by_year.png", 11, 8), format = "file"),
-  tar_target(fig_share_years_d, save_fig(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Defoliators"),
+  tar_target(fig_share_years_d, save_fig(plot_share_species_years(dplyr::filter(hd_years_sp, !species %in% not_in_paper_groups), dplyr::filter(hd_avg, !group %in% not_in_paper_groups), ph_hier, "Defoliators"),
                                          "outputs/figures/SHARE_4_defoliators_by_year.png", 11, 8), format = "file"),
 
   # ---- Total damage (R/totals.R): A per guild, B per species, C per year ------
@@ -224,6 +224,8 @@ list(
   tar_target(g_avg, guild_share_average(g_years)),
   tar_target(g_years_csv, tab(g_years, "SHARE_guild_by_year.csv"), format = "file"),
   tar_target(g_avg_csv, tab(g_avg, "SHARE_guild_average.csv"), format = "file"),
+  tar_target(share_vs_paper, paper_share_comparison(g_avg, hd_avg, ppr_t2s, ph_hier, species_meta)),
+  tar_target(share_vs_paper_csv, tab(share_vs_paper, "SHARE_comparison_with_2025_paper.csv"), format = "file"),
   tar_target(final_figs, {
     f <- function(p, name, w, h) save_fig(p, file.path("outputs/figures/final", name), w, h)
     dir.create("outputs/figures/final/1_host_killed_per_year", recursive = TRUE, showWarnings = FALSE)
@@ -233,12 +235,13 @@ list(
     c(
       f(plot_guild_share_years(g_years, "Borers"), "1_host_killed_per_year/1a_guild_borers.png", 10, 4.5),
       f(plot_guild_share_years(g_years, "Defoliators"), "1_host_killed_per_year/1b_guild_defoliators.png", 10, 4.5),
-      f(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Borers"), "1_host_killed_per_year/1c_species_borers.png", 11, 8),
-      f(plot_share_species_years(hd_years_sp, hd_avg, ph_hier, "Defoliators"), "1_host_killed_per_year/1d_species_defoliators.png", 11, 8),
+      f(plot_share_species_years(dplyr::filter(hd_years_sp, !species %in% not_in_paper_groups), dplyr::filter(hd_avg, !group %in% not_in_paper_groups), ph_hier, "Borers"), "1_host_killed_per_year/1c_species_borers.png", 11, 8),
+      f(plot_share_species_years(dplyr::filter(hd_years_sp, !species %in% not_in_paper_groups), dplyr::filter(hd_avg, !group %in% not_in_paper_groups), ph_hier, "Defoliators"), "1_host_killed_per_year/1d_species_defoliators.png", 11, 8),
       f(plot_guild_share_avg(g_avg, "Borers"), "2_host_killed_average/2a_guild_borers.png", 9, 3),
       f(plot_guild_share_avg(g_avg, "Defoliators"), "2_host_killed_average/2b_guild_defoliators.png", 9, 3),
-      f(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Borers"), "2_host_killed_average/2c_species_borers.png", 9, 6.5),
-      f(plot_share_species_avg_guild(hd_avg, ph_hier, heat_sp, "Defoliators"), "2_host_killed_average/2d_species_defoliators.png", 9, 5),
+      f(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Borers"), "2_host_killed_average/2c_species_borers.png", 9, 6.5),
+      f(plot_share_species_avg_guild(hd_avg, ph_hier, setdiff(heat_sp, not_in_paper_groups), "Defoliators"), "2_host_killed_average/2d_species_defoliators.png", 9, 5),
+      save_grob(plot_paper_share_comparison(share_vs_paper), "outputs/figures/final/2_host_killed_average/2g_comparison_with_2025_paper.png", 13, 5.6),
       f(plot_rank_level1(p_rank_groups), "3_NUTS/3a_guild.png", 9, 3.6),
       f(plot_rank_species_guild(p_rank_species, "Borers"), "3_NUTS/3b_species_borers.png", 9, 6.5),
       f(plot_rank_species_guild(p_rank_species, "Defoliators"), "3_NUTS/3c_species_defoliators.png", 9, 5),
