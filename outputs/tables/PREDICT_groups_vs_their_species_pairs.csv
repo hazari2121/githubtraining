@@ -1,0 +1,18 @@
+level,group_pair,pair_type,group_value,n_species_pairs,species_median
+level2,Borers on fir x Borers on pine,same guild,0.18222340974943613,4,-0.059792938455080824
+level2,Borers on fir x Borers on spruce,same guild,0.25040480012518546,2,0.15190407840471049
+level2,Borers on fir x Defoliators on pine,borer x defoliator,-0.009689857864306872,2,-0.052645860527362476
+level2,Borers on fir x Defoliators on spruce,borer x defoliator,0.11075500091359342,2,0.07938029629496232
+level2,Borers on pine x Borers on spruce,same guild,0.21155025919897896,16,0.01328885244367492
+level2,Borers on pine x Defoliators on pine,borer x defoliator,-0.001856298391280653,22,-0.024573082540829128
+level2,Borers on pine x Defoliators on spruce,borer x defoliator,-0.03250203151880682,13,-0.021343979330149532
+level2,Borers on spruce x Defoliators on pine,borer x defoliator,-0.019272061672555463,10,-0.009156919897612747
+level2,Borers on spruce x Defoliators on spruce,borer x defoliator,-0.05051293490868547,5,-0.0350653310449589
+level2,Defoliators on pine x Defoliators on spruce,same guild,0.11548557167342949,9,0.018450612170675895
+level1,Borers on angiosperms x Borers on gymnosperms,same guild,0.10689536950875034,29,0.018443273252921888
+level1,Borers on angiosperms x Defoliators on angiosperms,borer x defoliator,0.015867444793893737,10,-0.003771237002725192
+level1,Borers on angiosperms x Defoliators on gymnosperms,borer x defoliator,-0.02935671314424304,21,-0.028749618627017526
+level1,Borers on gymnosperms x Defoliators on angiosperms,borer x defoliator,-0.007805454756971808,31,-0.006083144292991172
+level1,Borers on gymnosperms x Defoliators on gymnosperms,borer x defoliator,-0.03385133707697974,60,-0.023538093004169203
+level1,Defoliators on angiosperms x Defoliators on gymnosperms,same guild,0.06054938223520362,27,5.181024994160843e-4
+total,All borers x All defoliators,borer x defoliator,-0.0254123216406007,122,-0.017364947021263177

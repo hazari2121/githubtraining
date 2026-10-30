@@ -82,3 +82,46 @@ plot_predictability <- function(pp) {
                                   "\nGroups as in the 2025 EU-ForDAM paper (Table 1); group value = sum of all recorded member codes. Reported data, no gap-filling.")) +
     theme_eu(9) + ggplot2::theme(strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# Like-for-like comparison: each group pair against the species pairs inside
+# the same two groups (e.g. borers on pine x borers on spruce against every
+# pine-borer species x spruce-borer species pair).
+predictability_compare <- function(pp, gm) {
+  sp <- dplyr::filter(pp, level == "species", !is.na(R2_tested))
+  grp <- dplyr::filter(pp, level != "species")
+  purrr::pmap_dfr(dplyr::select(grp, level, a, b, R2_tested, pair_type), function(level, a, b, R2_tested, pair_type) {
+    ma <- gm$code[gm$level == level & gm$group == a]; mb <- gm$code[gm$level == level & gm$group == b]
+    s <- dplyr::filter(sp, (a %in% ma & b %in% mb) | (a %in% mb & b %in% ma))
+    dplyr::bind_rows(
+      tibble::tibble(what = "group", value = R2_tested),
+      tibble::tibble(what = "species pair", value = s$R2_tested)) |>
+      dplyr::mutate(level, group_pair = paste(a, "x", b), pair_type, n_species_pairs = nrow(s),
+                    group_value = R2_tested, species_median = if (nrow(s)) stats::median(s$R2_tested) else NA_real_)
+  })
+}
+
+plot_predictability_compare <- function(pc) {
+  lv <- c(level2 = "Host tree (fir, spruce, pine)", level1 = "Host type (gymnosperms / angiosperms)", total = "Guild (all borers x all defoliators)")
+  d <- pc |> dplyr::mutate(level = factor(lv[level], lv),
+                           lab = paste0(group_pair, "  (", n_species_pairs, " species pairs)"),
+                           lab = forcats::fct_reorder(lab, group_value))
+  grp <- dplyr::filter(d, what == "group")
+  med <- dplyr::distinct(d, level, lab, species_median) |> dplyr::filter(!is.na(species_median))
+  ggplot2::ggplot(d, ggplot2::aes(value, lab)) +
+    ggplot2::geom_vline(xintercept = 0, colour = "#c9c8c3", linewidth = 0.4) +
+    ggplot2::geom_point(data = dplyr::filter(d, what == "species pair"), colour = "#9c9b97", alpha = 0.55, size = 1.4,
+                        position = ggplot2::position_jitter(height = 0.12, width = 0, seed = 1)) +
+    ggplot2::geom_point(data = med, ggplot2::aes(x = species_median), shape = 124, size = 5, colour = "#5c5b57") +
+    ggplot2::geom_point(data = grp, ggplot2::aes(colour = pair_type), size = 4) +
+    ggplot2::scale_colour_manual(values = c(`same guild` = "#184f95", `borer x defoliator` = "#eb6834"),
+                                 labels = c(`same guild` = "group pair, same guild", `borer x defoliator` = "group pair, borer x defoliator"), name = NULL) +
+    ggplot2::facet_grid(level ~ ., scales = "free_y", space = "free_y") +
+    ggplot2::labs(x = "Tested R-squared: share of one series predicted in countries not used to fit the line (0 = no better than the mean)", y = NULL,
+                  title = "Does grouping insects make them more predictable?",
+                  subtitle = paste("Big dot = the group pair. Grey dots = the species pairs inside the same two groups; grey bar = their median.",
+                                   "\nWhere a group is to the right of its species, grouping predicts better than the single insects it contains."),
+                  caption = paste("Each region's log(1 + damage) series standardised within the region; all region-years where both are recorded.",
+                                  "\nTested R-squared: each country predicted by a straight line fitted on the other countries only, averaged over both directions.",
+                                  "\nSpecies pairs: only those recorded together in at least 2 countries (needed for the test). Groups as in the 2025 EU-ForDAM paper (Table 1).")) +
+    theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text.y = ggplot2::element_text(angle = 0, face = "bold", hjust = 0))
+}

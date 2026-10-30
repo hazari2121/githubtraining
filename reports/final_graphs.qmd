@@ -129,7 +129,7 @@ One dot = one region in one year where both insects are recorded (x = first inse
 
 ### Predictability across levels of aggregation
 
-How well one insect or group predicts another, at the species level and at the paper's group levels. Tested R-squared: each country is predicted by a straight line fitted on the other countries only. All pairs: `outputs/tables/PREDICT_pairs_all_levels.csv`; summary: `PREDICT_summary_by_level.csv`.
+Each group pair (the paper's groups) is compared with the species pairs inside the same two groups. Tested R-squared: each country is predicted by a straight line fitted on the other countries only. Where the group is to the right of its species pairs, grouping predicts better than the single insects it contains. Tables: `outputs/tables/PREDICT_groups_vs_their_species_pairs.csv`, `PREDICT_pairs_all_levels.csv`.
 
 ![](../outputs/figures/final/5_predictability/predictability_by_level.png)
 
