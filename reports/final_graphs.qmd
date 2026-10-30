@@ -186,7 +186,7 @@ Species pairs can only be tested where both insects are reported, mostly Germany
 
 ## 7. Summary of the usable pairs (with the multiple-testing check)
 
-786 pairs could be measured. Testing that many, about 39 would look "sure" by luck alone. The false discovery rate (FDR, Benjamini-Hochberg) correction allows for this: after it, 150 links stay sure, and **all 28 usable pairs stay sure** (q < 0.05). For 21 of them the regional part is sure on its own as well. p-values come from the same region bootstrap as the 95% ranges (whole regions resampled, 9,999 draws).
+786 pairs could be measured. Testing that many, about 39 would look "sure" by luck alone. The false discovery rate (FDR, Benjamini-Hochberg) correction allows for this: after it, 150 links stay sure, and **all 28 usable pairs stay sure** (q < 0.05). p-values come from the same region bootstrap as the 95% ranges (whole regions resampled, 9,999 draws).
 
 ![](../outputs/figures/final/CM_usable_pairs_summary_table.png)
 

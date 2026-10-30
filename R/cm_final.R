@@ -84,22 +84,21 @@ usable_summary <- function(usable, fd, r_wo) {
 }
 
 plot_usable_summary <- function(us) {
+  # Plain table of the 28 pairs: r, regions and countries, plus data warnings
   d <- dplyr::mutate(us, group = sub("^[0-9]+\\. ", "", group)) |>
-    dplyr::transmute(Group = group, Pair, Hosts, r, `r regional part` = r_regional_part, Countries = countries,
-                     Type = type, Warning = dplyr::if_else(warning == "", "-", warning))
-  fill <- dplyr::case_when(d$Type == "regional link" ~ "#e6f2e6", d$Type == "partly shared years" ~ "#fdf6e3",
-                           d$Type == "thin data" ~ "#ececec", TRUE ~ "#f6e9e6")
+    dplyr::transmute(Group = group, Pair, Hosts, r, Regions = n_regions, Countries = countries,
+                     Warning = dplyr::if_else(warning == "", "-", sub("not sure after FDR;?", "", warning)))
   th <- gridExtra::ttheme_minimal(base_size = 8.5,
-    core = list(bg_params = list(fill = fill, col = "white"), fg_params = list(hjust = 0, x = 0.03)),
+    core = list(bg_params = list(fill = c("#ffffff", "#f3f3f1"), col = "white"), fg_params = list(hjust = 0, x = 0.03)),
     colhead = list(bg_params = list(fill = "#16302B"), fg_params = list(col = "white", fontface = "bold", hjust = 0, x = 0.03)))
   g <- gridExtra::tableGrob(d, rows = NULL, theme = th)
   ttl <- grid::textGrob("The 28 usable pairs: summary", x = 0.01, hjust = 0, gp = grid::gpar(fontsize = 13, fontface = "bold"))
-  note <- grid::textGrob(paste("Green = regional link (regional part >= 0.25 and sure after FDR); yellow = partly shared years; red = mostly shared years (regional part < 0.20);",
-                               "grey = thin data (fewer than 10 regions and below 0.3 without the regions that stop reporting).",
-                               "\nAll 28 stay sure after the FDR correction (q < 0.05 over 786 tested pairs). r = same-year r within regions; r regional part = each value minus the same insect's mean in all other regions that year.",
+  note <- grid::textGrob(paste("r = same-year correlation within regions (each region's log(1 + damage) series standardised against its own mean).",
+                               "\nUsable = |r| >= 0.3, 95% range excludes 0, and the same direction and similar size in every country checked (at least 2).",
+                               "\nAll 28 stay significant after correcting for testing 786 pairs (false discovery rate, q < 0.05).",
                                "\nWarnings: few regions (< 10); weaker (< 0.3) without Hesse, Saxony-Anhalt and Lower Saxony, which report 0 for every insect for many years."),
                          x = 0.01, hjust = 0, gp = grid::gpar(fontsize = 8, col = "#555555"))
-  gridExtra::arrangeGrob(ttl, g, note, ncol = 1, heights = grid::unit.c(grid::unit(0.5, "in"), sum(g$heights), grid::unit(0.7, "in")))
+  gridExtra::arrangeGrob(ttl, g, note, ncol = 1, heights = grid::unit.c(grid::unit(0.5, "in"), sum(g$heights), grid::unit(0.75, "in")))
 }
 
 # ---- Questions for the data providers ---------------------------------------------

@@ -101,7 +101,7 @@ plot_pair_scatter <- function(pp, grp) {
                   title = paste0("Usable pairs as scatterplots: ", sub("^[0-9]+\\. ", "", grp)),
                   subtitle = paste("One dot = one region in one year where both insects are recorded.",
                                    "Orange line = straight-line fit, band = its 95% range.",
-                                   "\nDots rising to the right = bad years together; falling = opposite. The tighter the dots around the line, the higher r."),
+                                   "\nDots rising to the right = both insects high in the same years; falling = opposite. The tighter the dots around the line, the higher r."),
                   caption = paste("Each region's log(1 + damage) series standardised against its own mean",
                                   "(+1 = one standard deviation above normal).",
                                   "\nr = same-year correlation (correlation metrics); R\u00b2 = r x r, the share of one insect's",
