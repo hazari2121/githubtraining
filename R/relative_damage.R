@@ -93,3 +93,40 @@ plot_relative_damage_levels <- function(rs, guild) {
                                   "\nEU-ForDAM value1, reported data, no gap-filling. BG and LT single-species growing stocks read as 1000 m3.")) +
     theme_eu(8.5) + ggplot2::theme(strip.text.y = ggplot2::element_text(angle = 0, face = "bold", hjust = 0))
 }
+
+# One clean table for the professor: each insect or group, its host tree, the
+# host forest it is compared with (area and growing stock summed over the
+# regions where it is recorded), its damage and its relative damage.
+relative_damage_sheet <- function(rd, rs, ph_hier) {
+  nm <- stats::setNames(ph_hier$name, ph_hier$species)
+  host <- rd |> dplyr::filter(!is.na(relative_pct)) |>
+    dplyr::distinct(level, group, nuts_id, host_area_ha, host_stock_m3) |>
+    dplyr::group_by(level, group) |>
+    dplyr::summarise(host_area_ha = sum(host_area_ha, na.rm = TRUE), host_stock_m3 = sum(host_stock_m3, na.rm = TRUE), .groups = "drop")
+  rs |> dplyr::left_join(host, by = c("level", "group")) |>
+    dplyr::mutate(level = unname(level_names[level]),
+                  insect_or_group = dplyr::if_else(level == level_names[["1_species"]], unname(nm[group]), group),
+                  damage_per_year = damage_total / 23) |>
+    dplyr::transmute(level, insect_or_group, guild, host_tree,
+                     host_note = dplyr::if_else(host_is_proxy, "no own column in the forest file: all conifers / all broadleaves used", ""),
+                     damage_unit = dplyr::if_else(unit == "m3", "m3 killed", "ha defoliated"),
+                     countries = n_countries, regions = n_regions,
+                     host_area_ha = round(host_area_ha), host_growing_stock_m3 = round(host_stock_m3),
+                     damage_total_2000_2022 = round(damage_total), damage_average_per_year = round(damage_per_year),
+                     relative_damage_pct_per_year = signif(relative_pct_per_year, 3),
+                     worst_year, relative_damage_pct_worst_year = signif(relative_pct_worst_year, 3)) |>
+    dplyr::arrange(level, guild, dplyr::desc(relative_damage_pct_per_year))
+}
+
+write_relative_damage_xlsx <- function(sheet, rc, path) {
+  how <- data.frame(`How to read` = c(
+    "One row per insect (level 1) or group of insects (levels 2-4).",
+    "Host tree = the host in the EU-ForDAM data file (as in the 2025 paper); L. monacha spruce and pine, Melolontha all forest (otherwise damage exceeds 100% of the host).",
+    "Host area / growing stock = the host forest of the regions where the insect or group is recorded (NUTS forest appendix).",
+    "Relative damage = damage / host x 100 per year: borers m3 killed / host growing stock (m3); defoliators ha defoliated / host area (ha).",
+    "Average per year = all damage 2000-2022 / host summed over the region-years where it is recorded (0 included).",
+    "Levels: 1 species, 2 host tree, 3 host type (gymnosperms / angiosperms), 4 guild (all borers / all defoliators).",
+    "Reported data only, no gap-filling. BG and LT single-species growing stocks read as 1000 m3."), check.names = FALSE)
+  writexl::write_xlsx(list(`relative damage` = sheet, `by country` = rc, `how to read` = how), path)
+  path
+}
