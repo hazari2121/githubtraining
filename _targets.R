@@ -367,6 +367,19 @@ list(
     }))
   }, format = "file"),
 
+  # ---- Predictability across levels of aggregation (R/predictability.R) ----------
+  tar_target(pr_guild, c(stats::setNames(sub(" on .*", "", ph_hier$level1), ph_hier$species),
+                         stats::setNames(pg_map$guild, pg_map$group))),
+  tar_target(pr_pairs, dplyr::bind_rows(
+    level_predictability(cb_tr, cb_species, pr_guild, "species"),
+    purrr::map2_dfr(lp_tr, lp_level, function(tr, L) level_predictability(tr, unique(tr$species), pr_guild, L)))),
+  tar_target(pr_sum, predictability_summary(pr_pairs)),
+  tar_target(pr_csv, c(tab(pr_pairs, "PREDICT_pairs_all_levels.csv"), tab(pr_sum, "PREDICT_summary_by_level.csv")), format = "file"),
+  tar_target(fig_pr, {
+    dir.create("outputs/figures/final/5_predictability", recursive = TRUE, showWarnings = FALSE)
+    save_fig(plot_predictability(pr_pairs), "outputs/figures/final/5_predictability/predictability_by_level.png", 11, 6)
+  }, format = "file"),
+
   # ---- Finishing the correlation metrics (R/cm_final.R) ------------------------
   tar_target(cm_fdr, pair_fdr(cb_tr, cb_species, cb_verdict)),
   tar_target(cm_fdr_sum, fdr_summary(cm_fdr)),

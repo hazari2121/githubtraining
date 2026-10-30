@@ -127,6 +127,12 @@ One dot = one region in one year where both insects are recorded (x = first inse
 
 ![](../outputs/figures/final/5_usable_pairs_scatter/5j_scatter_a_borer_with_a_defoliator.png)
 
+### Predictability across levels of aggregation
+
+How well one insect or group predicts another, at the species level and at the paper's group levels. Tested R-squared: each country is predicted by a straight line fitted on the other countries only. All pairs: `outputs/tables/PREDICT_pairs_all_levels.csv`; summary: `PREDICT_summary_by_level.csv`.
+
+![](../outputs/figures/final/5_predictability/predictability_by_level.png)
+
 ### Broader categories
 
 Synchrony of insect damage between host groups as defined in the 2025 EU-ForDAM study: bark and wood borers on *Abies alba*, *Picea abies* and *Pinus sylvestris*; defoliators on *Picea abies* and *Pinus sylvestris*; borers and defoliators on gymnosperms and angiosperms; and all borers vs all defoliators. A group's value is the sum of all agents recorded in that group in a region and year. All pairwise combinations are shown; numbers are in `outputs/tables/CM_broader_category_pairs_all_levels.csv`.
