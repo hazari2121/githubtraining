@@ -1,0 +1,54 @@
+ Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: ld2 ~ ld1 + ld1_lag + vpd_s + host_s + vpd_s:ld1 + host_s:ld1 + gp(x_km, y_km, k = NA, scale = TRUE) + gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) + (1 + ld1 | region) + (1 | year_f) + ar(time = year, gr = region, p = 1) 
+   Data: train (Number of observations: 642) 
+  Draws: 4 chains, each with iter = 3000; warmup = 1500; thin = 1;
+         total post-warmup draws = 6000
+
+Gaussian Process Terms: 
+                      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+sdgp(gpx_kmy_km)          0.80      0.60     0.02     2.16 1.00     1216
+sdgp(gpx_kmy_kmld1)       0.21      0.11     0.05     0.48 1.00     1334
+lscale(gpx_kmy_km)        0.16      0.15     0.04     0.51 1.00     2315
+lscale(gpx_kmy_kmld1)     0.20      0.16     0.07     0.61 1.00     1036
+                      Tail_ESS
+sdgp(gpx_kmy_km)          2832
+sdgp(gpx_kmy_kmld1)        886
+lscale(gpx_kmy_km)        3336
+lscale(gpx_kmy_kmld1)     1132
+
+Correlation Structures:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+ar[1]     0.61      0.05     0.52     0.71 1.00     3370     4034
+
+Group-Level Effects: 
+~region (Number of levels: 30) 
+                   Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)          0.89      0.59     0.03     2.10 1.00      711     1978
+sd(ld1)                0.10      0.06     0.01     0.22 1.00      624     1313
+cor(Intercept,ld1)     0.06      0.42    -0.72     0.81 1.00     1904     2108
+
+~year_f (Number of levels: 22) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.23      0.12     0.02     0.50 1.01      911     1270
+
+Population-Level Effects: 
+           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept      0.19      0.76    -1.46     1.57 1.00     4727     4661
+ld1            0.12      0.11    -0.13     0.32 1.00     2422     2043
+ld1_lag        0.08      0.03     0.01     0.14 1.00     6246     3630
+vpd_s          0.12      0.51    -0.84     1.14 1.00     3994     4167
+host_s         1.04      0.71    -0.38     2.43 1.00     3688     4206
+ld1:vpd_s      0.07      0.07    -0.08     0.20 1.00     3965     4176
+ld1:host_s     0.03      0.07    -0.10     0.16 1.00     3475     4032
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     1.42      0.04     1.34     1.51 1.00     4534     4406
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+Divergent transitions: 8 
+Max R-hat: 1.008 
