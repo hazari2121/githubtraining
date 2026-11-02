@@ -3,31 +3,29 @@
 # 2026), implemented as written there.
 #
 #   log D2[r,t] = alpha_r + beta_r * log D1[r,t] + beta_lag * log D1[r,t-1] + delta_t + eps[r,t]
-#   alpha_r     = a0 + a1 * temp_r + a2 * host_r + u_alpha_r
-#   beta_r      = b0 + b1 * temp_r + b2 * host_r + u_beta_r
+#   alpha_r     = a0 + a1 * vpd_r + a2 * host_r + u_alpha_r
+#   beta_r      = b0 + b1 * vpd_r + b2 * host_r + u_beta_r
+# The note's temperature is replaced by VPD, the climate variable of the 2025
+# EU-ForDAM paper (temperature was left out there as it is correlated with
+# VPD, Appendix E).
 #   u ~ GP(lat, lon), delta_t ~ N(0, sd_delta), eps ~ AR(1)
 #
 # Our data in the note's layout (one row per region and year):
 #   region  EU-ForDAM region (NUTS code or PL forest directorate)
 #   d1, d2  reported damage of pest 1 and pest 2 (value1; m3 or ha)
-#   temp    one temperature value per region (data/external/region_temperature.csv)
+#   vpd     mean annual VPD of the region (R/climate.R, data/external/region_climate.csv)
 #   host    share of pest 2's host tree in the region's forest area (forest appendix: host ha / all forest ha)
 #   lat/lon region position (R/gapfill_v2.R region_positions)
 #   known   pest 2 recorded in the region (complete region); FALSE = prediction region
 # Regions = all regions where pest 1 is recorded and the forest appendix has the host.
 
-pest2_temperature_file <- "data/external/region_temperature.csv"
-
-pest2_read_temperature <- function(path = pest2_temperature_file) {
-  if (!file.exists(path))
-    stop("Temperature missing: put one value per region in ", path, " (columns nuts_id, temp).", call. = FALSE)
-  t <- utils::read.csv(path, check.names = FALSE)
-  stopifnot(all(c("nuts_id", "temp") %in% names(t)))
-  dplyr::select(t, nuts_id, temp)
+pest2_read_climate <- function(path = region_climate_file) {
+  if (!file.exists(path)) stop("Climate missing: run R/climate.R (region_climate) to write ", path, call. = FALSE)
+  dplyr::select(utils::read.csv(path), nuts_id, vpd)
 }
 
-# The note's input table: region, year, d1, d2, temp, host, lat, lon, known
-pest2_table <- function(dmg, pest1, pest2, host_col, pos, hs, temp) {
+# The note's input table: region, year, d1, d2, vpd, host, lat, lon, known
+pest2_table <- function(dmg, pest1, pest2, host_col, pos, hs, clim) {
   sp <- function(s) dplyr::filter(dmg, species == s, !is.na(damage)) |> dplyr::select(country, nuts_id, year, damage)
   d1 <- sp(pest1); d2 <- sp(pest2); known_regions <- unique(d2$nuts_id)
   host <- hs |> dplyr::filter(measure == "ha", host_group %in% c(host_col, "all_forest")) |>
@@ -38,9 +36,9 @@ pest2_table <- function(dmg, pest1, pest2, host_col, pos, hs, temp) {
     dplyr::left_join(dplyr::rename(d2, d2 = damage), by = c("country", "nuts_id", "year")) |>
     dplyr::mutate(known = nuts_id %in% known_regions) |>
     dplyr::inner_join(host, by = "nuts_id") |>
-    dplyr::inner_join(temp, by = "nuts_id") |>
+    dplyr::inner_join(clim, by = "nuts_id") |>
     dplyr::inner_join(dplyr::select(pos, nuts_id, lat, lon), by = "nuts_id") |>
-    dplyr::transmute(region = factor(nuts_id), country, year, d1, d2, temp, host, lat, lon, known) |>
+    dplyr::transmute(region = factor(nuts_id), country, year, d1, d2, vpd, host, lat, lon, known) |>
     dplyr::arrange(region, year)
 }
 
@@ -52,7 +50,7 @@ pest2_prep <- function(d) {
   d |>
     dplyr::mutate(ld1 = log(d1 + 1), ld2 = log(d2 + 1)) |>
     dplyr::left_join(lag1, by = c("region", "year")) |>
-    dplyr::mutate(temp_s = as.numeric(scale(temp)), host_s = as.numeric(scale(host)),
+    dplyr::mutate(vpd_s = as.numeric(scale(vpd)), host_s = as.numeric(scale(host)),
                   x_km = (lon - mean(lon)) * 60, y_km = (lat - mean(lat)) * 111,
                   year_f = factor(year)) |>
     dplyr::filter(!is.na(ld1_lag))
@@ -61,7 +59,7 @@ pest2_prep <- function(d) {
 # Section 7, step 3: the model, priors and sampler settings of the note
 pest2_formula <- function() {
   brms::bf(ld2 ~ ld1 + ld1_lag +
-             temp_s + host_s + temp_s:ld1 + host_s:ld1 +
+             vpd_s + host_s + vpd_s:ld1 + host_s:ld1 +
              gp(x_km, y_km, k = NA, scale = TRUE) +
              gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) +
              (1 + ld1 | region) + (1 | year_f) +
@@ -86,7 +84,7 @@ pest2_fit <- function(train, chains = 4, iter = 3000, warmup = 1500, seed = 42, 
 
 # Baseline (a) of the note: pooled slope, no region structure
 pest2_fit_base <- function(train, seed = 42, file = NULL) {
-  brms::brm(ld2 ~ ld1 + ld1_lag + temp_s + host_s + (1 | year_f), data = train, family = gaussian(),
+  brms::brm(ld2 ~ ld1 + ld1_lag + vpd_s + host_s + (1 | year_f), data = train, family = gaussian(),
             chains = 2, iter = 2000, cores = 2, refresh = 0, seed = seed, file = file)
 }
 
