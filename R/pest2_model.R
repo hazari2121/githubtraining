@@ -229,3 +229,14 @@ plot_pest2_loro <- function(lo, title) {
                   x = NULL, y = "log(pest 2 damage + 1)") +
     theme_proles(10)
 }
+
+# Leave one region out, one file per held-out region, so that a run that is
+# stopped (container restart) resumes where it stopped
+pest2_loro_resume <- function(regions, one, dir, tag) {
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  dplyr::bind_rows(lapply(regions, function(r) {
+    f <- file.path(dir, paste0(tag, "_", r, ".csv"))
+    if (!file.exists(f)) { cat(tag, r, format(Sys.time(), "%H:%M"), "\n"); utils::write.csv(one(r), f, row.names = FALSE) }
+    utils::read.csv(f)
+  }))
+}
