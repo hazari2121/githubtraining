@@ -84,23 +84,25 @@ pest2_fit <- function(train, chains = 4, iter = 3000, warmup = 1500, seed = 42, 
 
 # Component 6 of the note for damage with exact zeros: hurdle-Gamma with a log
 # link, damage modelled directly (no log by hand). Part 1 (hu) = the chance of a
-# zero year, part 2 = the amount in a year with damage. Both parts get the same
-# predictors as the Gaussian model. brms has no ar() with Gamma, so ar() is
+# zero year, part 2 = the amount in a year with damage. Part 2 has the full
+# model of the note; part 1 has the same predictors and region and year effects
+# without the GPs and region slopes (with the full structure in both parts the
+# chains did not agree: R-hat 1.59, 60 divergent transitions). brms has no ar() with Gamma, so ar() is
 # dropped and the time structure rests on ld1_lag, as the note says. Priors as
 # in the note where the class exists; the intercepts keep the brms default
 # (damage ranges from 1 to about 1 million m3, so normal(0, 2) on the log of
 # damage would pull every region towards about 1 m3).
 pest2_formula_hurdle <- function() {
-  rhs <- "ld1 + ld1_lag + vpd_s + host_s + vpd_s:ld1 + host_s:ld1 +
-          gp(x_km, y_km, k = NA, scale = TRUE) + gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) +
-          (1 + ld1 | region) + (1 | year_f)"
-  brms::bf(stats::as.formula(paste("d2 ~", rhs)), stats::as.formula(paste("hu ~", rhs)))
+  brms::bf(d2 ~ ld1 + ld1_lag + vpd_s + host_s + vpd_s:ld1 + host_s:ld1 +
+             gp(x_km, y_km, k = NA, scale = TRUE) + gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) +
+             (1 + ld1 | region) + (1 | year_f),
+           hu ~ ld1 + ld1_lag + vpd_s + host_s + (1 | region) + (1 | year_f))
 }
 
 pest2_priors_hurdle <- function() {
   c(brms::prior(normal(0, 1), class = b), brms::prior(normal(0, 1), class = b, dpar = hu),
     brms::prior(exponential(2), class = sd), brms::prior(exponential(2), class = sd, dpar = hu),
-    brms::prior(exponential(2), class = sdgp), brms::prior(exponential(2), class = sdgp, dpar = hu),
+    brms::prior(exponential(2), class = sdgp),
     brms::prior(lkj(2), class = cor))
 }
 
@@ -139,8 +141,12 @@ pest2_loro_one <- function(r, train, fit, base) {
   tr <- dplyr::filter(train, region != r); te <- dplyr::filter(train, region == r)
   f <- stats::update(fit, newdata = tr, recompile = FALSE, refresh = 0, chains = 2, iter = 2000, warmup = 1000, cores = 2)
   b <- stats::update(base, newdata = tr, recompile = FALSE, refresh = 0, chains = 2, iter = 2000, cores = 2)
-  h <- pest2_draw_summary(te, brms::posterior_predict(f, newdata = te, allow_new_levels = TRUE, sample_new_levels = "gaussian"))
-  p <- pest2_draw_summary(te, brms::posterior_predict(b, newdata = te, allow_new_levels = TRUE, sample_new_levels = "gaussian"))
+  # pest 2 of the held-out region hidden from the prediction as well: with ar(),
+  # brms uses the observed response of newdata for the lagged residuals, which
+  # would hand last year's pest 2 to the model (the note's script does this)
+  hid <- dplyr::mutate(te, ld2 = NA_real_)
+  h <- pest2_draw_summary(te, brms::posterior_predict(f, newdata = hid, allow_new_levels = TRUE, sample_new_levels = "gaussian"))
+  p <- pest2_draw_summary(te, brms::posterior_predict(b, newdata = hid, allow_new_levels = TRUE, sample_new_levels = "gaussian"))
   eu <- tr |> dplyr::group_by(year) |>
     dplyr::summarise(pred = mean(ld2), lo90 = stats::quantile(ld2, 0.05), hi90 = stats::quantile(ld2, 0.95), .groups = "drop")
   m <- dplyr::left_join(dplyr::select(te, year, obs = ld2), eu, by = "year") |> dplyr::mutate(region = as.character(r), .before = 1)
