@@ -10,3 +10,8 @@ renv/staging/
 .Rhistory
 .RData
 *_files/
+
+# pest 2 model: row-level tables (reported damage) stay out of the public repo
+outputs/pest2/*/input_table.csv
+outputs/pest2/*/predictions_new_regions.csv
+outputs/pest2/*/loro_predictions.csv

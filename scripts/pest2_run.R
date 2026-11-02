@@ -3,7 +3,7 @@
 #   Rscript scripts/pest2_run.R ips_typ pit_spp fir
 # Arguments: pest 1 code, pest 2 code, pest 2 host column of the forest appendix.
 # Needs data/external/region_climate.csv (R/climate.R).
-# Outputs in outputs/pest2/<pest1>_to_<pest2>/; fitted models in _targets/pest2/ (not committed).
+# Scores and figures in outputs/pest2/<pest1>_to_<pest2>/, row-level tables in data/processed/pest2/; fitted models in _targets/pest2/ (not committed).
 
 suppressMessages({ library(targets); library(dplyr); library(brms) })
 source("R/pest2_model.R"); source("R/climate.R")
@@ -14,6 +14,8 @@ loro_on <- !"--no-loro" %in% a
 
 out <- file.path("outputs/pest2", paste0(pest1, "_to_", pest2)); dir.create(out, recursive = TRUE, showWarnings = FALSE)
 mdir <- "_targets/pest2"; dir.create(mdir, recursive = TRUE, showWarnings = FALSE)
+# row-level tables hold reported damage: data/processed (not committed); scores and figures: outputs
+ddir <- file.path("data/processed/pest2", paste0(pest1, "_to_", pest2)); dir.create(ddir, recursive = TRUE, showWarnings = FALSE)
 ph <- tar_read(ph_hier); nm <- setNames(ph$name, ph$species)
 unit <- tar_read(cb_dmg) |> filter(species == pest2) |> pull(unit) |> first()
 
@@ -22,7 +24,7 @@ dat <- pest2_table(tar_read(cb_dmg), pest1, pest2, host_col, positions_it_fvg(ta
 mod_dat <- pest2_prep(dat)
 train <- filter(mod_dat, known, !is.na(ld2)) |> droplevels()
 newreg <- filter(mod_dat, !known) |> droplevels()
-write.csv(dat, file.path(out, "input_table.csv"), row.names = FALSE)
+write.csv(dat, file.path(ddir, "input_table.csv"), row.names = FALSE)
 cat(sprintf("%s -> %s: %d complete regions (%d rows, %.0f%% zeros), %d prediction regions\n",
             pest1, pest2, n_distinct(train$region), nrow(train), 100 * mean(train$d2 == 0), n_distinct(newreg$region)))
 
@@ -36,7 +38,7 @@ ggplot2::ggsave(file.path(out, "pp_check.png"), pp_check(fit, ndraws = 50) + the
 
 # 5. Predict the prediction regions
 pred_new <- pest2_predict_new(fit, newreg)
-write.csv(pred_new, file.path(out, "predictions_new_regions.csv"), row.names = FALSE)
+write.csv(pred_new, file.path(ddir, "predictions_new_regions.csv"), row.names = FALSE)
 
 # 6. Plots
 ggplot2::ggsave(file.path(out, "predictions_new_regions.png"),
@@ -48,7 +50,7 @@ ggplot2::ggsave(file.path(out, "slope_deviation_map.png"), plot_pest2_slope_map(
 # 4. Leave one region out: hierarchical model against the two baselines
 if (loro_on) {
   lo <- bind_rows(lapply(levels(train$region), function(r) { cat("LORO", r, "\n"); pest2_loro_one(r, train, fit, base) }))
-  write.csv(lo, file.path(out, "loro_predictions.csv"), row.names = FALSE)
+  write.csv(lo, file.path(ddir, "loro_predictions.csv"), row.names = FALSE)
   write.csv(pest2_scores(lo), file.path(out, "loro_scores.csv"), row.names = FALSE)
   write.csv(pest2_scores(lo, by_region = TRUE), file.path(out, "loro_scores_by_region.csv"), row.names = FALSE)
   print(pest2_scores(lo))
