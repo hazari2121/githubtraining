@@ -82,6 +82,43 @@ pest2_fit <- function(train, chains = 4, iter = 3000, warmup = 1500, seed = 42, 
             control = list(adapt_delta = 0.95, max_treedepth = 12), seed = seed, file = file)
 }
 
+# Component 6 of the note for damage with exact zeros: hurdle-Gamma with a log
+# link, damage modelled directly (no log by hand). Part 1 (hu) = the chance of a
+# zero year, part 2 = the amount in a year with damage. Both parts get the same
+# predictors as the Gaussian model. brms has no ar() with Gamma, so ar() is
+# dropped and the time structure rests on ld1_lag, as the note says. Priors as
+# in the note where the class exists; the intercepts keep the brms default
+# (damage ranges from 1 to about 1 million m3, so normal(0, 2) on the log of
+# damage would pull every region towards about 1 m3).
+pest2_formula_hurdle <- function() {
+  rhs <- "ld1 + ld1_lag + vpd_s + host_s + vpd_s:ld1 + host_s:ld1 +
+          gp(x_km, y_km, k = NA, scale = TRUE) + gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) +
+          (1 + ld1 | region) + (1 | year_f)"
+  brms::bf(stats::as.formula(paste("d2 ~", rhs)), stats::as.formula(paste("hu ~", rhs)))
+}
+
+pest2_priors_hurdle <- function() {
+  c(brms::prior(normal(0, 1), class = b), brms::prior(normal(0, 1), class = b, dpar = hu),
+    brms::prior(exponential(2), class = sd), brms::prior(exponential(2), class = sd, dpar = hu),
+    brms::prior(exponential(2), class = sdgp), brms::prior(exponential(2), class = sdgp, dpar = hu),
+    brms::prior(lkj(2), class = cor))
+}
+
+pest2_fit_hurdle <- function(train, chains = 4, iter = 3000, warmup = 1500, seed = 42, file = NULL) {
+  brms::brm(pest2_formula_hurdle(), data = train, family = brms::hurdle_gamma(), prior = pest2_priors_hurdle(),
+            chains = chains, iter = iter, warmup = warmup, cores = chains,
+            control = list(adapt_delta = 0.95, max_treedepth = 12), seed = seed, file = file)
+}
+
+# Leave one region out for the hurdle model; draws put on the log(damage + 1)
+# scale so that the scores compare directly with the Gaussian model and the baselines
+pest2_loro_hurdle_one <- function(r, train, fit) {
+  tr <- dplyr::filter(train, region != r); te <- dplyr::filter(train, region == r)
+  f <- stats::update(fit, newdata = tr, recompile = FALSE, refresh = 0, chains = 2, iter = 2000, warmup = 1000, cores = 2)
+  pp <- log1p(brms::posterior_predict(f, newdata = te, allow_new_levels = TRUE, sample_new_levels = "gaussian"))
+  dplyr::mutate(pest2_draw_summary(te, pp), model = "hierarchical hurdle-Gamma")
+}
+
 # Baseline (a) of the note: pooled slope, no region structure
 pest2_fit_base <- function(train, seed = 42, file = NULL) {
   brms::brm(ld2 ~ ld1 + ld1_lag + vpd_s + host_s + (1 | year_f), data = train, family = gaussian(),
@@ -125,11 +162,13 @@ pest2_scores <- function(lo, by_region = FALSE) {
 }
 
 # Section 5: predictions for the prediction regions, back on the damage scale
-pest2_predict_new <- function(fit, newreg) {
+pest2_predict_new <- function(fit, newreg, log_scale = TRUE) {
   pp <- brms::posterior_predict(fit, newdata = newreg, allow_new_levels = TRUE, sample_new_levels = "gaussian")
+  if (!log_scale) pp <- log1p(pp)
   q <- function(p) expm1(apply(pp, 2, stats::quantile, p))
-  dplyr::select(newreg, region, country, year, d1) |>
-    dplyr::mutate(d2_median = expm1(apply(pp, 2, stats::median)),
+  dplyr::select(newreg, region, country, year, d1, host) |>
+    dplyr::mutate(p_damage = colMeans(pp > 0),
+                  d2_median = expm1(apply(pp, 2, stats::median)),
                   d2_lo50 = q(0.25), d2_hi50 = q(0.75), d2_lo90 = q(0.05), d2_hi90 = q(0.95))
 }
 
@@ -148,14 +187,21 @@ theme_proles <- function(base_size = 12) {
 }
 sysfonts_families <- function() if (requireNamespace("sysfonts", quietly = TRUE)) sysfonts::font_families() else character()
 
+# Pest 2 on its own scale: pest 1 is often 100 times larger, so its line is
+# rescaled in each panel to the height of the 90 % interval (shape only).
+# Regions without the host of pest 2 in the forest appendix are left out.
 plot_pest2_predictions <- function(pred_new, title, unit) {
-  ggplot2::ggplot(pred_new, ggplot2::aes(year)) +
+  d <- dplyr::filter(pred_new, host > 0) |> dplyr::group_by(region) |>
+    dplyr::mutate(d1_scaled = d1 / max(d1, 1) * max(d2_hi90, 1)) |> dplyr::ungroup()
+  ggplot2::ggplot(d, ggplot2::aes(year)) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = d2_lo90, ymax = d2_hi90), fill = proles[["mech"]], alpha = 0.35) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = d2_lo50, ymax = d2_hi50), fill = proles[["mech"]], alpha = 0.7) +
     ggplot2::geom_line(ggplot2::aes(y = d2_median), colour = proles[["jehlici"]], linewidth = 0.9) +
-    ggplot2::geom_line(ggplot2::aes(y = d1), colour = proles[["smola"]], linewidth = 0.6, linetype = "22") +
+    ggplot2::geom_line(ggplot2::aes(y = d1_scaled), colour = proles[["smola"]], linewidth = 0.6, linetype = "22") +
     ggplot2::facet_wrap(~ region, scales = "free_y", ncol = 6) +
-    ggplot2::labs(title = title, subtitle = "Green: median with 50 % and 90 % intervals. Orange dashed: observed pest 1.",
+    ggplot2::labs(title = title,
+                  subtitle = paste("Green: median with 50 % and 90 % intervals. Orange dashed: observed pest 1, rescaled to the panel (shape only).",
+                                   "\nRegions without the host tree of pest 2 in the forest data are not shown."),
                   x = NULL, y = paste0("Damage (", unit, ")")) +
     theme_proles(10)
 }
