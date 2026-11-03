@@ -1,0 +1,12 @@
+# Top five borers (by total damage) predicted from I. typographus (R/predict_all.R)
+#   Rscript scripts/predict_top5.R
+suppressMessages({ library(targets); library(dplyr) })
+for (f in c("R/helpers.R", "R/figures.R", "R/climate.R", "R/predict_all.R")) source(f)
+dmg <- tar_read(cb_dmg)
+top <- top_borers(dmg)
+cv <- top_borers_cv(dmg, top, positions_it_fvg(tar_read(region_pos)), read.csv(region_climate_file))
+sc <- top_borers_scores(cv, top, tar_read(ph_hier))
+dir.create("outputs/predict_all", showWarnings = FALSE)
+write.csv(sc, "outputs/predict_all/PREDICT_top5_borers_from_ips_typographus.csv", row.names = FALSE)
+ggplot2::ggsave("outputs/predict_all/top5_borers_from_ips_typographus.png", plot_top_borers(cv, sc), width = 13, height = 7.5, dpi = 200, bg = "white")
+print(as.data.frame(select(sc, name, test, countries, regions, region_years, R2_tested, r_tested, R2_tested_european_mean)), digits = 2)
