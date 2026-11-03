@@ -1,0 +1,11 @@
+"species","name","step","added","R2_tested"
+"pit_cha","Pityogenes chalcographus",0,"it",0.65266354257648
+"ips_dup","Ips duplicatus",0,"it",0.219000815652016
+"pha_cya","Phaenops cyanea",0,"it",0.141664250314801
+"pha_cya","Phaenops cyanea",1,"lat",0.253034895856897
+"pha_cya","Phaenops cyanea",2,"vpd",0.288246121843018
+"pha_cya","Phaenops cyanea",3,"vpd:lat",0.344252631021572
+"xyl_lin","Trypodendron (Xyloterus) lineatum",0,"it",0.228658121284842
+"pit_spp","Pityokteines spp.",0,"it",0.220512205070783
+"pit_spp","Pityokteines spp.",1,"lat",0.441478960964006
+"pit_spp","Pityokteines spp.",2,"it:lat",0.555327069313629

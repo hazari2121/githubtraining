@@ -153,3 +153,56 @@ plot_top_borers <- function(cv, sc) {
                   caption = "EU-ForDAM value1, reported data. VPD: WorldClim 2.1. Tested R2: 1 - squared error / variance over all held-out region-years (0 = no better than the overall mean).") +
     theme_eu(9) + ggplot2::theme(legend.position = "top", strip.text = ggplot2::element_text(face = "bold"))
 }
+
+# ---- Building the equation up one term at a time ------------------------------------
+# Start from Sx ~ IT. At each step try every term of the full equation
+# (IT x VPD x latitude x longitude) whose lower-order parts are already in,
+# and add the one that raises the tested R2 (hide a region) the most. Stop
+# when no term raises it by at least 0.01. Significance of the final model:
+# I. typographus shuffled between years within each region (200 times).
+
+loro_r2 <- function(d, fo, by = "nuts_id") {
+  p <- rep(NA_real_, nrow(d))
+  for (k in unique(d[[by]])) { i <- d[[by]] == k; p[i] <- suppressWarnings(stats::predict(stats::lm(fo, d[!i, ]), d[i, ])) }
+  1 - sum((d$sx - p)^2) / sum((d$sx - mean(d$sx))^2)
+}
+
+forward_terms <- function(d, min_gain = 0.01) {
+  all_terms <- labels(stats::terms(predict_all_formula))
+  parts <- function(t) strsplit(t, ":", fixed = TRUE)[[1]]
+  allowed <- function(t, cur) {
+    p <- parts(t); if (length(p) == 1) return(TRUE)
+    subs <- unlist(lapply(seq_len(length(p) - 1), function(k) apply(utils::combn(p, k), 2, paste, collapse = ":")))
+    all(subs %in% cur)
+  }
+  fo <- function(cur) stats::as.formula(paste("sx ~", paste(cur, collapse = " + ")))
+  cur <- "it"; best <- loro_r2(d, fo(cur))
+  steps <- tibble::tibble(step = 0, added = "it", R2_tested = best)
+  repeat {
+    cand <- setdiff(all_terms, cur); cand <- cand[vapply(cand, allowed, TRUE, cur = cur)]
+    if (!length(cand)) break
+    sc <- vapply(cand, function(t) loro_r2(d, fo(c(cur, t))), 0)
+    if (max(sc) < best + min_gain) break
+    cur <- c(cur, names(which.max(sc))); best <- max(sc)
+    steps <- dplyr::bind_rows(steps, tibble::tibble(step = nrow(steps), added = names(which.max(sc)), R2_tested = best))
+  }
+  list(terms = cur, formula = fo(cur), steps = steps)
+}
+
+top_borers_forward <- function(dmg, top, pos, clim, ph_hier, n_perm = 200) {
+  nm <- stats::setNames(ph_hier$name, ph_hier$species)
+  purrr::map(top$species, function(s) {
+    d <- predict_all_data(dmg, s, pos, clim)
+    fw <- forward_terms(d)
+    perm <- replicate(n_perm, { dd <- dplyr::mutate(dplyr::group_by(d, nuts_id), it = sample(it)) |> dplyr::ungroup(); loro_r2(dd, fw$formula) })
+    final <- loro_r2(d, fw$formula)
+    list(steps = dplyr::mutate(fw$steps, species = s, name = unname(nm[s]), .before = 1),
+         summary = tibble::tibble(species = s, name = unname(nm[s]), regions = dplyr::n_distinct(d$nuts_id), countries = dplyr::n_distinct(d$country),
+                                  final_equation = paste("Sx ~", paste(fw$terms, collapse = " + ")),
+                                  R2_tested_it_alone = fw$steps$R2_tested[1], R2_tested_final = final,
+                                  R2_tested_full_equation = loro_r2(d, predict_all_formula),
+                                  R2_tested_final_hide_country = if (dplyr::n_distinct(d$country) >= 2) loro_r2(d, fw$formula, "country") else NA_real_,
+                                  R2_shuffled_it_median = stats::median(perm), R2_shuffled_it_95pct = unname(stats::quantile(perm, 0.95)),
+                                  p_value = (sum(perm >= final) + 1) / (n_perm + 1)))
+  })
+}

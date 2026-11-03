@@ -1,0 +1,11 @@
+# Top five borers: the equation built up one term at a time (R/predict_all.R)
+#   Rscript scripts/predict_top5_forward.R
+suppressMessages({ library(targets); library(dplyr) })
+for (f in c("R/climate.R", "R/predict_all.R")) source(f)
+set.seed(1)
+dmg <- tar_read(cb_dmg)
+res <- top_borers_forward(dmg, top_borers(dmg), positions_it_fvg(tar_read(region_pos)), read.csv(region_climate_file), tar_read(ph_hier))
+steps <- bind_rows(lapply(res, `[[`, "steps")); sm <- bind_rows(lapply(res, `[[`, "summary"))
+write.csv(steps, "outputs/predict_all/PREDICT_top5_forward_steps.csv", row.names = FALSE)
+write.csv(sm, "outputs/predict_all/PREDICT_top5_forward_summary.csv", row.names = FALSE)
+print(as.data.frame(steps), digits = 2); print(as.data.frame(sm), digits = 2)
