@@ -13,7 +13,6 @@ write.csv(cm$scores, "outputs/predict_all/PREDICT_top5_methods.csv", row.names =
 write.csv(cm$dredge, "outputs/predict_all/PREDICT_top5_dredge_top10.csv", row.names = FALSE)
 pp <- compare_with_paper(cm$pred, tar_read(ppr_t6))
 write.csv(pp, "outputs/predict_all/PREDICT_top5_vs_paper.csv", row.names = FALSE)
-ggplot2::ggsave("outputs/predict_all/top5_borers_methods.png", plot_compare_methods(cm$scores), width = 13, height = 7.5, dpi = 200, bg = "white")
 vn <- predict_vs_n(dmg, pos, clim, tar_read(species_meta), ph)
 write.csv(vn, "outputs/predict_all/PREDICT_vs_amount_of_data.csv", row.names = FALSE)
 ggplot2::ggsave("outputs/predict_all/predictability_vs_amount_of_data.png", plot_predict_vs_n(vn), width = 11, height = 7, dpi = 200, bg = "white")
