@@ -81,3 +81,37 @@ plot_predict_matrix <- function(pm, ph_hier, meta) {
                                   "\n(e.g. borers on spruce without P. chalcographus when predicting P. chalcographus). EU-ForDAM value1, reported data. VPD: WorldClim 2.1.")) +
     theme_eu(9) + ggplot2::theme(strip.text.y = ggplot2::element_text(angle = 0, face = "bold", hjust = 0), panel.grid = ggplot2::element_blank())
 }
+
+# Every pair (notes: "predictability of everything that has a meaningful pair"):
+# every code and group predicting every other one, both directions
+predict_matrix_all <- function(dmg, ph_hier, pos, clim) {
+  ms <- matrix_series(dmg, ph_hier)
+  all <- names(ms$members)
+  purrr::map_dfr(all, function(p) purrr::map_dfr(setdiff(all, p), function(t) matrix_cell(ms, p, t, pos, clim)))
+}
+
+plot_predict_matrix_all <- function(pm, ph_hier, meta) {
+  nm <- c(stats::setNames(ph_hier$name, ph_hier$species), ips_typ = "Ips typographus")
+  lab <- function(x) dplyr::coalesce(unname(nm[x]), x)
+  gt <- c("Borers on fir", "Borers on spruce", "Borers on pine", "Defoliators on spruce", "Defoliators on pine")
+  guild <- c(stats::setNames(meta$guild_from_file, meta$species), stats::setNames(c("borer", "borer", "borer", "defoliator", "defoliator"), gt))
+  kind <- function(x) factor(dplyr::case_when(x %in% gt ~ "Groups", guild[x] == "borer" ~ "Borers", TRUE ~ "Defoliators"), c("Groups", "Borers", "Defoliators"))
+  d <- dplyr::filter(pm, !is.na(R2_tested))
+  keep <- union(d$predictor, d$target)
+  ord <- tibble::tibble(code = keep, k = kind(keep), lab = lab(keep)) |> dplyr::arrange(k, lab)
+  d <- dplyr::mutate(d, p = factor(lab(predictor), ord$lab), t = factor(lab(target), rev(ord$lab)),
+                     pk = kind(predictor), tk = kind(target), shown = pmax(pmin(R2_tested, 1), -0.5))
+  ggplot2::ggplot(d, ggplot2::aes(p, t, fill = shown)) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_gradient2(low = "#c9c8c3", mid = "white", high = "#184f95", midpoint = 0, limits = c(-0.5, 1),
+                                  name = "Tested R-squared\n(below -0.5 shown as -0.5)") +
+    ggplot2::scale_x_discrete(position = "top") +
+    ggplot2::facet_grid(tk ~ pk, scales = "free", space = "free") +
+    ggplot2::labs(x = "Predictor", y = "Target", title = "Predictability of every insect and group from every other one",
+                  subtitle = paste("Cell = tested R-squared when one NUTS region is hidden; target ~ predictor x VPD x latitude x longitude built up step by step.",
+                                   "\nPairs recorded together in at least 2 countries and 30 region-years; empty = too little overlap. Read across a row: what predicts this target."),
+                  caption = "Groups as in the 2025 EU-ForDAM paper (sum of recorded member codes; a target is taken out of its predictor). EU-ForDAM value1, reported data. VPD: WorldClim 2.1.") +
+    theme_eu(8) + ggplot2::theme(axis.text.x.top = ggplot2::element_text(angle = 90, hjust = 0, vjust = 0.5, size = 6.5),
+                                 axis.text.y = ggplot2::element_text(size = 6.5), panel.grid = ggplot2::element_blank(),
+                                 strip.text = ggplot2::element_text(face = "bold"))
+}
