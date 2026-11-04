@@ -1,0 +1,204 @@
+"predictor","target","region_years","regions","countries","predictor_codes_removed","r","R2_tested","equation"
+"ips_typ","CambXyl_con&BB_con&BO",557,25,3,"",0.392317741113921,0.395751337449339,"Sx ~ it + lat + it:lat + lon + it:lon"
+"ips_typ","Def_dec&DB",718,32,3,"",0.247984043348795,0.0239420359364156,"Sx ~ it"
+"ips_typ","dip_sp",897,42,4,"",0.148115693215916,0.0982961568243874,"Sx ~ it + lat + lon"
+"ips_typ","lym_dis",869,39,10,"",0.279457196368855,0.273312262747265,"Sx ~ it + vpd + it:vpd"
+"ips_typ","pha_cya",1081,50,5,"",0.418341836110372,0.344252631021572,"Sx ~ it + lat + vpd + vpd:lat"
+"ips_typ","pit_cha",625,28,6,"",0.818745648385556,0.65266354257648,"Sx ~ it"
+"ips_typ","pit_spp",764,34,5,"",0.517260342321966,0.555327069313629,"Sx ~ it + lat + it:lat"
+"ips_typ","tet_gab",718,32,3,"",0.287330493089089,0.170801519894678,"Sx ~ it + lon + vpd + vpd:lon"
+"ips_typ","tom_spp",1081,50,5,"",0.530594913974357,0.263263770876354,"Sx ~ it"
+"ips_typ","tor_vir",748,35,5,"",0.358309102992883,0.099501878488701,"Sx ~ it"
+"ips_typ","geo_db",771,36,6,"",0.226450953967897,0.127580023853492,"Sx ~ it + lon"
+"ips_typ","ips_acu",932,43,6,"",0.335632666744978,0.237581929794621,"Sx ~ it + lon + it:lon + vpd"
+"ips_typ","ips_sex",547,24,3,"",0.466414207489837,0.306901478559236,"Sx ~ it + lon + it:lon"
+"ips_typ","neo_ser",547,24,3,"",0.0471058143576607,-0.0531080823945529,"Sx ~ it"
+"ips_typ","tha_pit",386,17,3,"",0.137806036017744,0.711645497101215,"Sx ~ it + vpd"
+"ips_typ","CambXyl_con&MD",529,23,2,"",0.372205020209436,0.17875161263494,"Sx ~ it + lat"
+"ips_typ","cep_spp",184,8,1,"",NA,NA,NA
+"ips_typ","den_mic",552,24,3,"",0.0625625586056229,0.00792674574414454,"Sx ~ it + lat + it:lat"
+"ips_typ","ips_dup",227,10,3,"",0.607880144290845,0.219000815652016,"Sx ~ it"
+"ips_typ","lym_mon",892,41,4,"",0.163606339294463,0.114655576122215,"Sx ~ it + lon + lat"
+"ips_typ","pan_fla",892,41,4,"",0.104279038370094,0.112131565854569,"Sx ~ it + lat + lon"
+"ips_typ","pol_pol",207,9,2,"",0.512451705923064,0.146724927518351,"Sx ~ it"
+"ips_typ","pri_abi",529,23,2,"",0.2457748950661,0.118895662756334,"Sx ~ it + lon"
+"ips_typ","sco_int",529,23,2,"",0.325473500120283,0.0765323324105207,"Sx ~ it"
+"ips_typ","sco_rat",552,24,3,"",0.28129091608248,0.0801487602239843,"Sx ~ it + lon"
+"ips_typ","zei_gri",529,23,2,"",0.193387892013133,0.107686951544783,"Sx ~ it + lon"
+"ips_typ","CambXyl_con&BO",368,16,2,"",0.283121245036271,0.117608176045137,"Sx ~ it + lat + it:lat"
+"ips_typ","Def_dec",345,15,1,"",NA,NA,NA
+"ips_typ","agr_big",685,32,2,"",0.627713946059166,0.513525172654883,"Sx ~ it + lon + lat + lat:lon + it:lat"
+"ips_typ","agr_vir",345,15,1,"",NA,NA,NA
+"ips_typ","bup_pin",685,32,2,"",0.195992197010746,0.120187111068086,"Sx ~ it + lat"
+"ips_typ","den_pin",708,33,3,"",0.0812791923722116,0.135299713987948,"Sx ~ it + lat + vpd + vpd:lat + it:lat + it:vpd"
+"ips_typ","era_def",345,15,1,"",NA,NA,NA
+"ips_typ","ips_ami",345,15,1,"",NA,NA,NA
+"ips_typ","ips_cem",345,15,1,"",NA,NA,NA
+"ips_typ","mel_spp",685,32,2,"",0.310527134257187,0.152133307293299,"Sx ~ it + lon + it:lon"
+"ips_typ","ope_spp",345,15,1,"",NA,NA,NA
+"ips_typ","pis_pin",368,16,2,"",0.340605243121107,0.395104133689401,"Sx ~ it + lon"
+"ips_typ","pit_bid",345,15,1,"",NA,NA,NA
+"ips_typ","sap_car",345,15,1,"",NA,NA,NA
+"ips_typ","sco_sco",368,16,2,"",0.0860016591436175,-0.0277382067074388,"Sx ~ it"
+"ips_typ","tet_spp",345,15,1,"",NA,NA,NA
+"ips_typ","tha_pro",345,15,1,"",NA,NA,NA
+"ips_typ","uro_sir_spp",345,15,1,"",NA,NA,NA
+"ips_typ","xyl_lin",345,15,1,"",NA,NA,NA
+"ips_typ","xyl_spp",345,15,1,"",NA,NA,NA
+"ips_typ","clo_ana",22,1,1,"",NA,NA,NA
+"ips_typ","Borers on fir",764,34,5,"",0.517260342321966,0.555327069313629,"Sx ~ it + lat + it:lat"
+"ips_typ","Borers on pine",1167,54,9,"",0.649647003134847,0.530139512149223,"Sx ~ it + lon + lat + it:lon"
+"ips_typ","Defoliators on pine",1122,52,7,"",0.0919547778460764,0.0828155118888656,"Sx ~ it + lon"
+"ips_typ","Defoliators on spruce",892,41,4,"",0.236500871518855,0.10881268965724,"Sx ~ it + lon"
+"Borers on fir","CambXyl_con&BB_con&BO",557,25,3,"",0.517686518258608,0.304542285523262,"Sx ~ it + lon"
+"Borers on fir","Def_dec&DB",718,32,3,"",0.084795749152986,-0.0479039942855191,"Sx ~ it"
+"Borers on fir","dip_sp",534,24,2,"",0.00636391140057493,-0.0889952568760821,"Sx ~ it"
+"Borers on fir","lym_dis",741,33,4,"",0.438016962206012,0.225968113522969,"Sx ~ it + vpd + lon + it:vpd"
+"Borers on fir","pha_cya",718,32,3,"",0.276363849631325,-0.0075310749651587,"Sx ~ it"
+"Borers on fir","pit_cha",557,25,3,"",0.421337206195865,0.0844968974477938,"Sx ~ it"
+"Borers on fir","tet_gab",718,32,3,"",0.326187012842292,0.0287582954045308,"Sx ~ it"
+"Borers on fir","tom_spp",718,32,3,"",0.456416542730399,0.133214713728025,"Sx ~ it"
+"Borers on fir","tor_vir",345,15,1,"",NA,NA,NA
+"Borers on fir","geo_db",368,16,2,"",0.242779776500276,0.315308603756467,"Sx ~ it + lat + lon"
+"Borers on fir","ips_acu",529,23,2,"",0.152733870824059,0.247673594270051,"Sx ~ it + lon + it:lon"
+"Borers on fir","ips_sex",529,23,2,"",0.0937915922451592,0.107289614213318,"Sx ~ it + lon"
+"Borers on fir","neo_ser",529,23,2,"",-0.0893002972764978,-0.0379448507847266,"Sx ~ it"
+"Borers on fir","tha_pit",368,16,2,"",0.396632839635997,0.259574734231595,"Sx ~ it + vpd + it:vpd + lon"
+"Borers on fir","CambXyl_con&MD",529,23,2,"",0.50340284519823,0.230692938814603,"Sx ~ it + lon"
+"Borers on fir","cep_spp",184,8,1,"",NA,NA,NA
+"Borers on fir","den_mic",529,23,2,"",-0.0171311644383205,-0.00503516397724413,"Sx ~ it"
+"Borers on fir","ips_dup",184,8,1,"",NA,NA,NA
+"Borers on fir","lym_mon",529,23,2,"",0.0516645733140296,-0.033443145125778,"Sx ~ it + lon"
+"Borers on fir","pan_fla",529,23,2,"",-0.0407953705767837,-0.0328492258387114,"Sx ~ it"
+"Borers on fir","pol_pol",184,8,1,"",NA,NA,NA
+"Borers on fir","pri_abi",529,23,2,"",0.0880601136321571,0.12378392434635,"Sx ~ it + lon + lat"
+"Borers on fir","sco_int",529,23,2,"",0.151159491488395,-0.0368350527901584,"Sx ~ it"
+"Borers on fir","sco_rat",529,23,2,"",0.0534104713866634,0.0378491598479543,"Sx ~ it + lon"
+"Borers on fir","zei_gri",529,23,2,"",0.113137346545886,0.0995185642007402,"Sx ~ it + lon"
+"Borers on fir","CambXyl_con&BO",368,16,2,"",0.579534593086772,0.104601463503588,"Sx ~ it"
+"Borers on fir","Def_dec",345,15,1,"",NA,NA,NA
+"Borers on fir","agr_big",345,15,1,"",NA,NA,NA
+"Borers on fir","agr_vir",345,15,1,"",NA,NA,NA
+"Borers on fir","bup_pin",345,15,1,"",NA,NA,NA
+"Borers on fir","den_pin",345,15,1,"",NA,NA,NA
+"Borers on fir","era_def",345,15,1,"",NA,NA,NA
+"Borers on fir","ips_ami",345,15,1,"",NA,NA,NA
+"Borers on fir","ips_cem",345,15,1,"",NA,NA,NA
+"Borers on fir","mel_spp",345,15,1,"",NA,NA,NA
+"Borers on fir","ope_spp",345,15,1,"",NA,NA,NA
+"Borers on fir","pis_pin",345,15,1,"",NA,NA,NA
+"Borers on fir","pit_bid",345,15,1,"",NA,NA,NA
+"Borers on fir","sap_car",345,15,1,"",NA,NA,NA
+"Borers on fir","sco_sco",345,15,1,"",NA,NA,NA
+"Borers on fir","tet_spp",345,15,1,"",NA,NA,NA
+"Borers on fir","tha_pro",345,15,1,"",NA,NA,NA
+"Borers on fir","uro_sir_spp",345,15,1,"",NA,NA,NA
+"Borers on fir","xyl_lin",345,15,1,"",NA,NA,NA
+"Borers on fir","xyl_spp",345,15,1,"",NA,NA,NA
+"Borers on fir","clo_ana",0,0,0,"",NA,NA,NA
+"Borers on fir","Borers on pine",764,34,5,"",0.46030853579328,0.141803619476361,"Sx ~ it"
+"Borers on fir","Borers on spruce",764,34,5,"",0.511762889068981,0.276143615599058,"Sx ~ it + vpd + lon"
+"Borers on fir","Defoliators on pine",741,33,4,"",0.072499184284022,-0.104195733307267,"Sx ~ it"
+"Borers on fir","Defoliators on spruce",529,23,2,"",0.087176710606556,0.160404740886672,"Sx ~ it + lon"
+"Borers on spruce","CambXyl_con&BB_con&BO",557,25,3,"",0.383767152001543,0.394203229609502,"Sx ~ it + lat + it:lat + lon + it:lon"
+"Borers on spruce","Def_dec&DB",718,32,3,"",0.27255431431699,0.0353076887986469,"Sx ~ it"
+"Borers on spruce","dip_sp",897,42,4,"",0.132167897283545,0.0929224244794913,"Sx ~ it + lat + lon"
+"Borers on spruce","lym_dis",869,39,10,"",0.268220735070002,0.266336934535455,"Sx ~ it + vpd + it:vpd"
+"Borers on spruce","pha_cya",1081,50,5,"",0.401738244553103,0.333331434977988,"Sx ~ it + lat + vpd + vpd:lat"
+"Borers on spruce","pit_cha",625,28,6,"pit_cha",0.817188490448522,0.65080830915511,"Sx ~ it"
+"Borers on spruce","pit_spp",764,34,5,"",0.511762889068981,0.55013067238859,"Sx ~ it + lat + it:lat"
+"Borers on spruce","tet_gab",718,32,3,"",0.316857494710304,0.20018600788398,"Sx ~ it + lon + vpd + vpd:lon"
+"Borers on spruce","tom_spp",1081,50,5,"",0.547423182607024,0.281877260097974,"Sx ~ it"
+"Borers on spruce","tor_vir",748,35,5,"",0.350912330834053,0.0931214118693922,"Sx ~ it"
+"Borers on spruce","geo_db",771,36,6,"",0.210632136750129,0.125829541766059,"Sx ~ it + lon"
+"Borers on spruce","ips_acu",932,43,6,"",0.326188129475764,0.238167008092097,"Sx ~ it + lon + it:lon + vpd"
+"Borers on spruce","ips_sex",547,24,3,"",0.451917328322642,0.297844077572222,"Sx ~ it + lon + it:lon"
+"Borers on spruce","neo_ser",547,24,3,"",0.0400654682481624,-0.0537194221870527,"Sx ~ it"
+"Borers on spruce","tha_pit",386,17,3,"",0.122796896542536,0.712517379447337,"Sx ~ it + vpd"
+"Borers on spruce","CambXyl_con&MD",529,23,2,"",0.361699657328435,0.17633551011561,"Sx ~ it + lat"
+"Borers on spruce","cep_spp",184,8,1,"",NA,NA,NA
+"Borers on spruce","den_mic",552,24,3,"den_mic",0.0592718896838569,-0.0132549636025847,"Sx ~ it"
+"Borers on spruce","ips_dup",227,10,3,"ips_dup",0.609504788082157,0.21991179684404,"Sx ~ it"
+"Borers on spruce","lym_mon",892,41,4,"",0.148530376163878,0.110312611486138,"Sx ~ it + lon + lat"
+"Borers on spruce","pan_fla",892,41,4,"",0.0935723721477316,0.109042166209893,"Sx ~ it + lat + lon"
+"Borers on spruce","pol_pol",207,9,2,"pol_pol",0.530418402357341,0.172491211164627,"Sx ~ it"
+"Borers on spruce","pri_abi",529,23,2,"",0.255473563521694,0.123603204273081,"Sx ~ it + lon"
+"Borers on spruce","sco_int",529,23,2,"",0.331929775909578,0.0807915999667357,"Sx ~ it"
+"Borers on spruce","sco_rat",552,24,3,"",0.274012628223139,0.0798317381529452,"Sx ~ it + lon"
+"Borers on spruce","zei_gri",529,23,2,"",0.186757183470085,0.1075128096882,"Sx ~ it + lon"
+"Borers on spruce","CambXyl_con&BO",368,16,2,"",0.271346256746845,0.0981567687069335,"Sx ~ it + lat + it:lat"
+"Borers on spruce","Def_dec",345,15,1,"",NA,NA,NA
+"Borers on spruce","agr_big",685,32,2,"",0.620410127806572,0.519782546805523,"Sx ~ it + lon + lat + lat:lon + it:lat"
+"Borers on spruce","agr_vir",345,15,1,"",NA,NA,NA
+"Borers on spruce","bup_pin",685,32,2,"",0.186158128554329,0.112001141083101,"Sx ~ it + lat"
+"Borers on spruce","den_pin",708,33,3,"",0.0678271428755174,0.124756212934755,"Sx ~ it + lat + vpd + vpd:lat + it:lat + it:vpd"
+"Borers on spruce","era_def",345,15,1,"",NA,NA,NA
+"Borers on spruce","ips_ami",345,15,1,"ips_ami",NA,NA,NA
+"Borers on spruce","ips_cem",345,15,1,"",NA,NA,NA
+"Borers on spruce","mel_spp",685,32,2,"",0.307321690511606,0.175103902196293,"Sx ~ it + lon + it:lon"
+"Borers on spruce","ope_spp",345,15,1,"",NA,NA,NA
+"Borers on spruce","pis_pin",368,16,2,"",0.325075500699065,0.392697528462136,"Sx ~ it + lon"
+"Borers on spruce","pit_bid",345,15,1,"",NA,NA,NA
+"Borers on spruce","sap_car",345,15,1,"",NA,NA,NA
+"Borers on spruce","sco_sco",368,16,2,"",0.121080454132527,-0.0193262305690041,"Sx ~ it"
+"Borers on spruce","tet_spp",345,15,1,"tet_spp",NA,NA,NA
+"Borers on spruce","tha_pro",345,15,1,"",NA,NA,NA
+"Borers on spruce","uro_sir_spp",345,15,1,"uro_sir_spp",NA,NA,NA
+"Borers on spruce","xyl_lin",345,15,1,"",NA,NA,NA
+"Borers on spruce","xyl_spp",345,15,1,"",NA,NA,NA
+"Borers on spruce","clo_ana",22,1,1,"",NA,NA,NA
+"Borers on spruce","Borers on fir",764,34,5,"",0.511762889068981,0.55013067238859,"Sx ~ it + lat + it:lat"
+"Borers on spruce","Borers on pine",1167,54,9,"",0.649364559642525,0.549532194112576,"Sx ~ it + lon + lat + it:lon"
+"Borers on spruce","Defoliators on pine",1122,52,7,"",0.0743677682682736,0.0819577060118344,"Sx ~ it + lon"
+"Borers on spruce","Defoliators on spruce",892,41,4,"",0.22693944295792,0.108638276187195,"Sx ~ it + lon"
+"Borers on pine","CambXyl_con&BB_con&BO",534,24,2,"CambXyl_con&BB_con&BO",0.368044732103133,0.445393583814262,"Sx ~ it + lat + it:lat + lon"
+"Borers on pine","Def_dec&DB",718,32,3,"",0.317301619974301,0.0522041916656927,"Sx ~ it"
+"Borers on pine","dip_sp",897,42,4,"",0.383041663553988,0.199579521765114,"Sx ~ it + lat + it:lat"
+"Borers on pine","lym_dis",804,36,7,"",0.376978932228647,0.179111324211442,"Sx ~ it + vpd + it:vpd"
+"Borers on pine","pha_cya",1081,50,5,"pha_cya",0.323711834594076,0.0998865246392553,"Sx ~ it + lat"
+"Borers on pine","pit_cha",602,27,5,"",0.668242797375922,0.46565828282776,"Sx ~ it + lat + vpd"
+"Borers on pine","pit_spp",764,34,5,"",0.46030853579328,0.545379563212499,"Sx ~ it + lat + it:lat"
+"Borers on pine","tet_gab",718,32,3,"",0.418962831018287,0.240841180937612,"Sx ~ it + lon + lat + lat:lon + it:lon"
+"Borers on pine","tom_spp",1081,50,5,"tom_spp",0.340998743523614,0.195150612330475,"Sx ~ it + lat"
+"Borers on pine","tor_vir",726,34,4,"",0.349392814537325,0.0989111769452271,"Sx ~ it"
+"Borers on pine","geo_db",749,35,5,"",0.304551525327883,0.113126010713808,"Sx ~ it + lon"
+"Borers on pine","ips_acu",910,42,5,"ips_acu",0.0849040787926341,0.177409634618008,"Sx ~ it + lon + it:lon"
+"Borers on pine","ips_sex",547,24,3,"ips_sex",0.525734341933378,0.317246929448365,"Sx ~ it + lon + lat"
+"Borers on pine","neo_ser",547,24,3,"",0.212964992146755,-0.0516231324398599,"Sx ~ it"
+"Borers on pine","tha_pit",386,17,3,"",0.203657332801113,0.694807829810955,"Sx ~ it + vpd"
+"Borers on pine","CambXyl_con&MD",529,23,2,"",0.250116237628006,0.156378089144364,"Sx ~ it + lat"
+"Borers on pine","cep_spp",184,8,1,"",NA,NA,NA
+"Borers on pine","den_mic",552,24,3,"",0.0436036799808853,-0.0261021234311178,"Sx ~ it"
+"Borers on pine","ips_dup",205,9,2,"",0.610027000240479,0.565026303199117,"Sx ~ it + lon + it:lon"
+"Borers on pine","lym_mon",892,41,4,"",0.455909860330946,0.280128809302235,"Sx ~ it + lat + vpd"
+"Borers on pine","pan_fla",892,41,4,"",0.327605442516929,0.200752300457115,"Sx ~ it + lat + vpd"
+"Borers on pine","pol_pol",207,9,2,"",0.429001722950092,-0.0643213750588134,"Sx ~ it"
+"Borers on pine","pri_abi",529,23,2,"",0.226933444059277,0.129622063786802,"Sx ~ it + lon"
+"Borers on pine","sco_int",529,23,2,"",0.39580368332471,0.113629144762233,"Sx ~ it"
+"Borers on pine","sco_rat",552,24,3,"",0.367013860221601,0.102214427435059,"Sx ~ it + lon"
+"Borers on pine","zei_gri",529,23,2,"",0.115912548511147,0.10462481516465,"Sx ~ it + lon"
+"Borers on pine","CambXyl_con&BO",345,15,1,"CambXyl_con&BO",NA,NA,NA
+"Borers on pine","Def_dec",345,15,1,"",NA,NA,NA
+"Borers on pine","agr_big",685,32,2,"",0.747379303311818,0.534636300493397,"Sx ~ it"
+"Borers on pine","agr_vir",345,15,1,"",NA,NA,NA
+"Borers on pine","bup_pin",685,32,2,"",0.301141635291315,0.200394063391351,"Sx ~ it + lat + it:lat"
+"Borers on pine","den_pin",708,33,3,"",0.287345482415271,0.252804349011977,"Sx ~ it + lat + vpd + it:vpd + it:lat"
+"Borers on pine","era_def",345,15,1,"",NA,NA,NA
+"Borers on pine","ips_ami",345,15,1,"",NA,NA,NA
+"Borers on pine","ips_cem",345,15,1,"",NA,NA,NA
+"Borers on pine","mel_spp",685,32,2,"",0.512898588547091,0.228219769426352,"Sx ~ it"
+"Borers on pine","ope_spp",345,15,1,"",NA,NA,NA
+"Borers on pine","pis_pin",368,16,2,"pis_pin",0.431638121628646,0.438478851065287,"Sx ~ it + lon"
+"Borers on pine","pit_bid",345,15,1,"pit_bid",NA,NA,NA
+"Borers on pine","sap_car",345,15,1,"",NA,NA,NA
+"Borers on pine","sco_sco",368,16,2,"",0.146783023470073,-0.0283838525628184,"Sx ~ it"
+"Borers on pine","tet_spp",345,15,1,"",NA,NA,NA
+"Borers on pine","tha_pro",345,15,1,"",NA,NA,NA
+"Borers on pine","uro_sir_spp",345,15,1,"",NA,NA,NA
+"Borers on pine","xyl_lin",345,15,1,"",NA,NA,NA
+"Borers on pine","xyl_spp",345,15,1,"",NA,NA,NA
+"Borers on pine","clo_ana",0,0,0,"",NA,NA,NA
+"Borers on pine","Borers on fir",764,34,5,"",0.46030853579328,0.545379563212499,"Sx ~ it + lat + it:lat"
+"Borers on pine","Borers on spruce",1167,54,9,"",0.649364559642525,0.570278945388517,"Sx ~ it + lat + vpd"
+"Borers on pine","Defoliators on pine",1122,52,7,"",0.455538410268887,0.217023995051146,"Sx ~ it + lon + it:lon + vpd"
+"Borers on pine","Defoliators on spruce",892,41,4,"",0.442948535951244,0.182538171269732,"Sx ~ it + lon"
