@@ -28,11 +28,11 @@ tested_r2 <- function(d, fo, by) {
   1 - sum((d$sx - p)^2) / sum((d$sx - mean(d$sx))^2)
 }
 
-dredge_one <- function(ry, sx, n_perm = 200) {
+dredge_one <- function(ry, sx, n_perm = 200, rank = "AICc") {
   d <- dredge_data(ry, sx)
   global <- stats::lm(sx ~ it * vpd * lat * lon, data = d, na.action = "na.fail")
-  dd <- suppressMessages(MuMIn::dredge(global, fixed = "it", rank = "AICc"))
-  best_terms <- names(which(!is.na(unlist(dd[1, setdiff(names(dd), c("(Intercept)", "df", "logLik", "AICc", "delta", "weight"))]))))
+  dd <- suppressMessages(MuMIn::dredge(global, fixed = "it", rank = rank))
+  best_terms <- names(which(!is.na(unlist(dd[1, setdiff(attr(dd, "terms"), "(Intercept)")]))))
   fo <- stats::reformulate(best_terms, response = "sx")
   best <- stats::lm(fo, data = d)
   r2_reg <- tested_r2(d, fo, "nuts_id")
@@ -40,12 +40,12 @@ dredge_one <- function(ry, sx, n_perm = 200) {
   imp <- MuMIn::sw(dd)
   list(
     summary = tibble::tibble(
-      code = sx, region_years = nrow(d), regions = dplyr::n_distinct(d$nuts_id), countries = dplyr::n_distinct(d$country),
+      code = sx, rank = rank, region_years = nrow(d), regions = dplyr::n_distinct(d$nuts_id), countries = dplyr::n_distinct(d$country),
       models_compared = nrow(dd), best_equation = paste("Sx ~", paste(best_terms, collapse = " + ")),
       n_terms = length(best_terms), models_within_2_AICc = sum(dd$delta < 2), weight_best = dd$weight[1],
       R2_fit = summary(best)$r.squared,
       R2_tested_region = r2_reg,
-      R2_tested_country = tested_r2(d, fo, "country"),
+      R2_tested_country = if (dplyr::n_distinct(d$country) >= 2) tested_r2(d, fo, "country") else NA_real_,
       R2_tested_region_it_alone = tested_r2(d, sx ~ it, "nuts_id"),
       R2_tested_region_full = tested_r2(d, sx ~ it * vpd * lat * lon, "nuts_id"),
       R2_tested_region_shuffled_it = stats::median(perm),
@@ -87,4 +87,19 @@ plot_dredge <- function(sm) {
                                    "\nI. typographus significant (shuffled between years within regions, FDR q < 0.05). Values below -1 drawn at -1."),
                   caption = "EU-ForDAM value1, reported data, region-years where both insects are recorded. VPD: WorldClim 2.1. Host tree not yet in the model.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top")
+}
+
+# Top five borers by total damage (after I. typographus), from the input table,
+# best equation chosen by AICc and by BIC (stricter about extra terms)
+dredge_top_borers <- function(ry, ins, n = 5, n_perm = 200) {
+  borers <- ins$code[ins$guild == "borer" & !ins$aggregate_code]
+  tot <- vapply(borers, function(s) sum(ry[[s]], na.rm = TRUE), 0)
+  top <- names(sort(tot, decreasing = TRUE))[seq_len(n)]
+  sm <- dplyr::bind_rows(lapply(top, function(s) dplyr::bind_rows(lapply(c("AICc", "BIC"), function(rk) {
+    cat(s, rk, format(Sys.time(), "%H:%M:%S"), "\n"); dredge_one(ry, s, n_perm, rk)$summary }))))
+  sm |> dplyr::mutate(total_damage_m3 = tot[code], q_timing = stats::p.adjust(p_timing, "BH"),
+                      meaningful = R2_tested_region > 0 & q_timing < 0.05) |>
+    dplyr::left_join(dplyr::select(ins, code, insect, countries_list = countries), by = "code") |>
+    dplyr::relocate(insect, total_damage_m3, .after = code) |>
+    dplyr::arrange(dplyr::desc(total_damage_m3), rank)
 }
