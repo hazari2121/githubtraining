@@ -103,3 +103,64 @@ dredge_top_borers <- function(ry, ins, n = 5, n_perm = 200) {
     dplyr::relocate(insect, total_damage_m3, .after = code) |>
     dplyr::arrange(dplyr::desc(total_damage_m3), rank)
 }
+
+# ---- Without dredge: every allowed equation, chosen by the honest test --------------
+# All sub-models of Sx ~ IT x VPD x latitude x longitude that keep IT and keep
+# the lower-order parts of every interaction, each scored by hiding one NUTS
+# region at a time; the best is the one that predicts hidden regions best.
+# (The winner is picked on the same test it is scored on, so its score is a
+# little optimistic.)
+
+all_hierarchical_models <- function() {
+  tt <- setdiff(labels(stats::terms(~ it * vpd * lat * lon)), "it")
+  parts <- function(t) strsplit(t, ":", fixed = TRUE)[[1]]
+  ok <- function(set) all(vapply(set, function(t) {
+    p <- parts(t); if (length(p) == 1) return(TRUE)
+    subs <- unlist(lapply(seq_len(length(p) - 1), function(k) apply(utils::combn(p, k), 2, paste, collapse = ":")))
+    all(subs %in% c("it", set) | vapply(subs, function(s) any(vapply(c("it", set), function(x) setequal(parts(x), parts(s)), TRUE)), TRUE))
+  }, TRUE))
+  sets <- unlist(lapply(0:length(tt), function(k) if (k == 0) list(character()) else utils::combn(tt, k, simplify = FALSE)), recursive = FALSE)
+  Filter(ok, sets)
+}
+
+loro_fast <- function(X, y, g) {
+  p <- numeric(length(y))
+  for (k in unique(g)) { i <- g == k; b <- stats::lm.fit(X[!i, , drop = FALSE], y[!i])$coefficients; b[is.na(b)] <- 0; p[i] <- X[i, , drop = FALSE] %*% b }
+  1 - sum((y - p)^2) / sum((y - mean(y))^2)
+}
+
+best_by_test <- function(ry, sx, models = all_hierarchical_models()) {
+  d <- dredge_data(ry, sx)
+  full <- stats::model.matrix(~ it * vpd * lat * lon, d)
+  cols <- colnames(full)
+  sc <- vapply(models, function(set) {
+    keep <- c("(Intercept)", "it", set)
+    loro_fast(full[, cols %in% keep | vapply(cols, function(cn) any(vapply(keep, function(k) setequal(strsplit(k, ":")[[1]], strsplit(cn, ":")[[1]]), TRUE)), TRUE), drop = FALSE], d$sx, d$nuts_id)
+  }, 0)
+  b <- which.max(sc)
+  fo <- stats::reformulate(c("it", models[[b]]), response = "sx")
+  tibble::tibble(code = sx, models_compared = length(models), best_equation = paste("Sx ~", paste(c("it", models[[b]]), collapse = " + ")),
+                 n_terms = 1 + length(models[[b]]), R2_tested_region = sc[b],
+                 R2_tested_country = if (dplyr::n_distinct(d$country) >= 2) tested_r2(d, fo, "country") else NA_real_)
+}
+
+# Fair version: for each hidden NUTS region the equation is chosen (all 148,
+# by hiding regions) using only the other regions, then used to predict the
+# hidden one. Its score is not flattered by the choice.
+best_by_test_fair <- function(ry, sx, models = all_hierarchical_models()) {
+  d <- dredge_data(ry, sx)
+  full <- stats::model.matrix(~ it * vpd * lat * lon, d); cols <- colnames(full)
+  same <- function(a, b) setequal(strsplit(a, ":")[[1]], strsplit(b, ":")[[1]])
+  colsets <- lapply(models, function(set) { keep <- c("(Intercept)", "it", set); vapply(cols, function(cn) any(vapply(keep, same, TRUE, b = cn)), TRUE) })
+  p <- numeric(nrow(d)); chosen <- character()
+  for (k in unique(d$nuts_id)) {
+    i <- d$nuts_id == k
+    sc <- vapply(colsets, function(cs) loro_fast(full[!i, cs, drop = FALSE], d$sx[!i], d$nuts_id[!i]), 0)
+    cs <- colsets[[which.max(sc)]]; chosen <- c(chosen, paste(c("it", models[[which.max(sc)]]), collapse = " + "))
+    b <- stats::lm.fit(full[!i, cs, drop = FALSE], d$sx[!i])$coefficients; b[is.na(b)] <- 0
+    p[i] <- full[i, cs, drop = FALSE] %*% b
+  }
+  tibble::tibble(code = sx, R2_tested_region_fair = 1 - sum((d$sx - p)^2) / sum((d$sx - mean(d$sx))^2),
+                 most_chosen_equation = paste("Sx ~", names(sort(table(chosen), decreasing = TRUE))[1]),
+                 times_chosen = max(table(chosen)), regions = length(unique(d$nuts_id)))
+}

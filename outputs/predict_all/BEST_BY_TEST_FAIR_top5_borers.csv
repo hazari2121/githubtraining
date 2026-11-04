@@ -1,0 +1,6 @@
+"code","R2_tested_region_fair","most_chosen_equation","times_chosen","regions"
+"pit_cha",0.623260358248205,"Sx ~ it + vpd + lat + lon + it:vpd + vpd:lat + vpd:lon",24,28
+"ips_dup",0.173466572996115,"Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lat + it:vpd:lon",3,10
+"pha_cya",0.0176478139027079,"Sx ~ it + vpd + lat + lon + it:vpd + it:lon",43,50
+"xyl_lin",0.173310551514732,"Sx ~ it + vpd + lat + lon + it:lat + vpd:lat + lat:lon",10,15
+"pit_spp",0.385888958131938,"Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + lat:lon",24,34

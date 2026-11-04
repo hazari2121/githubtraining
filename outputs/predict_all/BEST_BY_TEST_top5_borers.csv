@@ -1,0 +1,6 @@
+"code","models_compared","best_equation","n_terms","R2_tested_region","R2_tested_country"
+"pit_cha",148,"Sx ~ it + vpd + lat + lon + it:vpd + vpd:lat + vpd:lon",7,0.690475203993173,-0.97071981790139
+"ips_dup",148,"Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lat + it:vpd:lon",11,0.700907631490246,-45.8468795675841
+"pha_cya",148,"Sx ~ it + vpd + lat + lon + it:vpd + it:lon",6,0.358171743074256,-0.221408811859415
+"xyl_lin",148,"Sx ~ it + vpd + lat + lon + it:lat + vpd:lat + lat:lon",7,0.447076952336667,NA
+"pit_spp",148,"Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + lat:lon",9,0.589414124056505,-1.64101337398999
