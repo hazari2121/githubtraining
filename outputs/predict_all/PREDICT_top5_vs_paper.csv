@@ -1,0 +1,31 @@
+"species","method","r2_europe_totals","paper_r2","paper_r2_recomputed","not_lower_than_paper"
+"ips_dup","GAM",0.657265292614787,NA,NA,NA
+"ips_dup","linear, IT only",0.529054667857304,NA,NA,NA
+"ips_dup","linear, built step by step",0.529054667857304,NA,NA,NA
+"ips_dup","linear, dredge best (AICc)",0.910114960414599,NA,NA,NA
+"ips_dup","linear, full equation",0.0526049120837388,NA,NA,NA
+"ips_dup","random forest",0.935601048692035,NA,NA,NA
+"pha_cya","GAM",0.295433211930913,0.73,0.720468060020637,FALSE
+"pha_cya","linear, IT only",0.705569562264645,0.73,0.720468060020637,FALSE
+"pha_cya","linear, built step by step",0.881556202429933,0.73,0.720468060020637,TRUE
+"pha_cya","linear, dredge best (AICc)",0.323097216684799,0.73,0.720468060020637,FALSE
+"pha_cya","linear, full equation",0.323097216684799,0.73,0.720468060020637,FALSE
+"pha_cya","random forest",0.408185811288432,0.73,0.720468060020637,FALSE
+"pit_cha","GAM",0.451358135543642,0.34,0.341603444663328,TRUE
+"pit_cha","linear, IT only",0.47049157512416,0.34,0.341603444663328,TRUE
+"pit_cha","linear, built step by step",0.47049157512416,0.34,0.341603444663328,TRUE
+"pit_cha","linear, dredge best (AICc)",0.326047231043572,0.34,0.341603444663328,FALSE
+"pit_cha","linear, full equation",0.324573614316864,0.34,0.341603444663328,FALSE
+"pit_cha","random forest",0.381285779774631,0.34,0.341603444663328,TRUE
+"pit_spp","GAM",0.585480548902392,NA,NA,NA
+"pit_spp","linear, IT only",0.603815682348999,NA,NA,NA
+"pit_spp","linear, built step by step",0.029851644160698,NA,NA,NA
+"pit_spp","linear, dredge best (AICc)",0.0551628577098455,NA,NA,NA
+"pit_spp","linear, full equation",0.0551628577098455,NA,NA,NA
+"pit_spp","random forest",0.597361612435953,NA,NA,NA
+"xyl_lin","GAM",0.00171339478367356,NA,NA,NA
+"xyl_lin","linear, IT only",0.294780285289696,NA,NA,NA
+"xyl_lin","linear, built step by step",0.294780285289696,NA,NA,NA
+"xyl_lin","linear, dredge best (AICc)",0.0208063659720017,NA,NA,NA
+"xyl_lin","linear, full equation",0.0208063659720017,NA,NA,NA
+"xyl_lin","random forest",0.0744193744387963,NA,NA,NA

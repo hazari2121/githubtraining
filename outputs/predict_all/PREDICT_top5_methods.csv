@@ -1,0 +1,55 @@
+"species","name","method","test","formula","regions","countries","region_years","R2_tested","r_tested"
+"pit_cha","Pityogenes chalcographus","linear, IT only","hide a region","sx ~ it",28,6,625,0.65266354257648,0.807955206114079
+"pit_cha","Pityogenes chalcographus","linear, IT only","hide a country","sx ~ it",28,6,625,0.585442317718247,0.791031970404332
+"pit_cha","Pityogenes chalcographus","linear, full equation","hide a region","sx ~ it * vpd * lat * lon",28,6,625,0.464129235111628,0.720473628536747
+"pit_cha","Pityogenes chalcographus","linear, full equation","hide a country","sx ~ it * vpd * lat * lon",28,6,625,-148.429013857007,-0.554057669239554
+"pit_cha","Pityogenes chalcographus","linear, built step by step","hide a region","sx ~ it",28,6,625,0.65266354257648,0.807955206114079
+"pit_cha","Pityogenes chalcographus","linear, built step by step","hide a country","sx ~ it",28,6,625,0.585442317718247,0.791031970404332
+"pit_cha","Pityogenes chalcographus","linear, dredge best (AICc)","hide a region","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon",28,6,625,0.671943166165717,0.822118148045845
+"pit_cha","Pityogenes chalcographus","linear, dredge best (AICc)","hide a country","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon",28,6,625,-3.68444779761025,0.575210421210311
+"pit_cha","Pityogenes chalcographus","GAM","hide a region",NA,28,6,625,0.686776897020132,0.833359846499115
+"pit_cha","Pityogenes chalcographus","GAM","hide a country",NA,28,6,625,-3.20330131047224,0.0779810554241741
+"pit_cha","Pityogenes chalcographus","random forest","hide a region",NA,28,6,625,0.724840608143978,0.854815759958641
+"pit_cha","Pityogenes chalcographus","random forest","hide a country",NA,28,6,625,-0.0859179916298944,0.229375855278903
+"ips_dup","Ips duplicatus","linear, IT only","hide a region","sx ~ it",10,3,227,0.219000815652016,0.513091509364738
+"ips_dup","Ips duplicatus","linear, IT only","hide a country","sx ~ it",10,3,227,-3.03480243789735,0.569102152703347
+"ips_dup","Ips duplicatus","linear, full equation","hide a region","sx ~ it * vpd * lat * lon",10,3,227,-93.3199294333167,0.069926381133154
+"ips_dup","Ips duplicatus","linear, full equation","hide a country","sx ~ it * vpd * lat * lon",10,3,227,-97.094190867669,0.00410783165525564
+"ips_dup","Ips duplicatus","linear, built step by step","hide a region","sx ~ it",10,3,227,0.219000815652016,0.513091509364738
+"ips_dup","Ips duplicatus","linear, built step by step","hide a country","sx ~ it",10,3,227,-3.03480243789735,0.569102152703347
+"ips_dup","Ips duplicatus","linear, dredge best (AICc)","hide a region","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lon",10,3,227,0.525346191383326,0.838061596343505
+"ips_dup","Ips duplicatus","linear, dredge best (AICc)","hide a country","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lon",10,3,227,-45.9106804525624,-0.197236251560532
+"ips_dup","Ips duplicatus","GAM","hide a region",NA,10,3,227,-1.9725672577896,0.418988857539942
+"ips_dup","Ips duplicatus","GAM","hide a country",NA,10,3,227,-7.45646692806359,0.662567468290785
+"ips_dup","Ips duplicatus","random forest","hide a region",NA,10,3,227,0.453763886459949,0.698930567082042
+"ips_dup","Ips duplicatus","random forest","hide a country",NA,10,3,227,-0.234299248105998,0.537116429766439
+"pha_cya","Phaenops cyanea","linear, IT only","hide a region","sx ~ it",50,5,1081,0.141664250314801,0.37786603249599
+"pha_cya","Phaenops cyanea","linear, IT only","hide a country","sx ~ it",50,5,1081,-0.341509045416181,-0.327699613523744
+"pha_cya","Phaenops cyanea","linear, full equation","hide a region","sx ~ it * vpd * lat * lon",50,5,1081,-0.0746500285337062,0.52424940651643
+"pha_cya","Phaenops cyanea","linear, full equation","hide a country","sx ~ it * vpd * lat * lon",50,5,1081,-3.27068895529642,-0.164414640201936
+"pha_cya","Phaenops cyanea","linear, built step by step","hide a region","sx ~ it + lat + vpd + vpd:lat",50,5,1081,0.344252631021572,0.592225872185284
+"pha_cya","Phaenops cyanea","linear, built step by step","hide a country","sx ~ it + lat + vpd + vpd:lat",50,5,1081,-0.574360384836616,0.144623284830352
+"pha_cya","Phaenops cyanea","linear, dredge best (AICc)","hide a region","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",50,5,1081,-0.0746500285337062,0.52424940651643
+"pha_cya","Phaenops cyanea","linear, dredge best (AICc)","hide a country","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",50,5,1081,-3.27068895529642,-0.164414640201936
+"pha_cya","Phaenops cyanea","GAM","hide a region",NA,50,5,1081,0.339420985119482,0.614826714063807
+"pha_cya","Phaenops cyanea","GAM","hide a country",NA,50,5,1081,-0.237996956741428,0.144202002182509
+"pha_cya","Phaenops cyanea","random forest","hide a region",NA,50,5,1081,0.408510874430933,0.642020312140552
+"pha_cya","Phaenops cyanea","random forest","hide a country",NA,50,5,1081,-0.363688277362102,-0.158330474352234
+"xyl_lin","Trypodendron (Xyloterus) lineatum","linear, IT only","hide a region","sx ~ it",15,1,345,0.228658121284842,0.486943379113104
+"xyl_lin","Trypodendron (Xyloterus) lineatum","linear, full equation","hide a region","sx ~ it * vpd * lat * lon",15,1,345,-1.33637891788224,0.434566135965145
+"xyl_lin","Trypodendron (Xyloterus) lineatum","linear, built step by step","hide a region","sx ~ it",15,1,345,0.228658121284842,0.486943379113104
+"xyl_lin","Trypodendron (Xyloterus) lineatum","linear, dredge best (AICc)","hide a region","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",15,1,345,-1.33637891788224,0.434566135965145
+"xyl_lin","Trypodendron (Xyloterus) lineatum","GAM","hide a region",NA,15,1,345,-6.08386833973437,-0.0327218397341609
+"xyl_lin","Trypodendron (Xyloterus) lineatum","random forest","hide a region",NA,15,1,345,0.157027751016628,0.440064771510925
+"pit_spp","Pityokteines spp.","linear, IT only","hide a region","sx ~ it",34,5,764,0.220512205070783,0.472097162061187
+"pit_spp","Pityokteines spp.","linear, IT only","hide a country","sx ~ it",34,5,764,0.120794593084725,0.456937395594723
+"pit_spp","Pityokteines spp.","linear, full equation","hide a region","sx ~ it * vpd * lat * lon",34,5,764,0.119607389745356,0.539209858752196
+"pit_spp","Pityokteines spp.","linear, full equation","hide a country","sx ~ it * vpd * lat * lon",34,5,764,-5.06485733962848,0.25380965214357
+"pit_spp","Pityokteines spp.","linear, built step by step","hide a region","sx ~ it + lat + it:lat",34,5,764,0.555327069313629,0.745712647063849
+"pit_spp","Pityokteines spp.","linear, built step by step","hide a country","sx ~ it + lat + it:lat",34,5,764,-0.303197764136776,0.646592508829152
+"pit_spp","Pityokteines spp.","linear, dredge best (AICc)","hide a region","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",34,5,764,0.119607389745356,0.539209858752196
+"pit_spp","Pityokteines spp.","linear, dredge best (AICc)","hide a country","sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",34,5,764,-5.06485733962848,0.25380965214357
+"pit_spp","Pityokteines spp.","GAM","hide a region",NA,34,5,764,0.145798181329657,0.536113777267253
+"pit_spp","Pityokteines spp.","GAM","hide a country",NA,34,5,764,-5.17058877477863,0.238076011235898
+"pit_spp","Pityokteines spp.","random forest","hide a region",NA,34,5,764,0.455876782772062,0.6798312400886
+"pit_spp","Pityokteines spp.","random forest","hide a country",NA,34,5,764,0.16510776247783,0.510541568704818

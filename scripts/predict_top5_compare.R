@@ -1,0 +1,23 @@
+# Top five borers from I. typographus: data sheet, dredge, GAM, random forest,
+# comparison with the 2025 paper, and predictability against amount of data.
+#   Rscript scripts/predict_top5_compare.R
+suppressMessages({ library(targets); library(dplyr) })
+for (f in c("R/helpers.R", "R/figures.R", "R/climate.R", "R/predict_all.R", "R/predict_compare.R")) source(f)
+dmg <- tar_read(cb_dmg); pos <- positions_it_fvg(tar_read(region_pos)); clim <- read.csv(region_climate_file)
+ph <- tar_read(ph_hier); top <- top_borers(dmg)
+dir.create("data/processed/predict_all", recursive = TRUE, showWarnings = FALSE)
+write_pair_sheets(dmg, top, pos, clim, ph, "data/processed/predict_all/top5_borers_with_ips_typographus.xlsx")
+set.seed(1)
+cm <- compare_methods(dmg, top, pos, clim, ph); saveRDS(cm, "data/processed/predict_all/top5_methods.rds")
+write.csv(cm$scores, "outputs/predict_all/PREDICT_top5_methods.csv", row.names = FALSE)
+write.csv(cm$dredge, "outputs/predict_all/PREDICT_top5_dredge_top10.csv", row.names = FALSE)
+pp <- compare_with_paper(cm$pred, tar_read(ppr_t6))
+write.csv(pp, "outputs/predict_all/PREDICT_top5_vs_paper.csv", row.names = FALSE)
+ggplot2::ggsave("outputs/predict_all/top5_borers_methods.png", plot_compare_methods(cm$scores), width = 13, height = 7.5, dpi = 200, bg = "white")
+vn <- predict_vs_n(dmg, pos, clim, tar_read(species_meta), ph)
+write.csv(vn, "outputs/predict_all/PREDICT_vs_amount_of_data.csv", row.names = FALSE)
+ggplot2::ggsave("outputs/predict_all/predictability_vs_amount_of_data.png", plot_predict_vs_n(vn), width = 11, height = 7, dpi = 200, bg = "white")
+print(as.data.frame(select(cm$scores, name, method, test, R2_tested, r_tested)), digits = 2)
+print(as.data.frame(group_by(cm$dredge, name) |> slice(1) |> select(name, formula, AICc)))
+print(as.data.frame(pp), digits = 2)
+cat("cor(R2, N):", cor(vn$R2_tested_step, vn$region_years, method = "spearman"), "\n")

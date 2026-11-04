@@ -1,0 +1,51 @@
+"species","name","formula","n_terms","AICc","delta"
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon",11,2846.04225985734,0
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat",11,2846.06344491006,0.0211850527207389
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon",10,2846.85978673008,0.817526872743201
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon",12,2847.47573763122,1.43347777388317
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon",12,2847.94485120363,1.9025913462865
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon",11,2847.96665408741,1.92439423007272
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + vpd:lat:lon",12,2848.0228051833,1.98054532596097
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon + vpd:lat:lon",12,2848.07301058395,2.03075072660704
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon",12,2848.14243805291,2.10017819556606
+"pit_cha","Pityogenes chalcographus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + vpd:lon + lat:lon + it:vpd:lat",10,2848.27049401313,2.22823415578705
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lon",10,996.234902237239,0
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + it:vpd:lat + it:vpd:lon",11,996.655145606862,0.420243369622199
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon",11,998.191592590503,1.9566903532633
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon",12,998.513732250086,2.27883001284636
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + vpd:lat:lon",12,998.676472003705,2.44156976646593
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon + vpd:lat:lon",11,998.687931700766,2.4530294635266
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + vpd:lat:lon",13,1000.1915270694,3.95662483216086
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon",12,1000.30490201423,4.06999977698786
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon + vpd:lat:lon",13,1000.61641022399,4.38150798674599
+"ips_dup","Ips duplicatus","Sx ~ it + vpd + lat + lon + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon",10,1000.70116069086,4.46625845362428
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",15,5370.44714322109,0
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon + vpd:lat:lon",13,5409.15200845266,38.7048652315725
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon",14,5410.5101465236,40.0630033025063
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon",12,5418.21642276827,47.769279547183
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon",13,5420.25298214068,49.8058389195849
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + vpd:lat:lon",13,5421.62495369824,51.1778104771502
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + lat:lon + it:vpd:lat + it:lat:lon",11,5423.38610125637,52.9389580352827
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + vpd:lat:lon",12,5432.25397846359,61.8068352425034
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon",12,5444.73937965955,74.2922364384558
+"pha_cya","Phaenops cyanea","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + lat:lon + it:vpd:lat",10,5454.9422451332,84.4951019121127
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",15,1737.59136825247,0
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon",13,1750.72743301291,13.1360647604429
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon",14,1750.81410164566,13.2227333931946
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon + vpd:lat:lon",13,1750.89087710647,13.2995088539976
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + lat:lon + it:vpd:lat + it:lat:lon",11,1753.09330374445,15.5019354919771
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon",12,1754.86547784582,17.2741095933532
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon",12,1754.87534622081,17.2839779683372
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + vpd:lat:lon",12,1754.88881509669,17.2974468442246
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + vpd:lon + lat:lon + it:vpd:lat + vpd:lat:lon",11,1755.03666484746,17.445296594994
+"xyl_lin","Trypodendron (Xyloterus) lineatum","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon + vpd:lat:lon",13,1755.60757511688,18.0162068644088
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon + it:vpd:lat:lon",15,3255.63570407201,0
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + vpd:lat:lon",13,3299.99378908191,44.3580850099033
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:vpd:lon + it:lat:lon + vpd:lat:lon",14,3302.01745002463,46.381745952624
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + vpd:lat:lon",12,3303.44964383441,47.8139397624054
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lon + it:lat:lon + vpd:lat:lon",13,3304.40921826271,48.7735141907051
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + vpd:lat:lon",11,3305.66402166307,50.0283175910658
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:lat:lon + vpd:lat:lon",12,3306.92926868117,51.2935646091673
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + vpd:lat:lon",12,3307.57697352977,51.9412694577695
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:vpd + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + it:vpd:lat + it:lat:lon + vpd:lat:lon",13,3308.63642919781,53.0007251258044
+"pit_spp","Pityokteines spp.","Sx ~ it + vpd + lat + lon + it:lat + vpd:lat + it:lon + vpd:lon + lat:lon + vpd:lat:lon",10,3341.99106052292,86.355356450918
