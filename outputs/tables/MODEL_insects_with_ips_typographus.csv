@@ -1,0 +1,48 @@
+"code","insect","guild","unit","aggregate_code","region_years_with_ips","regions_with_ips","countries_with_ips","countries","share_zero_years","meets_2_countries","meets_3_countries"
+"lym_dis","Lymantria dispar","defoliator","ha",FALSE,869,39,10,"AT BG CZ DE HR HU LT RO RS SK",0.718066743383199,TRUE,TRUE
+"ips_acu","Ips acuminatus","borer","m3",FALSE,932,43,6,"BG CZ DE LT PL SK",0.622317596566524,TRUE,TRUE
+"geo_db","Geometridae on oaks","defoliator","ha",FALSE,771,36,6,"BG DE HR LT PL RO",0.599221789883268,TRUE,TRUE
+"pit_cha","Pityogenes chalcographus","borer","m3",FALSE,625,28,6,"AT DE IT LT SI SK",0.3024,TRUE,TRUE
+"pha_cya","Phaenops cyanea","borer","m3",FALSE,1081,50,5,"AT CZ DE LT PL",0.359851988899167,TRUE,TRUE
+"tom_spp","Tomicus spp.","borer","m3",FALSE,1081,50,5,"AT CZ DE LT PL",0.407030527289547,TRUE,TRUE
+"tor_vir","Tortrix viridana","defoliator","ha",FALSE,748,35,5,"BG DE LT PL RO",0.549465240641711,TRUE,TRUE
+"pit_spp","Pityokteines spp.","borer","m3",FALSE,764,34,5,"AT CZ DE HR SI",0.518324607329843,TRUE,TRUE
+"dip_sp","Diprion sp.","defoliator","ha",FALSE,897,42,4,"AT DE LT PL",0.654403567447046,TRUE,TRUE
+"lym_mon","Lymantria monacha","defoliator","ha",FALSE,892,41,4,"CZ DE LT PL",0.559417040358744,TRUE,TRUE
+"pan_fla","Panolis flammea","defoliator","ha",FALSE,892,41,4,"CZ DE LT PL",0.794843049327354,TRUE,TRUE
+"den_pin","Dendrolimus pini","defoliator","ha",FALSE,708,33,3,"DE LT PL",0.75,TRUE,TRUE
+"tet_gab","Tetropium gabrieli","borer","m3",FALSE,718,32,3,"AT CZ DE",0.759052924791086,TRUE,TRUE
+"Def_dec&DB","Defoliators on oaks (aggregate)","defoliator","ha",TRUE,718,32,3,"AT CZ DE",0.649025069637883,TRUE,TRUE
+"CambXyl_con&BB_con&BO","Borers on pine (aggregate)","borer","m3",TRUE,557,25,3,"AT DE HR",0.707360861759425,TRUE,TRUE
+"ips_sex","Ips sexdentatus","borer","m3",FALSE,547,24,3,"BG CZ DE",0.56672760511883,TRUE,TRUE
+"den_mic","Dendroctonus micans","borer","m3",FALSE,552,24,3,"CZ DE LT",0.98731884057971,TRUE,TRUE
+"sco_rat","Scolytus ratzeburgii","borer","m3",FALSE,552,24,3,"CZ DE LT",0.773550724637681,TRUE,TRUE
+"neo_ser","Neodiprion sertifer","defoliator","ha",FALSE,547,24,3,"BG CZ DE",0.945155393053016,TRUE,TRUE
+"tha_pit","Thaumetopoea pityocampa","defoliator","ha",FALSE,386,17,3,"BG DE HR",0.865284974093264,TRUE,TRUE
+"ips_dup","Ips duplicatus","borer","m3",FALSE,227,10,3,"CZ RO SK",0.193832599118943,TRUE,TRUE
+"agr_big","Agrilus biguttatus","borer","m3",FALSE,685,32,2,"DE PL",0.290510948905109,TRUE,FALSE
+"bup_pin","Bupalus piniarius","defoliator","ha",FALSE,685,32,2,"DE PL",0.767883211678832,TRUE,FALSE
+"mel_spp","Melolontha spp.","defoliator","ha",FALSE,685,32,2,"DE PL",0.440875912408759,TRUE,FALSE
+"CambXyl_con&MD","Borers on larch (aggregate)","borer","m3",TRUE,529,23,2,"CZ DE",0.729678638941399,TRUE,FALSE
+"sco_int","Scolytus intricatus","borer","m3",FALSE,529,23,2,"CZ DE",0.706994328922495,TRUE,FALSE
+"pri_abi","Pristiphora abietina","defoliator","ha",FALSE,529,23,2,"CZ DE",0.701323251417769,TRUE,FALSE
+"zei_gri","Zeiraphera griseana","defoliator","ha",FALSE,529,23,2,"CZ DE",0.856332703213611,TRUE,FALSE
+"CambXyl_con&BO","Borers on pine (aggregate; second code)","borer","m3",TRUE,368,16,2,"DE SI",0.907608695652174,TRUE,FALSE
+"pis_pin","Pissodes pini","borer","m3",FALSE,368,16,2,"DE LT",0.777173913043478,TRUE,FALSE
+"sco_sco","Scolytus scolytus","borer","m3",FALSE,368,16,2,"DE LT",0.923913043478261,TRUE,FALSE
+"pol_pol","Polygraphus poligraphus","borer","m3",FALSE,207,9,2,"CZ LT",0.222222222222222,TRUE,FALSE
+"agr_vir","Agrilus viridis","borer","m3",FALSE,345,15,1,"DE",0.834782608695652,FALSE,FALSE
+"ips_ami","Ips amitinus","borer","m3",FALSE,345,15,1,"DE",0.968115942028986,FALSE,FALSE
+"ips_cem","Ips cembrae","borer","m3",FALSE,345,15,1,"DE",0.43768115942029,FALSE,FALSE
+"pit_bid","Pityogenes bidentatus","borer","m3",FALSE,345,15,1,"DE",0.814492753623188,FALSE,FALSE
+"sap_car","Saperda carcharias","borer","m3",FALSE,345,15,1,"DE",0.997101449275362,FALSE,FALSE
+"tet_spp","Tetropium spp.","borer","m3",FALSE,345,15,1,"DE",0.773913043478261,FALSE,FALSE
+"uro_sir_spp","Siricinae","borer","m3",FALSE,345,15,1,"DE",0.96231884057971,FALSE,FALSE
+"xyl_lin","Trypodendron (Xyloterus) lineatum","borer","m3",FALSE,345,15,1,"DE",0.573913043478261,FALSE,FALSE
+"xyl_spp","Xyleborus / Xyloterus spp. (broadleaves)","borer","m3",FALSE,345,15,1,"DE",0.63768115942029,FALSE,FALSE
+"Def_dec","Defoliators on angiosperms (aggregate)","defoliator","ha",TRUE,345,15,1,"DE",0.994202898550725,FALSE,FALSE
+"era_def","Erannis defoliaria","defoliator","ha",FALSE,345,15,1,"DE",0.881159420289855,FALSE,FALSE
+"ope_spp","Operophtera sp.","defoliator","ha",FALSE,345,15,1,"DE",0.863768115942029,FALSE,FALSE
+"tha_pro","Thaumetopoea processionea","defoliator","ha",FALSE,345,15,1,"DE",0.684057971014493,FALSE,FALSE
+"cep_spp","Cephalcia sp.","defoliator","ha",FALSE,184,8,1,"CZ",0.478260869565217,FALSE,FALSE
+"clo_ana","Clostera anastomosis","defoliator","ha",FALSE,22,1,1,"RO",0.863636363636364,FALSE,FALSE

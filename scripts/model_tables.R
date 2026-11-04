@@ -1,0 +1,15 @@
+# Input tables for the predictability equation (R/model_tables.R)
+#   Rscript scripts/model_tables.R
+suppressMessages({ library(targets); library(dplyr) })
+for (f in c("R/climate.R", "R/model_tables.R")) source(f)
+reg <- model_regions(positions_it_fvg(tar_read(region_pos)), read.csv(region_climate_file))
+ry <- model_region_year(tar_read(cb_dmg), reg, tar_read(species_meta))
+ins <- model_insect_list(ry, tar_read(species_meta), tar_read(ph_hier))
+# regions and the insect list hold no damage values: outputs; the region-year table holds reported damage: data/processed
+write.csv(reg, "outputs/tables/MODEL_regions.csv", row.names = FALSE)
+write.csv(ins, "outputs/tables/MODEL_insects_with_ips_typographus.csv", row.names = FALSE)
+dir.create("data/processed", showWarnings = FALSE)
+write.csv(ry, "data/processed/model_region_year.csv", row.names = FALSE)
+write_model_tables(reg, ry, ins, "data/processed/MODEL_input_tables.xlsx")
+cat(nrow(reg), "regions;", nrow(ry), "region-years;", ncol(ry) - 7, "insects besides I. typographus\n")
+print(count(ins, meets_2_countries, meets_3_countries))
