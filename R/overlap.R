@@ -16,10 +16,16 @@
 #   ips_as_predictor     I. typographus as the predictor: every target with its overlap
 #   insects_by_region    region (rows) x insect (columns): number of years recorded
 
-overlap_codes <- function(ry) setdiff(names(ry), c("country", "nuts_id", "year", "lon", "lat", "vpd_kPa"))
+# Aggregate codes (damage reported for a whole group of insects, e.g.
+# CambXyl_con&MD = borers on larch) are not species: they are left out of the
+# pairs and matrices and listed on their own sheet.
+overlap_codes <- function(ry, meta = NULL) {
+  codes <- setdiff(names(ry), c("country", "nuts_id", "year", "lon", "lat", "vpd_kPa"))
+  if (is.null(meta)) codes else setdiff(codes, meta$species[meta$is_aggregate])
+}
 
-overlap_pairs <- function(ry, ins = NULL, ph_hier = NULL) {
-  codes <- overlap_codes(ry)
+overlap_pairs <- function(ry, meta, ph_hier = NULL) {
+  codes <- overlap_codes(ry, meta)
   rec <- lapply(codes, function(s) !is.na(ry[[s]])); names(rec) <- codes
   dmg <- lapply(codes, function(s) !is.na(ry[[s]]) & ry[[s]] > 0); names(dmg) <- codes
   nm <- if (is.null(ph_hier)) stats::setNames(codes, codes) else stats::setNames(ph_hier$name, ph_hier$species)
@@ -44,7 +50,7 @@ overlap_matrix <- function(pairs, value, codes) {
 
 # Insects ordered: I. typographus first, then borers and defoliators by number of regions
 overlap_order <- function(ry, meta) {
-  codes <- overlap_codes(ry)
+  codes <- overlap_codes(ry, meta)
   n_reg <- vapply(codes, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry[[s]])]), 0)
   gu <- meta$guild_from_file[match(codes, meta$species)]
   codes[order(codes != "ips_typ", gu != "borer", -n_reg)]
@@ -71,9 +77,15 @@ write_overlap_xlsx <- function(pairs, ry, meta, ph_hier, path) {
     "countries_matrix, regions_matrix, region_years_matrix, both_damage_matrix: the same numbers as a grid, target in the rows, predictor in the columns.",
     "ips_as_predictor: I. typographus as the predictor, every target insect.",
     "insects_by_region: number of years each insect is recorded in each region.",
-    "insects: code, name, guild, unit of every insect. EU-ForDAM value1, 2000-2022; CZ and DE spruce bark-borer group counted as I. typographus."), check.names = FALSE)
+    "insects: code, name, guild, unit of every insect (species and genus-level taxa such as Tomicus spp.). EU-ForDAM value1, 2000-2022; CZ and DE spruce bark-borer group counted as I. typographus.",
+    "aggregate_codes: damage reported for a whole group of insects (e.g. CambXyl_con&MD = borers on larch); not species, so not in the pairs or matrices."), check.names = FALSE)
   ips <- dplyr::filter(pairs, predictor == "ips_typ") |> dplyr::select(-predictor, -predictor_name)
-  sheets <- list(`how to read` = how, insects = names_tab, pairs = pairs, ips_as_predictor = ips,
+  agg <- intersect(meta$species[meta$is_aggregate], names(ry))
+  agg_tab <- tibble::tibble(code = agg, what = unname(nm[agg]), guild = meta$guild_from_file[match(agg, meta$species)],
+                            countries = vapply(agg, function(s) paste(sort(unique(ry$country[!is.na(ry[[s]])])), collapse = " "), ""),
+                            regions = vapply(agg, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry[[s]])]), 0),
+                            note = "group of insects reported together, not a species: left out of the pairs and matrices")
+  sheets <- list(`how to read` = how, insects = names_tab, aggregate_codes = agg_tab, pairs = pairs, ips_as_predictor = ips,
                  countries_matrix = overlap_matrix(pairs, "countries", codes), regions_matrix = overlap_matrix(pairs, "regions", codes),
                  region_years_matrix = overlap_matrix(pairs, "region_years", codes), both_damage_matrix = overlap_matrix(pairs, "region_years_both_damage", codes),
                  insects_by_region = insects_by_region(ry, codes))

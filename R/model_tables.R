@@ -60,7 +60,8 @@ model_insect_list <- function(ry, meta, ph_hier, lv = NULL, host_matrix = NULL) 
                    countries_with_ips = dplyr::n_distinct(ry$country[both]),
                    countries = paste(sort(unique(ry$country[both])), collapse = " "),
                    share_zero_years = mean(ry[[s]][both] == 0),
-                   meets_2_countries = countries_with_ips >= 2, meets_3_countries = countries_with_ips >= 3,
+                   meets_2_countries = countries_with_ips >= 2 & !isTRUE(meta$is_aggregate[match(s, meta$species)]),
+                   meets_3_countries = countries_with_ips >= 3 & !isTRUE(meta$is_aggregate[match(s, meta$species)]),
                    host = if (is.null(lv)) NA_character_ else lv$host_col[lv$level == "1_species" & lv$code == s][1])
   }) |>
     dplyr::mutate(host_columns = model_host_columns(code, guild, host, host_matrix),
