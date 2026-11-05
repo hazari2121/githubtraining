@@ -51,3 +51,32 @@ positions_it_fvg <- function(pos) {
 }
 
 region_climate_file <- "data/external/region_climate.csv"
+
+# ---- Climate of the 2025 EU-ForDAM paper (ERA5-Land) --------------------------------
+# data/raw/Data_Klim_Tree_NUTS_24052025.xlsx (sheet DATA_CLEAN: forest and
+# climate per region; Polish directorates with the code in NUTS_region, Czech
+# regions at NUTS3) and data/raw/Klim_NUTS_STATS.xlsx (climate per region,
+# Czech regions at NUTS2). Columns used: mean VPD from the plantecophys
+# package (as in the paper), mean air temperature, precipitation; labelled
+# "2020-2022_mean" in the files. Both files give identical values for the
+# regions they share; CZ01 (Prague) and DE3, DE5, DE6 (Berlin, Bremen,
+# Hamburg) have no values.
+paper_climate <- function(tree_file = "data/raw/Data_Klim_Tree_NUTS_24052025.xlsx", stats_file = "data/raw/Klim_NUTS_STATS.xlsx") {
+  d <- readxl::read_excel(tree_file, "DATA_CLEAN")
+  d <- tibble::tibble(nuts_id = dplyr::if_else(d$COUNTRY == "PL", d$NUTS_region, d$NUTS_CODE),
+                      vpd = d[["2020-2022_mean_vpd_ecophyspackage_ERALand"]], temp = d[["2020-2022_mean_tas_ERALand"]],
+                      precip = d[["2020-2022_mean_pr_ERALand"]])
+  s <- readxl::read_excel(stats_file)
+  s <- tibble::tibble(nuts_id = dplyr::recode(s$NUTS_CODE, KR0 = "KRO", `DEB;DEC` = "DEB; DEC", ITH4 = "IT"),
+                      vpd = s[["2020-2022_mean_vpd_ecophyspackage_ERALand"]], temp = s[["2020-2022_mean_tas_ERALand"]],
+                      precip = s[["2020-2022_mean_pr_ERALand"]])
+  dplyr::bind_rows(d, dplyr::filter(s, !nuts_id %in% d$nuts_id)) |> dplyr::distinct(nuts_id, .keep_all = TRUE)
+}
+
+# Host tree of each insect or group for the model (supervisor's matrix, sheet
+# "matrix" of Data_Klim_Tree_NUTS_24052025.xlsx): column name -> forest columns
+paper_host_matrix <- function(tree_file = "data/raw/Data_Klim_Tree_NUTS_24052025.xlsx") {
+  m <- as.data.frame(readxl::read_excel(tree_file, "matrix", .name_repair = "minimal"))
+  rows <- m[[1]]
+  purrr::map_dfr(names(m)[-1], function(cn) tibble::tibble(group = cn, host_columns = paste(rows[which(m[[cn]] == 1)], collapse = " + ")))
+}

@@ -166,18 +166,20 @@ best_by_test_fair <- function(ry, sx, models = all_hierarchical_models()) {
 }
 
 # ---- With the host tree --------------------------------------------------------------
-# host = share of the insect's host tree in the region's forest area (NUTS forest
-# appendix; standardised). Each of the 148 equations is tried three ways:
+# host = log(host amount + 1), standardised: growing stock (m3) for borers, area
+# (ha) for defoliators, of the forest columns in the insect's host_columns
+# (supervisor's matrix, otherwise the data-file host; R/model_tables.R). Each of the 148 equations is tried three ways:
 # without host, + host, + host + IT x host (the IT link changes with the
 # amount of host). Regions without forest data are left out of both the
 # with-host and the without-host search, so the two compare on the same rows.
 
-dredge_data_host <- function(ry, sx, regions, host) {
+dredge_data_host <- function(ry, sx, regions, host_columns) {
   d <- dredge_data(ry, sx)
-  h <- regions[[paste0("share_", host)]][match(d$nuts_id, regions$nuts_id)]
-  d$host_share <- h
-  d <- d[!is.na(h), ]
-  d$host <- as.numeric(scale(d$host_share))
+  cols <- strsplit(host_columns, " + ", fixed = TRUE)[[1]]
+  amount <- Reduce(`+`, lapply(cols, function(cn) regions[[cn]]))[match(d$nuts_id, regions$nuts_id)]
+  d$host_amount <- amount
+  d <- d[!is.na(amount), ]
+  d$host <- as.numeric(scale(log1p(d$host_amount)))
   d
 }
 
@@ -210,7 +212,7 @@ search_fair <- function(d, models) {
 host_compare <- function(ry, regions, ins, codes) {
   base <- all_hierarchical_models(); withh <- host_models(base)
   dplyr::bind_rows(lapply(codes, function(s) {
-    host <- ins$host[ins$code == s]
+    host <- ins$host_columns[ins$code == s]
     d <- dredge_data_host(ry, s, regions, host)
     cat(s, host, nrow(d), "rows", format(Sys.time(), "%H:%M:%S"), "\n")
     dplyr::bind_rows(

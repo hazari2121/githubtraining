@@ -7,7 +7,7 @@ source("R/dredge_ips.R")
 ry <- read.csv("data/processed/model_region_year.csv", check.names = FALSE)
 reg <- read.csv("outputs/tables/MODEL_regions.csv")
 ins <- read.csv("outputs/tables/MODEL_insects_with_ips_typographus.csv")
-codes <- ins$code[ins$countries_with_ips >= 3 & !is.na(ins$host)]
+codes <- ins$code[ins$countries_with_ips >= 3 & !is.na(ins$host_columns)]
 dir <- "data/processed/host_all"; dir.create(dir, recursive = TRUE, showWarnings = FALSE)
 for (s in codes) {
   f <- file.path(dir, paste0(s, ".csv"))
@@ -23,4 +23,4 @@ w <- hc |> select(code, insect, host, regions, region_years, R2_it_alone, with_h
   arrange(desc(pmax(R2_fair_with_host, R2_fair_without_host)))
 write.csv(hc, "outputs/predict_all/HOST_all_insects_detail.csv", row.names = FALSE)
 write.csv(w, "outputs/predict_all/HOST_all_insects.csv", row.names = FALSE)
-cat("insects:", nrow(w), " no host listed (left out):", paste(ins$code[ins$countries_with_ips >= 3 & is.na(ins$host)], collapse = " "), "\n")
+cat("insects:", nrow(w), " no host listed (left out):", paste(ins$code[ins$countries_with_ips >= 3 & is.na(ins$host_columns)], collapse = " "), "\n")
