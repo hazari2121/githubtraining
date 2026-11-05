@@ -1,0 +1,11 @@
+# Top five borers from I. typographus with and without the host tree (R/dredge_ips.R)
+#   Rscript scripts/host_top5.R
+suppressMessages(library(dplyr))
+source("R/dredge_ips.R")
+ry <- read.csv("data/processed/model_region_year.csv", check.names = FALSE)
+reg <- read.csv("outputs/tables/MODEL_regions.csv")
+ins <- read.csv("outputs/tables/MODEL_insects_with_ips_typographus.csv")
+hc <- host_compare(ry, reg, ins, c("pit_cha", "ips_dup", "pha_cya", "xyl_lin", "pit_spp"))
+write.csv(hc, "outputs/predict_all/HOST_top5_borers.csv", row.names = FALSE)
+options(width = 220)
+print(as.data.frame(select(hc, insect, host, regions, with_host, R2_it_alone, R2_host_alone_with_it, R2_best_flattered, R2_fair, rounds_with_host, most_chosen_equation)), digits = 2)

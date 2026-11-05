@@ -164,3 +164,60 @@ best_by_test_fair <- function(ry, sx, models = all_hierarchical_models()) {
                  most_chosen_equation = paste("Sx ~", names(sort(table(chosen), decreasing = TRUE))[1]),
                  times_chosen = max(table(chosen)), regions = length(unique(d$nuts_id)))
 }
+
+# ---- With the host tree --------------------------------------------------------------
+# host = share of the insect's host tree in the region's forest area (NUTS forest
+# appendix; standardised). Each of the 148 equations is tried three ways:
+# without host, + host, + host + IT x host (the IT link changes with the
+# amount of host). Regions without forest data are left out of both the
+# with-host and the without-host search, so the two compare on the same rows.
+
+dredge_data_host <- function(ry, sx, regions, host) {
+  d <- dredge_data(ry, sx)
+  h <- regions[[paste0("share_", host)]][match(d$nuts_id, regions$nuts_id)]
+  d$host_share <- h
+  d <- d[!is.na(h), ]
+  d$host <- as.numeric(scale(d$host_share))
+  d
+}
+
+host_models <- function(models = all_hierarchical_models()) {
+  c(lapply(models, function(m) m), lapply(models, function(m) c(m, "host")), lapply(models, function(m) c(m, "host", "it:host")))
+}
+
+search_fair <- function(d, models) {
+  full <- stats::model.matrix(~ it * vpd * lat * lon + host + it:host, d); cols <- colnames(full)
+  same <- function(a, b) setequal(strsplit(a, ":")[[1]], strsplit(b, ":")[[1]])
+  colsets <- lapply(models, function(set) { keep <- c("(Intercept)", "it", set); vapply(cols, function(cn) any(vapply(keep, same, TRUE, b = cn)), TRUE) })
+  # flattered: best of all models on the test itself
+  sc_all <- vapply(colsets, function(cs) loro_fast(full[, cs, drop = FALSE], d$sx, d$nuts_id), 0)
+  # fair: model chosen without the hidden region
+  p <- numeric(nrow(d)); chosen <- character()
+  for (k in unique(d$nuts_id)) {
+    i <- d$nuts_id == k
+    sc <- vapply(colsets, function(cs) loro_fast(full[!i, cs, drop = FALSE], d$sx[!i], d$nuts_id[!i]), 0)
+    j <- which.max(sc); chosen <- c(chosen, paste(c("it", models[[j]]), collapse = " + "))
+    b <- stats::lm.fit(full[!i, colsets[[j]], drop = FALSE], d$sx[!i])$coefficients; b[is.na(b)] <- 0
+    p[i] <- full[i, colsets[[j]], drop = FALSE] %*% b
+  }
+  tab <- sort(table(chosen), decreasing = TRUE)
+  tibble::tibble(R2_best_flattered = max(sc_all), best_equation = paste("Sx ~", paste(c("it", models[[which.max(sc_all)]]), collapse = " + ")),
+                 R2_fair = 1 - sum((d$sx - p)^2) / sum((d$sx - mean(d$sx))^2),
+                 most_chosen_equation = paste("Sx ~", names(tab)[1]), times_chosen = as.integer(tab[1]),
+                 rounds_with_host = sum(grepl("host", chosen)))
+}
+
+host_compare <- function(ry, regions, ins, codes) {
+  base <- all_hierarchical_models(); withh <- host_models(base)
+  dplyr::bind_rows(lapply(codes, function(s) {
+    host <- ins$host[ins$code == s]
+    d <- dredge_data_host(ry, s, regions, host)
+    cat(s, host, nrow(d), "rows", format(Sys.time(), "%H:%M:%S"), "\n")
+    dplyr::bind_rows(
+      dplyr::mutate(search_fair(d, base), with_host = FALSE),
+      dplyr::mutate(search_fair(d, withh), with_host = TRUE)) |>
+      dplyr::mutate(code = s, insect = ins$insect[ins$code == s], host = host, regions = dplyr::n_distinct(d$nuts_id),
+                    region_years = nrow(d), R2_host_alone_with_it = tested_r2(d, sx ~ it + host + it:host, "nuts_id"),
+                    R2_it_alone = tested_r2(d, sx ~ it, "nuts_id"), .before = 1)
+  }))
+}
