@@ -71,7 +71,7 @@ write_model_tables <- function(regions, ry, ins, path) {
   how <- data.frame(`How to read` = c(
     "regions: one row per region (NUTS code, Polish forest directorate, or whole country where the data are national).",
     "  lon, lat: region position (NUTS 2021 label point; PL directorate city; FI forest centres share their NUTS2 point; IT = Friuli Venezia Giulia).",
-    "  vpd_kPa, temp_C, precip_mm: mean VPD (plantecophys), air temperature and precipitation from ERA5-Land, the climate of the 2025 EU-ForDAM paper (files labelled 2020-2022 mean); empty for CZ01, DE3, DE5, DE6.",
+    "  vpd_kPa, temp_C, precip_mm: mean VPD (plantecophys), air temperature and precipitation (annual sum) from ERA5-Land (DKRZ portal), averaged over 2000-2022: the climate of the 2025 EU-ForDAM paper; empty for CZ01, DE3, DE5, DE6.",
     "  vpd_worldclim_kPa, temp_worldclim_C: the earlier WorldClim 2.1 (1970-2000) values, kept for comparison.",
     "  share_<host>: host forest area / all forest area; area_ha_<host>, stock_m3_<host>: host area and growing stock (NUTS forest appendix). Empty: no forest data (CZ01, DE3, DE5, DE6).",
     "region_year: one row per region and year 2000-2022; ips_typ = I. typographus; one column per insect code; empty = not recorded that year, 0 = recorded zero.",

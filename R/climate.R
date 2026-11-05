@@ -57,8 +57,10 @@ region_climate_file <- "data/external/region_climate.csv"
 # climate per region; Polish directorates with the code in NUTS_region, Czech
 # regions at NUTS3) and data/raw/Klim_NUTS_STATS.xlsx (climate per region,
 # Czech regions at NUTS2). Columns used: mean VPD from the plantecophys
-# package (as in the paper), mean air temperature, precipitation; labelled
-# "2020-2022_mean" in the files. Both files give identical values for the
+# package (as in the paper), mean air temperature, precipitation. ERA5-Land
+# from the DKRZ portal; daily data -> annual means (temperature, VPD) and annual
+# sums (precipitation) -> averaged over 2000-2022 (the column names say
+# "2020-2022", a labelling slip, confirmed by the supervisor). Both files give identical values for the
 # regions they share; CZ01 (Prague) and DE3, DE5, DE6 (Berlin, Bremen,
 # Hamburg) have no values.
 paper_climate <- function(tree_file = "data/raw/Data_Klim_Tree_NUTS_24052025.xlsx", stats_file = "data/raw/Klim_NUTS_STATS.xlsx") {
