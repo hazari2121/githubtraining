@@ -24,3 +24,5 @@ w <- hc |> select(code, insect, host, regions, region_years, R2_it_alone, with_h
 write.csv(hc, "outputs/predict_all/HOST_all_insects_detail.csv", row.names = FALSE)
 write.csv(w, "outputs/predict_all/HOST_all_insects.csv", row.names = FALSE)
 cat("insects:", nrow(w), " no host listed (left out):", paste(ins$code[ins$countries_with_ips >= 3 & is.na(ins$host_columns)], collapse = " "), "\n")
+suppressMessages({ source("R/helpers.R"); source("R/figures.R") })
+ggplot2::ggsave("outputs/predict_all/host_all_insects.png", plot_host_all(w), width = 12.5, height = 3 + 0.3 * nrow(w), dpi = 200, bg = "white")

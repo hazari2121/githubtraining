@@ -223,3 +223,22 @@ host_compare <- function(ry, regions, ins, codes) {
                     R2_it_alone = tested_r2(d, sx ~ it, "nuts_id"), .before = 1)
   }))
 }
+
+plot_host_all <- function(w) {
+  d <- w |> dplyr::mutate(lab = paste0(insect, "  (host: ", gsub("stock_m3_|area_ha_", "", host), ", ", regions, " regions)"),
+                          lab = forcats::fct_reorder(lab, pmax(R2_fair_with_host, R2_fair_without_host)))
+  cl <- function(x) pmax(x, -0.6)
+  ggplot2::ggplot(d, ggplot2::aes(y = lab)) +
+    ggplot2::geom_vline(xintercept = 0, colour = "#c9c8c3", linewidth = 0.4) +
+    ggplot2::geom_segment(ggplot2::aes(x = cl(R2_fair_without_host), xend = cl(R2_fair_with_host), yend = lab), colour = "#c9c8c3", linewidth = 0.8) +
+    ggplot2::geom_point(ggplot2::aes(x = cl(R2_it_alone), colour = "I. typographus alone"), shape = 1, size = 2.2) +
+    ggplot2::geom_point(ggplot2::aes(x = cl(R2_fair_without_host), colour = "best equation, without host"), size = 2.8) +
+    ggplot2::geom_point(ggplot2::aes(x = cl(R2_fair_with_host), colour = "best equation, host offered"), size = 2.8) +
+    ggplot2::scale_colour_manual(values = c(`I. typographus alone` = "#9c9b97", `best equation, without host` = "#184f95", `best equation, host offered` = "#eb6834"), name = NULL) +
+    ggplot2::labs(x = "Tested R-squared, fair: each NUTS region predicted by an equation chosen and fitted without it (0 = no better than the mean)", y = NULL,
+                  title = "Does the host tree help predict each insect from I. typographus?",
+                  subtitle = paste("Equations: every sub-model of damage ~ I. typographus x VPD x latitude x longitude (148), and with host offered also + host and + host + I. typographus x host (444).",
+                                   "\nHost = log of the host amount (m3 for borers, ha for defoliators; supervisor's host matrix, otherwise the data-file host). Values below -0.6 drawn at -0.6."),
+                  caption = "EU-ForDAM value1, region-years where both insects are recorded; insects recorded with I. typographus in at least 3 countries. VPD: ERA5-Land 2000-2022 (2025 EU-ForDAM paper).") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top")
+}
