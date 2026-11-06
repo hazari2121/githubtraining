@@ -143,3 +143,102 @@ write_equation_host_xlsx <- function(res, path) {
   writexl::write_xlsx(list(`how to read` = how, summary = res$summary, coefficients = res$coefficients), path)
   path
 }
+
+# ---- Better ways to predict: mixed model and lasso ----------------------------------
+# Same targets, same rows (region-years with both insects and forest data) as
+# the equation with host. Compared by hiding one NUTS region (and one country)
+# at a time:
+#   full equation  Sx ~ IT x VPD x latitude x longitude + host   (least squares)
+#   mixed model    Sx ~ IT + host + VPD + latitude + longitude + (1 | year) + (1 | region)
+#                  lme4; a hidden region gets the year effects learned from the
+#                  other regions and the average region (its own region effect is unknown)
+#   lasso          the terms of the full equation with host, unhelpful terms shrunk
+#                  to zero (glmnet); how strongly is chosen by hiding regions
+#                  inside the training data only, so the hidden region is never seen
+#   European mean  baseline: mean of the other regions in the same year
+
+pred_mixed <- function(tr, te) {
+  tr$year_f <- factor(tr$year); te$year_f <- factor(te$year, levels = levels(tr$year_f))
+  m <- suppressMessages(lme4::lmer(sx ~ it + host + vpd + lat + lon + (1 | year_f) + (1 | nuts_id), data = tr))
+  stats::predict(m, newdata = te, re.form = ~ (1 | year_f), allow.new.levels = TRUE)
+}
+
+# the same mixed model without I. typographus: how much of its skill is I. typographus
+pred_mixed_no_it <- function(tr, te) {
+  tr$year_f <- factor(tr$year); te$year_f <- factor(te$year, levels = levels(tr$year_f))
+  m <- suppressMessages(lme4::lmer(sx ~ host + vpd + lat + lon + (1 | year_f) + (1 | nuts_id), data = tr))
+  stats::predict(m, newdata = te, re.form = ~ (1 | year_f), allow.new.levels = TRUE)
+}
+
+pred_lasso <- function(tr, te) {
+  X <- function(d) stats::model.matrix(equation_formula_host, d)[, -1, drop = FALSE]
+  fold <- as.integer(factor(tr$nuts_id))
+  if (max(fold) > 10) fold <- (fold %% 10) + 1
+  # an inner training set with no variation (e.g. all zero years) leaves nothing to fit: predict its mean
+  cv <- tryCatch(glmnet::cv.glmnet(X(tr), tr$sx, alpha = 1, foldid = fold), error = function(e) NULL)
+  if (is.null(cv)) return(rep(mean(tr$sx), nrow(te)))
+  as.numeric(stats::predict(cv, X(te), s = "lambda.min"))
+}
+
+pred_full <- function(tr, te) suppressWarnings(stats::predict(stats::lm(equation_formula_host, tr), te))
+
+pred_eu <- function(tr, te) {
+  m <- tapply(tr$sx, tr$year, mean)
+  out <- unname(m[as.character(te$year)]); out[is.na(out)] <- mean(tr$sx); out
+}
+
+tested_by <- function(d, fun, by) {
+  if (dplyr::n_distinct(d[[by]]) < 2) return(NA_real_)
+  p <- rep(NA_real_, nrow(d))
+  for (k in unique(d[[by]])) { i <- d[[by]] == k; p[i] <- fun(d[!i, ], d[i, ]) }
+  1 - sum((d$sx - p)^2) / sum((d$sx - mean(d$sx))^2)
+}
+
+lasso_terms <- function(d) {
+  X <- stats::model.matrix(equation_formula_host, d)[, -1, drop = FALSE]
+  fold <- as.integer(factor(d$nuts_id)); if (max(fold) > 10) fold <- (fold %% 10) + 1
+  cv <- tryCatch(glmnet::cv.glmnet(X, d$sx, alpha = 1, foldid = fold), error = function(e) NULL)
+  if (is.null(cv)) return(NA_character_)
+  b <- as.matrix(stats::coef(cv, s = "lambda.min"))[-1, 1]
+  paste(names(b)[b != 0], collapse = " + ")
+}
+
+better_ways <- function(ry, regions, targets, ins) {
+  set.seed(1)
+  dplyr::bind_rows(lapply(targets$target, function(s) {
+    d <- equation_data_host(ry, regions, s, ins$host_columns[ins$code == s])
+    cat(s, format(Sys.time(), "%H:%M:%S"), "\n")
+    mx <- suppressMessages(lme4::lmer(sx ~ it + host + vpd + lat + lon + (1 | year) + (1 | nuts_id), data = dplyr::mutate(d, year = factor(year))))
+    cm <- summary(mx)$coefficients
+    tibble::tibble(target = s, target_name = targets$target_name[targets$target == s], regions = dplyr::n_distinct(d$nuts_id),
+                   countries = dplyr::n_distinct(d$country), region_years = nrow(d),
+                   region_full_equation = tested_by(d, pred_full, "nuts_id"), region_mixed = tested_by(d, pred_mixed, "nuts_id"),
+                   region_mixed_without_it = tested_by(d, pred_mixed_no_it, "nuts_id"),
+                   region_lasso = tested_by(d, pred_lasso, "nuts_id"), region_european_mean = tested_by(d, pred_eu, "nuts_id"),
+                   country_full_equation = tested_by(d, pred_full, "country"), country_mixed = tested_by(d, pred_mixed, "country"),
+                   country_lasso = tested_by(d, pred_lasso, "country"), country_european_mean = tested_by(d, pred_eu, "country"),
+                   mixed_b_it = cm["it", "Estimate"], mixed_t_it = cm["it", "t value"],
+                   mixed_b_host = cm["host", "Estimate"], mixed_t_host = cm["host", "t value"],
+                   lasso_terms_kept = lasso_terms(d))
+  })) |> dplyr::arrange(dplyr::desc(pmax(region_mixed, region_lasso, region_full_equation)))
+}
+
+plot_better_ways <- function(bw) {
+  d <- bw |> dplyr::mutate(lab = paste0(target_name, "  (", countries, " countries, ", regions, " regions)"),
+                           lab = forcats::fct_reorder(lab, pmax(region_mixed, region_lasso, region_full_equation))) |>
+    tidyr::pivot_longer(c(region_full_equation, region_mixed, region_lasso, region_european_mean), names_to = "way", values_to = "r2") |>
+    dplyr::mutate(way = factor(way, c("region_mixed", "region_lasso", "region_full_equation", "region_european_mean"),
+                               c("mixed model (IT + host + VPD + lat + lon, year and region effects)", "lasso on the full equation with host",
+                                 "full equation with host", "European mean of the other regions that year")))
+  ggplot2::ggplot(d, ggplot2::aes(pmax(r2, -1), lab, colour = way, shape = way)) +
+    ggplot2::geom_vline(xintercept = 0, colour = "#c9c8c3", linewidth = 0.4) +
+    ggplot2::geom_point(size = 2.6) +
+    ggplot2::scale_colour_manual(values = c("#eb6834", "#184f95", "#9c9b97", "#1f1e1c"), name = NULL) +
+    ggplot2::scale_shape_manual(values = c(16, 17, 4, 124), name = NULL) +
+    ggplot2::guides(colour = ggplot2::guide_legend(ncol = 2), shape = ggplot2::guide_legend(ncol = 2)) +
+    ggplot2::labs(x = "Tested R-squared: each NUTS region predicted from the other regions only (0 = no better than the overall mean; values below -1 drawn at -1)", y = NULL,
+                  title = "Predicting each insect from I. typographus: which way predicts hidden NUTS regions best?",
+                  subtitle = "Targets overlapping with I. typographus in at least 3 countries. log(damage + 1); host = log host amount (supervisor's host matrix). VPD: ERA5-Land 2000-2022.",
+                  caption = "EU-ForDAM value1, region-years where both insects are recorded and the region has forest data.") +
+    theme_eu(9) + ggplot2::theme(legend.position = "top")
+}
