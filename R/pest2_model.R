@@ -13,15 +13,18 @@
 # Our data in the note's layout (one row per region and year):
 #   region  EU-ForDAM region (NUTS code or PL forest directorate)
 #   d1, d2  reported damage of pest 1 and pest 2 (value1; m3 or ha)
-#   vpd     mean annual VPD of the region (R/climate.R, data/external/region_climate.csv)
+#   vpd     mean annual VPD of the region, ERA5-Land 2000-2022 as in the 2025 paper (R/climate.R paper_climate)
 #   host    share of pest 2's host tree in the region's forest area (forest appendix: host ha / all forest ha)
 #   lat/lon region position (R/gapfill_v2.R region_positions)
 #   known   pest 2 recorded in the region (complete region); FALSE = prediction region
 # Regions = all regions where pest 1 is recorded and the forest appendix has the host.
 
-pest2_read_climate <- function(path = region_climate_file) {
-  if (!file.exists(path)) stop("Climate missing: run R/climate.R (region_climate) to write ", path, call. = FALSE)
-  dplyr::select(utils::read.csv(path), nuts_id, vpd)
+# VPD of the 2025 EU-ForDAM paper (ERA5-Land, 2000-2022; R/climate.R paper_climate).
+# source = "worldclim" gives the earlier WorldClim stand-in (data/external/region_climate.csv).
+pest2_read_climate <- function(source = c("paper", "worldclim")) {
+  source <- match.arg(source)
+  if (source == "paper") return(dplyr::select(paper_climate(), nuts_id, vpd))
+  dplyr::select(utils::read.csv(region_climate_file), nuts_id, vpd)
 }
 
 # The note's input table: region, year, d1, d2, vpd, host, lat, lon, known
