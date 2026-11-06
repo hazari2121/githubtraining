@@ -1,0 +1,58 @@
+ Family: hurdle_gamma 
+  Links: mu = log; shape = identity; hu = logit 
+Formula: d2 ~ ld1 + ld1_lag + vpd_s + host_s + vpd_s:ld1 + host_s:ld1 + gp(x_km, y_km, k = NA, scale = TRUE) + gp(x_km, y_km, by = ld1, k = NA, scale = TRUE) + (1 + ld1 | region) + (1 | year_f) 
+         hu ~ ld1 + ld1_lag + vpd_s + host_s + (1 | region) + (1 | year_f)
+   Data: train (Number of observations: 642) 
+  Draws: 4 chains, each with iter = 3000; warmup = 1500; thin = 1;
+         total post-warmup draws = 6000
+
+Gaussian Process Terms: 
+                      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+sdgp(gpx_kmy_km)          0.96      0.76     0.03     2.74 1.00     1143
+sdgp(gpx_kmy_kmld1)       0.14      0.12     0.01     0.46 1.00      999
+lscale(gpx_kmy_km)        0.16      0.22     0.04     0.50 1.00     2304
+lscale(gpx_kmy_kmld1)     0.24      0.33     0.04     0.84 1.01      951
+                      Tail_ESS
+sdgp(gpx_kmy_km)          2359
+sdgp(gpx_kmy_kmld1)       2228
+lscale(gpx_kmy_km)        3248
+lscale(gpx_kmy_kmld1)     1073
+
+Group-Level Effects: 
+~region (Number of levels: 30) 
+                   Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)          3.56      0.75     2.09     5.03 1.00     1497     1458
+sd(ld1)                0.29      0.06     0.19     0.41 1.00     2160     3302
+sd(hu_Intercept)       3.98      0.78     2.70     5.73 1.00     2208     3587
+cor(Intercept,ld1)    -0.85      0.09    -0.97    -0.60 1.00     1993     2925
+
+~year_f (Number of levels: 22) 
+                 Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)        0.45      0.11     0.26     0.69 1.00     2077     2648
+sd(hu_Intercept)     0.94      0.37     0.21     1.71 1.00     1388     1295
+
+Population-Level Effects: 
+             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept        1.57      1.32    -1.04     4.21 1.00     2543     2273
+hu_Intercept     4.83      1.89     1.37     8.69 1.00     4817     5111
+ld1              0.36      0.14     0.07     0.64 1.00     1683     1091
+ld1_lag          0.07      0.04    -0.01     0.14 1.00     6919     3697
+vpd_s            0.44      0.79    -1.10     1.99 1.00     2624     1941
+host_s           1.43      0.71     0.05     2.80 1.00     3761     3917
+ld1:vpd_s        0.07      0.08    -0.09     0.22 1.00     2469     3272
+ld1:host_s      -0.07      0.06    -0.19     0.06 1.00     2592     3178
+hu_ld1          -0.29      0.13    -0.56    -0.04 1.00     4967     4466
+hu_ld1_lag      -0.16      0.14    -0.43     0.13 1.00     4902     4072
+hu_vpd_s         0.90      0.67    -0.45     2.22 1.00     2898     3521
+hu_host_s       -2.10      0.79    -3.67    -0.56 1.00     3104     4032
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape     1.26      0.09     1.09     1.45 1.00     4509     2962
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+Divergent transitions: 151 
+Max R-hat: 1.006 
