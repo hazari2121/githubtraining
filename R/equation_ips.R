@@ -242,3 +242,27 @@ plot_better_ways <- function(bw) {
                   caption = "EU-ForDAM value1, region-years where both insects are recorded and the region has forest data.") +
     theme_eu(9) + ggplot2::theme(legend.position = "top")
 }
+
+# ---- Simpler equations ---------------------------------------------------------------
+# Few terms, an interaction only where biology suggests it (I. typographus
+# mattering more in dry regions -> IT x VPD). Same targets and rows as above.
+simple_formulas <- list(
+  `IT alone`                 = sx ~ it,
+  `IT + host + VPD`          = sx ~ it + host + vpd,
+  `IT + host + VPD + IT x VPD` = sx ~ it + host + vpd + it:vpd,
+  `host + VPD (no IT)`       = sx ~ host + vpd)
+
+simple_equations <- function(ry, regions, targets, ins) {
+  dplyr::bind_rows(lapply(targets$target, function(s) {
+    d <- equation_data_host(ry, regions, s, ins$host_columns[ins$code == s])
+    m <- stats::lm(sx ~ it + host + vpd + it:vpd, d); co <- stats::coef(summary(m))
+    one <- function(fo, by) equation_tested_fo(d, fo, by)
+    tibble::tibble(target = s, target_name = targets$target_name[targets$target == s], regions = dplyr::n_distinct(d$nuts_id),
+                   countries = dplyr::n_distinct(d$country), region_years = nrow(d),
+                   region_full_equation = one(equation_formula_host, "nuts_id")) |>
+      dplyr::bind_cols(tibble::as_tibble(stats::setNames(lapply(simple_formulas, one, by = "nuts_id"), paste0("region_", names(simple_formulas))))) |>
+      dplyr::bind_cols(tibble::as_tibble(stats::setNames(lapply(simple_formulas, one, by = "country"), paste0("country_", names(simple_formulas))))) |>
+      dplyr::mutate(b_it = co["it", "Estimate"], p_it = co["it", "Pr(>|t|)"], b_host = co["host", "Estimate"], p_host = co["host", "Pr(>|t|)"],
+                    b_vpd = co["vpd", "Estimate"], p_vpd = co["vpd", "Pr(>|t|)"], b_it_x_vpd = co["it:vpd", "Estimate"], p_it_x_vpd = co["it:vpd", "Pr(>|t|)"])
+  }))
+}
