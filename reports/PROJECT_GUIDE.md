@@ -17,8 +17,8 @@ First pair: *Ips typographus* (pest 1) to *Pityokteines* spp. (pest 2, fir borer
 | 1 | Simple (Gaussian) version fitted, as in the note's script | done |
 | 2 | Two-step (hurdle) version fitted, the note's Component 6 for data with zeros | done |
 | 3 | "Hide a region" test of the simple version, against the note's two baselines | done |
-| 4 | "Hide a region" test of the two-step version | running (26 of 30 regions) |
-| 5 | One table comparing everything | next |
+| 4 | "Hide a region" test of the two-step version | done |
+| 5 | One table comparing everything | done (below) |
 | 6 | Decide what to try next (the note's own alternatives, Section 8) | after step 5 |
 
 ### Results so far
@@ -34,6 +34,15 @@ Simple version (fits the zeros badly):
 Score: 1 = perfect, 0 = no better than the overall average, below 0 = worse.
 Slovenia gets absurd predictions: it has more fir and more *Ips* damage than any region the
 model learned from, and the per-region *Ips* line stretches too far.
+
+| Professor's model, two-step (hurdle) version | -0.05 | -0.04 |
+| Simple mixed model (side analysis, same regions) | 0.46 | |
+
+The two-step version gets the zero years right in the data it learns from, but for a hidden
+region it often predicts zero although the region has damage every year (AT12, AT21, AT31, CZ02):
+without the region's own records it falls back to "about half the regions have no damage".
+Its 90 % ranges are too wide (98 % of the real values fall inside). The note's model, in either
+version, does not beat its own baselines for this pair.
 
 Two-step version: chains agree (R-hat 1.006), zero years 46 % in the model and in the data.
 Any damage at all: more likely with more fir and in bad *Ips* years. How much: more with
