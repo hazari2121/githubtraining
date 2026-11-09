@@ -110,3 +110,11 @@ with the 2025 paper, gap-filling: see `reports/summary_notes.html` and `reports/
 2. Slovenia: drop the per-region *Ips* line, or keep it?
 3. 10 of the 30 training regions (8 German, 2 Austrian) report zero *Pityokteines* in every year: real, or not reported?
 4. Which pairs after *Ips* to *Pityokteines*?
+
+## Side quest: data request to the national experts (2023-2025)
+
+| Table | What it is | Where |
+|---|---|---|
+| Inventory | what each country gave us and what to ask: green = add 2023-2025 (NUTS-level data), orange = full 2000-2025 series at NUTS2 (national totals only), grey = Poland and Finland, to agree with Roman; abiotic columns still to fill from the Incoming sheets on Teams | `outputs/tables/REQUEST_data_inventory.xlsx` |
+| Species presence | one sheet per country, species in rows, regions in columns; X = reported; experts fill 3/2/1/0 confidence | `outputs/tables/REQUEST_species_presence_by_NUTS.xlsx` |
+| Code | builds both from the committed data summaries; checked against `DataEUForDam_1.xlsx` | `scripts/data_request_tables.py` |

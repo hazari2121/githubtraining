@@ -73,9 +73,13 @@ def names():
 
 def region_names():
     """code -> name: regions in the data (raw file), else NUTS 2021 names"""
-    out = {x["properties"]["id"]: x["properties"]["na"] for x in json.load(open(NUTS2))["features"]}
+    out = {}
+    for lv in range(4):
+        out.update({x["properties"]["id"]: x["properties"]["na"] for x in json.load(open(f"data/external/nutspt_{lv}.json"))["features"]})
     raw = pd.read_excel(RAW, "EUForDam", usecols=["Country", "Region", "NUTS"]).dropna().drop_duplicates("NUTS")
+    raw = raw[raw.Region != raw.NUTS]          # AT, DE, FI give the code as the name
     out.update(dict(zip(raw.NUTS, raw.Region)))
+    out["DEB; DEC"] = "Rheinland-Pfalz + Saarland"
     return out
 
 
@@ -185,6 +189,8 @@ def write_inventory(inv, ag, path):
                 cell.fill = PatternFill("solid", fgColor=FILL[d["kind_"]])
         ws.cell(i, 1).font = Font(bold=True)
     ws.freeze_panes = ws.cell(start + 1, 2)
+    ws.page_setup.orientation = "landscape"; ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
     widths(ws, {1: 16, 2: 30, 3: 8, 4: 11, 5: 7, 6: 9, 7: 44, 8: 10, 9: 11, 10: 13, 11: 18, 12: 55})
 
     ws = wb.create_sheet("by_agent")
@@ -202,6 +208,8 @@ def write_inventory(inv, ag, path):
         ws.cell(row, 1).fill = PatternFill("solid", fgColor=FILL[LEVEL[r.country][1]])
         prev = r.country
     ws.freeze_panes = "C2"
+    ws.page_setup.orientation = "landscape"; ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
     widths(ws, {1: 8, 2: 40, 3: 22, 4: 7, 5: 6, 6: 8, 7: 11, 8: 26, 9: 30, 10: 9, 11: 38})
     wb.save(path)
 
@@ -279,6 +287,8 @@ def write_presence(sp, occ, path):
         ws.add_data_validation(dv)
         dv.add(f"{get_column_letter(first)}{H + 1}:{get_column_letter(len(hdr))}{H + len(sp)}")
         ws.freeze_panes = ws.cell(H + 1, first)
+        ws.page_setup.orientation = "landscape"; ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
+        ws.sheet_properties.pageSetUpPr.fitToPage = True
         widths(ws, {1: 30, 2: 11, **{j: 6 for j in range(3, len(hdr) + 1)}})
     wb.save(path)
 
