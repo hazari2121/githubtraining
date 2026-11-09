@@ -95,6 +95,21 @@ def inventory():
                      "notes": "; ".join(notes)})
     inv = pd.DataFrame(rows)
 
+    # one row per country and agent: rows that differ only by unit (BG 2000-2004 and RS
+    # I. typographus 2000-2002 have no unit) are merged, with a note
+    def merge(g):
+        units = sorted(set(u for u in g.unit if isinstance(u, str)))
+        no_unit = g[g.unit.isna() & g.year_min.notna()]
+        note = "; ".join(f"unit missing for {int(r.year_min)}-{int(r.year_max)}: ask for it" for r in no_unit.itertuples())
+        yrs = g.dropna(subset=["year_min"])
+        return pd.Series({"unit": " / ".join(units) if units else None, "n_regions": g.n_regions.max(),
+                          "year_min": yrs.year_min.min() if len(yrs) else float("nan"),
+                          "year_max": yrs.year_max.max() if len(yrs) else float("nan"),
+                          "n_years": yrs.n_years.sum() if len(yrs) else 0, "unit_note": note})
+    cov = cov.groupby(["country", "species"]).apply(merge, include_groups=False).reset_index()
+    for c in cov.country[cov.unit_note != ""].unique():
+        inv.loc[inv.country == c, "notes"] = (inv.loc[inv.country == c, "notes"] + "; " if inv.loc[inv.country == c, "notes"].iloc[0] else "") + \
+            "unit missing in the early years for some agents (see by_agent): ask which unit"
     ag = []
     for _, r in cov.iterrows():
         unit, is_nuts = UNIT[r.country]
@@ -121,7 +136,7 @@ def inventory():
         ag.append({"country": r.country, "agent_code": r.species, "agent": nm.get(r.species, r.species),
                    "agent_group_code": r.species in agg, "unit": r.unit, "regions": int(r.n_regions),
                    "years_provided": have, "years_with_values": n_y, "years_missing_2000_2022": missing_txt,
-                   "request": req})
+                   "request": req, "note": r.unit_note})
     return inv, pd.DataFrame(ag)
 
 
@@ -174,7 +189,7 @@ def write_inventory(inv, ag, path):
         ws.cell(i, 1, l)
     autosize(ws, {1: 130})
     for title, df, widths in [("by_country", inv, {1: 8, 2: 13, 3: 42, 4: 7, 5: 22, 6: 13, 7: 9, 8: 10, 9: 70, 10: 26, 11: 22, 12: 30, 13: 60}),
-                              ("by_agent", ag, {1: 8, 2: 24, 3: 42, 4: 10, 5: 6, 6: 8, 7: 13, 8: 10, 9: 40, 10: 60})]:
+                              ("by_agent", ag, {1: 8, 2: 24, 3: 42, 4: 10, 5: 6, 6: 8, 7: 13, 8: 10, 9: 40, 10: 60, 11: 40})]:
         ws = wb.create_sheet(title)
         ws.append(list(df.columns))
         for c in ws[1]:
