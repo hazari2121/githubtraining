@@ -50,7 +50,7 @@ for _c in ["BG", "CH", "HR", "HU", "LT", "RO", "RS", "SE", "SI", "SK"]:
 ASK = {"update": f"UPDATE: add {NEW} (3 values per agent and region)",
        "full": "FULL SERIES: send 2000-2025 at NUTS2, every agent",
        "discuss": f"DISCUSS WITH ROMAN: add {NEW} for current units, or 2000-2025 at NUTS"}
-FILL = {"update": "D9EAD3", "full": "FCE4C4", "discuss": "E7E6E2"}
+FILL = {"update": "A9D18E", "full": "F4B183", "discuss": "BFBFBF"}   # green, orange, grey
 
 EXTRA_NOTE = {
     "CH": "data come from 673 forest districts (appendix), so NUTS-level data should exist",
@@ -146,7 +146,7 @@ HEADFILL = PatternFill("solid", fgColor="2B4334")
 THIN = Border(bottom=Side(style="thin", color="C9C8C3"))
 XFILL = PatternFill("solid", fgColor="B1CF82")
 NATFILL = PatternFill("solid", fgColor="EAF2DC")
-TODO = PatternFill("solid", fgColor="FAEED9")
+TODO = PatternFill("solid", fgColor="DDEBF7")   # light blue: still to fill in
 
 
 def header(ws, row, rotate_from=None):
@@ -168,7 +168,7 @@ def write_inventory(inv, ag, path):
     intro = ["EU-ForDAM data we hold (2000-2022) and what to ask each country for, for 2023-2025",
              "Green = UPDATE: the country gave NUTS-level data, so it only adds 2023, 2024, 2025 (3 values per agent and region).   "
              "Orange = FULL SERIES: only national totals, so it sends 2000-2025 at NUTS2 for every agent.   Grey = to agree with Roman.",
-             "Cream columns: abiotic damage, to fill in from the Incoming sheets on Teams (same rule: NUTS level -> add 2023-2025; national or none -> 2000-2025 at NUTS2).",
+             "Blue columns: abiotic damage, to fill in from the Incoming sheets on Teams (same rule: NUTS level -> add 2023-2025; national or none -> 2000-2025 at NUTS2).",
              "Details per agent (years we have, years missing, what to ask): sheet by_agent."]
     for i, t in enumerate(intro, 1):
         ws.cell(i, 1, t).font = Font(bold=(i == 1), size=12 if i == 1 else 10)
@@ -185,7 +185,7 @@ def write_inventory(inv, ag, path):
             cell.border = THIN
             if c in ("abiotic_provided?", "abiotic_level (NUTS / national)", "abiotic_what_to_ask"):
                 cell.fill = TODO
-            elif c in ("country", "what_to_ask"):
+            else:
                 cell.fill = PatternFill("solid", fgColor=FILL[d["kind_"]])
         ws.cell(i, 1).font = Font(bold=True)
     ws.freeze_panes = ws.cell(start + 1, 2)
@@ -205,7 +205,8 @@ def write_inventory(inv, ag, path):
             cell.alignment = Alignment(wrap_text=True, vertical="top")
             if r.country != prev:
                 cell.border = Border(top=Side(style="medium", color="2B4334"))
-        ws.cell(row, 1).fill = PatternFill("solid", fgColor=FILL[LEVEL[r.country][1]])
+        for j in (1, ag.columns.get_loc("ask_for") + 1):
+            ws.cell(row, j).fill = PatternFill("solid", fgColor=FILL[LEVEL[r.country][1]])
         prev = r.country
     ws.freeze_panes = "C2"
     ws.page_setup.orientation = "landscape"; ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
