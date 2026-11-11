@@ -356,6 +356,16 @@ wb_ips_overlap <- function(ry, info) {
                  `Defoliators on broadleaves` = x$code[x$guild == "defoliator" & x$host_type == "broadleaves"],
                  `All borers` = x$code[x$guild == "borer"], `All defoliators` = x$code[x$guild == "defoliator"])
   for (g in names(guilds)) out[[g]] <- dplyr::n_distinct(ry$nuts_id[!is.na(ry$ips_typ) & rec(guilds[[g]])])
+  # which regions: every species and guild (rows) x every region (columns), 1 = overlap
+  regs <- dplyr::distinct(ry, country, nuts_id) |> dplyr::arrange(country, nuts_id)
+  items <- c(stats::setNames(as.list(x$code), x$insect), guilds)
+  over <- lapply(items, function(cc) sort(unique(ry$nuts_id[!is.na(ry$ips_typ) & rec(cc)])))
+  by_region <- tibble::tibble(`species or guild` = names(items))
+  for (r in regs$nuts_id) by_region[[r]] <- vapply(over, function(o) as.integer(r %in% o), 0L)
+  lst <- tibble::tibble(`species or guild` = names(items), regions = lengths(over),
+                        countries = vapply(over, function(o) paste(sort(unique(regs$country[regs$nuts_id %in% o])), collapse = " "), ""),
+                        `overlapping regions` = vapply(over, paste, "", collapse = ", "))
+  attr(out, "by_region") <- by_region; attr(out, "list") <- lst
   out
 }
 
@@ -364,6 +374,8 @@ write_ips_overlap <- function(tab, path) {
     "Ips typographus (row) against every species (columns): number of NUTS regions where both are recorded in the same year (2000-2022).",
     "Columns in the same order as the host tables: borers on conifers, borers on broadleaves, defoliators on conifers, defoliators on broadleaves.",
     "Last six columns, the guilds: a guild counts as recorded in a region-year when any of its species is (I. typographus itself left out).",
+    "regions_list: for every species and guild, the NUTS regions where it overlaps with I. typographus (and their countries).",
+    "regions_matrix: the same as a grid, species and guilds in the rows, regions in the columns, 1 = overlap.",
     "Aggregate group codes (e.g. CambXyl_con&MD) are left out: they are not species."), check.names = FALSE)
   wb <- openxlsx::createWorkbook(); hs <- openxlsx::createStyle(textDecoration = "bold")
   openxlsx::addWorksheet(wb, "how to read"); openxlsx::writeData(wb, "how to read", how, headerStyle = hs)
@@ -376,6 +388,19 @@ write_ips_overlap <- function(tab, path) {
   openxlsx::setRowHeights(wb, "overlap_regions", rows = 1, heights = 170)
   openxlsx::conditionalFormatting(wb, "overlap_regions", cols = 2:n, rows = 2, type = "colourScale", style = c("#FFFFFF", "#9ec5e8", "#184f95"))
   openxlsx::freezePane(wb, "overlap_regions", firstCol = TRUE)
+  lst <- attr(tab, "list"); br <- attr(tab, "by_region")
+  if (!is.null(lst)) {
+    openxlsx::addWorksheet(wb, "regions_list"); openxlsx::writeData(wb, "regions_list", lst, headerStyle = hs)
+    openxlsx::setColWidths(wb, "regions_list", cols = 1:3, widths = c(36, 9, 30)); openxlsx::freezePane(wb, "regions_list", firstRow = TRUE)
+    openxlsx::addWorksheet(wb, "regions_matrix"); openxlsx::writeData(wb, "regions_matrix", br, headerStyle = hs)
+    m <- ncol(br); k <- nrow(br)
+    openxlsx::addStyle(wb, "regions_matrix", openxlsx::createStyle(textDecoration = "bold", textRotation = 90, valign = "bottom"), rows = 1, cols = 2:m)
+    openxlsx::addStyle(wb, "regions_matrix", openxlsx::createStyle(halign = "center"), rows = 2:(k + 1), cols = 2:m, gridExpand = TRUE)
+    openxlsx::setColWidths(wb, "regions_matrix", cols = 1, widths = 36); openxlsx::setColWidths(wb, "regions_matrix", cols = 2:m, widths = 4)
+    openxlsx::setRowHeights(wb, "regions_matrix", rows = 1, heights = 60)
+    openxlsx::conditionalFormatting(wb, "regions_matrix", cols = 2:m, rows = 2:(k + 1), rule = "==1", style = openxlsx::createStyle(bgFill = "#9ec5e8"))
+    openxlsx::freezePane(wb, "regions_matrix", firstRow = TRUE, firstCol = TRUE)
+  }
   openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
   path
 }
