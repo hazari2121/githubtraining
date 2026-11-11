@@ -221,3 +221,72 @@ wb_add_shared_host <- function(pairs, info) {
                          shared_host = common != "", shared_host_trees = unname(common),
                          same_guild = unname(gu[target] == gu[predictor]), .after = predictor_name)
 }
+
+# ---- Source insect x target NUTS (the board's "TARGET NUTS / SOURCE" table) -----------
+# For each target insect: the regions where it is NOT recorded (the "?" regions)
+# in the columns, the source insects recorded there in the rows, cell = number of
+# years the source is recorded in that region (empty = not recorded). Each source
+# row also carries how it pairs with the target where both are recorded (shared
+# host, R2 of ups and downs, R2 of levels, countries of overlap).
+# all_sources_by_region: every insect x every region, years recorded.
+
+wb_source_by_nuts <- function(ry, meta, nm, pairs) {
+  codes <- wb_codes(ry, meta)
+  regs <- dplyr::distinct(ry, country, nuts_id) |> dplyr::arrange(country, nuts_id)
+  yrs <- sapply(codes, function(s) tapply(!is.na(ry[[s]]), ry$nuts_id, sum)[regs$nuts_id])
+  rownames(yrs) <- regs$nuts_id
+  per_target <- lapply(stats::setNames(codes, codes), function(t) {
+    gap <- regs$nuts_id[yrs[, t] == 0]
+    if (!length(gap)) return(NULL)
+    src <- setdiff(codes, t)
+    y <- t(yrs[gap, src, drop = FALSE]); y[y == 0] <- NA
+    keep <- rowSums(!is.na(y)) > 0
+    if (!any(keep)) return(NULL)
+    p <- dplyr::filter(pairs, target == t) |> dplyr::select(predictor, shared_host, countries, R2_ups_downs, R2_levels)
+    out <- tibble::tibble(source = src[keep], source_name = unname(nm[src[keep]])) |>
+      dplyr::left_join(p, by = c("source" = "predictor")) |>
+      dplyr::rename(overlap_countries = countries) |>
+      dplyr::mutate(dplyr::across(c(R2_ups_downs, R2_levels), ~ round(.x, 2)),
+                    target_regions_covered = rowSums(!is.na(y[keep, , drop = FALSE])))
+    out <- dplyr::bind_cols(out, tibble::as_tibble(y[keep, , drop = FALSE]))
+    dplyr::arrange(out, dplyr::desc(shared_host), dplyr::desc(R2_ups_downs), dplyr::desc(target_regions_covered))
+  })
+  per_target <- per_target[!vapply(per_target, is.null, TRUE)]
+  summary <- purrr::map_dfr(names(per_target), function(t) {
+    x <- per_target[[t]]; gap <- setdiff(names(x), c("source", "source_name", "shared_host", "overlap_countries", "R2_ups_downs", "R2_levels", "target_regions_covered"))
+    tibble::tibble(target = t, target_name = unname(nm[t]), regions_recorded = sum(yrs[, t] > 0), regions_missing = length(gap),
+                   sources_in_missing_regions = nrow(x),
+                   ips_in_missing_regions = if ("ips_typ" %in% x$source) x$target_regions_covered[x$source == "ips_typ"] else 0L,
+                   shared_host_sources = sum(x$shared_host, na.rm = TRUE))
+  }) |> dplyr::arrange(dplyr::desc(regions_recorded))
+  all_src <- dplyr::bind_cols(tibble::tibble(insect = codes, insect_name = unname(nm[codes])), tibble::as_tibble(t(yrs)))
+  list(per_target = per_target, summary = summary, all_sources = all_src)
+}
+
+write_source_by_nuts <- function(sb, path) {
+  how <- data.frame(`How to read` = c(
+    "The whiteboard's TARGET NUTS x SOURCE table, from EU-ForDAM data (value1, 2000-2022).",
+    "One sheet per target insect (sheet name = insect code): the columns after the source information are the regions where the TARGET is NOT recorded",
+    "  (the regions we would like to predict); each row is a SOURCE insect recorded in at least one of them; cell = years the source is recorded there.",
+    "  shared_host: the source lives on a tree of the target; overlap_countries, R2_ups_downs, R2_levels: how source and target relate where both are recorded",
+    "  (see WHITEBOARD_tables, sheet pairs); target_regions_covered: in how many of the target's missing regions the source is recorded.",
+    "  Rows sorted: shared host first, then by R2 of ups and downs.",
+    "summary: one row per target: regions recorded / missing, sources available in the missing regions, regions where I. typographus is available.",
+    "all_sources_by_region: every insect (rows) x every region (columns), years recorded.",
+    "Aggregate group codes (e.g. CambXyl_con&MD) are left out: they are not species."), check.names = FALSE)
+  wb <- openxlsx::createWorkbook(); hs <- openxlsx::createStyle(textDecoration = "bold")
+  add <- function(name, x, shade_from = NULL) {
+    openxlsx::addWorksheet(wb, name); openxlsx::writeData(wb, name, x, headerStyle = hs)
+    openxlsx::freezePane(wb, name, firstRow = TRUE, firstCol = TRUE)
+    if (!is.null(shade_from) && ncol(x) >= shade_from) {
+      openxlsx::addStyle(wb, name, openxlsx::createStyle(textDecoration = "bold", textRotation = 90), rows = 1, cols = shade_from:ncol(x))
+      openxlsx::setColWidths(wb, name, cols = shade_from:ncol(x), widths = 4.5)
+      openxlsx::conditionalFormatting(wb, name, cols = shade_from:ncol(x), rows = 2:(nrow(x) + 1), type = "colourScale", style = c("#FFFFFF", "#b1cf82", "#2B4334"))
+    }
+  }
+  add("how to read", how); add("summary", sb$summary)
+  for (t in sb$summary$target) add(substr(gsub("[^A-Za-z0-9_]", "_", t), 1, 31), sb$per_target[[t]], 8)
+  add("all_sources_by_region", sb$all_sources, 3)
+  openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
+  path
+}
