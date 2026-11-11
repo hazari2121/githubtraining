@@ -22,7 +22,7 @@ model_regions <- function(pos, clim, hs = NULL, clim_paper = NULL) {
 model_host_shares <- function(hs) {
   w <- hs |> dplyr::filter(measure %in% c("ha", "m3")) |>
     tidyr::pivot_wider(id_cols = nuts_id, names_from = c(host_group, measure), values_from = value)
-  hosts <- c("spruce", "pine", "fir", "oak", "conifers_all", "broadleaves_all")
+  hosts <- c("spruce", "pine", "fir", "oak", "conifers_all", "broadleaves_all", "all_forest")
   share <- lapply(hosts, function(h) w[[paste0(h, "_ha")]] / w$all_forest_ha)
   names(share) <- paste0("share_", hosts)
   stock <- lapply(hosts, function(h) w[[paste0(h, "_m3")]])

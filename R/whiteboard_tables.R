@@ -118,18 +118,17 @@ wb_training <- function(ry, regions, ins, meta, nm) {
 }
 
 # ---- The board's host table, for all four boxes of the 2 x 2 grid ---------------------
-# BORER / DEFOLIATOR  x  CONIFERS / BROADLEAVES: host trees in the rows, insects in the
-# columns, 1 = host tree of the insect.
-#   host in the data file: HOSTTREE of the EU-ForDAM database (one tree per insect)
-#   host used in the model: the supervisor's host matrix where it names the insect
-#     (e.g. P. chalcographus on spruce and pine; L. dispar on all broadleaves),
-#     otherwise the data-file host
-# Extra rows: the forest-appendix column used for the host amount, regions and
-# countries where the insect is recorded. Aggregate group codes are left out.
+# BORER / DEFOLIATOR  x  CONIFERS / BROADLEAVES. One plain table per box: host trees
+# in the rows, insects in the columns, 1 = the insect lives on that tree.
+# Host tree = HOSTTREE of the EU-ForDAM database (one tree per insect), plus any
+# single tree the supervisor's host matrix names for the insect (P. chalcographus:
+# spruce and pine). Where the matrix uses a whole forest type for the host AMOUNT
+# (e.g. L. dispar: all broadleaves), that is a choice of forest column, not a host
+# tree, and is listed on the insects sheet instead.
 
 host_tree_rows <- list(
   conifers = c(pine = "Pinus sylvestris", spruce = "Picea abies", fir = "Abies alba", larch = "Larix decidua"),
-  broadleaves = c(oak = "Quercus spp.", birch = "Betula spp.", elm = "Ulmus spp.", `horse chestnut` = "Aesculus spp.", `poplar, willow` = "Populus, Salix"))
+  broadleaves = c(oak = "Quercus spp.", birch = "Betula spp.", elm = "Ulmus spp.", `horse chestnut` = "Aesculus spp.", `poplar/willow` = "Populus, Salix"))
 
 wb_host_of_code <- function(raw_file = "data/raw/EUForDam_REW3.xlsx") {
   r <- readxl::read_excel(raw_file, "EUForDam_REW", guess_max = 50000)
@@ -139,66 +138,73 @@ wb_host_of_code <- function(raw_file = "data/raw/EUForDam_REW3.xlsx") {
     dplyr::select(code = sp_code, hosttree = HOSTTREE, treetype = TREETYPE)
 }
 
-# Host trees used in the model, as tree names (from the insect list's host_columns)
-model_host_trees <- function(host_columns) {
+# Single trees the supervisor's matrix names (spruce, pine, fir, oak), not whole forest types
+matrix_trees <- function(host_columns) {
   if (is.na(host_columns) || host_columns == "") return(character())
   cols <- sub("^(stock_m3|area_ha)_", "", strsplit(host_columns, " + ", fixed = TRUE)[[1]])
-  unique(unlist(lapply(cols, function(c) switch(c, conifers_all = names(host_tree_rows$conifers),
-                                                 broadleaves_all = names(host_tree_rows$broadleaves), c))))
+  intersect(cols, c("spruce", "pine", "fir", "oak"))
+}
+
+# "stock_m3_spruce + stock_m3_pine" -> "growing stock (m3): spruce + pine"
+host_amount_label <- function(hc) {
+  if (is.na(hc) || hc == "") return("")
+  cols <- strsplit(hc, " + ", fixed = TRUE)[[1]]
+  what <- if (all(startsWith(cols, "stock_m3_"))) "growing stock (m3)" else "area (ha)"
+  trees <- sub("^(stock_m3|area_ha)_", "", cols)
+  trees <- dplyr::recode(trees, conifers_all = "all conifers", broadleaves_all = "all broadleaves", all_forest = "all forest")
+  paste0(what, ": ", paste(trees, collapse = " + "))
 }
 
 wb_host_blocks <- function(ry, meta, nm, ins, hosts) {
   codes <- wb_codes(ry, meta)
-  info <- tibble::tibble(code = codes, name = unname(nm[codes]), guild = meta$guild_from_file[match(codes, meta$species)]) |>
+  tree_name <- stats::setNames(names(unlist(unname(host_tree_rows))), unlist(unname(host_tree_rows)))
+  info <- tibble::tibble(code = codes, insect = unname(nm[codes]), guild = meta$guild_from_file[match(codes, meta$species)]) |>
     dplyr::left_join(hosts, by = "code") |>
-    dplyr::mutate(regions = vapply(code, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry[[s]])]), 0),
-                  countries = vapply(code, function(s) dplyr::n_distinct(ry$country[!is.na(ry[[s]])]), 0),
+    dplyr::mutate(host_type = dplyr::if_else(hosttree %in% host_tree_rows$conifers, "conifers", "broadleaves"),
                   host_columns = dplyr::if_else(code == "ips_typ", "stock_m3_spruce", ins$host_columns[match(code, ins$code)]),
-                  host_source = dplyr::if_else(code == "ips_typ", "supervisor's matrix", ins$host_source[match(code, ins$code)]))
+                  host_trees = vapply(seq_along(code), function(i) paste(unique(c(tree_name[[hosttree[i]]], matrix_trees(host_columns[i]))), collapse = ", "), ""),
+                  host_tree_in_data_file = unname(tree_name[hosttree]),
+                  host_amount_from = vapply(host_columns, host_amount_label, ""),
+                  host_amount_source = dplyr::if_else(code == "ips_typ", "supervisor's matrix", ins$host_source[match(code, ins$code)]),
+                  regions = vapply(code, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry[[s]])]), 0),
+                  countries = vapply(code, function(s) dplyr::n_distinct(ry$country[!is.na(ry[[s]])]), 0)) |>
+    dplyr::arrange(guild, host_type, match(hosttree, unlist(unname(host_tree_rows))), dplyr::desc(regions))
   blocks <- list()
   for (g in c("borer", "defoliator")) for (ht in names(host_tree_rows)) {
-    trees <- host_tree_rows[[ht]]
-    x <- dplyr::filter(info, guild == g, hosttree %in% trees) |>
-      dplyr::arrange(match(hosttree, trees), dplyr::desc(regions))
+    x <- dplyr::filter(info, guild == g, host_type == ht)
     if (!nrow(x)) next
-    lab <- function(v) stats::setNames(as.list(v), x$name)
-    file_rows <- lapply(names(trees), function(t) lab(as.integer(x$hosttree == trees[[t]])))
-    model_rows <- lapply(names(trees), function(t) lab(as.integer(vapply(x$host_columns, function(h) t %in% model_host_trees(h), TRUE))))
-    num <- dplyr::bind_rows(
-      dplyr::bind_cols(tibble::tibble(row = paste("host in data file:", names(trees))), dplyr::bind_rows(file_rows)),
-      dplyr::bind_cols(tibble::tibble(row = paste("host used in model:", names(trees))), dplyr::bind_rows(model_rows)))
-    txt <- function(label, v) dplyr::bind_cols(tibble::tibble(row = label), tibble::as_tibble(lab(v)))
-    inf <- dplyr::bind_rows(txt("forest column for the host amount", dplyr::coalesce(x$host_columns, "")),
-                            txt("host from", dplyr::coalesce(x$host_source, "")), txt("code", x$code),
-                            txt("regions recorded", as.character(x$regions)), txt("countries recorded", as.character(x$countries)))
-    tab <- list(num = num, info = inf)
-    blocks[[paste0(if (g == "borer") "borers" else "defoliators", "_on_", ht)]] <- tab
+    trees <- names(host_tree_rows[[ht]])
+    tab <- tibble::tibble(`host tree` = trees)
+    for (k in seq_len(nrow(x))) tab[[x$insect[k]]] <- as.integer(trees %in% strsplit(x$host_trees[k], ", ")[[1]])
+    blocks[[paste0(if (g == "borer") "borers_on_" else "defoliators_on_", ht)]] <- tab
   }
+  info <- dplyr::select(info, insect, code, guild, host_type, host_trees, host_tree_in_data_file, host_amount_from, host_amount_source, regions, countries)
   list(blocks = blocks, info = info)
 }
 
 write_host_blocks <- function(blocks, info, path) {
   wb <- openxlsx::createWorkbook()
   how <- data.frame(`How to read` = c(
-    "The host table of the whiteboard for all four boxes of the 2 x 2 grid: borers / defoliators x conifers / broadleaves.",
-    "Rows: host trees; columns: insects (species and genus-level taxa; aggregate group codes left out); 1 = host tree of the insect.",
-    "host in data file: HOSTTREE of the EU-ForDAM database (one tree per insect).",
-    "host used in model: the supervisor's host matrix where it names the insect (e.g. P. chalcographus on spruce and pine,",
-    "  L. dispar on all broadleaves), otherwise the data-file host. Larch, birch, elm, horse chestnut and poplar have no",
-    "  own column in the forest appendix, so their host amount is all conifers or all broadleaves.",
-    "Further rows: the forest column used for the host amount, where the host comes from, the code, regions and countries recorded.",
-    "all_insects: the same information as one list."), check.names = FALSE)
-  sheets <- c(list(`how to read` = how), blocks, list(all_insects = info))
+    "One table per box of the whiteboard's 2 x 2 grid: borers / defoliators on conifers / broadleaves.",
+    "Rows: host trees. Columns: insects (species and genus-level taxa; aggregate group codes left out). 1 = the insect lives on that tree.",
+    "Host tree: the host recorded in the EU-ForDAM database, plus a tree the supervisor's host matrix adds (P. chalcographus: spruce and pine).",
+    "insects: every insect with its host trees, the forest data used for its host amount (supervisor's matrix, otherwise the data-file host),",
+    "  and the regions and countries where it is recorded. Larch, birch, elm, horse chestnut and poplar/willow have no own column in the",
+    "  forest data, so their host amount is all conifers or all broadleaves."), check.names = FALSE)
+  sheets <- c(list(`how to read` = how), blocks, list(insects = info))
+  hs <- openxlsx::createStyle(textDecoration = "bold")
   for (s in names(sheets)) {
     openxlsx::addWorksheet(wb, s)
+    openxlsx::writeData(wb, s, sheets[[s]], headerStyle = hs)
     if (s %in% names(blocks)) {
-      num <- sheets[[s]]$num; inf <- sheets[[s]]$info; n <- ncol(num)
-      openxlsx::writeData(wb, s, num, headerStyle = openxlsx::createStyle(textDecoration = "bold", textRotation = 90))
-      openxlsx::writeData(wb, s, inf, startRow = nrow(num) + 3, colNames = FALSE)
-      openxlsx::conditionalFormatting(wb, s, cols = 2:n, rows = 2:(nrow(num) + 1), rule = "==1", style = openxlsx::createStyle(bgFill = "#9ec5e8"))
-      openxlsx::setColWidths(wb, s, cols = 1, widths = 36); openxlsx::setColWidths(wb, s, cols = 2:n, widths = 6)
+      n <- ncol(sheets[[s]]); m <- nrow(sheets[[s]])
+      openxlsx::conditionalFormatting(wb, s, cols = 2:n, rows = 2:(m + 1), rule = "==1", style = openxlsx::createStyle(bgFill = "#9ec5e8"))
+      openxlsx::addStyle(wb, s, openxlsx::createStyle(textDecoration = "bold", textRotation = 90, valign = "bottom"), rows = 1, cols = 2:n)
+      openxlsx::addStyle(wb, s, openxlsx::createStyle(halign = "center"), rows = 2:(m + 1), cols = 2:n, gridExpand = TRUE)
+      openxlsx::setColWidths(wb, s, cols = 1, widths = 16); openxlsx::setColWidths(wb, s, cols = 2:n, widths = 5)
+      openxlsx::setRowHeights(wb, s, rows = 1, heights = 150)
       openxlsx::freezePane(wb, s, firstRow = TRUE, firstCol = TRUE)
-    } else openxlsx::writeData(wb, s, sheets[[s]], headerStyle = openxlsx::createStyle(textDecoration = "bold"))
+    } else openxlsx::setColWidths(wb, s, cols = seq_along(sheets[[s]]), widths = "auto")
   }
   openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
   path
