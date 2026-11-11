@@ -209,3 +209,15 @@ write_host_blocks <- function(blocks, info, path) {
   openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
   path
 }
+
+# Shared host tree of target and predictor (host trees as in the host tables):
+# shared_host = TRUE when the two live on at least one common tree
+wb_add_shared_host <- function(pairs, info) {
+  ht <- stats::setNames(strsplit(info$host_trees, ", ", fixed = TRUE), info$code)
+  gu <- stats::setNames(info$guild, info$code)
+  common <- mapply(function(a, b) paste(intersect(ht[[a]], ht[[b]]), collapse = ", "), pairs$target, pairs$predictor)
+  pairs |> dplyr::mutate(target_host = vapply(ht[target], paste, "", collapse = ", "),
+                         predictor_host = vapply(ht[predictor], paste, "", collapse = ", "),
+                         shared_host = common != "", shared_host_trees = unname(common),
+                         same_guild = unname(gu[target] == gu[predictor]), .after = predictor_name)
+}
