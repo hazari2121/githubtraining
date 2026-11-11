@@ -43,9 +43,7 @@ print(as.data.frame(pairs |> filter(predictor == "ips_typ", countries >= 3) |> a
   transmute(target_name = substr(target_name, 1, 26), shared_host, countries, regions, coverage = round(coverage_pct), R2_levels = round(R2_levels, 2), R2_ups_downs = round(R2_ups_downs, 2)) |> head(10)))
 print(as.data.frame(grp_m))
 
-# Source insect x target NUTS
-sb <- wb_source_by_nuts(ry, meta, nm, pairs)
-write_source_by_nuts(sb, "outputs/tables/SOURCE_insects_by_target_NUTS.xlsx")
-cat("targets with missing regions:", length(sb$per_target), "\n")
-print(as.data.frame(head(sb$summary, 12)))
-print(as.data.frame(sb$per_target[["pit_spp"]][1:6, 1:12]))
+# Source insect x NUTS, in the same four boxes as the host tables
+ib <- wb_insect_by_nuts(ry, host_info)
+write_insect_by_nuts(ib, "outputs/tables/SOURCE_insects_by_NUTS.xlsx")
+for (b in names(ib$blocks)) cat(b, ":", nrow(ib$blocks[[b]]), "insects x", ncol(ib$blocks[[b]]) - 1, "regions\n")

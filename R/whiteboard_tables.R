@@ -290,3 +290,50 @@ write_source_by_nuts <- function(sb, path) {
   openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
   path
 }
+
+# ---- Source insect x NUTS, the same series as the host tables -------------------------
+# One table per box (borers / defoliators x conifers / broadleaves): insects in the
+# rows, NUTS regions in the columns, 1 = the insect is recorded in the region (any
+# year 2000-2022), 0 = not. years_recorded: the same with the number of years.
+
+wb_insect_by_nuts <- function(ry, info) {
+  regs <- dplyr::distinct(ry, country, nuts_id) |> dplyr::arrange(country, nuts_id)
+  yrs <- function(code) as.integer(tapply(!is.na(ry[[code]]), ry$nuts_id, sum)[regs$nuts_id])
+  table_for <- function(x, f) {
+    m <- t(vapply(x$code, function(s) f(yrs(s)), integer(nrow(regs))))
+    colnames(m) <- regs$nuts_id
+    dplyr::bind_cols(tibble::tibble(insect = x$insect), tibble::as_tibble(m))
+  }
+  blocks <- list()
+  for (g in c("borer", "defoliator")) for (ht in c("conifers", "broadleaves")) {
+    x <- dplyr::filter(info, guild == g, host_type == ht)
+    if (nrow(x)) blocks[[paste0(if (g == "borer") "borers_on_" else "defoliators_on_", ht)]] <- table_for(x, function(v) as.integer(v > 0))
+  }
+  list(blocks = blocks, years = table_for(info, identity), regions = regs)
+}
+
+write_insect_by_nuts <- function(ib, path) {
+  how <- data.frame(`How to read` = c(
+    "Source insects x NUTS regions, in the same four boxes as the host tables (borers / defoliators on conifers / broadleaves).",
+    "Rows: insects. Columns: regions (NUTS codes, Polish forest directorates, or whole countries where the data are national).",
+    "1 = the insect is recorded in the region (any year 2000-2022, 0 included as a recorded value); 0 = not recorded there.",
+    "years_recorded: every insect, number of years recorded in each region.",
+    "regions: the country of each region code."), check.names = FALSE)
+  wb <- openxlsx::createWorkbook(); hs <- openxlsx::createStyle(textDecoration = "bold")
+  sheets <- c(list(`how to read` = how), ib$blocks, list(years_recorded = ib$years, regions = ib$regions))
+  for (s in names(sheets)) {
+    x <- sheets[[s]]; openxlsx::addWorksheet(wb, s); openxlsx::writeData(wb, s, x, headerStyle = hs)
+    if (s %in% c(names(ib$blocks), "years_recorded")) {
+      n <- ncol(x); m <- nrow(x)
+      openxlsx::addStyle(wb, s, openxlsx::createStyle(textDecoration = "bold", textRotation = 90, valign = "bottom"), rows = 1, cols = 2:n)
+      openxlsx::addStyle(wb, s, openxlsx::createStyle(halign = "center"), rows = 2:(m + 1), cols = 2:n, gridExpand = TRUE)
+      openxlsx::setColWidths(wb, s, cols = 1, widths = 34); openxlsx::setColWidths(wb, s, cols = 2:n, widths = 4)
+      openxlsx::setRowHeights(wb, s, rows = 1, heights = 60)
+      if (s == "years_recorded") openxlsx::conditionalFormatting(wb, s, cols = 2:n, rows = 2:(m + 1), type = "colourScale", style = c("#FFFFFF", "#9ec5e8", "#184f95"))
+      else openxlsx::conditionalFormatting(wb, s, cols = 2:n, rows = 2:(m + 1), rule = "==1", style = openxlsx::createStyle(bgFill = "#9ec5e8"))
+      openxlsx::freezePane(wb, s, firstRow = TRUE, firstCol = TRUE)
+    } else openxlsx::setColWidths(wb, s, cols = seq_along(x), widths = "auto")
+  }
+  openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
+  path
+}
