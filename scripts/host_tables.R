@@ -1,0 +1,12 @@
+# The whiteboard's host table for borers / defoliators x conifers / broadleaves (R/whiteboard_tables.R)
+#   Rscript scripts/host_tables.R
+suppressMessages({ library(targets); library(dplyr) })
+source("R/whiteboard_tables.R")
+ry <- read.csv("data/processed/model_region_year.csv", check.names = FALSE)
+ins <- read.csv("outputs/tables/MODEL_insects_with_ips_typographus.csv")
+meta <- tar_read(species_meta); ph <- tar_read(ph_hier); nm <- setNames(ph$name, ph$species)
+hb <- wb_host_blocks(ry, meta, nm, ins, wb_host_of_code())
+write_host_blocks(hb$blocks, hb$info, "outputs/tables/HOST_tables_borers_defoliators.xlsx")
+for (b in names(hb$blocks)) cat(b, ":", ncol(hb$blocks[[b]]$num) - 1, "insects\n")
+cat("no host block:", paste(hb$info$code[!hb$info$hosttree %in% unlist(host_tree_rows)], collapse = " "), "\n")
+print(as.data.frame(hb$blocks$borers_on_conifers$num[, 1:9]))
