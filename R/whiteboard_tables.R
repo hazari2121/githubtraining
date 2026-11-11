@@ -337,3 +337,35 @@ write_insect_by_nuts <- function(ib, path) {
   openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
   path
 }
+
+# ---- I. typographus x every species: overlap in regions -------------------------------
+# One row (I. typographus), one column per species (same order as the host tables);
+# cell = number of NUTS regions where both are recorded in the same year.
+wb_ips_overlap <- function(ry, info) {
+  x <- dplyr::filter(info, code != "ips_typ") |>
+    dplyr::arrange(guild, factor(host_type, c("conifers", "broadleaves")))
+  v <- vapply(x$code, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry$ips_typ) & !is.na(ry[[s]])]), 0)
+  out <- tibble::tibble(`bark beetle` = "Ips typographus")
+  for (k in seq_along(v)) out[[x$insect[k]]] <- as.integer(v[k])
+  out
+}
+
+write_ips_overlap <- function(tab, path) {
+  how <- data.frame(`How to read` = c(
+    "Ips typographus (row) against every species (columns): number of NUTS regions where both are recorded in the same year (2000-2022).",
+    "Columns in the same order as the host tables: borers on conifers, borers on broadleaves, defoliators on conifers, defoliators on broadleaves.",
+    "Aggregate group codes (e.g. CambXyl_con&MD) are left out: they are not species."), check.names = FALSE)
+  wb <- openxlsx::createWorkbook(); hs <- openxlsx::createStyle(textDecoration = "bold")
+  openxlsx::addWorksheet(wb, "how to read"); openxlsx::writeData(wb, "how to read", how, headerStyle = hs)
+  openxlsx::setColWidths(wb, "how to read", cols = 1, widths = "auto")
+  openxlsx::addWorksheet(wb, "overlap_regions"); openxlsx::writeData(wb, "overlap_regions", tab, headerStyle = hs)
+  n <- ncol(tab)
+  openxlsx::addStyle(wb, "overlap_regions", openxlsx::createStyle(textDecoration = "bold", textRotation = 90, valign = "bottom"), rows = 1, cols = 2:n)
+  openxlsx::addStyle(wb, "overlap_regions", openxlsx::createStyle(halign = "center"), rows = 2, cols = 2:n)
+  openxlsx::setColWidths(wb, "overlap_regions", cols = 1, widths = 18); openxlsx::setColWidths(wb, "overlap_regions", cols = 2:n, widths = 5)
+  openxlsx::setRowHeights(wb, "overlap_regions", rows = 1, heights = 170)
+  openxlsx::conditionalFormatting(wb, "overlap_regions", cols = 2:n, rows = 2, type = "colourScale", style = c("#FFFFFF", "#9ec5e8", "#184f95"))
+  openxlsx::freezePane(wb, "overlap_regions", firstCol = TRUE)
+  openxlsx::saveWorkbook(wb, path, overwrite = TRUE)
+  path
+}

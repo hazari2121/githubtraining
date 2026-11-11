@@ -47,3 +47,8 @@ print(as.data.frame(grp_m))
 ib <- wb_insect_by_nuts(ry, host_info)
 write_insect_by_nuts(ib, "outputs/tables/SOURCE_insects_by_NUTS.xlsx")
 for (b in names(ib$blocks)) cat(b, ":", nrow(ib$blocks[[b]]), "insects x", ncol(ib$blocks[[b]]) - 1, "regions\n")
+
+# I. typographus x every species: overlap in regions
+io <- wb_ips_overlap(ry, host_info)
+write_ips_overlap(io, "outputs/tables/IPS_vs_all_species_overlap.xlsx")
+print(as.data.frame(tidyr::pivot_longer(io, -1, names_to = "species", values_to = "regions"))[, 2:3])
