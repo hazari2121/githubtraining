@@ -347,6 +347,15 @@ wb_ips_overlap <- function(ry, info) {
   v <- vapply(x$code, function(s) dplyr::n_distinct(ry$nuts_id[!is.na(ry$ips_typ) & !is.na(ry[[s]])]), 0)
   out <- tibble::tibble(`bark beetle` = "Ips typographus")
   for (k in seq_along(v)) out[[x$insect[k]]] <- as.integer(v[k])
+  # guilds at the end: a guild counts as recorded in a region-year when any of its
+  # species (I. typographus itself left out) is recorded there
+  rec <- function(codes) Reduce(`|`, lapply(codes, function(s) !is.na(ry[[s]])))
+  guilds <- list(`Borers on conifers` = x$code[x$guild == "borer" & x$host_type == "conifers"],
+                 `Borers on broadleaves` = x$code[x$guild == "borer" & x$host_type == "broadleaves"],
+                 `Defoliators on conifers` = x$code[x$guild == "defoliator" & x$host_type == "conifers"],
+                 `Defoliators on broadleaves` = x$code[x$guild == "defoliator" & x$host_type == "broadleaves"],
+                 `All borers` = x$code[x$guild == "borer"], `All defoliators` = x$code[x$guild == "defoliator"])
+  for (g in names(guilds)) out[[g]] <- dplyr::n_distinct(ry$nuts_id[!is.na(ry$ips_typ) & rec(guilds[[g]])])
   out
 }
 
@@ -354,6 +363,7 @@ write_ips_overlap <- function(tab, path) {
   how <- data.frame(`How to read` = c(
     "Ips typographus (row) against every species (columns): number of NUTS regions where both are recorded in the same year (2000-2022).",
     "Columns in the same order as the host tables: borers on conifers, borers on broadleaves, defoliators on conifers, defoliators on broadleaves.",
+    "Last six columns, the guilds: a guild counts as recorded in a region-year when any of its species is (I. typographus itself left out).",
     "Aggregate group codes (e.g. CambXyl_con&MD) are left out: they are not species."), check.names = FALSE)
   wb <- openxlsx::createWorkbook(); hs <- openxlsx::createStyle(textDecoration = "bold")
   openxlsx::addWorksheet(wb, "how to read"); openxlsx::writeData(wb, "how to read", how, headerStyle = hs)
