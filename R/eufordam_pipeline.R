@@ -191,7 +191,7 @@ region_totals <- function(cleaned, sp_codes = NULL) {
 # ---------------------------------------------------------------------------
 # 5. Run everything and write outputs
 # ---------------------------------------------------------------------------
-run_pipeline <- function(path, out_dir = "output") {
+run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
   raw     <- read_eufordam(path)
@@ -211,5 +211,13 @@ run_pipeline <- function(path, out_dir = "output") {
                       file.path(out_dir, "eufordam_summaries.xlsx"))
   writexl::write_xlsx(qc, file.path(out_dir, "eufordam_qc.xlsx"))
 
-  invisible(list(cleaned = cleaned, qc = qc, summaries = summaries))
+  # Host tables (borers / defoliators x conifers / broadleaves) and modelling table
+  refs <- read_host_references(ref_dir)
+  host <- build_host_tables(cleaned, refs)
+  write_host_tables(host, file.path(out_dir, "host_tables_borers_defoliators.xlsx"))
+  model_data <- build_model_data(cleaned, host, refs)
+  readr::write_csv(model_data, file.path(out_dir, "eufordam_model_data.csv"), na = "")
+
+  invisible(list(cleaned = cleaned, qc = qc, summaries = summaries,
+                 host = host, model_data = model_data))
 }

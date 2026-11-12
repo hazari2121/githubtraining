@@ -6,3 +6,4 @@ output/
 .Rhistory
 .RData
 .Rproj.user/
+!reference/*.csv

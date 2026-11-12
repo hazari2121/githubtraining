@@ -1,0 +1,11 @@
+host_tree,host,tree_type,has_forest_column,order
+Pinus sylvestris,pine,conifers,TRUE,1
+Picea abies,spruce,conifers,TRUE,2
+Abies alba,fir,conifers,TRUE,3
+Larix decidua,larch,conifers,FALSE,4
+Quercus spp.,oak,broadleaves,TRUE,5
+Betula spp.,birch,broadleaves,FALSE,6
+Ulmus spp.,elm,broadleaves,FALSE,7
+Aesculus spp.,horse chestnut,broadleaves,FALSE,8
+"Populus, Salix",poplar/willow,broadleaves,FALSE,9
+"Populus, Salix ?",poplar/willow,broadleaves,FALSE,9

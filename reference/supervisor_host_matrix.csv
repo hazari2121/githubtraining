@@ -1,0 +1,10 @@
+code,host_trees,host_amount,group
+pha_cya,pine,pine,Phaenops cyanea
+tom_spp,pine,pine,Tomicus minor and Tomicus piniperda
+ips_acu,pine,pine,Ips acuminatus
+ips_typ,spruce,spruce,Ips typographus
+pit_cha,"spruce, pine",spruce + pine,Pityogenes chalcographus
+lym_dis,oak,all broadleaves,Lymantria dispar
+geo_db,oak,all broadleaves,Geometridae on oaks
+tor_vir,oak,all broadleaves,Tortrix viridana
+lym_mon,spruce,spruce,Lymantria monacha

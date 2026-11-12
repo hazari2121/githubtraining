@@ -12,8 +12,10 @@ Rscript run_pipeline.R data/EUForDam_REW.xlsx output
 Then check the results:
 
 ```bash
-Rscript tests/test_pipeline.R data/EUForDam_REW.xlsx
+Rscript tests/test_pipeline.R data/EUForDam_REW.xlsx data/HOST_tables_borers_defoliators.xlsx
 ```
+
+The second file is optional. If given, the generated host tables are compared with it cell by cell.
 
 Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
 
@@ -36,10 +38,31 @@ Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
   - `group_totals_year`: the same totals per year.
   - `country_shares`: each country's share of total damage per unit.
   - `region_totals`: country × unit × tree type × region (replaces the pivot, for every country).
+- `host_tables_borers_defoliators.xlsx`: host tables built automatically.
+  - Four insect × host-tree 0/1 matrices: borers / defoliators on conifers / broadleaves.
+  - `insects`: for each insect, its guild, host trees, host amount and number of regions/countries.
+  - `insect_hosts`: the same as a long table, one row per insect × host.
+- `eufordam_model_data.csv`: damage records joined with insect name, guild, common host name, host type and host amount. Aggregate codes are marked with `is_aggregate`. This is the starting table for modelling.
 - `eufordam_qc.xlsx`: quality report. Covers dropped rows, repeated rows (listed for information; they are valid and kept), NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
+
+## Reference files (`reference/`)
+
+Expert knowledge that cannot be derived from the data. Edit these files, never the outputs.
+
+- `insects.csv`: insect name per code, plus an optional host-amount override (e.g. *Melolontha*: all forest).
+- `supervisor_host_matrix.csv`: host trees and host amount from the supervisor's matrix, and the group column used to count each insect's regions.
+- `host_trees.csv`: Latin → common host name, tree type, and whether the forest data has its own column for that tree.
+
+Derived from the data:
+- guild: m3 records = borer, ha records = defoliator;
+- host trees in the data file;
+- region and country counts: any record counts, including zeros.
+
+A new insect code shows up as a warning until it is added to `insects.csv`.
 
 ## Code
 
 - `R/eufordam_pipeline.R`: functions (read, clean, QC, summaries).
 - `run_pipeline.R`: command-line entry point.
+- `R/host_tables.R`: host tables and modelling table.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.
