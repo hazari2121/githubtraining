@@ -83,7 +83,7 @@ QC sheets:
 
 Known issues:
 - BG and LT spruce/pine/oak m³ look like they are in thousands (0.03–0.7 m³/ha).
-- *L. monacha* in Poland is matched to spruce area but mostly defoliates pine, so `damage_rel` > 1 there.
+- *L. monacha* is matched to spruce area, as in the paper (decision: keep). In Poland it mostly defoliates pine, so `damage_rel` > 1 there.
 - The climate columns are labelled "2020-2022", while the paper describes 2000–2022 means.
 
 ## Outputs (`output/`)
