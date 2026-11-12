@@ -45,6 +45,37 @@ Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
 - `eufordam_model_data.csv`: damage records joined with insect name, guild, common host name, host type and host amount. Aggregate codes are marked with `is_aggregate`. This is the starting table for modelling.
 - `eufordam_qc.xlsx`: quality report. Covers dropped rows, repeated rows (listed for information; they are valid and kept), NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
 
+## Making your own tables
+
+`R/make_table.R` builds any rows × columns table from the two base tables:
+- `model_data`: one row per damage record;
+- `insect_hosts`: one row per insect × host tree.
+
+```r
+source("R/eufordam_pipeline.R"); source("R/host_tables.R"); source("R/make_table.R")
+res <- run_pipeline("data/EUForDam_REW.xlsx")
+md  <- res$model_data
+ih  <- res$host$insect_hosts
+
+make_table(ih, rows = "host", cols = "insect", filter = guild == "borer" & host_type == "conifers")
+make_table(md, rows = "insect", cols = "country", value = "n_regions")
+make_table(md, rows = "country", cols = "year", value = "sum", filter = guild == "borer")
+```
+
+`value` can be:
+
+| `value` | What each cell holds |
+|---|---|
+| `presence` | 1 if any record, else 0 |
+| `any_damage` | 1 if any damage > 0, 0 if only zeros |
+| `sum` | total damage |
+| `mean` | mean damage per record |
+| `n_records`, `n_regions`, `n_countries`, `n_years` | counts |
+
+Cells with no record stay blank, never 0 (except for `presence`). Sums are only allowed within one unit. Combined codes are left out unless `include_aggregates = TRUE`.
+
+`examples/example_tables.R` writes seven example tables to `output/example_tables.xlsx`.
+
 ## Reference files (`reference/`)
 
 Expert knowledge that cannot be derived from the data. Edit these files, never the outputs.
@@ -65,4 +96,6 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `R/eufordam_pipeline.R`: functions (read, clean, QC, summaries).
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
+- `R/make_table.R`: general table builder.
+- `examples/example_tables.R`: example tables.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.

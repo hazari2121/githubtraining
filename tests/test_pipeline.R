@@ -61,3 +61,26 @@ if (!is.na(host_ref)) test_that("host tables reproduce the hand-made workbook", 
                  as.data.frame(lapply(b, as.character)), info = s)
   }
 })
+
+source(file.path("R", "make_table.R"))
+md <- build_model_data(cleaned, ht)
+
+test_that("make_table reproduces a host matrix from insect_hosts", {
+  t <- make_table(ht$insect_hosts, rows = "host", cols = "insect",
+                  filter = guild == "borer" & host_type == "conifers")
+  m <- ht$matrices$borers_on_conifers
+  # make_table only lists hosts that have insects; compare those rows
+  m <- m[m$`host tree` %in% t$host, ]
+  for (ins in names(m)[-1])
+    expect_equal(t[[ins]][match(m$`host tree`, t$host)], m[[ins]], info = ins)
+})
+
+test_that("make_table keeps no-record cells blank, never zero", {
+  t <- make_table(md, rows = "insect", cols = "country", value = "sum", filter = unit == "m3")
+  n <- make_table(md, rows = "insect", cols = "country", value = "n_records", filter = unit == "m3")
+  expect_identical(is.na(as.matrix(t[-1])), is.na(as.matrix(n[-1])))
+})
+
+test_that("make_table refuses to add m3 and ha together", {
+  expect_error(make_table(md, rows = "country", value = "sum"), "more than one unit")
+})
