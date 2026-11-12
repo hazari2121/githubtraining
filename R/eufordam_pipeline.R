@@ -4,6 +4,7 @@
 #   * value1 == 0   -> monitored, no damage found. Real zero, kept as is.
 #   * value1 blank  -> not recorded. Row is dropped, never filled with 0.
 #   * missing row   -> not recorded. Never created / filled with 0.
+#   * repeated rows -> valid records. Kept and counted; listed in QC for information only.
 #   * value2        -> the same damage as value1, expressed in the other unit
 #                      (m3 <-> ha).
 

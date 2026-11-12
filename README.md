@@ -24,6 +24,7 @@ Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
 | `value1 = 0` | Monitored, no damage found | Kept as real zero |
 | `value1` blank | Not recorded | Row dropped, never filled with 0 |
 | No row for an agent/region/year | Not recorded | Left out, never filled with 0 |
+| Repeated rows (same agent/host/year/region/unit) | Valid separate records | Kept, all counted in totals |
 | `value2` | Same damage as `value1` in the other unit | Kept as `value_alt` with `unit_alt` (m3 <-> ha) |
 
 ## Outputs (`output/`)
@@ -35,7 +36,7 @@ Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
   - `group_totals_year`: the same totals per year.
   - `country_shares`: each country's share of total damage per unit.
   - `region_totals`: country × unit × tree type × region (replaces the pivot, for every country).
-- `eufordam_qc.xlsx`: quality report. Covers dropped rows, duplicate keys, NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
+- `eufordam_qc.xlsx`: quality report. Covers dropped rows, repeated rows (listed for information; they are valid and kept), NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
 
 ## Code
 
