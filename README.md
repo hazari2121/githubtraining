@@ -29,6 +29,26 @@ Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
 | Repeated rows (same agent/host/year/region/unit) | Valid separate records | Kept, all counted in totals |
 | `value2` | Same damage as `value1` in the other unit | Kept as `value_alt` with `unit_alt` (m3 <-> ha) |
 
+### *Ips typographus*
+
+*Ips typographus* records include the combined code `CambXyl_con&BB_con&SM` together with `ips_typ`, through the "Ips typographus" group column. This gives 77 regions in 16 countries and 586.7 million m³, matching Tables 1 and 2 of the paper. `ips_typ` alone gives 69 regions, 15 countries and 472 million m³.
+
+Limitation: the combined code covers all spruce bark beetles, so the CZ and some DE values slightly overstate *I. typographus* itself.
+
+## Guideline paper
+
+Hlásny et al. 2025, *Divergent Trends in Insect Disturbance Across Europe's Temperate and Boreal Forests*, Global Change Biology 31:e70580. It was produced from this database, and the project follows its definitions.
+
+**Time series.** A time series is one insect code × host tree × region × unit. The paper removed series with fewer than 6 years of non-zero damage. The pipeline does not delete them; it marks them in `eufordam_model_data.csv`:
+- `series_id`;
+- `series_nonzero_years`;
+- `in_paper_series`: TRUE when the series has at least 6 years with damage.
+
+**Table 2 check.** The QC report sheet `paper_table2` compares group totals with Table 2 (`reference/paper_table2.csv`), with and without the filter. With the filter:
+- 11 of 18 groups match within 0.01%;
+- all groups are within 2%;
+- the largest gaps are borers on broadleaves (−1.9%) and borers on conifers (+1.6%).
+
 ## Outputs (`output/`)
 
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).

@@ -189,6 +189,37 @@ region_totals <- function(cleaned, sp_codes = NULL) {
 }
 
 # ---------------------------------------------------------------------------
+# 4b. Time-series filter used in Hlasny et al. 2025 (Global Change Biology)
+# ---------------------------------------------------------------------------
+# A time series = one insect code x host tree x region x unit. The paper removed series
+# with fewer than 6 years of non-zero damage. Rather than deleting rows, mark them:
+#   series_nonzero_years  number of years with damage > 0 in that series
+#   in_paper_series       TRUE if the series passes the filter
+add_series_info <- function(data, min_nonzero_years = 6) {
+  data |>
+    group_by(country, nuts, sp_code, host_tree, unit) |>
+    mutate(series_id = cur_group_id(),
+           series_nonzero_years = sum(value > 0)) |>
+    ungroup() |>
+    mutate(in_paper_series = series_nonzero_years >= min_nonzero_years)
+}
+
+# Group totals with and without the series filter, next to the paper's Table 2.
+compare_paper_table2 <- function(cleaned, ref_dir = "reference", min_nonzero_years = 6) {
+  paper <- readr::read_csv(file.path(ref_dir, "paper_table2.csv"), show_col_types = FALSE)
+  d <- add_series_info(cleaned$data, min_nonzero_years)
+  all_tot <- group_totals(cleaned) |> select(group, unit, total_all = total)
+  filt <- cleaned
+  filt$data <- filter(d, in_paper_series)
+  filt_tot <- group_totals(filt) |> select(group, unit, total_filtered = total)
+  paper |>
+    left_join(all_tot, by = c("group", "unit")) |>
+    left_join(filt_tot, by = c("group", "unit")) |>
+    mutate(diff_all_pct      = round(100 * (total_all / paper_total - 1), 2),
+           diff_filtered_pct = round(100 * (total_filtered / paper_total - 1), 2))
+}
+
+# ---------------------------------------------------------------------------
 # 5. Run everything and write outputs
 # ---------------------------------------------------------------------------
 run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
@@ -215,7 +246,9 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
   refs <- read_host_references(ref_dir)
   host <- build_host_tables(cleaned, refs)
   write_host_tables(host, file.path(out_dir, "host_tables_borers_defoliators.xlsx"))
-  model_data <- build_model_data(cleaned, host, refs)
+  model_data <- build_model_data(cleaned, host, refs) |> add_series_info()
+  qc$paper_table2 <- compare_paper_table2(cleaned, ref_dir)
+  writexl::write_xlsx(qc, file.path(out_dir, "eufordam_qc.xlsx"))
   readr::write_csv(model_data, file.path(out_dir, "eufordam_model_data.csv"), na = "")
 
   invisible(list(cleaned = cleaned, qc = qc, summaries = summaries,

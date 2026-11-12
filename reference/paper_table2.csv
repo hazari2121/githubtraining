@@ -1,0 +1,19 @@
+level,group,paper_label,unit,paper_total,paper_pct_host_per_year
+1,Bark borers on conifers,Borers on gymnosperms,m3,673169401,0.27
+1,Bark borers on deciduous,Borers on angiosperms,m3,10869383,0.01
+1,Defoliators on conifers,Defoliators on gymnosperms,ha,5566820,0.46
+1,Defoliators on deciduous,Defoliators on angiosperms,ha,6393628,0.95
+2,Bark borers on fir,Borers on Abies alba,m3,7845375,0.07
+2,Bark borers on spruce,Borers on Picea abies,m3,631243712,0.53
+2,Bark borers on pine,Borers on Pinus sylvestris,m3,30553861,0.03
+2,Defoliators on spruce,Defoliators on Picea abies,ha,2916474,0.52
+2,Defoliators on pine,Defoliators on Pinus sylvestris,ha,2650346,0.46
+3,Ips typographus,Ips typographus,m3,586715446,0.49
+3,Phaenops cyanea,Phaenops cyanea,m3,14865369,0.02
+3,Tomicus minor and Tomicus piniperda,Tomicus spp.,m3,5432690,0.01
+3,Ips acuminatus,Ips acuminatus,m3,6845704,0.01
+3,Pityogenes chalcographus,Pityogenes chalcographus,m3,28145602,0.02
+3,Tortrix viridana,Tortrix viridana,ha,641455,0.46
+3,Geometridae on oaks,Geometridae on oaks,ha,746724,0.53
+3,Lymantria dispar,Lymantria dispar,ha,2390823,1.70
+3,Lymantria monacha,Lymantria monacha,ha,2402944,0.43

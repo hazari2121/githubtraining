@@ -84,3 +84,10 @@ test_that("make_table keeps no-record cells blank, never zero", {
 test_that("make_table refuses to add m3 and ha together", {
   expect_error(make_table(md, rows = "country", value = "sum"), "more than one unit")
 })
+
+test_that("series filter (>= 6 non-zero years) reproduces most of paper Table 2", {
+  cmp <- compare_paper_table2(cleaned)
+  expect_true(all(abs(cmp$diff_filtered_pct) < 2))
+  expect_gte(sum(abs(cmp$diff_filtered_pct) <= 0.01), 11)
+  expect_equal(cmp$total_filtered[cmp$group == "Pityogenes chalcographus"], 28145602, tolerance = 1e-6)
+})
