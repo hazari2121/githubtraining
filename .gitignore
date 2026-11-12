@@ -1,0 +1,8 @@
+# Raw data and generated outputs are not version-controlled
+data/
+output/
+*.xlsx
+*.csv
+.Rhistory
+.RData
+.Rproj.user/
