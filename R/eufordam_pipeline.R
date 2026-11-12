@@ -222,7 +222,8 @@ compare_paper_table2 <- function(cleaned, ref_dir = "reference", min_nonzero_yea
 # ---------------------------------------------------------------------------
 # 5. Run everything and write outputs
 # ---------------------------------------------------------------------------
-run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
+run_pipeline <- function(path, out_dir = "output", ref_dir = "reference",
+                         host_climate_path = NULL) {
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
   raw     <- read_eufordam(path)
@@ -240,7 +241,6 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
   readr::write_csv(cleaned$data, file.path(out_dir, "eufordam_clean.csv"), na = "")
   writexl::write_xlsx(c(list(clean_data = cleaned$data), summaries),
                       file.path(out_dir, "eufordam_summaries.xlsx"))
-  writexl::write_xlsx(qc, file.path(out_dir, "eufordam_qc.xlsx"))
 
   # Host tables (borers / defoliators x conifers / broadleaves) and modelling table
   refs <- read_host_references(ref_dir)
@@ -248,9 +248,20 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference") {
   write_host_tables(host, file.path(out_dir, "host_tables_borers_defoliators.xlsx"))
   model_data <- build_model_data(cleaned, host, refs) |> add_series_info()
   qc$paper_table2 <- compare_paper_table2(cleaned, ref_dir)
+
+  # Host amount and climate per spatial unit (optional input)
+  hc <- NULL
+  if (!is.null(host_climate_path)) {
+    hc <- read_host_climate(host_climate_path)
+    readr::write_csv(hc, file.path(out_dir, "spatial_units_host_climate.csv"), na = "")
+    model_data <- add_host_climate(model_data, hc)
+    qc <- c(qc, qc_host_climate(cleaned, hc))
+    qc$damage_exceeds_host <- qc_damage_exceeds_host(model_data)
+    qc$paper_table2_host_share <- compare_paper_host_share(cleaned, hc, ref_dir)
+  }
   writexl::write_xlsx(qc, file.path(out_dir, "eufordam_qc.xlsx"))
   readr::write_csv(model_data, file.path(out_dir, "eufordam_model_data.csv"), na = "")
 
   invisible(list(cleaned = cleaned, qc = qc, summaries = summaries,
-                 host = host, model_data = model_data))
+                 host = host, model_data = model_data, host_climate = hc))
 }

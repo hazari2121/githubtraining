@@ -1,0 +1,20 @@
+group,host_column
+Defoliators on spruce,spruce_ha
+Lymantria monacha,spruce_ha
+Bark borers on spruce,spruce_m3
+Ips typographus,spruce_m3
+Pityogenes chalcographus,spruce_m3
+Defoliators on pine,pine_ha
+Bark borers on pine,pine_m3
+Phaenops cyanea,pine_m3
+Tomicus minor and Tomicus piniperda,pine_m3
+Ips acuminatus,pine_m3
+Pityogenes chalcographus,pine_m3
+Bark borers on fir,fir_m3
+Defoliators on conifers,coniferous_ha
+Bark borers on conifers,coniferous_m3
+Defoliators on deciduous,deciduous_ha
+Tortrix viridana,deciduous_ha
+Geometridae on oaks,deciduous_ha
+Lymantria dispar,deciduous_ha
+Bark borers on deciduous,deciduous_m3

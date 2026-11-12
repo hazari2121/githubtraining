@@ -37,6 +37,7 @@ test_that("region totals reproduce the Excel pivot for DE", {
 
 # Optional second argument: the hand-made host tables workbook to compare against
 source(file.path("R", "host_tables.R"))
+source(file.path("R", "host_climate.R"))
 ht <- build_host_tables(cleaned)
 host_ref <- commandArgs(trailingOnly = TRUE)[2]
 
@@ -91,3 +92,27 @@ test_that("series filter (>= 6 non-zero years) reproduces most of paper Table 2"
   expect_gte(sum(abs(cmp$diff_filtered_pct) <= 0.01), 11)
   expect_equal(cmp$total_filtered[cmp$group == "Pityogenes chalcographus"], 28145602, tolerance = 1e-6)
 })
+
+# Optional third argument: Data_Klim_Tree_NUTS workbook (host amount + climate)
+hc_path <- commandArgs(trailingOnly = TRUE)[3]
+if (!is.na(hc_path)) {
+  hc <- read_host_climate(hc_path)
+  mdh <- add_host_climate(md, hc)
+
+  test_that("every damage unit has host data except Berlin, Bremen, Hamburg", {
+    expect_setequal(setdiff(unique(d$nuts), hc$nuts), c("DE3", "DE5", "DE6"))
+  })
+
+  test_that("joining host data adds no rows and never invents host amounts", {
+    expect_equal(nrow(mdh), nrow(md))
+    expect_true(all(is.na(mdh$damage_rel[is.na(mdh$host_amount)])))
+    expect_false(any(hc$country == "SL"))
+  })
+
+  test_that("Table 2 host share reproduces the spruce groups", {
+    sh <- compare_paper_host_share(cleaned, hc)
+    for (g in c("Bark borers on conifers", "Bark borers on spruce", "Ips typographus"))
+      expect_equal(sh$pct_host_per_year[sh$group == g],
+                   sh$paper_pct_host_per_year[sh$group == g], tolerance = 0.05, info = g)
+  })
+}

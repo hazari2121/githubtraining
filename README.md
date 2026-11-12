@@ -6,13 +6,15 @@ It replaces the manual Excel pivot (`kotg_EUForDam_REW`) and summary sheet (`Lis
 ## Run
 
 ```bash
-Rscript run_pipeline.R data/EUForDam_REW.xlsx output
+Rscript run_pipeline.R data/EUForDam_REW.xlsx output data/Data_Klim_Tree_NUTS.xlsx
 ```
+
+The third file, with host amount and climate per region, is optional.
 
 Then check the results:
 
 ```bash
-Rscript tests/test_pipeline.R data/EUForDam_REW.xlsx data/HOST_tables_borers_defoliators.xlsx
+Rscript tests/test_pipeline.R data/EUForDam_REW.xlsx data/HOST_tables_borers_defoliators.xlsx data/Data_Klim_Tree_NUTS.xlsx
 ```
 
 The second file is optional. If given, the generated host tables are compared with it cell by cell.
@@ -48,6 +50,41 @@ Hlásny et al. 2025, *Divergent Trends in Insect Disturbance Across Europe's Tem
 - 11 of 18 groups match within 0.01%;
 - all groups are within 2%;
 - the largest gaps are borers on broadleaves (−1.9%) and borers on conifers (+1.6%).
+
+## Host amount and climate
+
+Input: `Data_Klim_Tree_NUTS_*.xlsx`, sheet `DATA_CLEAN`. Sources are documented in `Appendix_NUTS_Forests` (Appendix D). The file gives, per spatial unit:
+- area (ha) and growing stock (m³) of spruce, pine, oak, fir, all conifers and all broadleaves;
+- mean VPD, temperature and precipitation.
+
+Fixes applied so the units match the damage data:
+
+| Issue | Fix |
+|---|---|
+| `-` in host columns | Not available → NA, never 0 |
+| Poland: code and name columns swapped | Swapped back (`BIA`, `GDA`, …) |
+| Slovenia coded `SL` | → `SI` |
+| Czechia host data at NUTS3 (CZ010…), damage at NUTS2 (CZ01…) | Host summed to NUTS2 (checked against the appendix); climate weighted by forest area |
+| Berlin (DE3) lumped with Brandenburg (DE4); no data for Bremen (DE5) and Hamburg (DE6) | Host amount NA for these three |
+
+Added to `eufordam_model_data.csv`:
+- `host_amount`: the insect's host in that unit, following `host_amount_from`. Aggregate codes use all conifers or all broadleaves.
+- `host_amount_columns`;
+- `damage_rel` = `value / host_amount`, the fraction of host damaged that year;
+- `vpd`, `tas`, `pr`.
+
+`reference/group_host_columns.csv` maps each group to its host column(s), as in the paper's host matrix.
+
+QC sheets:
+- `units_without_host_data`;
+- `host_density_suspicious`: m³/ha outside 20–1000;
+- `damage_exceeds_host`: `damage_rel` > 1;
+- `paper_table2_host_share`: Table 2 % column, reproduced for the spruce groups.
+
+Known issues:
+- BG and LT spruce/pine/oak m³ look like they are in thousands (0.03–0.7 m³/ha).
+- *L. monacha* in Poland is matched to spruce area but mostly defoliates pine, so `damage_rel` > 1 there.
+- The climate columns are labelled "2020-2022", while the paper describes 2000–2022 means.
 
 ## Outputs (`output/`)
 
@@ -116,6 +153,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `R/eufordam_pipeline.R`: functions (read, clean, QC, summaries).
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
+- `R/host_climate.R`: host amount and climate per spatial unit.
 - `R/make_table.R`: general table builder.
 - `examples/example_tables.R`: example tables.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.
