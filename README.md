@@ -21,6 +21,12 @@ The second file is optional. If given, the generated host tables are compared wi
 
 Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
 
+Cloud sessions on the **githubtraining** environment install these automatically at startup. The modelling packages (`gllvm`, `brms`, `targets`, …) are installed when modelling starts. This takes about 15 minutes:
+
+```bash
+bash setup/install_modelling_packages.sh
+```
+
 ## Data rules
 
 | Situation | Meaning | Handling |
