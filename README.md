@@ -19,7 +19,7 @@ Rscript tests/test_pipeline.R data/EUForDam_REW.xlsx data/HOST_tables_borers_def
 
 The second file is optional. If given, the generated host tables are compared with it cell by cell.
 
-Requires R with the tidyverse, `readxl`, `writexl` and `testthat`.
+Requires R with the tidyverse, `readxl`, `writexl`, `testthat` and `openxlsx2` (for the PivotTable workbook).
 
 Cloud sessions on the **githubtraining** environment install these automatically at startup. The modelling packages (`gllvm`, `brms`, `targets`, …) are installed when modelling starts. This takes about 15 minutes:
 
@@ -94,6 +94,11 @@ Known issues:
 
 ## Outputs (`output/`)
 
+- `EUForDAM_explore.xlsx`: explore without code.
+  - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
+  - Each table is split by unit (m³ / ha).
+  - Drag fields to make any other combination.
+  - Needs Excel (slicers) or LibreOffice.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).
 - `eufordam_summaries.xlsx`:
@@ -161,6 +166,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
 - `R/host_climate.R`: host amount and climate per spatial unit.
+- `R/pivot_workbook.R`: the PivotTable workbook.
 - `R/datasheet.R`: the human-readable datasheet workbook.
 - `R/make_table.R`: general table builder.
 - `examples/example_tables.R`: example tables.

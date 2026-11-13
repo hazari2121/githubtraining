@@ -264,6 +264,8 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference",
 
   res <- list(cleaned = cleaned, qc = qc, summaries = summaries,
               host = host, model_data = model_data, host_climate = hc)
+  if (exists("write_pivot_workbook"))
+    write_pivot_workbook(model_data, file.path(out_dir, "EUForDAM_explore.xlsx"))
   if (exists("write_datasheet"))
     write_datasheet(res, file.path(out_dir, "EUForDAM_automated_datasheet.xlsx"),
                     inputs = list(damage = path, host_climate = host_climate_path))
