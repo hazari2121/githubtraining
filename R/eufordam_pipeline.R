@@ -262,6 +262,10 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference",
   writexl::write_xlsx(qc, file.path(out_dir, "eufordam_qc.xlsx"))
   readr::write_csv(model_data, file.path(out_dir, "eufordam_model_data.csv"), na = "")
 
-  invisible(list(cleaned = cleaned, qc = qc, summaries = summaries,
-                 host = host, model_data = model_data, host_climate = hc))
+  res <- list(cleaned = cleaned, qc = qc, summaries = summaries,
+              host = host, model_data = model_data, host_climate = hc)
+  if (exists("write_datasheet"))
+    write_datasheet(res, file.path(out_dir, "EUForDAM_automated_datasheet.xlsx"),
+                    inputs = list(damage = path, host_climate = host_climate_path))
+  invisible(res)
 }

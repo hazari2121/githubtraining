@@ -38,6 +38,7 @@ test_that("region totals reproduce the Excel pivot for DE", {
 # Optional second argument: the hand-made host tables workbook to compare against
 source(file.path("R", "host_tables.R"))
 source(file.path("R", "host_climate.R"))
+source(file.path("R", "datasheet.R"))
 ht <- build_host_tables(cleaned)
 host_ref <- commandArgs(trailingOnly = TRUE)[2]
 

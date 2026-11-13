@@ -9,6 +9,7 @@ out_dir <- if (length(args) >= 2) args[2] else "output"
 source(file.path("R", "eufordam_pipeline.R"))
 source(file.path("R", "host_tables.R"))
 source(file.path("R", "host_climate.R"))
+source(file.path("R", "datasheet.R"))
 hc_path <- if (length(args) >= 3) args[3] else NULL
 res <- run_pipeline(input, out_dir, host_climate_path = hc_path)
 

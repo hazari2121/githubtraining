@@ -94,6 +94,7 @@ Known issues:
 
 ## Outputs (`output/`)
 
+- `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).
 - `eufordam_summaries.xlsx`:
   - `group_totals`: Europe-wide totals per group and unit (replaces `List1`).
@@ -160,6 +161,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
 - `R/host_climate.R`: host amount and climate per spatial unit.
+- `R/datasheet.R`: the human-readable datasheet workbook.
 - `R/make_table.R`: general table builder.
 - `examples/example_tables.R`: example tables.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.
