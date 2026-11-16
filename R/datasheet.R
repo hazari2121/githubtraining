@@ -17,6 +17,7 @@ datasheet_columns <- function() {
     "guild", "added", "borer (recorded in m3) or defoliator (recorded in ha).",
     "is_aggregate", "added", "TRUE if sp_code combines several insects (e.g. CambXyl_con&BB_con&SM).",
     "host_tree", "raw: HOSTTREE", "Host tree as recorded (Latin).",
+    "host_label", "added (reference/host_trees.csv)", "Host tree as recorded in EU-ForDAM (Latin) with the common name, e.g. Picea abies (spruce).",
     "host", "added (reference/host_trees.csv)", "Common host name (pine, spruce, fir, larch, oak, birch, elm, horse chestnut, poplar/willow).",
     "host_type", "added", "conifers or broadleaves.",
     "unit", "raw: sp_unit", "Unit of value: m3 (damaged wood) or ha (defoliated area).",

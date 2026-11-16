@@ -17,7 +17,7 @@ pivot_data <- function(model_data) {
     transmute(
       country, region_code = nuts, region, year = as.integer(year),
       insect, sp_code, guild,
-      host, host_type, unit, damage = value,
+      host_tree = host_label, host_common = host, host_type, unit, damage = value,
       damage_rel_pct = 100 * damage_rel, host_amount,
       vpd, temperature = tas, precipitation = pr,
       aggregate_code = if_else(is_aggregate, "yes", "no"),
@@ -62,14 +62,14 @@ write_pivot_workbook <- function(model_data, path) {
   # "unit" is always the first row level, so m3 (borers) and ha (defoliators) are never
   # added together.
   specs <- list(
-    list("insect by year",    "insect",  "year",    "damage",         "sum",     c("unit", "guild", "host", "country")),
-    list("insect by country", "insect",  "country", "damage",         "sum",     c("unit", "guild", "host", "year")),
-    list("insect vs tree",    "insect",  "host",    "damage",         "sum",     c("unit", "guild", "country")),
-    list("tree by year",      "host",    "year",    "damage",         "sum",     c("unit", "guild", "country")),
-    list("tree by country",   "host",    "country", "damage",         "sum",     c("unit", "guild", "year")),
-    list("country by year",   "country", "year",    "damage",         "sum",     c("unit", "guild", "insect", "host")),
-    list("relative damage",   "insect",  "country", "damage_rel_pct", "average", c("unit", "guild", "host")),
-    list("records count",     "insect",  "country", "damage",         "count",   c("guild", "host", "year"))
+    list("insect by year",    "insect",  "year",    "damage",         "sum",     c("unit", "guild", "host_tree", "country")),
+    list("insect by country", "insect",  "country", "damage",         "sum",     c("unit", "guild", "host_tree", "year")),
+    list("insect vs tree",    "insect",  "host_tree",    "damage",         "sum",     c("unit", "guild", "country")),
+    list("tree by year",      "host_tree",    "year",    "damage",         "sum",     c("unit", "guild", "country")),
+    list("tree by country",   "host_tree",    "country", "damage",         "sum",     c("unit", "guild", "year")),
+    list("country by year",   "country", "year",    "damage",         "sum",     c("unit", "guild", "insect", "host_tree")),
+    list("relative damage",   "insect",  "country", "damage_rel_pct", "average", c("unit", "guild", "host_tree")),
+    list("records count",     "insect",  "country", "damage",         "count",   c("guild", "host_tree", "year"))
   )
 
   df_x <- wb_data(wb, sheet = "data")

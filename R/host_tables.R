@@ -185,7 +185,8 @@ build_model_data <- function(cleaned, ht, refs = read_host_references()) {
 
   cleaned$data |>
     mutate(is_aggregate = is_aggregate_code(sp_code)) |>
-    left_join(refs$hosts |> select(host_tree, host, host_type = tree_type), by = "host_tree") |>
+    left_join(refs$hosts |> select(host_tree, host, host_label, host_type = tree_type),
+              by = "host_tree") |>
     left_join(ht$insects |> select(code, insect, guild, host_amount_from),
               by = c("sp_code" = "code")) |>
     left_join(agg |> select(code, agg_label = label, agg_guild = guild),
@@ -194,5 +195,5 @@ build_model_data <- function(cleaned, ht, refs = read_host_references()) {
            guild  = coalesce(guild, agg_guild)) |>
     select(-agg_label, -agg_guild) |>
     relocate(country, nuts, region, year, sp_code, insect, guild, is_aggregate,
-             host_tree, host, host_type, unit, value, value_alt, unit_alt)
+             host_tree, host_label, host, host_type, unit, value, value_alt, unit_alt)
 }

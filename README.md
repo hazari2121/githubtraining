@@ -154,7 +154,7 @@ Expert knowledge that cannot be derived from the data. Edit these files, never t
 - `aggregate_codes.csv`: readable names for codes that combine several insects.
   - The suffixes are Czech tree names: SM = smrk (spruce), BO = borovice (pine), MD = modřín (larch), DB = dub (oak).
   - Example: `Def_dec` → "Defoliators on broadleaves (unspecified)". It occurs only on horse chestnut in DE.
-- `host_trees.csv`: Latin → common host name, tree type, and whether the forest data has its own column for that tree.
+- `host_trees.csv`: Latin host name as in EU-ForDAM → common name and display label (e.g. *Picea abies* (spruce)), tree type, and whether the forest data has its own column for that tree.
 
 Derived from the data:
 - guild: m3 records = borer, ha records = defoliator;
