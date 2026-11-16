@@ -1,0 +1,7 @@
+code,label,guild,meaning
+CambXyl_con&BB_con&SM,Bark beetles on spruce (unspecified),borer,"Bark and wood borers incl. bark beetles on conifers, spruce (SM = smrk). Mostly Ips typographus; counted as Ips typographus in the paper."
+CambXyl_con&BB_con&BO,Bark beetles on pine (unspecified),borer,"Bark and wood borers incl. bark beetles on conifers, pine (BO = borovice)."
+CambXyl_con&BO,Bark and wood borers on pine (unspecified),borer,"Bark and wood borers on conifers, pine (BO = borovice)."
+CambXyl_con&MD,Bark and wood borers on larch (unspecified),borer,"Bark and wood borers on conifers, larch (MD = modrin)."
+Def_dec,Defoliators on broadleaves (unspecified),defoliator,"Defoliators on broadleaves, no species given. Recorded only on horse chestnut (Aesculus) in DE; 132 ha in total."
+Def_dec&DB,Defoliators on oak (unspecified),defoliator,"Defoliators on broadleaves, oak (DB = dub)."

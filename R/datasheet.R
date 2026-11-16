@@ -13,7 +13,7 @@ datasheet_columns <- function() {
     "region", "raw: Region", "Spatial unit name.",
     "year", "raw: d_year", "Year of damage.",
     "sp_code", "raw: sp_code", "Insect code. Codes with & or starting CambXyl_/Def_ are aggregates of several insects.",
-    "insect", "added (reference/insects.csv)", "Insect name.",
+    "insect", "added (reference/insects.csv, reference/aggregate_codes.csv)", "Insect name. Codes combining several insects get a label ending in (unspecified), e.g. Def_dec = Defoliators on broadleaves (unspecified).",
     "guild", "added", "borer (recorded in m3) or defoliator (recorded in ha).",
     "is_aggregate", "added", "TRUE if sp_code combines several insects (e.g. CambXyl_con&BB_con&SM).",
     "host_tree", "raw: HOSTTREE", "Host tree as recorded (Latin).",
@@ -57,6 +57,7 @@ datasheet_changes <- function(res, raw_rows) {
     "Clean", "Labels tidied: hidden non-breaking space removed, 'decidous' -> 'deciduous'", "Spelling / invisible characters", 2,
     "Clean", "Group indicator columns 1/blank -> TRUE/FALSE (grp_*)", "Easier filtering", nrow(res$cleaned$groups),
     "Add", "Insect name, guild, common host name, host type", "Readable and groupable records", nrow(md),
+    "Add", "Aggregate codes labelled, e.g. Def_dec -> Defoliators on broadleaves (unspecified)", "Readable names; codes kept in sp_code", n_distinct(md$sp_code[md$is_aggregate]),
     "Add", "Aggregate codes marked (is_aggregate)", "Kept in group totals, left out of species tables", sum(md$is_aggregate),
     "Add", "Time-series filter of the paper (in_paper_series)", "Series with < 6 non-zero years marked, not deleted", sum(!md$in_paper_series),
     "Rule", "Ips typographus includes CambXyl_con&BB_con&SM (via its group column)", "Matches paper Tables 1-2 (77 regions, 16 countries, 586.7 Mm3)", sum(md$sp_code == "CambXyl_con&BB_con&SM")

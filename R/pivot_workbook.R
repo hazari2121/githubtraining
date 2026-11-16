@@ -16,7 +16,7 @@ pivot_data <- function(model_data) {
   model_data |>
     transmute(
       country, region_code = nuts, region, year = as.integer(year),
-      insect = coalesce(insect, sp_code), sp_code, guild = coalesce(guild, "aggregate"),
+      insect, sp_code, guild,
       host, host_type, unit, damage = value,
       damage_rel_pct = 100 * damage_rel, host_amount,
       vpd, temperature = tas, precipitation = pr,

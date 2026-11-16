@@ -151,6 +151,9 @@ Expert knowledge that cannot be derived from the data. Edit these files, never t
 
 - `insects.csv`: insect name per code, plus an optional host-amount override (e.g. *Melolontha*: all forest).
 - `supervisor_host_matrix.csv`: host trees and host amount from the supervisor's matrix, and the group column used to count each insect's regions.
+- `aggregate_codes.csv`: readable names for codes that combine several insects.
+  - The suffixes are Czech tree names: SM = smrk (spruce), BO = borovice (pine), MD = modřín (larch), DB = dub (oak).
+  - Example: `Def_dec` → "Defoliators on broadleaves (unspecified)". It occurs only on horse chestnut in DE.
 - `host_trees.csv`: Latin → common host name, tree type, and whether the forest data has its own column for that tree.
 
 Derived from the data:

@@ -125,3 +125,10 @@ test_that("pivot data keeps every record and never mixes in invented values", {
   expect_equal(nrow(pd), nrow(md))
   expect_equal(sum(pd$damage), sum(md$value))
 })
+
+test_that("every record has a readable insect name and a guild", {
+  expect_false(any(md$insect == md$sp_code & md$is_aggregate))
+  expect_false(anyNA(md$insect))
+  expect_false(anyNA(md$guild))
+  expect_equal(unique(md$insect[md$sp_code == "Def_dec"]), "Defoliators on broadleaves (unspecified)")
+})

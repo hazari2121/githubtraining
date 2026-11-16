@@ -26,7 +26,9 @@ read_host_references <- function(ref_dir = "reference") {
                           col_types = cols(.default = "c")),
     supervisor = read_csv(file.path(ref_dir, "supervisor_host_matrix.csv"),
                           show_col_types = FALSE, col_types = cols(.default = "c")),
-    hosts      = read_csv(file.path(ref_dir, "host_trees.csv"), show_col_types = FALSE)
+    hosts      = read_csv(file.path(ref_dir, "host_trees.csv"), show_col_types = FALSE),
+    aggregates = read_csv(file.path(ref_dir, "aggregate_codes.csv"), show_col_types = FALSE,
+                          col_types = cols(.default = "c"))
   )
 }
 
@@ -171,12 +173,26 @@ write_host_tables <- function(ht, path) {
 }
 
 # Damage records joined with insect metadata: one table ready for modelling.
+# Aggregate codes get a readable label from reference/aggregate_codes.csv,
+# e.g. "Def_dec" -> "Defoliators on broadleaves (unspecified)".
 build_model_data <- function(cleaned, ht, refs = read_host_references()) {
+  agg <- refs$aggregates
+  missing_agg <- setdiff(unique(cleaned$data$sp_code[is_aggregate_code(cleaned$data$sp_code)]),
+                         agg$code)
+  if (length(missing_agg))
+    warning("Aggregate codes missing from reference/aggregate_codes.csv (shown by code): ",
+            paste(missing_agg, collapse = ", "))
+
   cleaned$data |>
     mutate(is_aggregate = is_aggregate_code(sp_code)) |>
     left_join(refs$hosts |> select(host_tree, host, host_type = tree_type), by = "host_tree") |>
     left_join(ht$insects |> select(code, insect, guild, host_amount_from),
               by = c("sp_code" = "code")) |>
+    left_join(agg |> select(code, agg_label = label, agg_guild = guild),
+              by = c("sp_code" = "code")) |>
+    mutate(insect = coalesce(insect, agg_label, sp_code),
+           guild  = coalesce(guild, agg_guild)) |>
+    select(-agg_label, -agg_guild) |>
     relocate(country, nuts, region, year, sp_code, insect, guild, is_aggregate,
              host_tree, host, host_type, unit, value, value_alt, unit_alt)
 }
