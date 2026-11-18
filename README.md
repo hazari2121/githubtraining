@@ -98,6 +98,8 @@ Known issues:
   - **`drill-down` (start here):** the whole hierarchy on one sheet.
     - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
     - Expand or collapse with + / −; filter with slicers (country, host tree, paper series, combined codes).
+  - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
+    - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
   - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
   - Each table is split by unit (m³ / ha).
   - Drag fields to make any other combination.

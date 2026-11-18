@@ -187,3 +187,12 @@ test_that("requests filter, never fill missing with 0, and reject bad options", 
   expect_true(is.na(r$CH[r$insect == "Phaenops cyanea"]))   # not recorded in CH -> blank
   expect_error(run_request(mdr, list(name = "t", insect_level = "species")), "must be one of")
 })
+
+test_that("host drill-down data has the same 1/0 pattern as the host matrix", {
+  hd <- host_drill_data(mdr, ht)
+  hm <- host_matrix_tables(ht)$all
+  for (code in hm$code) for (tree in setdiff(names(hm), c("insect", "code", "guild", "host_type", "regions", "countries")))
+    expect_equal(hd$present[hd$sp_code == code & hd$host_tree == tree], hm[[tree]][hm$code == code],
+                 info = paste(code, tree))
+  expect_true(all(hd$present %in% c(0, 1)))
+})
