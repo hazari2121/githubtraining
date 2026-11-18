@@ -132,3 +132,18 @@ test_that("every record has a readable insect name and a guild", {
   expect_false(anyNA(md$guild))
   expect_equal(unique(md$insect[md$sp_code == "Def_dec"]), "Defoliators on broadleaves (unspecified)")
 })
+
+test_that("host matrix sheets match the host tables (same 1/0 pattern)", {
+  hm <- host_matrix_tables(ht)
+  for (b in names(ht$matrices)) {
+    expect_equal(hm$boxes[[b]][-1], ht$matrices[[b]][-1], info = b)
+    expect_true(all(grepl("\\(", hm$boxes[[b]]$`host tree`)), info = b)  # Latin (common)
+  }
+  # every insect lives on at least one tree, and the wide table agrees with the boxes
+  trees <- setdiff(names(hm$all), c("insect", "code", "guild", "host_type", "regions",
+                                   "countries", "host_amount_source"))
+  expect_true(all(rowSums(hm$all[trees]) >= 1))
+  expect_equal(nrow(hm$all), nrow(ht$insects))
+  expect_equal(hm$all[["Pinus sylvestris (pine)"]][hm$all$code == "pit_cha"], 1)
+  expect_equal(hm$all[["Picea abies (spruce)"]][hm$all$code == "pit_cha"], 1)
+})

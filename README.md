@@ -98,6 +98,9 @@ Known issues:
   - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
   - Each table is split by unit (m³ / ha).
   - Drag fields to make any other combination.
+  - Green tabs are the host matrices (1 = the insect lives on that tree, 0 = not), with Latin tree names:
+    - `host matrix`: all insects × all trees, filterable and sortable by 1/0;
+    - the four borer/defoliator × conifer/broadleaf boxes from the HOST_tables example.
   - Needs Excel (slicers) or LibreOffice.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).
