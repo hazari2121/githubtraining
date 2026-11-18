@@ -24,11 +24,25 @@ pivot_data <- function(model_data) {
       paper_series = if_else(in_paper_series, "yes", "no"),
       across(all_of(grp), ~ if_else(.x, "yes", "no"))
     ) |>
-    rename_with(~ sub("^grp_", "group_", .x), starts_with("grp_"))
+    rename_with(~ sub("^grp_", "group_", .x), starts_with("grp_")) |>
+    add_hierarchy_columns(model_data)
+}
+
+# Paper hierarchy (L1-L3) and 5-year periods, from R/request.R when it is loaded
+add_hierarchy_columns <- function(df, model_data) {
+  if (!exists("add_hierarchy")) return(df)
+  h <- add_hierarchy(model_data)
+  # a level with no finer split shows "(no subgroup)" instead of repeating "other ..."
+  l2 <- if_else(str_starts(h$L2, "other "), "(no subgroup)", h$L2)
+  l3 <- if_else(h$L3 == h$L2 & str_starts(h$L3, "other "), "(no subgroup)", h$L3)
+  df |> mutate(L1 = h$L1, L2 = l2, L3 = l3, period = h$period, .after = guild)
 }
 
 pivot_how_to <- function() {
   data.frame(`How to use this workbook` = c(
+    "START HERE: the red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns go 5-year period > year. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
+    "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
+    "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
     "Each blue tab is a PivotTable on the 'data' sheet. Click a slicer button (Ctrl+click for several) to filter.",
     "Drag fields in the PivotTable Fields panel to make any other combination; all fields of 'data' are available.",
     "Each table is split by unit: m3 = damaged wood (borers), ha = defoliated area (defoliators). Never add the two together.",
@@ -124,6 +138,23 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     wb_add_worksheet("data") |>
     wb_add_data_table(x = df, table_name = "damage", na = "") |>
     wb_freeze_pane(first_row = TRUE)
+
+  # drill-down: the whole hierarchy on one sheet, expand / collapse with + and -
+  if ("L1" %in% names(df)) {
+    wb <- wb |>
+      wb_add_worksheet("drill-down", tab_color = wb_color("C00000")) |>
+      wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "C3",
+                         rows = c("guild", "L1", "L2", "L3", "insect"), cols = c("period", "year"),
+                         data = "damage", fun = "sum",
+                         slicer = c("country", "host_tree", "paper_series", "aggregate_code"),
+                         pivot_table = "drill",
+                         params = list(table_style = "TableStyleMedium9", row_grand_totals = FALSE))
+    sl <- c("country", "host_tree", "paper_series", "aggregate_code")
+    for (j in seq_along(sl))
+      wb <- wb |> wb_add_slicer(df_x0, sheet = "drill-down", dims = paste0("A", 3 + (j - 1) * 14),
+                                pivot_table = "drill", slicer = sl[j])
+    wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:3, widths = c(26, 2, 48))
+  }
 
   # name, rows, cols, value, function, slicers
   # "unit" is always the first row level, so m3 (borers) and ha (defoliators) are never

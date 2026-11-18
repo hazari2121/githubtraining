@@ -95,6 +95,9 @@ Known issues:
 ## Outputs (`output/`)
 
 - `EUForDAM_explore.xlsx`: explore without code.
+  - **`drill-down` (start here):** the whole hierarchy on one sheet.
+    - Rows: guild → L1 → L2 → L3 → insect. Columns: 5-year period → year.
+    - Expand or collapse with + / −; filter with slicers (country, host tree, paper series, combined codes).
   - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
   - Each table is split by unit (m³ / ha).
   - Drag fields to make any other combination.
