@@ -194,9 +194,14 @@ test_that("host drill-down data has the same 1/0 pattern as the host matrix", {
   hd <- host_drill_data(mdr, ht)
   hm <- host_matrix_tables(ht)$all
   for (code in hm$code) for (tree in setdiff(names(hm), c("insect", "code", "guild", "host_type", "regions", "countries")))
-    expect_equal(hd$present[hd$sp_code == code & hd$host_tree == tree], hm[[tree]][hm$code == code],
+    expect_equal(max(hd$present[hd$sp_code == code & hd$host_tree == tree]), hm[[tree]][hm$code == code],
                  info = paste(code, tree))
   expect_true(all(hd$present %in% c(0, 1)))
+  # regions: an insect appears only in regions where it is recorded
+  rec <- mdr |> distinct(sp_code, nuts)
+  got <- hd |> distinct(sp_code, nuts = region_code)
+  expect_equal(nrow(dplyr::anti_join(got, rec, by = c("sp_code", "nuts"))), 0)
+  expect_equal(nrow(dplyr::anti_join(rec, got, by = c("sp_code", "nuts"))), 0)
 })
 
 test_that("query sheet lists every label of every dimension", {

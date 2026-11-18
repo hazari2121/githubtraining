@@ -104,6 +104,8 @@ Known issues:
     - Expand or collapse with + / −; filter with slicers (country, host tree, paper series, combined codes).
   - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
     - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
+    - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes.
+    - Choosing a country or region shows only the insects recorded there.
   - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
   - Each table is split by unit (m³ / ha).
   - Drag fields to make any other combination.

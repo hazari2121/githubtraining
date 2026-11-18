@@ -42,6 +42,9 @@ add_hierarchy_columns <- function(df, model_data) {
 # hierarchy, for the host drill-down. Species use the host tables (incl. hosts the
 # supervisor's matrix adds); codes combining several insects use their recorded host.
 host_drill_data <- function(model_data, host, refs = read_host_references()) {
+  # One row per insect x host tree x region where the insect is recorded (zeros count:
+  # a zero means monitored). lives_on = the insect lives on that tree (host tables,
+  # incl. hosts the supervisor's matrix adds; combined codes use their recorded host).
   pd <- pivot_data(model_data)
   codes <- pd |> distinct(sp_code, insect, guild, L1, L2, L3, combined_code = aggregate_code)
   lab <- refs$hosts |> distinct(host, host_label, tree_type, order)
@@ -55,10 +58,16 @@ host_drill_data <- function(model_data, host, refs = read_host_references()) {
   trees <- lab |> distinct(host_tree = host_label, host_type = tree_type, order) |>
     group_by(host_tree, host_type) |> summarise(order = min(order), .groups = "drop") |>
     arrange(order)
+  regions <- pd |>
+    group_by(sp_code, country, region_code, region) |>
+    summarise(damage_recorded = if_else(any(damage > 0), "yes", "no"), .groups = "drop")
+
   tidyr::crossing(codes, trees |> select(host_type, host_tree)) |>
     left_join(present, by = c("sp_code", "host_tree" = "host_label")) |>
-    mutate(present = coalesce(present, 0)) |>
-    arrange(guild, L1, L2, L3, insect, factor(host_tree, levels = trees$host_tree))
+    mutate(present = coalesce(present, 0), lives_on = if_else(present == 1, "yes", "no")) |>
+    inner_join(regions, by = "sp_code", relationship = "many-to-many") |>
+    arrange(guild, L1, L2, L3, insect, factor(host_tree, levels = trees$host_tree), country, region_code) |>
+    relocate(present, .after = last_col())
 }
 
 pivot_how_to <- function() {
@@ -66,7 +75,7 @@ pivot_how_to <- function() {
     "QUICKEST: the yellow 'query' tab. Pick rows, columns, measure, unit and filters from the dropdowns in column C; the table recalculates instantly, no refresh needed. Any combination works, e.g. rows = insect, columns = country; rows = L2, columns = year; rows = insect, columns = host_tree with measure 'lives on (1/0)'.",
     "PivotTables (red and blue tabs): if they look incomplete, click Enable Editing (if shown) and then Data > Refresh All.",
     "The red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
-    "The red 'host drill-down' tab: same insect hierarchy, columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree. Slicer combined_code = no hides codes combining several insects.",
+    "The red 'host drill-down' tab: same insect hierarchy, columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree. Filter with the slicers on the left or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region, damage recorded (yes = damage > 0 there, no = only zeros), combined codes. Choosing a country or region shows only insects recorded there.",
     "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
     "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
     "Each blue tab is a PivotTable on the 'data' sheet. Click a slicer button (Ctrl+click for several) to filter.",
@@ -189,7 +198,9 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:3, widths = c(26, 2, 48))
   }
 
-  # host drill-down: insect hierarchy x host trees, 1 = lives on that tree
+  # host drill-down: insect hierarchy x host trees, 1 = lives on that tree.
+  # Filter from the side (slicers) or the dropdowns above the table: lives on,
+  # guild, insect, host tree, country, region, damage recorded, combined codes.
   if (!is.null(host) && "L1" %in% names(df)) {
     hd <- host_drill_data(model_data, host)
     wb <- wb |>
@@ -197,18 +208,24 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
       wb_add_data_table(x = hd, table_name = "host_data") |>
       wb_add_worksheet("host drill-down", tab_color = wb_color("C00000"))
     hd_x <- wb_data(wb, sheet = "host data")
+    page <- c("lives_on", "country", "region_code", "damage_recorded", "combined_code")
+    sl <- c("lives_on", "guild", "insect", "host_tree", "country", "region_code",
+            "damage_recorded", "combined_code")
     wb <- wb |>
-      wb_add_pivot_table(hd_x, sheet = "host drill-down", dims = "C3",
+      wb_add_pivot_table(hd_x, sheet = "host drill-down", dims = "H10",
                          rows = c("guild", "L1", "L2", "L3", "insect"),
                          cols = c("host_type", "host_tree"), data = "present", fun = "max",
-                         slicer = "combined_code", pivot_table = "hostdrill",
+                         filter = page, slicer = setdiff(sl, page), pivot_table = "hostdrill",
                          params = list(table_style = "TableStyleMedium9",
-                                       row_grand_totals = FALSE, col_grand_totals = FALSE)) |>
-      wb_add_slicer(hd_x, sheet = "host drill-down", dims = "A3", pivot_table = "hostdrill",
-                    slicer = "combined_code") |>
-      wb_add_conditional_formatting(sheet = "host drill-down", dims = "D5:Z200",
+                                       row_grand_totals = FALSE, col_grand_totals = FALSE))
+    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
+    for (j in seq_along(sl))
+      wb <- wb |> wb_add_slicer(hd_x, sheet = "host drill-down", dims = pos[j],
+                                pivot_table = "hostdrill", slicer = sl[j])
+    wb <- wb |>
+      wb_add_conditional_formatting(sheet = "host drill-down", dims = "I12:AD400",
                                     rule = "==1", type = "expression", style = "is_host_drill") |>
-      wb_set_col_widths(sheet = "host drill-down", cols = 1:3, widths = c(22, 2, 48))
+      wb_set_col_widths(sheet = "host drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
   }
 
   # name, rows, cols, value, function, slicers
