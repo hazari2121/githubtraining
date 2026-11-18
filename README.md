@@ -95,7 +95,11 @@ Known issues:
 ## Outputs (`output/`)
 
 - `EUForDAM_explore.xlsx`: explore without code.
-  - **`drill-down` (start here):** the whole hierarchy on one sheet.
+  - **`query` (quickest):** pick rows, columns, measure, unit and filters from dropdowns, and the table recalculates instantly with plain Excel formulas (no refresh).
+    - Rows/columns: guild, L1, L2, L3, insect, host_type, host_tree, country, region_code, year, in any combination.
+    - Measures: total, records, average, any damage, lives on (1/0).
+    - Up to 100 × 80 cells.
+  - **`drill-down`:** the whole hierarchy on one sheet.
     - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
     - Expand or collapse with + / −; filter with slicers (country, host tree, paper series, combined codes).
   - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
@@ -213,6 +217,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
 - `R/host_climate.R`: host amount and climate per spatial unit.
+- `R/query_sheet.R`: the dropdown-driven `query` sheet.
 - `R/pivot_workbook.R`: the PivotTable workbook.
 - `R/datasheet.R`: the human-readable datasheet workbook.
 - `R/request.R` + `run_requests.R`: hierarchical data on request.

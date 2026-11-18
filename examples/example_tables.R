@@ -10,6 +10,7 @@ source(file.path("R", "host_tables.R"))
 source(file.path("R", "host_climate.R"))
 source(file.path("R", "datasheet.R"))
 source(file.path("R", "pivot_workbook.R"))
+source(file.path("R", "query_sheet.R"))
 source(file.path("R", "make_table.R"))
 
 res <- run_pipeline(args[1], out_dir)

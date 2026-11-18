@@ -40,6 +40,7 @@ source(file.path("R", "host_tables.R"))
 source(file.path("R", "host_climate.R"))
 source(file.path("R", "datasheet.R"))
 source(file.path("R", "pivot_workbook.R"))
+source(file.path("R", "query_sheet.R"))
 ht <- build_host_tables(cleaned)
 host_ref <- commandArgs(trailingOnly = TRUE)[2]
 
@@ -120,6 +121,7 @@ if (!is.na(hc_path)) {
 }
 
 source(file.path("R", "pivot_workbook.R"))
+source(file.path("R", "query_sheet.R"))
 test_that("pivot data keeps every record and never mixes in invented values", {
   pd <- pivot_data(md |> add_series_info())
   expect_equal(nrow(pd), nrow(md))
@@ -195,4 +197,10 @@ test_that("host drill-down data has the same 1/0 pattern as the host matrix", {
     expect_equal(hd$present[hd$sp_code == code & hd$host_tree == tree], hm[[tree]][hm$code == code],
                  info = paste(code, tree))
   expect_true(all(hd$present %in% c(0, 1)))
+})
+
+test_that("query sheet lists every label of every dimension", {
+  pd <- pivot_data(mdr)
+  ql <- query_lists(pd)
+  for (v in query_dims) expect_setequal(na.omit(ql[[v]]), as.character(unique(pd[[v]])))
 })

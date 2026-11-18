@@ -63,7 +63,9 @@ host_drill_data <- function(model_data, host, refs = read_host_references()) {
 
 pivot_how_to <- function() {
   data.frame(`How to use this workbook` = c(
-    "START HERE: the red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
+    "QUICKEST: the yellow 'query' tab. Pick rows, columns, measure, unit and filters from the dropdowns in column C; the table recalculates instantly, no refresh needed. Any combination works, e.g. rows = insect, columns = country; rows = L2, columns = year; rows = insect, columns = host_tree with measure 'lives on (1/0)'.",
+    "PivotTables (red and blue tabs): if they look incomplete, click Enable Editing (if shown) and then Data > Refresh All.",
+    "The red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
     "The red 'host drill-down' tab: same insect hierarchy, columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree. Slicer combined_code = no hides codes combining several insects.",
     "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
     "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
@@ -160,7 +162,12 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
                       font_color = wb_color("006100")) |>
     wb_add_worksheet("how to use") |>
     wb_add_data(x = pivot_how_to()) |>
-    wb_set_col_widths(cols = 1, widths = 120) |>
+    wb_set_col_widths(cols = 1, widths = 120)
+  hd_q <- if (!is.null(host) && "L1" %in% names(df)) host_drill_data(model_data, host) else NULL
+  if (!is.null(hd_q) && exists("add_query_sheet"))
+    wb <- wb |> wb_add_worksheet("query", tab_color = wb_color("FFC000")) |>
+      wb_add_worksheet("lists", visible = "hidden")
+  wb <- wb |>
     wb_add_worksheet("data") |>
     wb_add_data_table(x = df, table_name = "damage", na = "") |>
     wb_freeze_pane(first_row = TRUE)
@@ -290,6 +297,9 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
         wb_freeze_pane(first_active_row = 2, first_active_col = 2)
     }
   }
+
+  if (!is.null(hd_q) && exists("add_query_sheet"))
+    wb <- add_query_sheet(wb, df, hd_q)
 
   wb_save(wb, path, overwrite = TRUE)
   invisible(path)
