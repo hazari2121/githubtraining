@@ -147,3 +147,14 @@ test_that("host matrix sheets match the host tables (same 1/0 pattern)", {
   expect_equal(hm$all[["Pinus sylvestris (pine)"]][hm$all$code == "pit_cha"], 1)
   expect_equal(hm$all[["Picea abies (spruce)"]][hm$all$code == "pit_cha"], 1)
 })
+
+test_that("guild matrix covers all 18 paper groups and rebuilds Table 1", {
+  mds <- add_series_info(md)
+  gt <- guild_tables(mds)
+  expect_equal(sum(grepl("^L[123] ", names(gt$matrix))), 18)
+  expect_equal(nrow(gt$table1), 18)
+  expect_gte(sum(gt$table1$countries_match == "yes"), 17)
+  # Ips typographus group = ips_typ + the combined spruce bark beetle code
+  ips <- gt$matrix$code[gt$matrix[["L3 Ips typographus"]] == 1]
+  expect_setequal(ips, c("ips_typ", "CambXyl_con&BB_con&SM"))
+})

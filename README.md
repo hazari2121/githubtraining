@@ -100,7 +100,9 @@ Known issues:
   - Drag fields to make any other combination.
   - Green tabs are the host matrices (1 = the insect lives on that tree, 0 = not), with Latin tree names:
     - `host matrix`: all insects × all trees, filterable and sortable by 1/0;
-    - the four borer/defoliator × conifer/broadleaf boxes from the HOST_tables example.
+    - the four borer/defoliator × conifer/broadleaf boxes from the HOST_tables example;
+    - `guild matrix`: insect × the paper's 18 feeding-guild/host groups (L1–L3), 1 = counted in that group;
+    - `guilds (Table 1)`: the paper's Table 1 rebuilt from the data and compared with the paper (`reference/paper_table1.csv`).
   - Needs Excel (slicers) or LibreOffice.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).

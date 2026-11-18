@@ -1,0 +1,19 @@
+level,group,paper_label,paper_countries,paper_series_total,paper_series_used
+1,Bark borers on conifers,Borers on gymnosperms,"AT, BG, CH, CZ, DE, FI, HR, HU, IT, LT, PL, RO, RS, SE, SI, SK",616,328
+1,Bark borers on deciduous,Borers on angiosperms,"CZ, DE, LT, PL",167,73
+1,Defoliators on conifers,Defoliators on gymnosperms,"AT, BG, CZ, DE, HR, LT, PL",320,125
+1,Defoliators on deciduous,Defoliators on angiosperms,"AT, BG, CZ, DE, HR, HU, LT, PL, RO, RS, SK",247,118
+2,Bark borers on fir,Borers on A. alba,"AT, CZ, DE, HR, SI",40,21
+2,Bark borers on spruce,Borers on P. abies,"AT, BG, CH, CZ, DE, FI, HR, HU, IT, LT, PL, RO, RS, SE, SI, SK",232,130
+2,Defoliators on spruce,Defoliators on P. abies,"CZ, DE, LT, PL",119,53
+2,Bark borers on pine,Borers on P. sylvestris,"AT, BG, CZ, DE, HR, LT, PL, SI, SK",263,144
+2,Defoliators on pine,Defoliators on P. sylvestris,"AT, BG, CZ, DE, LT, PL",201,72
+3,Ips typographus,Ips typographus (borer on P. abies),"AT, BG, CH, CZ, DE, FI, HR, HU, IT, LT, PL, RO, RS, SE, SI, SK",98,74
+3,Phaenops cyanea,Phaenops cyanea (borer on P. sylvestris),"AT, CZ, DE, LT, PL",56,42
+3,Tomicus minor and Tomicus piniperda,Tomicus spp. (borers on P. sylvestris),"AT, CZ, DE, LT, PL",56,42
+3,Ips acuminatus,Ips acuminatus (borer on P. sylvestris),"BG, CZ, DE, LT, PL, SK",49,26
+3,Pityogenes chalcographus,Pityogenes chalcographus (borer on P. abies),"AT, DE, IT, LT, SI, SK",28,23
+3,Tortrix viridana,Tortrix viridana (defoliator on Quercus spp.),"BG, DE, LT, PL, RO",35,25
+3,Geometridae on oaks,Geometridae on oaks (defoliator on Quercus spp.),"BG, DE, HR, LT, PL, RO",36,22
+3,Lymantria dispar,Lymantria dispar (defoliator on angiosperms),"AT, BG, CZ, DE, HR, HU, LT, RO, RS, SK",45,17
+3,Lymantria monacha,Lymantria monacha (defoliator on gymnosperms),"CZ, DE, LT, PL",32,26
