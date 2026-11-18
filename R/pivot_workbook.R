@@ -40,7 +40,7 @@ add_hierarchy_columns <- function(df, model_data) {
 
 pivot_how_to <- function() {
   data.frame(`How to use this workbook` = c(
-    "START HERE: the red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns go 5-year period > year. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
+    "START HERE: the red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
     "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
     "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
     "Each blue tab is a PivotTable on the 'data' sheet. Click a slicer button (Ctrl+click for several) to filter.",
@@ -144,7 +144,7 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     wb <- wb |>
       wb_add_worksheet("drill-down", tab_color = wb_color("C00000")) |>
       wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "C3",
-                         rows = c("guild", "L1", "L2", "L3", "insect"), cols = c("period", "year"),
+                         rows = c("guild", "L1", "L2", "L3", "insect"), cols = "year",
                          data = "damage", fun = "sum",
                          slicer = c("country", "host_tree", "paper_series", "aggregate_code"),
                          pivot_table = "drill",

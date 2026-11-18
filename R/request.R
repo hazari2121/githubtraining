@@ -198,10 +198,10 @@ example_requests <- function() {
     "L2 by country", "L2", "country", "all", "none", "total", "space", "", "", "", "", "", "no", "yes",
     "L3 species by country, paper", "L3", "country", "all", "none", "total", "space", "", "", "", "", "", "yes", "yes",
     "Ips vs Phaenops by year", "insect", "europe", "year", "none", "total", "insect", "Ips typographus; Phaenops cyanea", "", "", "", "", "no", "no",
-    "Spruce vs pine borers, CZ DE", "L2", "country", "period", "none", "total", "time", "Borers on P. abies; Borers on P. sylvestris", "CZ; DE", "", "", "", "no", "yes",
+    "Spruce vs pine borers, CZ DE", "L2", "country", "year", "none", "total", "time", "Borers on P. abies; Borers on P. sylvestris", "CZ; DE", "", "", "", "no", "yes",
     "Relative damage L2 by country", "L2", "country", "all", "none", "relative_pct", "space", "", "", "", "", "", "yes", "yes",
     "Coverage - regions per insect", "insect", "europe", "year", "none", "n_regions", "time", "", "", "", "", "", "no", "yes",
-    "Damage by host tree, 5-year", "guild", "europe", "period", "host_tree", "total", "time", "", "", "", "", "", "no", "yes"
+    "Damage by host tree by year", "guild", "europe", "year", "host_tree", "total", "time", "", "", "", "", "", "no", "yes"
   )
 }
 
