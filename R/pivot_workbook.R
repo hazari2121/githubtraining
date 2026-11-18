@@ -58,7 +58,7 @@ host_matrix_tables <- function(host, refs = read_host_references()) {
     tidyr::pivot_wider(names_from = host, values_from = v, values_fill = 0,
                        names_expand = TRUE)
   all_matrix <- host$insects |>
-    select(insect, code, guild, host_type, regions, countries, host_amount_source) |>
+    select(insect, code, guild, host_type, regions, countries) |>
     left_join(wide, by = "code")
 
   # the four boxes, as in the example workbook
@@ -126,7 +126,7 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     green <- wb_color("70AD47")
 
     # all insects x all host trees, filterable / sortable by 1 or 0
-    n_fix <- 7
+    n_fix <- 6
     wb <- wb |>
       wb_add_worksheet("host matrix", tab_color = green) |>
       wb_add_data_table(x = hm$all, table_name = "host_matrix",
@@ -135,7 +135,7 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
         dims = wb_dims(x = hm$all, cols = (n_fix + 1):ncol(hm$all)),
         rule = "==1", type = "expression", style = "is_host") |>
       wb_set_col_widths(cols = seq_len(ncol(hm$all)),
-                        widths = c(34, 12, 11, 12, 9, 10, 20, rep(16, ncol(hm$all) - n_fix))) |>
+                        widths = c(34, 12, 11, 12, 9, 10, rep(16, ncol(hm$all) - n_fix))) |>
       wb_freeze_pane(first_active_row = 2, first_active_col = 2)
 
     # the four boxes of the example sheet

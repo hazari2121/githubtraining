@@ -141,7 +141,7 @@ test_that("host matrix sheets match the host tables (same 1/0 pattern)", {
   }
   # every insect lives on at least one tree, and the wide table agrees with the boxes
   trees <- setdiff(names(hm$all), c("insect", "code", "guild", "host_type", "regions",
-                                   "countries", "host_amount_source"))
+                                   "countries"))
   expect_true(all(rowSums(hm$all[trees]) >= 1))
   expect_equal(nrow(hm$all), nrow(ht$insects))
   expect_equal(hm$all[["Pinus sylvestris (pine)"]][hm$all$code == "pit_cha"], 1)
