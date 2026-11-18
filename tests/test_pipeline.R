@@ -158,3 +158,32 @@ test_that("guild matrix covers all 18 paper groups and rebuilds Table 1", {
   ips <- gt$matrix$code[gt$matrix[["L3 Ips typographus"]] == 1]
   expect_setequal(ips, c("ips_typ", "CambXyl_con&BB_con&SM"))
 })
+
+source(file.path("R", "request.R"))
+mdr <- add_series_info(md)
+
+test_that("hierarchy: totals add up the same at every insect, space and time level", {
+  base <- mdr |> group_by(unit) |> summarise(t = sum(value))
+  for (lv in c("guild", "L1", "L2", "L3", "insect"))
+    for (sp in c("europe", "country", "region"))
+      for (tm in c("all", "period", "year")) {
+        r <- run_request(mdr, list(name = "t", insect_level = lv, space_level = sp,
+                                   time_level = tm, measure = "total"))
+        got <- r |> group_by(unit) |> summarise(t = sum(total))
+        expect_equal(got$t, base$t, tolerance = 1e-9, info = paste(lv, sp, tm))
+      }
+})
+
+test_that("each record sits in exactly one group per level", {
+  h <- add_hierarchy(mdr)
+  expect_false(anyNA(h$L1)); expect_false(anyNA(h$L2)); expect_false(anyNA(h$L3))
+})
+
+test_that("requests filter, never fill missing with 0, and reject bad options", {
+  r <- run_request(mdr, list(name = "t", insect_level = "insect", space_level = "country",
+                             time_level = "all", measure = "total", columns = "space",
+                             insects = "Ips typographus; Phaenops cyanea"))
+  expect_setequal(r$insect, c("Ips typographus", "Phaenops cyanea"))
+  expect_true(is.na(r$CH[r$insect == "Phaenops cyanea"]))   # not recorded in CH -> blank
+  expect_error(run_request(mdr, list(name = "t", insect_level = "species")), "must be one of")
+})

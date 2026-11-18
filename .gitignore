@@ -7,3 +7,4 @@ output/
 .RData
 .Rproj.user/
 !reference/*.csv
+!requests.xlsx

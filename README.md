@@ -119,6 +119,40 @@ Known issues:
 - `eufordam_model_data.csv`: damage records joined with insect name, guild, common host name, host type and host amount. Aggregate codes are marked with `is_aggregate`. This is the starting table for modelling.
 - `eufordam_qc.xlsx`: quality report. Covers dropped rows, repeated rows (listed for information; they are valid and kept), NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
 
+## Data on request
+
+Write each question as one row of `requests.xlsx` (dropdowns show the allowed values; the `fields` sheet explains each column), then run:
+
+```bash
+Rscript run_requests.R
+```
+
+`run_pipeline.R` also does this automatically at the end. The answers go to `output/requests_output.xlsx`:
+- one sheet per request;
+- an `index` sheet showing which requests ran;
+- a `vocabulary` sheet listing every valid name per level.
+
+The hierarchies, coarse → fine:
+
+| Dimension | Levels |
+|---|---|
+| insect | `guild` → `L1` (guild × conifers/broadleaves) → `L2` (guild × host genus) → `L3` (paper species) → `insect` (every code) |
+| space | `europe` → `country` → `region` |
+| time | `all` → `period` (5-year blocks) → `year` |
+| host | `none` → `host_type` → `host_tree` |
+
+L1–L3 are the paper's Table 1 groups. Every record is in exactly one group per level; records outside an L2/L3 group show as "other …". Totals therefore add up identically at every level, and a test checks this.
+
+**Measures:** `total`, `mean_per_year`, `mean_per_record`, `max`, `relative_pct` (% of host damaged per year), `n_records`, `n_regions`, `n_countries`, `n_series`, `any_damage`.
+
+**Filters:** insects (any level, `;`-separated), countries, years (`2010-2022`), unit, host trees, paper series only, include combined codes.
+
+**Layout:** `columns` spreads one dimension across columns. Leave it at `none` for a long table with coverage columns.
+
+**Rules:**
+- Only recorded values are aggregated. A cell with no record is blank, never 0.
+- m³ and ha are never added together.
+
 ## Making your own tables
 
 `R/make_table.R` builds any rows × columns table from the two base tables:
@@ -176,6 +210,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `R/host_climate.R`: host amount and climate per spatial unit.
 - `R/pivot_workbook.R`: the PivotTable workbook.
 - `R/datasheet.R`: the human-readable datasheet workbook.
+- `R/request.R` + `run_requests.R`: hierarchical data on request.
 - `R/make_table.R`: general table builder.
 - `examples/example_tables.R`: example tables.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.

@@ -18,3 +18,13 @@ cat("\nEU-ForDAM pipeline finished. Outputs in:", normalizePath(out_dir), "\n\n"
 print(res$qc$overview, n = Inf)
 cat("\nEurope-wide totals by group:\n")
 print(res$summaries$group_totals, n = Inf)
+
+# Answer the requests in requests.xlsx (if present)
+if (file.exists("requests.xlsx")) {
+  source(file.path("R", "request.R"))
+  req <- run_requests("requests.xlsx", file.path(out_dir, "eufordam_model_data.csv"),
+                      file.path(out_dir, "requests_output.xlsx"),
+                      hc_path = file.path(out_dir, "spatial_units_host_climate.csv"))
+  cat("\nRequests answered:", sum(req$index$status == "ok"), "of", nrow(req$index),
+      "->", file.path(out_dir, "requests_output.xlsx"), "\n")
+}
