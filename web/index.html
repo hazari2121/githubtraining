@@ -1,0 +1,526 @@
+<title>EU-ForDAM Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a field notebook for forest damage. Header strip, tab bar, then one working
+   panel per tab: controls on top, result below. Spruce green marks insect A and the
+   accent, bark brown marks insect B. */
+:root {
+  --bg: #f4f6f2;
+  --surface: #ffffff;
+  --surface-2: #eef1ec;
+  --fg: #1c2420;
+  --muted: #5b675f;
+  --line: #d9dfd7;
+  --accent: #2c6a4c;
+  --accent-fg: #ffffff;
+  --bark: #9b5a2b;
+  --heat: 44, 106, 76;
+  --neg: 58, 108, 160;
+  --font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111613; --surface: #18201b; --surface-2: #1f2822; --fg: #e3eae5; --muted: #9aa79f;
+    --line: #2c3731; --accent: #74c29a; --accent-fg: #0f1a14; --bark: #db925c;
+    --heat: 116, 194, 154; --neg: 120, 165, 220; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111613; --surface: #18201b; --surface-2: #1f2822; --fg: #e3eae5; --muted: #9aa79f;
+  --line: #2c3731; --accent: #74c29a; --accent-fg: #0f1a14; --bark: #db925c;
+  --heat: 116, 194, 154; --neg: 120, 165, 220; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font: 15px/1.5 var(--font);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+h1 { font-size: 1.6rem; font-weight: 700; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: 0.85rem; }
+.facts b { color: var(--fg); font-family: var(--mono); font-weight: 500; }
+nav { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); }
+nav a {
+  padding: 8px 14px; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+  border-bottom: 3px solid transparent; margin-bottom: -1px;
+}
+nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
+nav a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.intro { color: var(--muted); max-width: 70ch; margin: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px 14px; }
+.field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.field label, .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+select, input[type="number"], input[type="search"] {
+  font: inherit; font-size: 0.9rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface); color: var(--fg); width: 100%; min-width: 0;
+}
+.checks { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: 0.9rem; }
+.checks label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.note { font-size: 0.82rem; color: var(--muted); margin: 0; }
+button {
+  font: inherit; font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border-radius: var(--r);
+  border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer;
+}
+button.primary { background: var(--accent); color: var(--accent-fg); }
+.tablebox { overflow: auto; max-height: 70vh; border: 1px solid var(--line); border-radius: var(--r); }
+table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; width: max-content; min-width: 100%; }
+th, td { padding: 5px 9px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--surface-2); z-index: 2; font-weight: 600; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); z-index: 1; max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+th:first-child { z-index: 3; background: var(--surface-2); }
+td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+td:first-child { font-family: var(--font); }
+td.blank { color: transparent; }
+tr.click { cursor: pointer; }
+tr.click:hover td { background: var(--surface-2); }
+.sub { color: var(--muted); font-size: 0.78rem; }
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.stat .v { font-family: var(--mono); font-size: 1.25rem; font-weight: 500; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.88rem; }
+.key { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 14px; }
+svg { width: 100%; height: auto; display: block; }
+svg text { fill: var(--muted); font: 11px var(--mono); }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.75rem; font-family: var(--font); border: 1px solid var(--line); color: var(--muted); }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+#status { color: var(--muted); }
+@media (max-width: 560px) { h1 { font-size: 1.3rem; } .panel { padding: 12px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>EU-ForDAM <span>Explorer</span></h1>
+    <div class="facts" id="facts"><span id="status">Loading the database…</span></div>
+  </header>
+  <nav id="tabs">
+    <a href="#explore" data-tab="explore">Explore</a>
+    <a href="#compare" data-tab="compare">Compare two insects</a>
+    <a href="#pairs" data-tab="pairs">Pairs</a>
+    <a href="#coverage" data-tab="coverage">Coverage</a>
+  </nav>
+
+  <!-- EXPLORE -->
+  <section id="view-explore" class="panel" hidden>
+    <p class="intro">Pick what goes in the rows and the columns, what each cell shows, and filter. Blank = no record (not recorded); 0 = monitored, no damage. Borers are in m³, defoliators in ha; the two are never added together.</p>
+    <div class="controls">
+      <div class="field"><label for="ex-rows">Rows</label><select id="ex-rows"></select></div>
+      <div class="field"><label for="ex-cols">Columns</label><select id="ex-cols"></select></div>
+      <div class="field"><label for="ex-measure">Each cell</label><select id="ex-measure"></select></div>
+      <div class="field"><label for="ex-unit">Unit</label><select id="ex-unit"><option value="m3">m³ (borers)</option><option value="ha">ha (defoliators)</option></select></div>
+      <div class="field"><label for="ex-L1">L1 group</label><select id="ex-L1"></select></div>
+      <div class="field"><label for="ex-L2">L2 group</label><select id="ex-L2"></select></div>
+      <div class="field"><label for="ex-L3">L3 group</label><select id="ex-L3"></select></div>
+      <div class="field"><label for="ex-insect">Insect</label><select id="ex-insect"></select></div>
+      <div class="field"><label for="ex-tree">Host tree</label><select id="ex-tree"></select></div>
+      <div class="field"><label for="ex-country">Country</label><select id="ex-country"></select></div>
+      <div class="field"><label for="ex-region">Region</label><select id="ex-region"></select></div>
+      <div class="field"><label for="ex-from">Years</label>
+        <div style="display:flex;gap:6px"><input id="ex-from" type="number" min="2000" max="2022" value="2000" aria-label="From year"><input id="ex-to" type="number" min="2000" max="2022" value="2022" aria-label="To year"></div></div>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="ex-single"> Single species only</label>
+      <label><input type="checkbox" id="ex-paper"> In paper dataset only</label>
+    </div>
+    <div class="row"><p class="note" id="ex-summary"></p><button id="ex-copy">Copy table</button></div>
+    <div class="tablebox" id="ex-table"></div>
+  </section>
+
+  <!-- COMPARE -->
+  <section id="view-compare" class="panel" hidden>
+    <p class="intro">Pick two insects to see their yearly damage side by side and how strongly it moves together. The correlation is worked out within each region over the years, then summarised.</p>
+    <div class="controls">
+      <div class="field"><label for="cp-a">Insect A</label><select id="cp-a"></select></div>
+      <div class="field"><label for="cp-b">Insect B</label><select id="cp-b"></select></div>
+      <div class="field"><label for="cp-scope">Where (chart)</label><select id="cp-scope"></select></div>
+    </div>
+    <div class="legend" id="cp-legend"></div>
+    <div class="stats" id="cp-stats"></div>
+    <div class="charts" id="cp-charts"></div>
+    <div>
+      <div class="row"><span class="lbl">Region by region</span><span class="note">Correlation needs at least 6 shared years with variation in both.</span></div>
+      <div class="tablebox" id="cp-regions" style="margin-top:6px"></div>
+    </div>
+  </section>
+
+  <!-- PAIRS -->
+  <section id="view-pairs" class="panel" hidden>
+    <p class="intro">Every pair of insects recorded in the same regions. Sort and filter to find pairs whose damage rises and falls together (positive correlation) or in opposite years (negative). Click a pair to compare it.</p>
+    <div class="controls">
+      <div class="field"><label for="pr-insect">Involving insect</label><select id="pr-insect"></select></div>
+      <div class="field"><label for="pr-min">Correlation from at least … regions</label><input id="pr-min" type="number" min="0" max="40" value="3"></div>
+      <div class="field"><label for="pr-guild">Guilds</label><select id="pr-guild">
+        <option value="any">Any</option><option value="same">Same guild</option><option value="bb">Borer + borer</option><option value="dd">Defoliator + defoliator</option><option value="bd">Borer + defoliator</option></select></div>
+      <div class="field"><label for="pr-sort">Sort by</label><select id="pr-sort">
+        <option value="corr_desc">Strongest positive correlation</option>
+        <option value="corr_asc">Strongest negative correlation</option>
+        <option value="overlap">Damage overlap</option>
+        <option value="both">Region-years both damaged</option>
+        <option value="lag">Strongest 1-year lag</option></select></div>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="pr-host"> Share a host tree</label>
+      <label><input type="checkbox" id="pr-single" checked> Single species only</label>
+    </div>
+    <div class="row"><p class="note" id="pr-summary"></p><button id="pr-copy">Copy table</button></div>
+    <div class="tablebox" id="pr-table"></div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section id="view-coverage" class="panel" hidden>
+    <p class="intro">What is recorded where and when. Each cell counts regions for one insect in one year; darker = more regions. Use it to see where data are missing before modelling.</p>
+    <div class="controls">
+      <div class="field"><label for="cv-what">Count</label><select id="cv-what"><option value="rec">Regions with a record</option><option value="dmg">Regions with damage (&gt; 0)</option></select></div>
+      <div class="field"><label for="cv-guild">Guild</label><select id="cv-guild"><option value="">All</option><option value="borer">Borers</option><option value="defoliator">Defoliators</option></select></div>
+      <div class="field"><label for="cv-country">Country</label><select id="cv-country"></select></div>
+    </div>
+    <div class="tablebox" id="cv-table"></div>
+  </section>
+</div>
+
+<script>
+"use strict";
+const S = { meta: null, rec: [], pairs: [], pairIndex: new Map() };
+const DIMS = [
+  ["insect", "Insect"], ["L1", "L1 group"], ["L2", "L2 group"], ["L3", "L3 group"], ["guild", "Guild"],
+  ["tree", "Host tree"], ["treeType", "Conifers / broadleaves"], ["country", "Country"], ["region", "Region"], ["year", "Year"]
+];
+const MEASURES = [["total", "Total damage"], ["records", "Number of records"], ["regions", "Number of regions"],
+  ["average", "Average per record"], ["any", "Any damage (1 / 0)"]];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function fmt(v, measure) {
+  if (v === null || v === undefined || Number.isNaN(v)) return "";
+  if (measure === "records" || measure === "regions" || measure === "any") return String(v);
+  const a = Math.abs(v);
+  if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e8 ? 0 : 2) + " M";
+  if (a >= 1e4) return Math.round(v).toLocaleString("en-US");
+  if (a >= 100) return v.toFixed(0);
+  if (a >= 1) return v.toFixed(1);
+  return v === 0 ? "0" : v.toPrecision(2);
+}
+function short(v) {
+  const a = Math.abs(v);
+  if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e7 ? 0 : 1) + "M";
+  if (a >= 1e3) return (v / 1e3).toFixed(a >= 1e4 ? 0 : 1) + "k";
+  return String(Math.round(v * 10) / 10);
+}
+function opts(sel, list, allLabel) {
+  sel.innerHTML = (allLabel ? `<option value="">${esc(allLabel)}</option>` : "") +
+    list.map((o) => Array.isArray(o) ? `<option value="${esc(o[0])}">${esc(o[1])}</option>` : `<option value="${esc(o)}">${esc(o)}</option>`).join("");
+}
+function insectOptions(sel, withAll) {
+  const g = { borer: [], defoliator: [] };
+  S.meta.insects.forEach((m, i) => g[m.guild].push([i, m.name + (m.single ? "" : " (mixed code)")]));
+  sel.innerHTML = (withAll ? `<option value="">All insects</option>` : "") +
+    Object.entries(g).map(([k, v]) => `<optgroup label="${k === "borer" ? "Borers (m³)" : "Defoliators (ha)"}">` +
+      v.map(([i, n]) => `<option value="${i}">${esc(n)}</option>`).join("") + "</optgroup>").join("");
+}
+function copyText(text, btn) {
+  const done = () => { const t = btn.textContent; btn.textContent = "Copied"; setTimeout(() => (btn.textContent = t), 1400); };
+  try {
+    navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  } catch (e) { fallbackCopy(text, done); }
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { /* user can select manually */ }
+  ta.remove();
+}
+function tableToTSV(box) {
+  return [...box.querySelectorAll("tr")].map((tr) => [...tr.children].map((c) => c.dataset.raw ?? c.textContent).join("\t")).join("\n");
+}
+
+// ---------- data ----------
+async function load() {
+  const get = (f) => fetch(f).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const [meta, rec, pairs] = await Promise.all([get("meta.json"), get("records.json"), get("pairs.json")]);
+  S.meta = meta; S.pairs = pairs;
+  const code2i = new Map(meta.insects.map((m, i) => [m.code, i]));
+  S.code2i = code2i;
+  S.rec = rec.map(([i, r, y, t, v, n, p]) => ({ i, r, y, t, v, n, p }));
+  pairs.forEach((p) => { p.ia = code2i.get(p.a); p.ib = code2i.get(p.b); S.pairIndex.set(p.ia + "-" + p.ib, p); S.pairIndex.set(p.ib + "-" + p.ia, p); });
+  S.countries = [...new Set(meta.regions.map((r) => r.country))].sort();
+  const nRec = rec.reduce((s, x) => s + x[5], 0);
+  $("facts").innerHTML = `<span><b>${nRec.toLocaleString("en-US")}</b> records</span><span><b>${meta.insects.length}</b> insect codes</span>` +
+    `<span><b>${S.countries.length}</b> countries</span><span><b>${meta.regions.length}</b> regions</span><span><b>2000–2022</b></span><span>data of ${esc(meta.generated)}</span>`;
+}
+function dimValue(d, x) {
+  const m = S.meta.insects[x.i], reg = S.meta.regions[x.r], tr = S.meta.trees[x.t];
+  switch (d) {
+    case "insect": return m.name; case "L1": return m.L1; case "L2": return m.L2; case "L3": return m.L3;
+    case "guild": return m.guild; case "tree": return tr.name; case "treeType": return tr.type;
+    case "country": return reg.country; case "region": return reg.code + " " + reg.name; case "year": return x.y;
+  }
+}
+function dimOrder(d) {
+  if (d === "year") return (a, b) => a - b;
+  if (["insect", "L1", "L2", "L3", "guild"].includes(d)) {
+    const order = new Map(); S.meta.insects.forEach((m) => { const k = d === "insect" ? m.name : m[d]; if (!order.has(k)) order.set(k, order.size); });
+    return (a, b) => (order.get(a) ?? 1e9) - (order.get(b) ?? 1e9);
+  }
+  if (d === "tree") { const o = new Map(S.meta.trees.map((t, i) => [t.name, i])); return (a, b) => o.get(a) - o.get(b); }
+  return (a, b) => String(a).localeCompare(String(b));
+}
+
+// ---------- explore ----------
+function setupExplore() {
+  opts($("ex-rows"), DIMS); opts($("ex-cols"), DIMS); opts($("ex-measure"), MEASURES);
+  $("ex-rows").value = "insect"; $("ex-cols").value = "year";
+  const uniq = (k) => [...new Set(S.meta.insects.map((m) => m[k]))];
+  opts($("ex-L1"), uniq("L1"), "All"); opts($("ex-L2"), uniq("L2"), "All"); opts($("ex-L3"), uniq("L3"), "All");
+  insectOptions($("ex-insect"), true);
+  opts($("ex-tree"), S.meta.trees.map((t) => t.name), "All");
+  opts($("ex-country"), S.countries, "All");
+  fillRegions();
+  ["ex-rows", "ex-cols", "ex-measure", "ex-unit", "ex-L1", "ex-L2", "ex-L3", "ex-insect", "ex-tree", "ex-region", "ex-from", "ex-to", "ex-single", "ex-paper"]
+    .forEach((id) => $(id).addEventListener("change", renderExplore));
+  $("ex-country").addEventListener("change", () => { fillRegions(); renderExplore(); });
+  $("ex-copy").addEventListener("click", () => copyText(tableToTSV($("ex-table")), $("ex-copy")));
+}
+function fillRegions() {
+  const c = $("ex-country").value;
+  opts($("ex-region"), S.meta.regions.map((r, i) => [i, r.code + " " + r.name]).filter(([i]) => !c || S.meta.regions[i].country === c), "All");
+}
+function exploreFilter() {
+  const f = {
+    unit: $("ex-unit").value, L1: $("ex-L1").value, L2: $("ex-L2").value, L3: $("ex-L3").value,
+    insect: $("ex-insect").value, tree: $("ex-tree").value, country: $("ex-country").value, region: $("ex-region").value,
+    from: +$("ex-from").value || 2000, to: +$("ex-to").value || 2022, single: $("ex-single").checked, paper: $("ex-paper").checked
+  };
+  return (x) => {
+    const m = S.meta.insects[x.i];
+    if (m.unit !== f.unit) return false;
+    if (f.L1 && m.L1 !== f.L1) return false; if (f.L2 && m.L2 !== f.L2) return false; if (f.L3 && m.L3 !== f.L3) return false;
+    if (f.insect !== "" && x.i !== +f.insect) return false;
+    if (f.tree && S.meta.trees[x.t].name !== f.tree) return false;
+    if (f.country && S.meta.regions[x.r].country !== f.country) return false;
+    if (f.region !== "" && x.r !== +f.region) return false;
+    if (x.y < f.from || x.y > f.to) return false;
+    if (f.single && !m.single) return false;
+    if (f.paper && !x.p) return false;
+    return true;
+  };
+}
+function renderExplore() {
+  const rd = $("ex-rows").value, cd = $("ex-cols").value, ms = $("ex-measure").value, keep = exploreFilter();
+  const cells = new Map(), rows = new Set(), cols = new Set();
+  let nRec = 0;
+  for (const x of S.rec) {
+    if (!keep(x)) continue;
+    const rk = dimValue(rd, x), ck = rd === cd ? "" : dimValue(cd, x);
+    rows.add(rk); cols.add(ck); nRec += x.n;
+    const k = rk + "\u0001" + ck;
+    let c = cells.get(k); if (!c) { c = { s: 0, n: 0, pos: 0, reg: new Set() }; cells.set(k, c); }
+    c.s += x.v; c.n += x.n; if (x.v > 0) c.pos++; c.reg.add(x.r);
+  }
+  const val = (c) => !c ? null : ms === "total" ? c.s : ms === "records" ? c.n : ms === "regions" ? c.reg.size : ms === "average" ? c.s / c.n : (c.pos > 0 ? 1 : 0);
+  const R = [...rows].sort(dimOrder(rd)), C = [...cols].sort(dimOrder(cd));
+  $("ex-summary").textContent = R.length ? `${R.length} rows × ${C.length} columns · ${nRec.toLocaleString("en-US")} records · unit ${$("ex-unit").value === "m3" ? "m³" : "ha"}` : "";
+  if (!R.length) { $("ex-table").innerHTML = `<div class="empty">No records match these filters. Try another unit or clear a filter.</div>`; return; }
+  let max = 0; for (const c of cells.values()) { const v = val(c); if (v > max) max = v; }
+  const label = DIMS.find((d) => d[0] === rd)[1] + (rd === cd ? "" : " \\ " + DIMS.find((d) => d[0] === cd)[1]);
+  let h = `<table><thead><tr><th>${esc(label)}</th>${C.map((c) => `<th>${esc(c === "" ? MEASURES.find((m) => m[0] === ms)[1] : c)}</th>`).join("")}</tr></thead><tbody>`;
+  for (const r of R) {
+    const ins = rd === "insect" ? S.meta.insects.findIndex((m) => m.name === r) : -1;
+    h += `<tr${ins >= 0 ? ` class="click" data-ins="${ins}" title="Compare this insect"` : ""}><td>${esc(r)}</td>`;
+    for (const c of C) {
+      const v = val(cells.get(r + "\u0001" + c));
+      if (v === null) { h += `<td class="blank" data-raw=""></td>`; continue; }
+      const a = max > 0 ? Math.min(0.55, 0.06 + 0.5 * Math.sqrt(v / max)) : 0;
+      h += `<td data-raw="${v}" style="background:rgba(var(--heat),${a.toFixed(3)})">${fmt(v, ms)}</td>`;
+    }
+    h += "</tr>";
+  }
+  $("ex-table").innerHTML = h + "</tbody></table>";
+  $("ex-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { $("cp-a").value = tr.dataset.ins; location.hash = "#compare"; renderCompare(); }));
+}
+
+// ---------- compare ----------
+function setupCompare() {
+  insectOptions($("cp-a"), false); insectOptions($("cp-b"), false);
+  $("cp-a").value = String(S.code2i.get("ips_typ")); $("cp-b").value = String(S.code2i.get("pit_cha"));
+  opts($("cp-scope"), [["", "All of Europe"], ...S.countries.map((c) => ["c:" + c, "Country " + c]),
+    ...S.meta.regions.map((r, i) => ["r:" + i, r.code + " " + r.name])]);
+  ["cp-a", "cp-b", "cp-scope"].forEach((id) => $(id).addEventListener("change", renderCompare));
+}
+function ranks(a) {
+  const idx = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]); const r = new Array(a.length);
+  for (let i = 0; i < idx.length;) { let j = i; while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++; const avg = (i + j) / 2 + 1; for (let k = i; k <= j; k++) r[idx[k][1]] = avg; i = j + 1; }
+  return r;
+}
+function spearman(x, y) {
+  if (x.length < 3) return null;
+  const rx = ranks(x), ry = ranks(y), n = x.length, mx = rx.reduce((s, v) => s + v, 0) / n, my = ry.reduce((s, v) => s + v, 0) / n;
+  let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) { const a = rx[i] - mx, b = ry[i] - my; sxy += a * b; sxx += a * a; syy += b * b; }
+  return sxx === 0 || syy === 0 ? null : sxy / Math.sqrt(sxx * syy);
+}
+function series(i, scope) {
+  // yearly totals over the scope, only where recorded; per-region maps for correlations
+  const yr = new Map(), byReg = new Map();
+  for (const x of S.rec) {
+    if (x.i !== i) continue;
+    const reg = S.meta.regions[x.r];
+    let m = byReg.get(x.r); if (!m) { m = new Map(); byReg.set(x.r, m); }
+    m.set(x.y, (m.get(x.y) || 0) + x.v);
+    if (scope.startsWith("c:") && reg.country !== scope.slice(2)) continue;
+    if (scope.startsWith("r:") && x.r !== +scope.slice(2)) continue;
+    yr.set(x.y, (yr.get(x.y) || 0) + x.v);
+  }
+  return { yr, byReg };
+}
+function lineChart(points, color, unit, title) {
+  const W = 760, H = 220, L = 58, Rr = 14, T = 24, B = 28, years = []; for (let y = 2000; y <= 2022; y++) years.push(y);
+  const vals = points.map((p) => p[1]); const max = Math.max(1e-9, ...vals);
+  const step = niceStep(max / 4), top = Math.ceil(max / step) * step;
+  const X = (y) => L + (y - 2000) / 22 * (W - L - Rr), Y = (v) => T + (1 - v / top) * (H - T - B);
+  let g = "";
+  for (let v = 0; v <= top + 1e-9; v += step) g += `<line x1="${L}" x2="${W - Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end">${short(v)}</text>`;
+  for (const y of years) if (y % 2 === 0) g += `<text x="${X(y)}" y="${H - 8}" text-anchor="middle">${y}</text>`;
+  let path = "", prev = null;
+  for (const y of years) {
+    const p = points.find((q) => q[0] === y);
+    if (!p) { prev = null; continue; }   // gap = no record, the line breaks
+    path += (prev === null ? "M" : "L") + X(y).toFixed(1) + " " + Y(p[1]).toFixed(1) + " "; prev = y;
+  }
+  const dots = points.map((p) => `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="2.6" fill="${color}"><title>${p[0]}: ${fmt(p[1], "total")} ${unit}</title></circle>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}"><text x="${L}" y="14" style="font-weight:600;fill:var(--fg);font-family:var(--font);font-size:12px">${esc(title)} (${unit})</text>${g}<path d="${path}" fill="none" stroke="${color}" stroke-width="2.2"/>${dots}</svg>`;
+}
+function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw || 1))); const f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
+function renderCompare() {
+  const ia = +$("cp-a").value, ib = +$("cp-b").value, scope = $("cp-scope").value;
+  const A = S.meta.insects[ia], B = S.meta.insects[ib];
+  const colA = "var(--accent)", colB = "var(--bark)";
+  $("cp-legend").innerHTML = `<span class="key"><i style="background:${colA}"></i>A: ${esc(A.name)} <span class="pill">${A.unit === "m3" ? "m³" : "ha"} · ${esc(A.hosts.join(", "))}</span></span>` +
+    `<span class="key"><i style="background:${colB}"></i>B: ${esc(B.name)} <span class="pill">${B.unit === "m3" ? "m³" : "ha"} · ${esc(B.hosts.join(", "))}</span></span>`;
+  const sa = series(ia, scope), sb = series(ib, scope);
+  const pts = (s) => [...s.yr.entries()].sort((a, b) => a[0] - b[0]);
+  const unitA = A.unit === "m3" ? "m³" : "ha", unitB = B.unit === "m3" ? "m³" : "ha";
+  $("cp-charts").innerHTML = ia === ib ? `<div class="empty">Pick two different insects.</div>` :
+    lineChart(pts(sa), colA, unitA, "A: " + A.name) + lineChart(pts(sb), colB, unitB, "B: " + B.name);
+  // per-region correlations, computed here so they follow the data exactly
+  const rows = []; const corrs = [];
+  for (const [r, ma] of sa.byReg) {
+    const mb = sb.byReg.get(r); if (!mb) continue;
+    const ys = [...ma.keys()].filter((y) => mb.has(y)).sort((a, b) => a - b);
+    const xa = ys.map((y) => ma.get(y)), xb = ys.map((y) => mb.get(y));
+    const c = ys.length >= 6 ? spearman(xa, xb) : null; if (c !== null) corrs.push(c);
+    rows.push({ r, n: ys.length, c, da: xa.filter((v) => v > 0).length, db: xb.filter((v) => v > 0).length, both: ys.filter((y) => ma.get(y) > 0 && mb.get(y) > 0).length });
+  }
+  const p = S.pairIndex.get(ia + "-" + ib);
+  const flip = p && p.ia !== ia;
+  const med = corrs.length ? corrs.slice().sort((a, b) => a - b)[Math.floor((corrs.length - 1) / 2)] * 0.5 + corrs.slice().sort((a, b) => a - b)[Math.ceil((corrs.length - 1) / 2)] * 0.5 : null;
+  const stat = (lbl, v, sub) => `<div class="stat"><span class="lbl">${lbl}</span><span class="v">${v}</span>${sub ? `<span class="sub">${sub}</span>` : ""}</div>`;
+  const sign = (v) => v === null || v === undefined ? "–" : (v > 0 ? "+" : "") + v.toFixed(2);
+  $("cp-stats").innerHTML = ia === ib ? "" :
+    stat("Shared regions", rows.length, "both recorded") +
+    stat("Shared region-years", rows.reduce((s, x) => s + x.n, 0), "both recorded the same year") +
+    stat("Both damaged", rows.reduce((s, x) => s + x.both, 0), "region-years with damage by both") +
+    stat("Move together", sign(med), corrs.length ? `median correlation in ${corrs.length} region${corrs.length > 1 ? "s" : ""}, ${Math.round(100 * corrs.filter((c) => c > 0).length / corrs.length)}% positive` : "not enough shared years") +
+    stat("A then B (1 yr)", sign(p ? (flip ? p.lag_ba : p.lag_ab) : null), "A's damage followed by B's next year") +
+    stat("B then A (1 yr)", sign(p ? (flip ? p.lag_ab : p.lag_ba) : null), "B's damage followed by A's next year") +
+    stat("Shared host trees", A.hosts.filter((h) => B.hosts.includes(h)).length ? esc(A.hosts.filter((h) => B.hosts.includes(h)).map((h) => h.split(" (")[1].replace(")", "")).join(", ")) : "none", "");
+  if (!rows.length || ia === ib) { $("cp-regions").innerHTML = `<div class="empty">These two insects are never recorded in the same region.</div>`; return; }
+  rows.sort((a, b) => (b.c ?? -9) - (a.c ?? -9));
+  $("cp-regions").innerHTML = `<table><thead><tr><th>Region</th><th>Shared years</th><th>Years A damaged</th><th>Years B damaged</th><th>Both damaged</th><th>Correlation</th></tr></thead><tbody>` +
+    rows.map((x) => { const reg = S.meta.regions[x.r]; const a = x.c === null ? 0 : Math.abs(x.c) * 0.5;
+      const bg = x.c === null ? "" : `style="background:rgba(var(${x.c >= 0 ? "--heat" : "--neg"}),${a.toFixed(2)})"`;
+      return `<tr><td>${esc(reg.code + " " + reg.name)}</td><td>${x.n}</td><td>${x.da}</td><td>${x.db}</td><td>${x.both}</td><td ${bg}>${x.c === null ? "–" : sign(x.c)}</td></tr>`; }).join("") + "</tbody></table>";
+}
+
+// ---------- pairs ----------
+function setupPairs() {
+  insectOptions($("pr-insect"), true);
+  ["pr-insect", "pr-min", "pr-guild", "pr-sort", "pr-host", "pr-single"].forEach((id) => $(id).addEventListener("change", renderPairs));
+  $("pr-copy").addEventListener("click", () => copyText(tableToTSV($("pr-table")), $("pr-copy")));
+}
+function renderPairs() {
+  const ins = $("pr-insect").value, min = +$("pr-min").value || 0, g = $("pr-guild").value, sort = $("pr-sort").value;
+  const host = $("pr-host").checked, single = $("pr-single").checked;
+  let L = S.pairs.filter((p) => {
+    const A = S.meta.insects[p.ia], B = S.meta.insects[p.ib];
+    if (ins !== "" && p.ia !== +ins && p.ib !== +ins) return false;
+    if ((p.corr_n || 0) < min) return false;
+    if (g === "same" && A.guild !== B.guild) return false;
+    if (g === "bb" && !(A.guild === "borer" && B.guild === "borer")) return false;
+    if (g === "dd" && !(A.guild === "defoliator" && B.guild === "defoliator")) return false;
+    if (g === "bd" && A.guild === B.guild) return false;
+    if (host && !p.hosts) return false;
+    if (single && !(A.single && B.single)) return false;
+    return true;
+  });
+  const key = { corr_desc: (p) => -(p.corr ?? -9), corr_asc: (p) => (p.corr ?? 9), overlap: (p) => -(p.overlap ?? -1), both: (p) => -p.both,
+    lag: (p) => -Math.max(Math.abs(p.lag_ab ?? 0), Math.abs(p.lag_ba ?? 0)) }[sort];
+  L.sort((a, b) => key(a) - key(b));
+  $("pr-summary").textContent = `${L.length} pairs`;
+  if (!L.length) { $("pr-table").innerHTML = `<div class="empty">No pairs match. Lower the minimum number of regions or clear a filter.</div>`; return; }
+  const c = (v) => { if (v === null || v === undefined) return `<td data-raw="">–</td>`; const a = Math.abs(v) * 0.55;
+    return `<td data-raw="${v}" style="background:rgba(var(${v >= 0 ? "--heat" : "--neg"}),${a.toFixed(2)})">${(v > 0 ? "+" : "") + v.toFixed(2)}</td>`; };
+  $("pr-table").innerHTML = `<table><thead><tr><th>Pair</th><th>Correlation</th><th>Regions (corr.)</th><th>% regions positive</th><th>Shared regions</th><th>Both damaged</th><th>Damage overlap</th><th>A then B</th><th>B then A</th><th>Shared hosts</th></tr></thead><tbody>` +
+    L.slice(0, 400).map((p) => { const A = S.meta.insects[p.ia], B = S.meta.insects[p.ib];
+      return `<tr class="click" data-a="${p.ia}" data-b="${p.ib}" title="Compare this pair"><td data-raw="${esc(A.name + " + " + B.name)}">${esc(A.name)} <span class="sub">+</span> ${esc(B.name)}</td>${c(p.corr)}<td>${p.corr_n}</td>` +
+        `<td>${p.corr_pos === null ? "–" : Math.round(100 * p.corr_pos) + "%"}</td><td>${p.regions}</td><td>${p.both}</td><td>${p.overlap === null ? "–" : p.overlap.toFixed(2)}</td>${c(p.lag_ab)}${c(p.lag_ba)}` +
+        `<td style="font-family:var(--font)">${esc(p.hosts || "")}</td></tr>`; }).join("") + "</tbody></table>" +
+    (L.length > 400 ? `<p class="note" style="padding:8px">Showing the first 400 of ${L.length}. Narrow the filters to see the rest.</p>` : "");
+  $("pr-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => {
+    $("cp-a").value = tr.dataset.a; $("cp-b").value = tr.dataset.b; location.hash = "#compare"; renderCompare(); }));
+}
+
+// ---------- coverage ----------
+function setupCoverage() {
+  opts($("cv-country"), S.countries, "All");
+  ["cv-what", "cv-guild", "cv-country"].forEach((id) => $(id).addEventListener("change", renderCoverage));
+}
+function renderCoverage() {
+  const what = $("cv-what").value, g = $("cv-guild").value, c = $("cv-country").value;
+  const cell = new Map(), present = new Set();
+  for (const x of S.rec) {
+    const m = S.meta.insects[x.i]; if (g && m.guild !== g) continue;
+    if (c && S.meta.regions[x.r].country !== c) continue;
+    present.add(x.i);
+    if (what === "dmg" && !(x.v > 0)) continue;
+    const k = x.i + "-" + x.y; let s = cell.get(k); if (!s) { s = new Set(); cell.set(k, s); } s.add(x.r);
+  }
+  const ins = S.meta.insects.map((m, i) => i).filter((i) => present.has(i));
+  if (!ins.length) { $("cv-table").innerHTML = `<div class="empty">No records for this selection.</div>`; return; }
+  let max = 1; for (const s of cell.values()) max = Math.max(max, s.size);
+  const yrs = []; for (let y = 2000; y <= 2022; y++) yrs.push(y);
+  $("cv-table").innerHTML = `<table><thead><tr><th>Insect</th>${yrs.map((y) => `<th>${String(y).slice(2)}</th>`).join("")}</tr></thead><tbody>` +
+    ins.map((i) => `<tr class="click" data-ins="${i}" title="Compare this insect"><td>${esc(S.meta.insects[i].name)} <span class="sub">${S.meta.insects[i].unit === "m3" ? "m³" : "ha"}</span></td>` +
+      yrs.map((y) => { const s = cell.get(i + "-" + y); if (!s) return `<td class="blank" data-raw=""></td>`;
+        return `<td data-raw="${s.size}" style="background:rgba(var(--heat),${(0.08 + 0.6 * s.size / max).toFixed(2)})">${s.size}</td>`; }).join("") + "</tr>").join("") + "</tbody></table>";
+  $("cv-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { $("cp-a").value = tr.dataset.ins; location.hash = "#compare"; renderCompare(); }));
+}
+
+// ---------- routing ----------
+const VIEWS = ["explore", "compare", "pairs", "coverage"];
+function route() {
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "explore";
+  VIEWS.forEach((x) => { $("view-" + x).hidden = x !== v; });
+  document.querySelectorAll("#tabs a").forEach((a) => { if (a.dataset.tab === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+}
+window.addEventListener("hashchange", route);
+
+load().then(() => {
+  setupExplore(); setupCompare(); setupPairs(); setupCoverage();
+  renderExplore(); renderCompare(); renderPairs(); renderCoverage(); route();
+}).catch((e) => {
+  $("status").textContent = "The data files could not be loaded (" + e.message + "). Reload the page to try again.";
+  route();
+});
+</script>

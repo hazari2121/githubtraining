@@ -42,6 +42,7 @@ source(file.path("R", "datasheet.R"))
 source(file.path("R", "pivot_workbook.R"))
 source(file.path("R", "query_sheet.R"))
 source(file.path("R", "pairs.R"))
+source(file.path("R", "web_data.R"))
 ht <- build_host_tables(cleaned)
 host_ref <- commandArgs(trailingOnly = TRUE)[2]
 
@@ -124,6 +125,7 @@ if (!is.na(hc_path)) {
 source(file.path("R", "pivot_workbook.R"))
 source(file.path("R", "query_sheet.R"))
 source(file.path("R", "pairs.R"))
+source(file.path("R", "web_data.R"))
 test_that("pivot data keeps every record and never mixes in invented values", {
   pd <- pivot_data(md |> add_series_info())
   expect_equal(nrow(pd), nrow(md))
@@ -225,4 +227,14 @@ test_that("pairs table: counts are consistent and missing is never zero", {
   expect_equal(p$shared_region_years[p$code_A == "ips_typ" & p$code_B == "pit_cha"], n)
   # spruce bark beetles move together
   expect_gt(p$corr_within_region[p$code_A == "ips_typ" & p$code_B == "pit_cha"], 0.5)
+})
+
+test_that("web explorer data keeps every record and the same totals", {
+  d <- file.path(tempdir(), "web_test"); p <- build_pairs(mdr, ht)
+  write_web_data(mdr, ht, p, d)
+  r <- jsonlite::fromJSON(file.path(d, "records.json"))
+  expect_equal(sum(r[, 6]), nrow(mdr))                      # number of records
+  expect_equal(sum(r[, 5]), sum(mdr$value), tolerance = 1e-6)
+  m <- jsonlite::fromJSON(file.path(d, "meta.json"))
+  expect_equal(nrow(m$insects), dplyr::n_distinct(mdr$sp_code))
 })

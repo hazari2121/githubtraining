@@ -139,6 +139,16 @@ Known issues:
 - `eufordam_model_data.csv`: damage records joined with insect name, guild, common host name, host type and host amount. Aggregate codes are marked with `is_aggregate`. This is the starting table for modelling.
 - `eufordam_qc.xlsx`: quality report. Covers dropped rows, repeated rows (listed for information; they are valid and kept), NUTS levels, coverage, value2/value1 ratios, category conflicts and odd labels. The report only flags; it changes nothing.
 
+## Web explorer
+
+`web/index.html` is an interactive page. The pipeline writes its data to `output/web/` (`meta.json`, `records.json`, `pairs.json`). Tabs:
+- **Explore:** any rows × columns table with filters.
+- **Compare two insects:** yearly damage side by side, plus correlations region by region.
+- **Pairs:** the pairs table, sortable and filterable.
+- **Coverage:** which insects are recorded where and when.
+
+It is published as a private claude.ai artifact. After a data update, rerun the pipeline and republish the page together with the three data files.
+
 ## Data on request
 
 Write each question as one row of `requests.xlsx` (dropdowns show the allowed values; the `fields` sheet explains each column), then run:
@@ -228,6 +238,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
 - `R/host_climate.R`: host amount and climate per spatial unit.
+- `R/web_data.R` + `web/index.html`: the web explorer.
 - `R/pairs.R`: the insect pairs table.
 - `R/query_sheet.R`: the dropdown-driven `query` sheet.
 - `R/pivot_workbook.R`: the PivotTable workbook.
