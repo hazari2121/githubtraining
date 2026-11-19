@@ -85,13 +85,20 @@ td.blank { color: transparent; }
 tr.click { cursor: pointer; }
 tr.click:hover td { background: var(--surface-2); }
 .sub { color: var(--muted); font-size: 0.78rem; }
-.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 10px; }
+@media (max-width: 560px) { .stats { grid-template-columns: 1fr 1fr; } }
 .stat { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
 .stat .v { font-family: var(--mono); font-size: 1.25rem; font-weight: 500; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.88rem; }
 .key { display: inline-flex; align-items: center; gap: 6px; }
 .key i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
-.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 14px; }
+.sides { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
+.side { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px 12px; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 8px 12px; min-width: 0; }
+.side legend { font-weight: 700; padding: 0 6px; display: inline-flex; align-items: center; gap: 6px; }
+.side legend i { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+.side-a { border-top: 3px solid var(--accent); } .side-a legend i { background: var(--accent); }
+.side-b { border-top: 3px solid var(--bark); } .side-b legend i { background: var(--bark); }
+.charts { display: grid; grid-template-columns: 1fr; gap: 14px; }
 svg { width: 100%; height: auto; display: block; }
 svg text { fill: var(--muted); font: 11px var(--mono); }
 .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.75rem; font-family: var(--font); border: 1px solid var(--line); color: var(--muted); }
@@ -108,7 +115,7 @@ svg text { fill: var(--muted); font: 11px var(--mono); }
   </header>
   <nav id="tabs">
     <a href="#explore" data-tab="explore">Explore</a>
-    <a href="#compare" data-tab="compare">Compare two insects</a>
+    <a href="#compare" data-tab="compare">Compare</a>
     <a href="#pairs" data-tab="pairs">Pairs</a>
     <a href="#coverage" data-tab="coverage">Coverage</a>
   </nav>
@@ -141,11 +148,29 @@ svg text { fill: var(--muted); font: 11px var(--mono); }
 
   <!-- COMPARE -->
   <section id="view-compare" class="panel" hidden>
-    <p class="intro">Pick two insects to see their yearly damage side by side and how strongly it moves together. The correlation is worked out within each region over the years, then summarised.</p>
+    <p class="intro">Choose any two things to compare: an insect or a whole group, each on all its host trees or on one tree. Everything below is worked out for exactly that choice. Correlations are calculated within each region over the years, then summarised.</p>
+    <div class="sides">
+      <fieldset class="side side-a"><legend><i></i>A</legend>
+        <div class="field"><label for="cp-a-level">Level</label><select id="cp-a-level"></select></div>
+        <div class="field"><label for="cp-a-item">Insect or group</label><select id="cp-a-item"></select></div>
+        <div class="field"><label for="cp-a-tree">On host tree</label><select id="cp-a-tree"></select></div>
+      </fieldset>
+      <fieldset class="side side-b"><legend><i></i>B</legend>
+        <div class="field"><label for="cp-b-level">Level</label><select id="cp-b-level"></select></div>
+        <div class="field"><label for="cp-b-item">Insect or group</label><select id="cp-b-item"></select></div>
+        <div class="field"><label for="cp-b-tree">On host tree</label><select id="cp-b-tree"></select></div>
+      </fieldset>
+    </div>
     <div class="controls">
-      <div class="field"><label for="cp-a">Insect A</label><select id="cp-a"></select></div>
-      <div class="field"><label for="cp-b">Insect B</label><select id="cp-b"></select></div>
-      <div class="field"><label for="cp-scope">Where (chart)</label><select id="cp-scope"></select></div>
+      <div class="field"><label for="cp-scope">Where</label><select id="cp-scope"></select></div>
+      <div class="field"><label for="cp-from">Years</label>
+        <div style="display:flex;gap:6px"><input id="cp-from" type="number" min="2000" max="2022" value="2000" aria-label="From year"><input id="cp-to" type="number" min="2000" max="2022" value="2022" aria-label="To year"></div></div>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="cp-single"> Single species only</label>
+      <label><input type="checkbox" id="cp-paper"> In paper dataset only</label>
+      <button id="cp-swap" type="button">Swap A and B</button>
+      <button id="cp-copy" type="button">Copy results</button>
     </div>
     <div class="legend" id="cp-legend"></div>
     <div class="stats" id="cp-stats"></div>
@@ -347,16 +372,84 @@ function renderExplore() {
     h += "</tr>";
   }
   $("ex-table").innerHTML = h + "</tbody></table>";
-  $("ex-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { $("cp-a").value = tr.dataset.ins; location.hash = "#compare"; renderCompare(); }));
+  $("ex-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => openCompare(+tr.dataset.ins)));
 }
 
 // ---------- compare ----------
+const LEVELS = [["insect", "Insect"], ["L3", "L3 (paper species)"], ["L2", "L2 (host genus)"], ["L1", "L1 (conifers / broadl.)"], ["guild", "Guild"]];
+function levelItems(level) {
+  if (level === "insect") return S.meta.insects.map((m, i) => [String(i), m.name + (m.single ? "" : " (mixed code)"), m.guild]);
+  const seen = new Map();
+  S.meta.insects.forEach((m) => { const v = m[level]; if (v !== "(no subgroup)" && !seen.has(v)) seen.set(v, m.guild); });
+  return [...seen].map(([v, g]) => [v, level === "guild" ? (v === "borer" ? "Borers" : "Defoliators") : v, g]);
+}
+function sideOf(k) { return { level: $(`cp-${k}-level`).value, item: $(`cp-${k}-item`).value, tree: $(`cp-${k}-tree`).value }; }
+function matchSide(side, x) {
+  const m = S.meta.insects[x.i];
+  if (side.level === "insect" ? x.i !== +side.item : m[side.level] !== side.item) return false;
+  return side.tree === "" || x.t === +side.tree;
+}
+function fillItems(k, keep) {
+  const level = $(`cp-${k}-level`).value, items = levelItems(level), sel = $(`cp-${k}-item`);
+  const groups = { borer: [], defoliator: [] }; items.forEach((it) => groups[it[2]].push(it));
+  sel.innerHTML = Object.entries(groups).filter(([, v]) => v.length).map(([g, v]) =>
+    `<optgroup label="${g === "borer" ? "Borers (m³)" : "Defoliators (ha)"}">` + v.map(([val, lab]) => `<option value="${esc(val)}">${esc(lab)}</option>`).join("") + "</optgroup>").join("");
+  if (keep !== undefined && items.some((it) => it[0] === String(keep))) sel.value = String(keep);
+  fillTrees(k);
+}
+function fillTrees(k, keep) {
+  const side = { level: $(`cp-${k}-level`).value, item: $(`cp-${k}-item`).value, tree: "" };
+  const used = new Set(); for (const x of S.rec) if (matchSide(side, x)) used.add(x.t);
+  const sel = $(`cp-${k}-tree`), prev = keep !== undefined ? String(keep) : sel.value;
+  sel.innerHTML = `<option value="">All its host trees</option>` + S.meta.trees.map((t, i) => [i, t.name]).filter(([i]) => used.has(i))
+    .map(([i, n]) => `<option value="${i}">${esc(n)}</option>`).join("");
+  if ([...sel.options].some((o) => o.value === prev)) sel.value = prev;
+}
 function setupCompare() {
-  insectOptions($("cp-a"), false); insectOptions($("cp-b"), false);
-  $("cp-a").value = String(S.code2i.get("ips_typ")); $("cp-b").value = String(S.code2i.get("pit_cha"));
+  ["a", "b"].forEach((k) => {
+    opts($(`cp-${k}-level`), LEVELS);
+    $(`cp-${k}-level`).addEventListener("change", () => { fillItems(k); renderCompare(); });
+    $(`cp-${k}-item`).addEventListener("change", () => { fillTrees(k); renderCompare(); });
+    $(`cp-${k}-tree`).addEventListener("change", renderCompare);
+  });
+  fillItems("a", S.code2i.get("ips_typ")); fillItems("b", S.code2i.get("pit_cha"));
   opts($("cp-scope"), [["", "All of Europe"], ...S.countries.map((c) => ["c:" + c, "Country " + c]),
     ...S.meta.regions.map((r, i) => ["r:" + i, r.code + " " + r.name])]);
-  ["cp-a", "cp-b", "cp-scope"].forEach((id) => $(id).addEventListener("change", renderCompare));
+  ["cp-scope", "cp-from", "cp-to", "cp-single", "cp-paper"].forEach((id) => $(id).addEventListener("change", renderCompare));
+  $("cp-swap").addEventListener("click", () => {
+    const A = sideOf("a"), B = sideOf("b");
+    $("cp-a-level").value = B.level; fillItems("a", B.item); fillTrees("a", B.tree);
+    $("cp-b-level").value = A.level; fillItems("b", A.item); fillTrees("b", A.tree);
+    renderCompare();
+  });
+  $("cp-copy").addEventListener("click", () => copyText(compareTSV(), $("cp-copy")));
+}
+function openCompare(a, b) {
+  $("cp-a-level").value = "insect"; fillItems("a", a); fillTrees("a", "");
+  if (b !== undefined) { $("cp-b-level").value = "insect"; fillItems("b", b); fillTrees("b", ""); }
+  location.hash = "#compare"; renderCompare();
+}
+function sideLabel(side) {
+  const lab = levelItems(side.level).find((it) => it[0] === side.item);
+  return (lab ? lab[1] : side.item) + (side.tree !== "" ? " on " + S.meta.trees[+side.tree].name : "");
+}
+function sideData(side, common) {
+  const yr = new Map(), byReg = new Map(); let unit = null;
+  for (const x of S.rec) {
+    if (!matchSide(side, x) || !common(x)) continue;
+    unit = unit || S.meta.insects[x.i].unit;
+    let m = byReg.get(x.r); if (!m) { m = new Map(); byReg.set(x.r, m); }
+    m.set(x.y, (m.get(x.y) || 0) + x.v);
+    yr.set(x.y, (yr.get(x.y) || 0) + x.v);
+  }
+  return { yr, byReg, unit };
+}
+function median(v) { if (!v.length) return null; const s = v.slice().sort((a, b) => a - b), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; }
+function regionCorrs(ma, mb, lag) {
+  // A in year t vs B in year t + lag, within one region
+  const ys = [...ma.keys()].filter((y) => mb.has(y + lag)).sort((a, b) => a - b);
+  if (ys.length < 6) return null;
+  return spearman(ys.map((y) => ma.get(y)), ys.map((y) => mb.get(y + lag)));
 }
 function ranks(a) {
   const idx = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]); const r = new Array(a.length);
@@ -370,22 +463,8 @@ function spearman(x, y) {
   for (let i = 0; i < n; i++) { const a = rx[i] - mx, b = ry[i] - my; sxy += a * b; sxx += a * a; syy += b * b; }
   return sxx === 0 || syy === 0 ? null : sxy / Math.sqrt(sxx * syy);
 }
-function series(i, scope) {
-  // yearly totals over the scope, only where recorded; per-region maps for correlations
-  const yr = new Map(), byReg = new Map();
-  for (const x of S.rec) {
-    if (x.i !== i) continue;
-    const reg = S.meta.regions[x.r];
-    let m = byReg.get(x.r); if (!m) { m = new Map(); byReg.set(x.r, m); }
-    m.set(x.y, (m.get(x.y) || 0) + x.v);
-    if (scope.startsWith("c:") && reg.country !== scope.slice(2)) continue;
-    if (scope.startsWith("r:") && x.r !== +scope.slice(2)) continue;
-    yr.set(x.y, (yr.get(x.y) || 0) + x.v);
-  }
-  return { yr, byReg };
-}
 function lineChart(points, color, unit, title) {
-  const W = 760, H = 220, L = 58, Rr = 14, T = 24, B = 28, years = []; for (let y = 2000; y <= 2022; y++) years.push(y);
+  const W = 900, H = 210, L = 58, Rr = 14, T = 24, B = 28, years = []; for (let y = 2000; y <= 2022; y++) years.push(y);
   const vals = points.map((p) => p[1]); const max = Math.max(1e-9, ...vals);
   const step = niceStep(max / 4), top = Math.ceil(max / step) * step;
   const X = (y) => L + (y - 2000) / 22 * (W - L - Rr), Y = (v) => T + (1 - v / top) * (H - T - B);
@@ -403,44 +482,68 @@ function lineChart(points, color, unit, title) {
 }
 function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw || 1))); const f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
 function renderCompare() {
-  const ia = +$("cp-a").value, ib = +$("cp-b").value, scope = $("cp-scope").value;
-  const A = S.meta.insects[ia], B = S.meta.insects[ib];
+  const A = sideOf("a"), B = sideOf("b"), scope = $("cp-scope").value;
+  const from = +$("cp-from").value || 2000, to = +$("cp-to").value || 2022, single = $("cp-single").checked, paper = $("cp-paper").checked;
+  const common = (x) => {
+    if (x.y < from || x.y > to) return false;
+    if (single && !S.meta.insects[x.i].single) return false;
+    if (paper && !x.p) return false;
+    if (scope.startsWith("c:") && S.meta.regions[x.r].country !== scope.slice(2)) return false;
+    if (scope.startsWith("r:") && x.r !== +scope.slice(2)) return false;
+    return true;
+  };
+  const da = sideData(A, common), db = sideData(B, common);
+  const labA = sideLabel(A), labB = sideLabel(B);
+  const u = (x) => x === "m3" ? "m³" : x === "ha" ? "ha" : "";
   const colA = "var(--accent)", colB = "var(--bark)";
-  $("cp-legend").innerHTML = `<span class="key"><i style="background:${colA}"></i>A: ${esc(A.name)} <span class="pill">${A.unit === "m3" ? "m³" : "ha"} · ${esc(A.hosts.join(", "))}</span></span>` +
-    `<span class="key"><i style="background:${colB}"></i>B: ${esc(B.name)} <span class="pill">${B.unit === "m3" ? "m³" : "ha"} · ${esc(B.hosts.join(", "))}</span></span>`;
-  const sa = series(ia, scope), sb = series(ib, scope);
-  const pts = (s) => [...s.yr.entries()].sort((a, b) => a[0] - b[0]);
-  const unitA = A.unit === "m3" ? "m³" : "ha", unitB = B.unit === "m3" ? "m³" : "ha";
-  $("cp-charts").innerHTML = ia === ib ? `<div class="empty">Pick two different insects.</div>` :
-    lineChart(pts(sa), colA, unitA, "A: " + A.name) + lineChart(pts(sb), colB, unitB, "B: " + B.name);
-  // per-region correlations, computed here so they follow the data exactly
-  const rows = []; const corrs = [];
-  for (const [r, ma] of sa.byReg) {
-    const mb = sb.byReg.get(r); if (!mb) continue;
-    const ys = [...ma.keys()].filter((y) => mb.has(y)).sort((a, b) => a - b);
-    const xa = ys.map((y) => ma.get(y)), xb = ys.map((y) => mb.get(y));
-    const c = ys.length >= 6 ? spearman(xa, xb) : null; if (c !== null) corrs.push(c);
-    rows.push({ r, n: ys.length, c, da: xa.filter((v) => v > 0).length, db: xb.filter((v) => v > 0).length, both: ys.filter((y) => ma.get(y) > 0 && mb.get(y) > 0).length });
+  $("cp-legend").innerHTML = `<span class="key"><i style="background:${colA}"></i>A: ${esc(labA)} <span class="pill">${u(da.unit) || "no records"}</span></span>` +
+    `<span class="key"><i style="background:${colB}"></i>B: ${esc(labB)} <span class="pill">${u(db.unit) || "no records"}</span></span>`;
+  const same = A.level === B.level && A.item === B.item && A.tree === B.tree;
+  const pts = (d) => [...d.yr.entries()].sort((a, b) => a[0] - b[0]);
+  if (same) { $("cp-charts").innerHTML = `<div class="empty">A and B are the same. Pick something different for one of them.</div>`; $("cp-stats").innerHTML = ""; $("cp-regions").innerHTML = ""; S.cmp = null; return; }
+  $("cp-charts").innerHTML = (da.yr.size ? lineChart(pts(da), colA, u(da.unit), "A: " + labA) : `<div class="empty">A has no records for this selection.</div>`) +
+    (db.yr.size ? lineChart(pts(db), colB, u(db.unit), "B: " + labB) : `<div class="empty">B has no records for this selection.</div>`);
+  const rows = [], c0 = [], cab = [], cba = [];
+  for (const [r, ma] of da.byReg) {
+    const mb = db.byReg.get(r); if (!mb) continue;
+    const ys = [...ma.keys()].filter((y) => mb.has(y));
+    const c = regionCorrs(ma, mb, 0), l1 = regionCorrs(ma, mb, 1), l2 = regionCorrs(mb, ma, 1);
+    if (c !== null) c0.push(c); if (l1 !== null) cab.push(l1); if (l2 !== null) cba.push(l2);
+    const both = ys.filter((y) => ma.get(y) > 0 && mb.get(y) > 0).length, either = ys.filter((y) => ma.get(y) > 0 || mb.get(y) > 0).length;
+    rows.push({ r, n: ys.length, c, da: ys.filter((y) => ma.get(y) > 0).length, db: ys.filter((y) => mb.get(y) > 0).length, both, either });
   }
-  const p = S.pairIndex.get(ia + "-" + ib);
-  const flip = p && p.ia !== ia;
-  const med = corrs.length ? corrs.slice().sort((a, b) => a - b)[Math.floor((corrs.length - 1) / 2)] * 0.5 + corrs.slice().sort((a, b) => a - b)[Math.ceil((corrs.length - 1) / 2)] * 0.5 : null;
-  const stat = (lbl, v, sub) => `<div class="stat"><span class="lbl">${lbl}</span><span class="v">${v}</span>${sub ? `<span class="sub">${sub}</span>` : ""}</div>`;
+  const sum = (k) => rows.reduce((s, x) => s + x[k], 0);
   const sign = (v) => v === null || v === undefined ? "–" : (v > 0 ? "+" : "") + v.toFixed(2);
-  $("cp-stats").innerHTML = ia === ib ? "" :
-    stat("Shared regions", rows.length, "both recorded") +
-    stat("Shared region-years", rows.reduce((s, x) => s + x.n, 0), "both recorded the same year") +
-    stat("Both damaged", rows.reduce((s, x) => s + x.both, 0), "region-years with damage by both") +
-    stat("Move together", sign(med), corrs.length ? `median correlation in ${corrs.length} region${corrs.length > 1 ? "s" : ""}, ${Math.round(100 * corrs.filter((c) => c > 0).length / corrs.length)}% positive` : "not enough shared years") +
-    stat("A then B (1 yr)", sign(p ? (flip ? p.lag_ba : p.lag_ab) : null), "A's damage followed by B's next year") +
-    stat("B then A (1 yr)", sign(p ? (flip ? p.lag_ab : p.lag_ba) : null), "B's damage followed by A's next year") +
-    stat("Shared host trees", A.hosts.filter((h) => B.hosts.includes(h)).length ? esc(A.hosts.filter((h) => B.hosts.includes(h)).map((h) => h.split(" (")[1].replace(")", "")).join(", ")) : "none", "");
-  if (!rows.length || ia === ib) { $("cp-regions").innerHTML = `<div class="empty">These two insects are never recorded in the same region.</div>`; return; }
+  const pos = (v) => v.length ? Math.round(100 * v.filter((c) => c > 0).length / v.length) + "% positive" : "";
+  const hostsA = new Set(), hostsB = new Set();
+  for (const x of S.rec) { if (!common(x)) continue; if (matchSide(A, x)) hostsA.add(x.t); if (matchSide(B, x)) hostsB.add(x.t); }
+  const shared = [...hostsA].filter((t) => hostsB.has(t)).map((t) => S.meta.trees[t].name.split(" (")[1].replace(")", ""));
+  const res = [
+    ["Shared regions", rows.length, "both recorded"],
+    ["Shared region-years", sum("n"), "both recorded the same year"],
+    ["Both damaged", sum("both"), "region-years with damage by both"],
+    ["Damage overlap", sum("either") ? (sum("both") / sum("either")).toFixed(2) : "–", "both damaged / at least one damaged"],
+    ["Move together", sign(median(c0)), c0.length ? `median correlation in ${c0.length} region${c0.length > 1 ? "s" : ""}, ${pos(c0)}` : "not enough shared years"],
+    ["A then B (1 yr)", sign(median(cab)), cab.length ? `${cab.length} regions, ${pos(cab)}` : "not enough years"],
+    ["B then A (1 yr)", sign(median(cba)), cba.length ? `${cba.length} regions, ${pos(cba)}` : "not enough years"],
+    ["Recorded on the same trees", shared.length ? shared.join(", ") : "none", "host trees with records of both"]
+  ];
+  $("cp-stats").innerHTML = res.map(([l, v, s]) => `<div class="stat"><span class="lbl">${l}</span><span class="v">${esc(v)}</span><span class="sub">${esc(s)}</span></div>`).join("");
+  S.cmp = { labA, labB, res, rows };
+  if (!rows.length) { $("cp-regions").innerHTML = `<div class="empty">A and B are never recorded in the same region for this selection.</div>`; return; }
   rows.sort((a, b) => (b.c ?? -9) - (a.c ?? -9));
   $("cp-regions").innerHTML = `<table><thead><tr><th>Region</th><th>Shared years</th><th>Years A damaged</th><th>Years B damaged</th><th>Both damaged</th><th>Correlation</th></tr></thead><tbody>` +
-    rows.map((x) => { const reg = S.meta.regions[x.r]; const a = x.c === null ? 0 : Math.abs(x.c) * 0.5;
-      const bg = x.c === null ? "" : `style="background:rgba(var(${x.c >= 0 ? "--heat" : "--neg"}),${a.toFixed(2)})"`;
-      return `<tr><td>${esc(reg.code + " " + reg.name)}</td><td>${x.n}</td><td>${x.da}</td><td>${x.db}</td><td>${x.both}</td><td ${bg}>${x.c === null ? "–" : sign(x.c)}</td></tr>`; }).join("") + "</tbody></table>";
+    rows.map((x) => { const reg = S.meta.regions[x.r]; const al = x.c === null ? 0 : Math.abs(x.c) * 0.5;
+      const bg = x.c === null ? "" : `style="background:rgba(var(${x.c >= 0 ? "--heat" : "--neg"}),${al.toFixed(2)})"`;
+      return `<tr><td>${esc(reg.code + " " + reg.name)}</td><td>${x.n}</td><td>${x.da}</td><td>${x.db}</td><td>${x.both}</td><td ${bg} data-raw="${x.c ?? ""}">${x.c === null ? "–" : sign(x.c)}</td></tr>`; }).join("") + "</tbody></table>";
+}
+function compareTSV() {
+  if (!S.cmp) return "";
+  const c = S.cmp;
+  return [["A", c.labA], ["B", c.labB], ["Where", $("cp-scope").selectedOptions[0].text], ["Years", $("cp-from").value + "-" + $("cp-to").value], [],
+    ...c.res.map(([l, v, s]) => [l, v, s]), [], ["Region", "Shared years", "Years A damaged", "Years B damaged", "Both damaged", "Correlation"],
+    ...c.rows.map((x) => [S.meta.regions[x.r].code + " " + S.meta.regions[x.r].name, x.n, x.da, x.db, x.both, x.c === null ? "" : x.c.toFixed(3)])]
+    .map((r) => r.join("\t")).join("\n");
 }
 
 // ---------- pairs ----------
@@ -478,7 +581,7 @@ function renderPairs() {
         `<td style="font-family:var(--font)">${esc(p.hosts || "")}</td></tr>`; }).join("") + "</tbody></table>" +
     (L.length > 400 ? `<p class="note" style="padding:8px">Showing the first 400 of ${L.length}. Narrow the filters to see the rest.</p>` : "");
   $("pr-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => {
-    $("cp-a").value = tr.dataset.a; $("cp-b").value = tr.dataset.b; location.hash = "#compare"; renderCompare(); }));
+    openCompare(+tr.dataset.a, +tr.dataset.b); }));
 }
 
 // ---------- coverage ----------
@@ -504,7 +607,7 @@ function renderCoverage() {
     ins.map((i) => `<tr class="click" data-ins="${i}" title="Compare this insect"><td>${esc(S.meta.insects[i].name)} <span class="sub">${S.meta.insects[i].unit === "m3" ? "m³" : "ha"}</span></td>` +
       yrs.map((y) => { const s = cell.get(i + "-" + y); if (!s) return `<td class="blank" data-raw=""></td>`;
         return `<td data-raw="${s.size}" style="background:rgba(var(--heat),${(0.08 + 0.6 * s.size / max).toFixed(2)})">${s.size}</td>`; }).join("") + "</tr>").join("") + "</tbody></table>";
-  $("cv-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { $("cp-a").value = tr.dataset.ins; location.hash = "#compare"; renderCompare(); }));
+  $("cv-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => openCompare(+tr.dataset.ins)));
 }
 
 // ---------- routing ----------

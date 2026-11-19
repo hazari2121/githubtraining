@@ -143,7 +143,7 @@ Known issues:
 
 `web/index.html` is an interactive page. The pipeline writes its data to `output/web/` (`meta.json`, `records.json`, `pairs.json`). Tabs:
 - **Explore:** any rows × columns table with filters.
-- **Compare two insects:** yearly damage side by side, plus correlations region by region.
+- **Compare:** pick any two insects or groups (insect, L3, L2, L1, guild), each on all its host trees or one tree, plus where, years and filters. Shows yearly damage side by side, shared regions and years, damage overlap, correlation, 1-year lags and region-by-region results.
 - **Pairs:** the pairs table, sortable and filterable.
 - **Coverage:** which insects are recorded where and when.
 
