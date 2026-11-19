@@ -101,7 +101,8 @@ Known issues:
     - Up to 100 × 80 cells.
   - **`drill-down`:** the whole hierarchy on one sheet.
     - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
-    - Expand or collapse with + / −; filter with slicers (country, host tree, paper series, combined codes).
+    - Expand or collapse with + / −.
+    - Filter from the slicers on the side or the dropdowns above the table: guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes, paper series.
   - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
     - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
     - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes.

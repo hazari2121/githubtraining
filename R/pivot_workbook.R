@@ -20,7 +20,8 @@ pivot_data <- function(model_data) {
       host_tree = host_label, host_common = host, host_type, unit, damage = value,
       damage_rel_pct = 100 * damage_rel, host_amount,
       vpd, temperature = tas, precipitation = pr,
-      aggregate_code = if_else(is_aggregate, "yes", "no"),
+      combined_code = if_else(is_aggregate, "yes", "no"),
+      damage_recorded = if_else(value > 0, "yes", "no"),
       paper_series = if_else(in_paper_series, "yes", "no"),
       across(all_of(grp), ~ if_else(.x, "yes", "no"))
     ) |>
@@ -46,7 +47,7 @@ host_drill_data <- function(model_data, host, refs = read_host_references()) {
   # a zero means monitored). lives_on = the insect lives on that tree (host tables,
   # incl. hosts the supervisor's matrix adds; combined codes use their recorded host).
   pd <- pivot_data(model_data)
-  codes <- pd |> distinct(sp_code, insect, guild, L1, L2, L3, combined_code = aggregate_code)
+  codes <- pd |> distinct(sp_code, insect, guild, L1, L2, L3, combined_code)
   lab <- refs$hosts |> distinct(host, host_label, tree_type, order)
 
   species <- host$insect_hosts |>
@@ -74,7 +75,7 @@ pivot_how_to <- function() {
   data.frame(`How to use this workbook` = c(
     "QUICKEST: the yellow 'query' tab. Pick rows, columns, measure, unit and filters from the dropdowns in column C; the table recalculates instantly, no refresh needed. Any combination works, e.g. rows = insect, columns = country; rows = L2, columns = year; rows = insect, columns = host_tree with measure 'lives on (1/0)'.",
     "PivotTables (red and blue tabs): if they look incomplete, click Enable Editing (if shown) and then Data > Refresh All.",
-    "The red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level; click the slicers on the left to filter by country, host tree, paper series or combined codes.",
+    "The red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level. Filter with the slicers on the left or the dropdowns above the table: guild, insect, host tree, country, region, damage recorded (yes = damage > 0, no = zero records), combined codes, paper series.",
     "The red 'host drill-down' tab: same insect hierarchy, columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree. Filter with the slicers on the left or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region, damage recorded (yes = damage > 0 there, no = only zeros), combined codes. Choosing a country or region shows only insects recorded there.",
     "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
     "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
@@ -85,7 +86,7 @@ pivot_how_to <- function() {
     "damage_rel_pct = damage as % of the host amount in that region (empty if no host data).",
     "Ips typographus as in the paper: filter group_ips_typographus = yes (includes the combined spruce bark beetle code).",
     "Paper-style analysis: filter paper_series = yes (series with at least 6 years of damage).",
-    "aggregate_code = yes marks codes that combine several insects; set it to 'no' when comparing species.",
+    "combined_code = yes marks codes that combine several insects; set it to 'no' when comparing species.",
     "If a PivotTable looks empty or out of date: Data > Refresh All.",
     "Green tabs = host matrices: 1 = the insect lives on that tree, 0 = not. 'host matrix' lists all insects; use the filter arrows to sort or filter any tree by 1 or 0. The four box sheets are borers / defoliators on conifers / broadleaves.",
     "'guild matrix': 1 = the insect is counted in that feeding guild / host group of the paper (L1 = guild x host type, L2 = guild x host genus, L3 = single species). 'guilds (Table 1)' rebuilds the paper's Table 1 from the data and compares it with the paper.",
@@ -181,21 +182,26 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     wb_add_data_table(x = df, table_name = "damage", na = "") |>
     wb_freeze_pane(first_row = TRUE)
 
-  # drill-down: the whole hierarchy on one sheet, expand / collapse with + and -
+  # drill-down: the whole hierarchy on one sheet, expand / collapse with + and -.
+  # Filter from the side (slicers) or the dropdowns above the table: guild, insect,
+  # host tree, country, region, damage recorded, combined codes, paper series.
   if ("L1" %in% names(df)) {
+    page <- c("damage_recorded", "country", "region_code", "combined_code", "paper_series")
+    sl <- c("guild", "insect", "host_tree", "country", "region_code", "damage_recorded",
+            "combined_code", "paper_series")
     wb <- wb |>
       wb_add_worksheet("drill-down", tab_color = wb_color("C00000")) |>
-      wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "C3",
+      wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "H10",
                          rows = c("guild", "L1", "L2", "L3", "insect"), cols = "year",
                          data = "damage", fun = "sum",
-                         slicer = c("country", "host_tree", "paper_series", "aggregate_code"),
+                         filter = page, slicer = setdiff(sl, page),
                          pivot_table = "drill",
                          params = list(table_style = "TableStyleMedium9", row_grand_totals = FALSE))
-    sl <- c("country", "host_tree", "paper_series", "aggregate_code")
+    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
     for (j in seq_along(sl))
-      wb <- wb |> wb_add_slicer(df_x0, sheet = "drill-down", dims = paste0("A", 3 + (j - 1) * 14),
+      wb <- wb |> wb_add_slicer(df_x0, sheet = "drill-down", dims = pos[j],
                                 pivot_table = "drill", slicer = sl[j])
-    wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:3, widths = c(26, 2, 48))
+    wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
   }
 
   # host drill-down: insect hierarchy x host trees, 1 = lives on that tree.
@@ -246,7 +252,7 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
   for (i in seq_along(specs)) {
     s <- specs[[i]]
     nm <- paste0("pt", i)
-    filt <- setdiff(c("aggregate_code", "paper_series"), c(s[[2]], s[[3]]))
+    filt <- setdiff(c("combined_code", "paper_series"), c(s[[2]], s[[3]]))
     wb <- wb |>
       wb_add_worksheet(s[[1]], tab_color = wb_color("4472C4")) |>
       wb_add_pivot_table(df_x, sheet = s[[1]], dims = "C3",

@@ -113,7 +113,7 @@ add_query_sheet <- function(wb, df, hd, data_sheet = "data", host_sheet = "host 
     sprintf('%s,">="&%s', rng("year"), cc[["from"]]),
     sprintf('%s,"<="&%s', rng("year"), cc[["to"]]),
     sprintf('%s,IF(%s="yes","yes","*")', rng("paper_series"), cc[["paper"]]),
-    sprintf('%s,IF(%s="exclude","no","*")', rng("aggregate_code"), cc[["combined"]]),
+    sprintf('%s,IF(%s="exclude","no","*")', rng("combined_code"), cc[["combined"]]),
     sep = ",")
   hcrit <- paste(
     sprintf('%s,%s', hcol("guild"), f("guild")),
