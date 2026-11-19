@@ -12,6 +12,7 @@ source(file.path("R", "host_climate.R"))
 source(file.path("R", "datasheet.R"))
 source(file.path("R", "pivot_workbook.R"))
 source(file.path("R", "query_sheet.R"))
+source(file.path("R", "pairs.R"))
 hc_path <- if (length(args) >= 3) args[3] else NULL
 source(file.path("R", "request.R"))
 res <- run_pipeline(input, out_dir, host_climate_path = hc_path)

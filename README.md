@@ -118,6 +118,12 @@ Known issues:
     - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), single species (yes/no).
     - Choosing a country or region shows only the insects recorded there.
   - Open in Excel, then Data → Refresh All once.
+- `EUForDAM_pairs.xlsx` / `eufordam_pairs.csv`: every pair of insects that share regions.
+  - Shared regions and region-years, years both caused damage, and damage overlap.
+  - Correlation of yearly damage within regions (median, number of regions, share positive).
+  - 1-year lag correlations in both directions.
+  - Shared host trees, same guild / L1 / L2.
+  - The `what the columns mean` sheet explains each column.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).
 - `eufordam_summaries.xlsx`:
@@ -222,6 +228,7 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `run_pipeline.R`: command-line entry point.
 - `R/host_tables.R`: host tables and modelling table.
 - `R/host_climate.R`: host amount and climate per spatial unit.
+- `R/pairs.R`: the insect pairs table.
 - `R/query_sheet.R`: the dropdown-driven `query` sheet.
 - `R/pivot_workbook.R`: the PivotTable workbook.
 - `R/datasheet.R`: the human-readable datasheet workbook.

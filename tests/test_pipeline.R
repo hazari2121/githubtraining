@@ -41,6 +41,7 @@ source(file.path("R", "host_climate.R"))
 source(file.path("R", "datasheet.R"))
 source(file.path("R", "pivot_workbook.R"))
 source(file.path("R", "query_sheet.R"))
+source(file.path("R", "pairs.R"))
 ht <- build_host_tables(cleaned)
 host_ref <- commandArgs(trailingOnly = TRUE)[2]
 
@@ -122,6 +123,7 @@ if (!is.na(hc_path)) {
 
 source(file.path("R", "pivot_workbook.R"))
 source(file.path("R", "query_sheet.R"))
+source(file.path("R", "pairs.R"))
 test_that("pivot data keeps every record and never mixes in invented values", {
   pd <- pivot_data(md |> add_series_info())
   expect_equal(nrow(pd), nrow(md))
@@ -208,4 +210,19 @@ test_that("query sheet lists every label of every dimension", {
   pd <- pivot_data(mdr)
   ql <- query_lists(pd)
   for (v in query_dims) expect_setequal(na.omit(ql[[v]]), as.character(unique(pd[[v]])))
+})
+
+test_that("pairs table: counts are consistent and missing is never zero", {
+  p <- build_pairs(mdr, ht)
+  expect_equal(nrow(p), nrow(dplyr::distinct(p, code_A, code_B)))
+  expect_true(all(p$both_damaged <= p$shared_region_years))
+  expect_true(all(p$shared_regions >= 1))
+  expect_true(all(is.na(p$corr_within_region) == (p$corr_regions == 0)))
+  # shared region-years recomputed directly for one pair
+  ry <- mdr |> dplyr::distinct(sp_code, nuts, year)
+  a <- ry |> dplyr::filter(sp_code == "ips_typ"); b <- ry |> dplyr::filter(sp_code == "pit_cha")
+  n <- nrow(dplyr::inner_join(a, b, by = c("nuts", "year")))
+  expect_equal(p$shared_region_years[p$code_A == "ips_typ" & p$code_B == "pit_cha"], n)
+  # spruce bark beetles move together
+  expect_gt(p$corr_within_region[p$code_A == "ips_typ" & p$code_B == "pit_cha"], 0.5)
 })
