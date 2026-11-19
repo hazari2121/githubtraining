@@ -99,14 +99,6 @@ Known issues:
     - Rows/columns: guild, L1, L2, L3, insect, host_type, host_tree, country, region_code, year, in any combination.
     - Measures: total, records, average, any damage, lives on (1/0).
     - Up to 100 × 80 cells.
-  - **`drill-down`:** the whole hierarchy on one sheet.
-    - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
-    - Expand or collapse with + / −.
-    - Filter from the slicers on the side or the dropdowns above the table: guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes, paper series.
-  - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
-    - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
-    - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes.
-    - Choosing a country or region shows only the insects recorded there.
   - Eight ready-made PivotTables with slicers: insect × year, insect × country, insect × tree, tree × year, tree × country, country × year, relative damage, record counts.
   - Each table is split by unit (m³ / ha).
   - Drag fields to make any other combination.
@@ -116,6 +108,16 @@ Known issues:
     - `guild matrix`: insect × the paper's 18 feeding-guild/host groups (L1–L3), 1 = counted in that group;
     - `guilds (Table 1)`: the paper's Table 1 rebuilt from the data and compared with the paper (`reference/paper_table1.csv`).
   - Needs Excel (slicers) or LibreOffice.
+- `EUForDAM_drilldown.xlsx`: the two drill-down sheets, in their own file.
+  - **`drill-down`:** the whole hierarchy on one sheet.
+    - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
+    - Expand or collapse with + / −.
+    - Filter from the slicers on the side or the dropdowns above the table: guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes, paper series.
+  - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
+    - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
+    - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes.
+    - Choosing a country or region shows only the insects recorded there.
+  - Open in Excel, then Data → Refresh All once.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
 - `eufordam_clean.csv`: one clean long table (snake_case columns, logical `grp_*` group flags).
 - `eufordam_summaries.xlsx`:

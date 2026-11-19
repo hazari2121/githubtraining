@@ -74,9 +74,7 @@ host_drill_data <- function(model_data, host, refs = read_host_references()) {
 pivot_how_to <- function() {
   data.frame(`How to use this workbook` = c(
     "QUICKEST: the yellow 'query' tab. Pick rows, columns, measure, unit and filters from the dropdowns in column C; the table recalculates instantly, no refresh needed. Any combination works, e.g. rows = insect, columns = country; rows = L2, columns = year; rows = insect, columns = host_tree with measure 'lives on (1/0)'.",
-    "PivotTables (red and blue tabs): if they look incomplete, click Enable Editing (if shown) and then Data > Refresh All.",
-    "The red 'drill-down' tab holds everything on one sheet. Rows go guild > L1 > L2 > L3 > insect, columns are years. Click + / - to open or close a level. Filter with the slicers on the left or the dropdowns above the table: guild, insect, host tree, country, region, damage recorded (yes = damage > 0, no = zero records), combined codes, paper series.",
-    "The red 'host drill-down' tab: same insect hierarchy, columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree. Filter with the slicers on the left or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region, damage recorded (yes = damage > 0 there, no = only zeros), combined codes. Choosing a country or region shows only insects recorded there.",
+    "PivotTables (blue tabs): if they look incomplete, click Enable Editing (if shown) and then Data > Refresh All. The drill-down sheets are in the separate file EUForDAM_drilldown.xlsx.",
     "To change what the numbers are (sum, average, max, count): right-click a number > Summarize Values By. To swap rows and columns or add region / host tree: drag fields in the PivotTable Fields panel.",
     "Borers are always m3 (damaged wood) and defoliators always ha (defoliated area); the two guilds are never added together.",
     "Each blue tab is a PivotTable on the 'data' sheet. Click a slicer button (Ctrl+click for several) to filter.",
@@ -182,57 +180,10 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
     wb_add_data_table(x = df, table_name = "damage", na = "") |>
     wb_freeze_pane(first_row = TRUE)
 
-  # drill-down: the whole hierarchy on one sheet, expand / collapse with + and -.
-  # Filter from the side (slicers) or the dropdowns above the table: guild, insect,
-  # host tree, country, region, damage recorded, combined codes, paper series.
-  if ("L1" %in% names(df)) {
-    page <- c("damage_recorded", "country", "region_code", "combined_code", "paper_series")
-    sl <- c("guild", "insect", "host_tree", "country", "region_code", "damage_recorded",
-            "combined_code", "paper_series")
-    wb <- wb |>
-      wb_add_worksheet("drill-down", tab_color = wb_color("C00000")) |>
-      wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "H10",
-                         rows = c("guild", "L1", "L2", "L3", "insect"), cols = "year",
-                         data = "damage", fun = "sum",
-                         filter = page, slicer = setdiff(sl, page),
-                         pivot_table = "drill",
-                         params = list(table_style = "TableStyleMedium9", row_grand_totals = FALSE))
-    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
-    for (j in seq_along(sl))
-      wb <- wb |> wb_add_slicer(df_x0, sheet = "drill-down", dims = pos[j],
-                                pivot_table = "drill", slicer = sl[j])
-    wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
-  }
-
-  # host drill-down: insect hierarchy x host trees, 1 = lives on that tree.
-  # Filter from the side (slicers) or the dropdowns above the table: lives on,
-  # guild, insect, host tree, country, region, damage recorded, combined codes.
-  if (!is.null(host) && "L1" %in% names(df)) {
-    hd <- host_drill_data(model_data, host)
-    wb <- wb |>
-      wb_add_worksheet("host data") |>
-      wb_add_data_table(x = hd, table_name = "host_data") |>
-      wb_add_worksheet("host drill-down", tab_color = wb_color("C00000"))
-    hd_x <- wb_data(wb, sheet = "host data")
-    page <- c("lives_on", "country", "region_code", "damage_recorded", "combined_code")
-    sl <- c("lives_on", "guild", "insect", "host_tree", "country", "region_code",
-            "damage_recorded", "combined_code")
-    wb <- wb |>
-      wb_add_pivot_table(hd_x, sheet = "host drill-down", dims = "H10",
-                         rows = c("guild", "L1", "L2", "L3", "insect"),
-                         cols = c("host_type", "host_tree"), data = "present", fun = "max",
-                         filter = page, slicer = setdiff(sl, page), pivot_table = "hostdrill",
-                         params = list(table_style = "TableStyleMedium9",
-                                       row_grand_totals = FALSE, col_grand_totals = FALSE))
-    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
-    for (j in seq_along(sl))
-      wb <- wb |> wb_add_slicer(hd_x, sheet = "host drill-down", dims = pos[j],
-                                pivot_table = "hostdrill", slicer = sl[j])
-    wb <- wb |>
-      wb_add_conditional_formatting(sheet = "host drill-down", dims = "I12:AD400",
-                                    rule = "==1", type = "expression", style = "is_host_drill") |>
-      wb_set_col_widths(sheet = "host drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
-  }
+  # host data table: read by the query sheet (the drill-downs live in their own file)
+  if (!is.null(hd_q))
+    wb <- wb |> wb_add_worksheet("host data") |>
+      wb_add_data_table(x = hd_q, table_name = "host_data")
 
   # name, rows, cols, value, function, slicers
   # "unit" is always the first row level, so m3 (borers) and ha (defoliators) are never
@@ -323,6 +274,94 @@ write_pivot_workbook <- function(model_data, path, host = NULL) {
 
   if (!is.null(hd_q) && exists("add_query_sheet"))
     wb <- add_query_sheet(wb, df, hd_q)
+
+  wb_save(wb, path, overwrite = TRUE)
+  invisible(path)
+}
+
+drilldown_how_to <- function() {
+  data.frame(`How to use this workbook` = c(
+    "First: click Enable Editing (if shown), then Data > Refresh All once, so every level and species appears.",
+    "'drill-down': damage. Rows go guild > L1 > L2 > L3 > insect (paper Table 1 groups), columns are years. Click + / - to open or close a level.",
+    "'host drill-down': which insect lives on which tree. Same rows; columns conifers/broadleaves > host tree (Latin). 1 = lives on that tree, 0 = not; at group level 1 = at least one insect of the group uses that tree.",
+    "Filter with the slicers on the left or the dropdowns above each table: guild, insect, host tree, country, region (NUTS), damage recorded (yes = damage > 0, no = only zeros), combined codes, paper series (drill-down), lives on (host drill-down). Choosing a country or region shows only insects recorded there.",
+    "(no subgroup) = the paper defines no L2 / L3 group for these insects (e.g. larch and broadleaf insects); they sit directly under their L1 group.",
+    "Borers are in m3 (damaged wood), defoliators in ha (defoliated area); the two guilds are never added together.",
+    "Blank cell = no record (not recorded). 0 = monitored, no damage.",
+    "Generated by the pipeline (Rscript run_pipeline.R ...); do not edit here, changes are lost on the next run."
+  ), check.names = FALSE)
+}
+
+# Separate workbook with the two drill-down sheets and the data they need.
+write_drilldown_workbook <- function(model_data, path, host = NULL) {
+  if (!requireNamespace("openxlsx2", quietly = TRUE)) return(invisible(NULL))
+  library(openxlsx2)
+  df <- pivot_data(model_data)
+  if (!"L1" %in% names(df)) {
+    warning("Hierarchy not available (R/request.R not loaded); drill-down workbook skipped.")
+    return(invisible(NULL))
+  }
+  wb <- wb_workbook() |>
+    wb_add_dxfs_style(name = "is_host_drill", bg_fill = wb_color("C6EFCE"),
+                      font_color = wb_color("006100")) |>
+    wb_add_worksheet("how to use") |>
+    wb_add_data(x = drilldown_how_to()) |>
+    wb_set_col_widths(cols = 1, widths = 140) |>
+    wb_add_worksheet("data") |>
+    wb_add_data_table(x = df, table_name = "damage", na = "") |>
+    wb_freeze_pane(first_row = TRUE)
+
+  # drill-down: the whole hierarchy on one sheet, expand / collapse with + and -.
+  # Filter from the side (slicers) or the dropdowns above the table: guild, insect,
+  # host tree, country, region, damage recorded, combined codes, paper series.
+  if ("L1" %in% names(df)) {
+    page <- c("damage_recorded", "country", "region_code", "combined_code", "paper_series")
+    sl <- c("guild", "insect", "host_tree", "country", "region_code", "damage_recorded",
+            "combined_code", "paper_series")
+    wb <- wb |>
+      wb_add_worksheet("drill-down", tab_color = wb_color("C00000")) |>
+      wb_add_pivot_table(df_x0 <- wb_data(wb, sheet = "data"), sheet = "drill-down", dims = "H10",
+                         rows = c("guild", "L1", "L2", "L3", "insect"), cols = "year",
+                         data = "damage", fun = "sum",
+                         filter = page, slicer = setdiff(sl, page),
+                         pivot_table = "drill",
+                         params = list(table_style = "TableStyleMedium9", row_grand_totals = FALSE))
+    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
+    for (j in seq_along(sl))
+      wb <- wb |> wb_add_slicer(df_x0, sheet = "drill-down", dims = pos[j],
+                                pivot_table = "drill", slicer = sl[j])
+    wb <- wb |> wb_set_col_widths(sheet = "drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
+  }
+
+  # host drill-down: insect hierarchy x host trees, 1 = lives on that tree.
+  # Filter from the side (slicers) or the dropdowns above the table: lives on,
+  # guild, insect, host tree, country, region, damage recorded, combined codes.
+  if (!is.null(host) && "L1" %in% names(df)) {
+    hd <- host_drill_data(model_data, host)
+    wb <- wb |>
+      wb_add_worksheet("host data") |>
+      wb_add_data_table(x = hd, table_name = "host_data") |>
+      wb_add_worksheet("host drill-down", tab_color = wb_color("C00000"))
+    hd_x <- wb_data(wb, sheet = "host data")
+    page <- c("lives_on", "country", "region_code", "damage_recorded", "combined_code")
+    sl <- c("lives_on", "guild", "insect", "host_tree", "country", "region_code",
+            "damage_recorded", "combined_code")
+    wb <- wb |>
+      wb_add_pivot_table(hd_x, sheet = "host drill-down", dims = "H10",
+                         rows = c("guild", "L1", "L2", "L3", "insect"),
+                         cols = c("host_type", "host_tree"), data = "present", fun = "max",
+                         filter = page, slicer = setdiff(sl, page), pivot_table = "hostdrill",
+                         params = list(table_style = "TableStyleMedium9",
+                                       row_grand_totals = FALSE, col_grand_totals = FALSE))
+    pos <- c("A3", "D3", "A18", "D18", "A33", "D33", "A48", "D48")
+    for (j in seq_along(sl))
+      wb <- wb |> wb_add_slicer(hd_x, sheet = "host drill-down", dims = pos[j],
+                                pivot_table = "hostdrill", slicer = sl[j])
+    wb <- wb |>
+      wb_add_conditional_formatting(sheet = "host drill-down", dims = "I12:AD400",
+                                    rule = "==1", type = "expression", style = "is_host_drill") |>
+      wb_set_col_widths(sheet = "host drill-down", cols = 1:8, widths = c(14, 14, 2, 14, 14, 2, 2, 48))
+  }
 
   wb_save(wb, path, overwrite = TRUE)
   invisible(path)
