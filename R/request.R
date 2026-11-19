@@ -36,8 +36,8 @@ request_fields <- tibble::tribble(
   "years", "e.g. 2010-2022 or 2003; 2018", "", "Keep only these years.",
   "unit", "m3, ha", "", "Keep only this unit (borers m3, defoliators ha).",
   "host_trees", "names separated by ;", "", "Keep only these host trees (Latin or common name).",
-  "paper_series_only", "yes, no", "no", "yes = only series with >= 6 non-zero years (paper filter).",
-  "include_combined_codes", "yes, no", "yes", "no = drop codes combining several insects (e.g. Def_dec)."
+  "in_paper_dataset_only", "yes, no", "no", "yes = only the data the paper analysed (series with at least 6 years of damage).",
+  "include_mixed_species_codes", "yes, no", "yes", "no = drop codes covering several insects (e.g. Bark beetles on spruce (unspecified))."
 )
 
 add_hierarchy <- function(md, ref_dir = "reference", period_years = 5) {
@@ -132,8 +132,8 @@ run_request <- function(md, req, hc = NULL, ref_dir = "reference") {
   ht <- tolower(.split(get("host_trees")))
   if (length(ht)) d <- filter(d, tolower(host_tree) %in% ht | tolower(host) %in% ht |
                                  tolower(host_label) %in% ht)
-  if (get("paper_series_only") == "yes") d <- filter(d, in_paper_series)
-  if (get("include_combined_codes") == "no") d <- filter(d, !is_aggregate)
+  if (get("in_paper_dataset_only") == "yes") d <- filter(d, in_paper_series)
+  if (get("include_mixed_species_codes") == "no") d <- filter(d, !is_aggregate)
   if (nrow(d) == 0) return(tibble(note = "No records match this request."))
 
   if (ms == "relative_pct") {
@@ -193,7 +193,7 @@ run_request <- function(md, req, hc = NULL, ref_dir = "reference") {
 # Template with example requests and dropdowns
 example_requests <- function() {
   tibble::tribble(
-    ~name, ~insect_level, ~space_level, ~time_level, ~host_level, ~measure, ~columns, ~insects, ~countries, ~years, ~unit, ~host_trees, ~paper_series_only, ~include_combined_codes,
+    ~name, ~insect_level, ~space_level, ~time_level, ~host_level, ~measure, ~columns, ~insects, ~countries, ~years, ~unit, ~host_trees, ~in_paper_dataset_only, ~include_mixed_species_codes,
     "L1 Europe by year", "L1", "europe", "year", "none", "total", "time", "", "", "", "", "", "no", "yes",
     "L2 by country", "L2", "country", "all", "none", "total", "space", "", "", "", "", "", "no", "yes",
     "L3 species by country, paper", "L3", "country", "all", "none", "total", "space", "", "", "", "", "", "yes", "yes",
@@ -216,7 +216,7 @@ write_request_template <- function(path, requests = example_requests()) {
                       widths = c(32, 12, 12, 11, 11, 14, 10, 40, 14, 14, 7, 18, 10, 12)) |>
     wb_freeze_pane(first_active_row = 2, first_active_col = 2)
   for (f in c("insect_level", "space_level", "time_level", "host_level", "measure", "columns",
-              "unit", "paper_series_only", "include_combined_codes")) {
+              "unit", "in_paper_dataset_only", "include_mixed_species_codes")) {
     col <- match(f, names(requests))
     wb <- wb |> wb_add_data_validation(dims = wb_dims(rows = 2:n, cols = col), type = "list",
                                        value = paste0('"', paste(opts[[f]], collapse = ","), '"'))

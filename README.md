@@ -112,10 +112,10 @@ Known issues:
   - **`drill-down`:** the whole hierarchy on one sheet.
     - Rows: guild → L1 → L2 → L3 → insect. Columns: years.
     - Expand or collapse with + / −.
-    - Filter from the slicers on the side or the dropdowns above the table: guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes, paper series.
+    - Filter from the slicers on the side or the dropdowns above the table: guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), single species (yes/no), in paper dataset (yes/no).
   - **`host drill-down`:** the same insect hierarchy × host trees (conifers/broadleaves → tree).
     - 1 = lives on that tree; at group level, 1 = at least one insect of the group does.
-    - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), damage recorded (yes/no), combined codes.
+    - Filter from the slicers on the side or the dropdowns above the table: lives on (yes/no), guild, insect, host tree, country, region (NUTS), single species (yes/no).
     - Choosing a country or region shows only the insects recorded there.
   - Open in Excel, then Data → Refresh All once.
 - `EUForDAM_automated_datasheet.xlsx`: the main deliverable. Sheets: `about`, `changes` (every change vs the raw sheet, with counts), `columns` (what each column means), `data` (the modelling table), `spatial_units` (host and climate).
@@ -159,7 +159,7 @@ L1–L3 are the paper's Table 1 groups. Every record is in exactly one group per
 
 **Measures:** `total`, `mean_per_year`, `mean_per_record`, `max`, `relative_pct` (% of host damaged per year), `n_records`, `n_regions`, `n_countries`, `n_series`, `any_damage`.
 
-**Filters:** insects (any level, `;`-separated), countries, years (`2010-2022`), unit, host trees, paper series only, include combined codes.
+**Filters:** insects (any level, `;`-separated), countries, years (`2010-2022`), unit, host trees, in paper dataset only, include mixed-species codes.
 
 **Layout:** `columns` spreads one dimension across columns. Leave it at `none` for a long table with coverage columns.
 
@@ -229,3 +229,12 @@ A new insect code shows up as a warning until it is added to `insects.csv`.
 - `R/make_table.R`: general table builder.
 - `examples/example_tables.R`: example tables.
 - `tests/test_pipeline.R`: checks the data rules and reproduces the Excel pivot.
+
+## Filter names in the workbooks
+
+| Filter | yes | no |
+|---|---|---|
+| `single_species` | one named species | a mixed code covering several insects, e.g. "Bark beetles on spruce (unspecified)" |
+| `in_paper_dataset` | part of the data the paper analysed (series with at least 6 years of damage) | left out by the paper |
+| `damage_recorded` (damage drill-down) | damage > 0 in that record | monitored, zero damage |
+| `lives_on` (host drill-down) | the insect lives on that tree | it does not |

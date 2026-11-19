@@ -55,7 +55,7 @@ add_query_sheet <- function(wb, df, hd, data_sheet = "data", host_sheet = "host 
     label = c("Rows", "Columns", "Measure", "Unit",
               "Filter: guild", "Filter: L1", "Filter: L2", "Filter: L3", "Filter: insect",
               "Filter: host tree", "Filter: country", "Years from", "Years to",
-              "Paper series only", "Combined codes"),
+              "In paper dataset only", "Mixed-species codes"),
     value = c("insect", "year", "total", "m3",
               "(all)", "(all)", "(all)", "(all)", "(all)", "(all)", "(all)",
               "2000", "2022", "no", "include"),
@@ -77,7 +77,7 @@ add_query_sheet <- function(wb, df, hd, data_sheet = "data", host_sheet = "host 
       "Measure: total damage, number of records, average per record, any damage (1 = damage > 0, 0 = only zeros), lives on (1/0) = insect x host matrix (rows/columns must be insect levels and host_type / host_tree).",
       "Unit: m3 = borers (damaged wood), ha = defoliators (defoliated area). One unit at a time; they are never added together.",
       "Blank cell = no record (not recorded). 0 = monitored, no damage.",
-      "Filters: (all) = no filter. Combined codes: include / exclude codes that combine several insects (e.g. Bark beetles on spruce (unspecified)).",
+      "Filters: (all) = no filter. In paper dataset only: yes = only series with at least 6 years of damage, as analysed in the paper. Mixed-species codes: include / exclude codes covering several insects (e.g. Bark beetles on spruce (unspecified)).",
       "Showing up to 100 rows x 80 columns; region_code has 77 entries."))) |>
     wb_add_font(sheet = "query", dims = "E3:E8", italic = TRUE, color = wb_color("595959"))
 
@@ -112,8 +112,8 @@ add_query_sheet <- function(wb, df, hd, data_sheet = "data", host_sheet = "host 
     sprintf('%s,%s', rng("country"), f("country")),
     sprintf('%s,">="&%s', rng("year"), cc[["from"]]),
     sprintf('%s,"<="&%s', rng("year"), cc[["to"]]),
-    sprintf('%s,IF(%s="yes","yes","*")', rng("paper_series"), cc[["paper"]]),
-    sprintf('%s,IF(%s="exclude","no","*")', rng("combined_code"), cc[["combined"]]),
+    sprintf('%s,IF(%s="yes","yes","*")', rng("in_paper_dataset"), cc[["paper"]]),
+    sprintf('%s,IF(%s="exclude","yes","*")', rng("single_species"), cc[["combined"]]),
     sep = ",")
   hcrit <- paste(
     sprintf('%s,%s', hcol("guild"), f("guild")),
@@ -122,7 +122,7 @@ add_query_sheet <- function(wb, df, hd, data_sheet = "data", host_sheet = "host 
     sprintf('%s,%s', hcol("L3"), f("L3")),
     sprintf('%s,%s', hcol("insect"), f("insect")),
     sprintf('%s,%s', hcol("host_tree"), f("host_tree")),
-    sprintf('%s,IF(%s="exclude","no","*")', hcol("combined_code"), cc[["combined"]]),
+    sprintf('%s,IF(%s="exclude","yes","*")', hcol("single_species"), cc[["combined"]]),
     sep = ",")
 
   # ---- table ----------------------------------------------------------------
