@@ -461,27 +461,43 @@ for c in ORDER:
         end = grid(s2, 4, FIELDS, WID, agent_rows(c, units), years)
         s2.freeze_panes = "K5"
 
-    # ---- sheet 3: abiotic (wind + total abiotic), only the years we need
+    # ---- sheet 3: abiotic (wind + total abiotic) – what we have comes from the Incoming sheets
     s3 = wb3.create_sheet("3 Abiotic")
     note(s3, f"{COUNTRY[c]} – abiotic damage by {lvl}",
-         "Wind = windthrow / storm damage.  Total abiotic = all abiotic causes together (wind, snow, ice, drought, fire, other).  "
-         "Set the unit (m3 or ha) in the 'Unit' column.  BLANK = no data, 0 = no damage.", span=16)
+         "Wind = windthrow / storm damage only.  Total abiotic = all abiotic causes together (wind, snow, ice, drought, fire, other).  "
+         "One row per region; fill the yellow year cells.  Unit: we filled in the unit you used before – change it if needed.  "
+         "BLANK = no data, 0 = no damage.", span=16)
+
+    def unit_default(i):
+        u_ = ABIO_UNIT[c][i]
+        return "ha" if u_.startswith("ha") else "m3"
     r = 4
-    for lab, code, i0 in (("Wind", "ABIO_wind", 0), ("Total abiotic", "ABIO_tot", 4)):
+    for lab, code, i0, ui in (("Wind", "ABIO_wind", 0, 0), ("Total abiotic", "ABIO_tot", 4, 1)):
         a = ABIO[c]
         upd = a[i0] == "Y" and a[i0 + 1] == "NUTS"
         years = list(range(a[i0 + 3] + 1, 2026)) if upd else list(range(2000, 2026))
-        s3.cell(r, 1, f"{lab} – {years[0]}–{years[-1]}" + (" (update – we hold earlier years)" if upd else "")).font = \
-            Font(name=F, size=12, bold=True)
+        if upd:
+            msg = (f"{lab.upper()}: we have your data by {lvl} for {yr(a[i0 + 2], a[i0 + 3])} – "
+                   f"please add {years[0]}–{years[-1]}.")
+        elif a[i0] == "Y":
+            scope = "totals for Friuli Venezia Giulia" if c == "IT" else "national totals"
+            msg = (f"{lab.upper()}: we have only {scope} ({yr(a[i0 + 2], a[i0 + 3])}) – "
+                   f"please send the full series 2000–2025 by {lvl}.")
+        else:
+            msg = f"{lab.upper()}: not in the data you sent us – please send the full series 2000–2025 by {lvl}."
+        s3.cell(r, 1, msg).font = Font(name=F, size=12, bold=True, color="305496")
         r += 1
-        rows = [[lab, code, c, u, nm, "m3"] for u, nm in units]
-        r = grid(s3, r, ["Damage type", "code", "Country", "NUTS", "Region", "Unit"], [16, 11, 7, 9, 22, 7], rows, years)
+        rows = [[lab, code, c, u, nm, unit_default(ui)] for u, nm in units]
+        r = grid(s3, r, ["Damage type", "code", "Country", "NUTS code", "Region", "Unit (m3/ha)"],
+                 [14, 10, 8, 10, 24, 9], rows, years)
         for rr in range(r - len(rows), r):          # unit is an input here
             s3.cell(rr, 6).fill = YEL
+            s3.cell(rr, 6).alignment = CEN
         dvu = DataValidation(type="list", formula1='"m3,ha"', allow_blank=True)
         s3.add_data_validation(dvu)
         dvu.add(f"F{r - len(rows)}:F{r - 1}")
-        r += 1
+        r += 2
+    s3.column_dimensions["B"].hidden = True
     s3.freeze_panes = "G4"
     for s_ in wb3.worksheets:
         s_.sheet_view.zoomScale = 90
