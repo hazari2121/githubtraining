@@ -69,7 +69,7 @@ UNIT_NAMES = {
 }
 UNIT_NAMES.update(d[d.Country == "PL"].drop_duplicates("NUTS").set_index("NUTS")["Region"].to_dict())
 
-# Target NUTS (2021) for countries without sub-national data.
+# Target NUTS (codes valid in NUTS 2021 and 2024) for countries without sub-national data.
 # Rule: NUTS 2; NUTS 3 where NUTS 2 has <=4 units (HR, LT, SI, SK) or the data cover one NUTS 2 (IT-FVG).
 TARGET = {
     "BG": ("NUTS 2", [("BG31", "Severozapaden"), ("BG32", "Severen tsentralen"), ("BG33", "Severoiztochen"),
@@ -114,6 +114,19 @@ TARGET = {
     "CH": ("NUTS 2", [("CH01", "Région lémanique"), ("CH02", "Espace Mittelland"), ("CH03", "Nordwestschweiz"),
                       ("CH04", "Zürich"), ("CH05", "Ostschweiz"), ("CH06", "Zentralschweiz"), ("CH07", "Ticino")]),
 }
+
+# Official names from Eurostat NUTS 2024 (Nuts2json, GISCO) – all codes used here were checked against it.
+import json as _json, os as _os
+_ES = _os.path.join(_os.path.dirname(_os.path.abspath(sys.argv[0])), "eurostat_nuts2024_names.json")
+if _os.path.exists(_ES):
+    _N = _json.load(open(_ES, encoding="utf-8"))
+    for _c, (_lvl, _us) in TARGET.items():
+        TARGET[_c] = (_lvl, [(u, _N.get(u, nm)) for u, nm in _us])
+    for _u in list(UNIT_NAMES):
+        if _u in _N:
+            UNIT_NAMES[_u] = _N[_u]
+    for _u in ("FI1D7", "FI200"):
+        UNIT_NAMES[_u] = _N.get(_u, UNIT_NAMES.get(_u))
 
 SUBNAT = ["AT", "CZ", "DE", "FI", "PL"]
 LEVEL = {"AT": "NUTS 2", "CZ": "NUTS 2 (rows are NUTS 3 kraje, labelled with NUTS 2 code)",
@@ -347,7 +360,7 @@ lines = [
     ("'Reported nationally' column (countries without NUTS data) = species reported at national level; experts indicate in which NUTS it occurs.", body),
     ("", body),
     ("Caveats", bold),
-    ("Target NUTS = NUTS 2021 codes typed in by hand; NUTS 3 used where NUTS 2 has ≤4 units (HR, LT, SI, SK, RS) and for FVG. Check against the current Eurostat NUTS list before sending.", body),
+    ("Target units = Eurostat NUTS 2024 codes and names, checked against the official GISCO Nuts2json files (all codes valid, lists complete). NUTS 3 used where NUTS 2 has ≤4 units (HR, LT, SI, SK, RS) and for FVG. EUForDam FI codes are NUTS 2024 codes (Finland recoded several NUTS 3 units in 2024).", body),
     ("Abiotic sheet: filled from the Incoming sheets for all 16 countries (see Incoming_Check). Column 'Previous draft v9 (unverified)' holds what v9 wrote.", body),
     ("CZ: Ips typographus is stored under the spruce bark-beetle group code (CambXyl_con&BB_con&SM); it is counted as Ips typographus in SP_CZ.", body),
 ]
@@ -521,10 +534,10 @@ for c in order:
             us = us + ["FI1D7", "FI200"]
         UNITS[c] = [(u, UNIT_NAMES.get(u, u)) for u in us]
         lvl = LEVEL[c]
-        src = "units in EUForDam_REW"
+        src = "units in EUForDam_REW" + ("" if c == "PL" else "; codes checked vs Eurostat NUTS 2024")
     else:
         lvl, UNITS[c] = TARGET[c]
-        src = "NUTS 2021 target – verify"
+        src = "Eurostat NUTS 2024 (checked)"
     for u, nm in UNITS[c]:
         note = "not in data – ask" if u in ("FI1D7", "FI200") else ""
         rows.append([c, COUNTRY[c], lvl, u, nm, src, note])
