@@ -374,7 +374,7 @@ def note(ws, t, txt, span=12):
 
 def grid(ws, r0, fields, widths, rows, years):
     """Header at r0; reference fields grey, year cells + Comment yellow. Returns next free row."""
-    cols = fields + [str(y) for y in years] + ["Comment"]
+    cols = fields + [f"Year {y}" for y in years] + ["Comment"]
     for j, h_ in enumerate(cols, 1):
         c_ = ws.cell(r0, j, h_)
         c_.font, c_.fill, c_.alignment, c_.border = H, HF, CEN, BOX
@@ -480,7 +480,8 @@ for c in ORDER:
     end = grid(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
     s1.freeze_panes = "K5"
 
-    # ---- sheet 2: NUTS-level 2000–2022 that we do not have
+    # ---- sheet 2: NUTS-level 2000–2022 that we do not have (no unit column – same units as sheet 1)
+    S2_NOTE = "Use the same units as on sheet 1.  BLANK = no data / not monitored.  0 = monitored, no damage."
     s2 = wb3.create_sheet("2 Insects 2000-2022 by NUTS")
     if sub:   # NUTS data provided → only the years missing from the NUTS series
         miss = [(a_, list(range(2000, a_["y0"]))) for a_ in agents_for(c) if a_["y0"] > 2000]
@@ -488,10 +489,10 @@ for c in ORDER:
             years = sorted({y for _, ys in miss for y in ys})
             note(s2, f"{COUNTRY[c]} – missing years by {lvl}",
                  f"Our {lvl} series for the agents below start in {min(a_['y0'] for a_, _ in miss)}. Please add "
-                 f"{years[0]}–{years[-1]} if you have them.  {BLANK_NOTE}", span=14)
+                 f"{years[0]}–{years[-1]} if you have them.  {S2_NOTE}", span=14)
             codes = {a_["code"] for a_, _ in miss}
-            end = grid(s2, 4, FIELDS, WID, [r_ for r_ in agent_rows(c, units) if r_[1] in codes], years)
-            s2.freeze_panes = "K5"
+            end = grid(s2, 4, FIELDS[:-1], WID[:-1], [r_[:-1] for r_ in agent_rows(c, units) if r_[1] in codes], years)
+            s2.freeze_panes = "J5"
         else:
             note(s2, f"{COUNTRY[c]} – no missing years",
                  f"We already hold your data by {lvl} for 2000–2022 for all agents – nothing to fill on this sheet. "
@@ -500,9 +501,17 @@ for c in ORDER:
         years = list(range(2000, 2023))
         note(s2, f"{COUNTRY[c]} – insect damage 2000–2022 by {lvl}",
              f"We hold only national totals. Please give the same agents by {lvl} for 2000–2022 (2023–2025 go on sheet 1). "
-             f"This replaces the national series.  {BLANK_NOTE}", span=16)
-        end = grid(s2, 4, FIELDS, WID, agent_rows(c, units), years)
-        s2.freeze_panes = "K5"
+             f"This replaces the national series.  {S2_NOTE}", span=16)
+        end = grid(s2, 4, FIELDS[:-1], WID[:-1], [r_[:-1] for r_ in agent_rows(c, units)], years)
+        s2.freeze_panes = "J5"
+
+    # tab name says exactly which years sheet 2 asks for
+    if sub and miss:
+        s2.title = f"2 Missing years {years[0]}-{years[-1]}"
+    elif sub:
+        s2.title = "2 Missing years - none"
+    else:
+        s2.title = "2 NUTS data 2000-2022"
 
     # ---- sheet 3: abiotic (wind + total abiotic) – what we have comes from the Incoming sheets
     s3 = wb3.create_sheet("3 Abiotic")
