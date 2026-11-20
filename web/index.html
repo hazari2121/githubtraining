@@ -142,7 +142,7 @@ svg text { fill: var(--muted); font: 11px var(--mono); }
 
   <!-- EXPLORE -->
   <section id="view-explore" class="panel" hidden>
-    <p class="intro">Pick what goes in the rows and the columns, what each cell shows, and filter. Blank = no record (not recorded); 0 = monitored, no damage. Borers are in m³, defoliators in ha; the two are never added together.</p>
+    <p class="intro">Pick what goes in the rows and the columns, what each cell shows, and filter. Blank = no record (not recorded); 0 = monitored, no damage. Borers are in m³, defoliators in ha; the two are never added together. Ips typographus includes the combined spruce bark beetle code of Czechia and Germany, as in the paper.</p>
     <div class="controls">
       <div class="field"><label for="ex-rows">Rows</label><select id="ex-rows"></select></div>
       <div class="field"><label for="ex-cols">Columns</label><select id="ex-cols"></select></div>
@@ -348,6 +348,7 @@ async function load() {
   const [meta, rec, pairs] = await Promise.all([get("meta.json"), get("records.json"), get("pairs.json")]);
   S.meta = meta; S.pairs = pairs;
   S.geo = await get("map.json").catch(() => null);
+  S.notes = meta.insects.filter((m) => m.note).map((m) => "* " + m.name + ": " + m.note);
   const code2i = new Map(meta.insects.map((m, i) => [m.code, i]));
   S.code2i = code2i;
   S.rec = rec.map(([i, r, y, t, v, n, p, k]) => ({ i, r, y, t, v, n, p, k }));
@@ -451,7 +452,7 @@ function renderExplore() {
 // ---------- compare ----------
 const LEVELS = [["insect", "Insect"], ["L3", "L3 (paper species)"], ["L2", "L2 (host genus)"], ["L1", "L1 (conifers / broadl.)"], ["guild", "Guild"]];
 function levelItems(level) {
-  if (level === "insect") return S.meta.insects.map((m, i) => [String(i), m.name + (m.single ? "" : " (mixed code)"), m.guild]);
+  if (level === "insect") return S.meta.insects.map((m, i) => [String(i), m.name + (m.single ? "" : " (mixed code)") + (m.note ? " *" : ""), m.guild]);
   const seen = new Map();
   S.meta.insects.forEach((m) => { const v = m[level]; if (v !== "(no subgroup)" && !seen.has(v)) seen.set(v, m.guild); });
   return [...seen].map(([v, g]) => [v, level === "guild" ? (v === "borer" ? "Borers" : "Defoliators") : v, g]);
@@ -571,6 +572,9 @@ function renderCompare() {
   const colA = "var(--accent)", colB = "var(--bark)";
   $("cp-legend").innerHTML = `<span class="key"><i style="background:${colA}"></i>A: ${esc(labA)} <span class="pill">${u(da.unit) || "no records"}</span></span>` +
     `<span class="key"><i style="background:${colB}"></i>B: ${esc(labB)} <span class="pill">${u(db.unit) || "no records"}</span></span>`;
+  const noteOf = (side) => side.level === "insect" && S.meta.insects[+side.item] && S.meta.insects[+side.item].note ? S.meta.insects[+side.item].name + ": " + S.meta.insects[+side.item].note : "";
+  const notes = [noteOf(A), noteOf(B)].filter(Boolean);
+  if (notes.length) $("cp-legend").innerHTML += `<p class="note" style="flex-basis:100%">${notes.map(esc).join("<br>")}</p>`;
   const same = A.level === B.level && A.item === B.item && A.tree === B.tree;
   const pts = (d) => [...d.yr.entries()].sort((a, b) => a[0] - b[0]);
   if (same) { $("cp-charts").innerHTML = `<div class="empty">A and B are the same. Pick something different for one of them.</div>`; $("cp-stats").innerHTML = ""; $("cp-regions").innerHTML = ""; S.cmp = null; return; }
@@ -740,11 +744,11 @@ function renderMap() {
     `<span><i style="background:var(--map-zero)"></i>0</span><span><i style="background:url(#hatch);background:repeating-linear-gradient(45deg,var(--map-none) 0 3px,var(--map-line) 3px 5px)"></i>no record</span>` +
     (ms === "relative" ? `<span><i style="background:var(--map-bg)"></i>no host data</span>` : "");
   const rows = S.meta.regions.map((r, i) => ({ i, c: st.get(i) })).sort((a, b) => (b.c ? (b.c[ms] ?? -1) : -2) - (a.c ? (a.c[ms] ?? -1) : -2));
-  $("mp-table").innerHTML = `<table><thead><tr><th>Region</th><th>Country</th><th>${esc(MAP_MEASURES.find((m) => m[0] === ms)[1])}</th><th>Total damage</th><th>Years recorded</th><th>Years with damage</th><th>Records</th><th>% of host / yr</th></tr></thead><tbody>` +
+  $("mp-table").innerHTML = `<table><thead><tr><th>Region</th><th>Country</th><th>${esc(MAP_MEASURES.find((m) => m[0] === ms)[1])}</th>${ms !== "total" ? "<th>Total damage</th>" : ""}<th>Years recorded</th><th>Years with damage</th><th>Records</th><th>% of host / yr</th></tr></thead><tbody>` +
     rows.map(({ i, c }) => { const r = S.meta.regions[i];
       return `<tr class="click" data-r="${i}"><td>${esc(r.code + (r.name !== r.code ? " " + r.name : ""))}</td><td style="font-family:var(--font)">${esc(r.country)}</td>` +
-        (c ? `<td data-raw="${c[ms] ?? ""}">${c[ms] === null || c[ms] === undefined ? "–" : f(c[ms])}</td><td data-raw="${c.total}">${fmt(c.total, "total")}</td><td>${c.yrsrec}</td><td>${c.yrsdmg}</td><td>${c.records}</td><td data-raw="${c.relative ?? ""}">${c.relative === null ? "–" : fmt(c.relative, "pct")}</td>`
-           : `<td colspan="6" class="sub" style="text-align:left;font-family:var(--font)">no record</td>`) + "</tr>"; }).join("") + "</tbody></table>";
+        (c ? `<td data-raw="${c[ms] ?? ""}">${c[ms] === null || c[ms] === undefined ? "–" : f(c[ms])}</td>${ms !== "total" ? `<td data-raw="${c.total}">${fmt(c.total, "total")}</td>` : ""}<td>${c.yrsrec}</td><td>${c.yrsdmg}</td><td>${c.records}</td><td data-raw="${c.relative ?? ""}">${c.relative === null ? "–" : fmt(c.relative, "pct")}</td>`
+           : `<td colspan="${ms !== "total" ? 6 : 5}" class="sub" style="text-align:left;font-family:var(--font)">no record</td>`) + "</tr>"; }).join("") + "</tbody></table>";
   $("mp-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { showInfo(+tr.dataset.r);
     $("mp-map").querySelectorAll("path.sel").forEach((q) => q.classList.remove("sel")); const p = $("mp-map").querySelector(`path[data-r="${tr.dataset.r}"]`); if (p) p.classList.add("sel"); }));
   if (S.mapSel !== undefined) showInfo(S.mapSel);
@@ -758,6 +762,7 @@ function showInfo(r) {
     `<dt>% of host per year</dt><dd>${c.relative === null ? "–" : fmt(c.relative, "pct")}</dd><dt>Years with a record</dt><dd>${c.yrsrec} of ${(+$("mp-to").value || 2022) - (+$("mp-from").value || 2000) + 1}</dd>` +
     `<dt>Years with damage</dt><dd>${c.yrsdmg}</dd><dt>Records</dt><dd>${c.records}</dd></dl>`) +
     (!reg.host ? `<p class="note">No host data for this region, so no % of host.</p>` : "") +
+    ($("mp-level").value === "insect" && S.meta.insects[+$("mp-item").value] && S.meta.insects[+$("mp-item").value].note ? `<p class="note">${esc(S.meta.insects[+$("mp-item").value].note)}</p>` : "") +
     (ex ? `<p class="note">Host growing stock left out for ${esc(ex.split(" (")[1].replace(")", ""))}: values look like thousands of m³.</p>` : "");
 }
 

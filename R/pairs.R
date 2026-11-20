@@ -32,7 +32,26 @@ suppressPackageStartupMessages({
   suppressWarnings(cor(x, y, method = "spearman"))
 }
 
+# Codes counted as another insect (reference/counted_as.csv), e.g. the combined spruce
+# bark beetle code counted as Ips typographus. Returns model_data with sp_code, insect
+# and is_aggregate replaced for those records.
+apply_counted_as <- function(model_data, ref = "reference/counted_as.csv") {
+  if (!file.exists(ref)) return(model_data)
+  ca <- readr::read_csv(ref, show_col_types = FALSE, col_types = readr::cols(.default = "c"))
+  names_of <- model_data |> distinct(sp_code, insect)
+  for (k in seq_len(nrow(ca))) {
+    hit <- model_data$sp_code == ca$code[k]
+    if (!any(hit)) next
+    target_name <- names_of$insect[match(ca$counted_as[k], names_of$sp_code)]
+    model_data$sp_code[hit] <- ca$counted_as[k]
+    if (!is.na(target_name)) model_data$insect[hit] <- target_name
+    model_data$is_aggregate[hit] <- FALSE
+  }
+  model_data
+}
+
 build_pairs <- function(model_data, host, min_years = 6) {
+  model_data <- apply_counted_as(model_data)
   h <- if (exists("add_hierarchy")) add_hierarchy(model_data) else
     mutate(model_data, L1 = NA_character_, L2 = NA_character_)
   info <- h |>

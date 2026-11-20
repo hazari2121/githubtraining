@@ -237,7 +237,7 @@ test_that("web explorer data keeps every record and the same totals", {
   expect_equal(sum(r[, 6]), nrow(mdr))                      # number of records
   expect_equal(sum(r[, 5]), sum(mdr$value), tolerance = 1e-6)
   m <- jsonlite::fromJSON(file.path(d, "meta.json"))
-  expect_equal(nrow(m$insects), dplyr::n_distinct(mdr$sp_code))
+  expect_equal(nrow(m$insects), dplyr::n_distinct(apply_counted_as(mdr)$sp_code))
 })
 
 test_that("web data: host amounts per region and implausible growing stock left out", {
@@ -250,4 +250,14 @@ test_that("web data: host amounts per region and implausible growing stock left 
   expect_setequal(codes[vapply(m$regions, function(r) is.null(r$host), TRUE)], c("DE3", "DE5", "DE6"))
   expect_setequal(sub(" .*", "", unlist(m$host_excluded)), c("BG", "LT"))
   expect_false(any(grepl("<U\\+", unlist(lapply(m$regions, `[[`, "name")))))
+})
+
+test_that("combined spruce bark beetle code is counted as Ips typographus (paper rule)", {
+  m2 <- apply_counted_as(mdr)
+  expect_false(any(m2$sp_code == "CambXyl_con&BB_con&SM"))
+  ips <- m2[m2$sp_code == "ips_typ", ]
+  expect_true("CZ" %in% ips$country)
+  expect_equal(dplyr::n_distinct(ips$country), 16)
+  expect_equal(sum(ips$value), 586715446, tolerance = 1e-3)   # paper Table 2
+  expect_equal(sum(m2$value), sum(mdr$value))                  # nothing lost
 })

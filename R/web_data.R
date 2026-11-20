@@ -21,6 +21,12 @@ HOST_KEYS <- c("spruce", "pine", "fir", "oak", "coniferous", "deciduous")
 
 write_web_data <- function(model_data, host, pairs, out_dir, host_climate = NULL) {
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+  merged_codes <- character()
+  if (exists("apply_counted_as") && file.exists("reference/counted_as.csv")) {
+    ca <- readr::read_csv("reference/counted_as.csv", show_col_types = FALSE, col_types = readr::cols(.default = "c"))
+    merged_codes <- setNames(ca$note, ca$counted_as)
+    model_data <- apply_counted_as(model_data)
+  }
   h <- add_hierarchy(model_data)
   l2 <- if_else(startsWith(h$L2, "other "), "(no subgroup)", h$L2)
   l3 <- if_else(h$L3 == h$L2 & startsWith(h$L3, "other "), "(no subgroup)", h$L3)
@@ -87,7 +93,8 @@ write_web_data <- function(model_data, host, pairs, out_dir, host_climate = NULL
     insects = lapply(seq_len(nrow(ins)), function(k) list(
       code = ins$code[k], name = ins$insect[k], guild = ins$guild[k], unit = ins$unit[k],
       L1 = ins$L1[k], L2 = ins$L2[k], L3 = ins$L3[k], single = ins$single[k],
-      hosts = I(ins$hosts[[k]]))),
+      hosts = I(ins$hosts[[k]]),
+      note = if (ins$code[k] %in% names(merged_codes)) unname(merged_codes[ins$code[k]]) else NA)),
     regions = lapply(seq_len(nrow(regs)), function(k) list(
       code = regs$nuts[k], country = regs$country[k], name = regs$region[k],
       host = { hv <- host_of(regs$nuts[k]); if (is.null(hv)) NA else hv })),   # NA -> null

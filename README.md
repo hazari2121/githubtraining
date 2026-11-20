@@ -43,6 +43,13 @@ bash setup/install_modelling_packages.sh
 
 Limitation: the combined code covers all spruce bark beetles, so the CZ and some DE values slightly overstate *I. typographus* itself.
 
+### Codes counted as another insect
+
+`reference/counted_as.csv` lists codes counted as another insect: the combined spruce bark beetle code `CambXyl_con&BB_con&SM` is counted as *Ips typographus*.
+- **Why:** Czechia reports its spruce bark beetle damage only under this code (94.1 million m³, all 8 regions, 2000–2022), and the paper does the same.
+- **Where it applies:** the pairs table and the web explorer.
+- **Effect:** *Ips typographus* there covers 16 countries and 586.7 million m³ (paper Table 2).
+
 ## Guideline paper
 
 Hlásny et al. 2025, *Divergent Trends in Insect Disturbance Across Europe's Temperate and Boreal Forests*, Global Change Biology 31:e70580. It was produced from this database, and the project follows its definitions.
