@@ -58,6 +58,7 @@ B = Font(name=F, size=10)
 BB = Font(name=F, size=10, bold=True)
 T = Font(name=F, size=14, bold=True)
 YEL = PatternFill("solid", fgColor="FFF2CC")
+OPT = PatternFill("solid", fgColor="FFFBEB")
 GRY = PatternFill("solid", fgColor="D9D9D9")
 LGR = PatternFill("solid", fgColor="EDEDED")
 thin = Side(style="thin", color="BFBFBF")
@@ -204,13 +205,17 @@ for c in COUNTRY:
     a_units_w = units_for(c) if (wmode == "update" or not sub) else units_for(c)
     if not sub:
         a_units_w = units + [(c, "National total (only if no split possible)")]
+    a_ = ABIO[c]
+    w_first = a_[2] if wmode == "update" else 2000   # first year we actually hold
+    t_first = a_[6] if tmode == "update" else 2000
     rows, reqmap = [], []
-    for typ, mode, ry in (("Wind (windthrow)", wmode, set(wy)), ("Total abiotic (wind, snow, ice, drought, fire …)", tmode, set(ty))):
+    for typ, mode, ry, first in (("Wind (windthrow)", wmode, set(wy), w_first),
+                                 ("Total abiotic (wind, snow, ice, drought, fire …)", tmode, set(ty), t_first)):
         for u, nm in a_units_w:
             rows.append((typ, "m3", u, nm))
-            reqmap.append(ry)
+            reqmap.append((ry, first))
     note = ("Wind = windthrow / storm damage only.  Total abiotic = all abiotic causes together (wind, snow, ice, drought, fire, other). "
-            "Yellow = please fill, grey = we already hold it.  BLANK = no data, 0 = no damage.  Volume (m3) preferred; set the Unit column.")
+            "Yellow = please fill, light yellow = optional (earlier years we do not have), grey = we already hold it.  BLANK = no data, 0 = no damage.  Volume (m3) preferred; set the Unit column.")
     ab["A1"] = f"{COUNTRY[c]} – abiotic damage"
     # grid_sheet uses one req set; build per-row by temporarily greying
     end = grid_sheet(ab, f"{COUNTRY[c]} – abiotic damage", note, rows, years, set(years),
@@ -218,11 +223,14 @@ for c in COUNTRY:
     dv_list = ab.data_validations.dataValidation
     num_dv = [v for v in dv_list if v.type == "decimal"][0]
     keep = []
-    for i, ry in enumerate(reqmap):
+    for i, (ry, first) in enumerate(reqmap):
         r = 5 + i
         for k, y in enumerate(years):
             cell = ab.cell(r, 5 + k)
-            if y not in ry:
+            if y not in ry and y < first:
+                cell.fill, cell.value = OPT, None
+                keep.append(cell.coordinate)
+            elif y not in ry:
                 cell.fill, cell.value = GRY, "held"
                 cell.font = Font(name=F, size=8, color="808080")
             else:
@@ -321,17 +329,19 @@ for c in COUNTRY:
     ask_ins = ("Add 2023, 2024, 2025 for the agents and units listed (3 values each)." if sub else
                f"Full series 2000–2025 by {lvl} ({len(units)} units) – this replaces the national series.")
 
-    def ask_ab(mode, yrs):
-        return f"update {yrs[0]}–2025" if mode == "update" else "full series 2000–2025 by region"
+    def ask_ab(mode, yrs, first):
+        if mode != "update":
+            return "full series 2000–2025 by region"
+        return f"update {yrs[0]}–2025" + (f" (optional: 2000–{first - 1})" if first > 2000 else "")
     lines += [
         ("What we already have", have, None),
         ("What we ask", "", BB),
         ("  Sheet 1 – Insect damage", ask_ins, None),
-        ("  Sheet 2 – Abiotic damage", f"Wind: {ask_ab(wmode, wy)}.  Total abiotic: {ask_ab(tmode, ty)}.", None),
+        ("  Sheet 2 – Abiotic damage", f"Wind: {ask_ab(wmode, wy, w_first)}.  Total abiotic: {ask_ab(tmode, ty, t_first)}.", None),
         ("  Sheet 3 – Species presence", "Mark how confident you are that each species occurs in each region (0–3).", None),
         ("", None, B),
         ("How to fill in", "", BB),
-        ("  Yellow cells", "Please fill. Grey cells = we already have this, no action needed.", None),
+        ("  Yellow cells", "Please fill. Light yellow = optional (earlier years we do not have). Grey 'held' = we already have this, no action needed.", None),
         ("  Blank vs 0", "Leave BLANK if there is no data or the agent was not monitored. Enter 0 ONLY if it was monitored and there was no damage.", None),
         ("  Units", "Volume (m3) preferred. If you report area (ha) or something else, change the Unit column in that row.", None),
         ("  Regions", f"Rows use {lvl} codes. If your data use other units, add them in the Comment column.", None),
