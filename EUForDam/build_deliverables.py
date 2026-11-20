@@ -482,10 +482,20 @@ for c in ORDER:
 
     # ---- sheet 2: NUTS-level 2000–2022 that we do not have
     s2 = wb3.create_sheet("2 Insects 2000-2022 by NUTS")
-    if sub:   # already provided NUTS-level data → nothing to ask on this sheet
-        note(s2, f"{COUNTRY[c]} – not needed",
-             f"You already provided NUTS-level data ({lvl}), so there is nothing to fill on this sheet. "
-             "Please use sheet 1 (2023–2025) and sheet 3 (abiotic).")
+    if sub:   # NUTS data provided → only the years missing from the NUTS series
+        miss = [(a_, list(range(2000, a_["y0"]))) for a_ in agents_for(c) if a_["y0"] > 2000]
+        if miss:
+            years = sorted({y for _, ys in miss for y in ys})
+            note(s2, f"{COUNTRY[c]} – missing years by {lvl}",
+                 f"Our {lvl} series for the agents below start in {min(a_['y0'] for a_, _ in miss)}. Please add "
+                 f"{years[0]}–{years[-1]} if you have them.  {BLANK_NOTE}", span=14)
+            codes = {a_["code"] for a_, _ in miss}
+            end = grid(s2, 4, FIELDS, WID, [r_ for r_ in agent_rows(c, units) if r_[1] in codes], years)
+            s2.freeze_panes = "K5"
+        else:
+            note(s2, f"{COUNTRY[c]} – no missing years",
+                 f"We already hold your data by {lvl} for 2000–2022 for all agents – nothing to fill on this sheet. "
+                 "Please use sheet 1 (2023–2025) and sheet 3 (abiotic).")
     else:
         years = list(range(2000, 2023))
         note(s2, f"{COUNTRY[c]} – insect damage 2000–2022 by {lvl}",
