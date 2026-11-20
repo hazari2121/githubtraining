@@ -232,7 +232,7 @@ wb.save(os.path.join(OUT, "EUForDam_Inventory_and_Requests.xlsx"))
 # 2. Species presence – species × NUTS, one sheet per country
 # =====================================================================================
 nzc = d[d.v > 0].groupby("sp_code").Country.nunique()
-SPECIES = sorted([k_ for k_, v in AGENT.items() if v[1] != "group code" and nzc.get(k_, 0) >= 3],
+SPECIES = sorted([k_ for k_, v in AGENT.items() if v[1] != "group code" and nzc.get(k_, 0) >= 2],
                  key=lambda k_: (-nzc[k_], AGENT[k_][0]))
 
 
@@ -319,7 +319,7 @@ def legend(ws):
              "X (grey) = species reported in EUForDam with damage > 0 in that region (hover over X for the years).",
              "Yellow cells: confidence that the species occurs there, even if no damage was recorded:",
              "   0 = absent   1 = low (possible)   2 = medium (likely)   3 = high (confirmed)   blank = do not know",
-             "Species listed: those reported in at least 3 countries in EUForDam whose host tree occurs in the country."]
+             "Species listed: those reported in at least 2 countries in EUForDam whose host tree occurs in the country."]
     for i, t in enumerate(lines, 3):
         ws.cell(i, 1, t).font = B
     ws.column_dimensions["A"].width = 120
