@@ -7,9 +7,9 @@ Output sheets
                   (value1 = value in the agent's main unit, value2 = the other measure)
                   plus explicit volume_m3 / area_ha columns and the expert's comment.
   Abiotic       – one row per damage type × region × year (volume_m3, area_ha).
-  Species       – one row per species × region: years already reported (grey cells) or the expert's 0–3 confidence,
+  Species       – one row per species × region: X (already reported) or the expert's 0–3 confidence,
                   plus 'first recorded (year)' and comment.
-  Host          – host availability per region × tree species (latest / earlier inventory, with years)
+  Host          – host availability per region × host tree × inventory (A = latest, B = earlier), with year and source
   Answers       – the answers to the 'Questions for you' block and who filled the file.
 NOTE: values are stored exactly as the expert typed them. The country-specific conversion
 factors used in EUForDam (e.g. FI ha × 122) are NOT applied here.
@@ -25,19 +25,25 @@ OUT, FILES = sys.argv[1], sys.argv[2:]
 MEAS = {"Volume (m3)": "m3", "Area (ha)": "ha"}
 
 
+HEAD_FIRST = ("Agent", "Damage type")
+
+
 def read_grid(ws):
-    head = [c.value for c in ws[4]]
-    years = [(j, int(h)) for j, h in enumerate(head) if isinstance(h, str) and re.fullmatch(r"\d{4}", h)]
-    cidx = head.index("Comment")
-    recs = []
-    for row in ws.iter_rows(min_row=5, values_only=True):
-        if all(v in (None, "") for v in row):
+    """Reads one or more blocks; each block starts with a header row whose first cell is 'Agent' or 'Damage type'."""
+    recs, head = [], None
+    for row in ws.iter_rows(min_row=1, values_only=True):
+        if row and row[0] in HEAD_FIRST:
+            head = list(row)
+            years = [(j, int(h)) for j, h in enumerate(head) if isinstance(h, str) and re.fullmatch(r"\d{4}", h)]
+            cidx = head.index("Comment")
+            continue
+        if head is None or all(v in (None, "") for v in row) or not row[1]:
             continue
         base = dict(zip(head[: years[0][0]], row[: years[0][0]]))
         hidden = dict(zip(head[cidx + 1:], row[cidx + 1:]))
         for j, y in years:
             v = row[j]
-            if v in (None, "", "held"):
+            if v in (None, ""):
                 continue
             try:
                 v = float(v)
@@ -117,7 +123,10 @@ for f in FILES:
             if v in (None, ""):
                 continue
             yrs = parse_years(v)
-            if yrs:
+            if str(v).strip().upper() == "X":
+                sp_all.append({**common, "NUTS": code_, "Region": nm, "source": "reported in EUForDam",
+                               "reported_from": None, "reported_to": None, "confidence": None})
+            elif yrs:
                 sp_all.append({**common, "NUTS": code_, "Region": nm, "source": "reported in EUForDam",
                                "reported_from": yrs[0], "reported_to": yrs[1], "confidence": None})
             else:
@@ -127,7 +136,7 @@ for f in FILES:
             sp_all.append({**common, "NUTS": "", "Region": "", "source": "expert", "reported_from": None,
                            "reported_to": None, "confidence": None})
 
-    # ---- host availability
+    # ---- host availability (only regions × hosts we asked for)
     hn = [n for n in wb.sheetnames if n.endswith("Host availability")]
     if hn:
         hw = wb[hn[0]]
@@ -136,14 +145,13 @@ for f in FILES:
             rec = dict(zip(hh, row))
             if not rec.get("Region code"):
                 continue
-            filled = [rec.get(k) for k in hh[5:13]]
-            if any(v not in (None, "") for v in filled):
-                host_all.append({"Country": country, "NUTS": rec["Region code"], "Region": rec["Region"],
-                                 "host": rec.get("host_key"), "Tree species": rec["Tree species"],
-                                 "held_m3": rec[hh[3]], "held_ha": rec[hh[4]],
-                                 "latest_m3": rec[hh[5]], "latest_ha": rec[hh[6]], "latest_year": rec[hh[7]],
-                                 "earlier_m3": rec[hh[8]], "earlier_ha": rec[hh[9]], "earlier_year": rec[hh[10]],
-                                 "source": rec["Source"], "comment": rec["Comment"]})
+            for inv in ("A", "B"):
+                gs, ar, yr = rec.get(f"{inv}: growing stock (m3)"), rec.get(f"{inv}: area (ha)"), rec.get(f"{inv}: inventory year")
+                if any(v not in (None, "") for v in (gs, ar, yr)):
+                    host_all.append({"Country": country, "NUTS": rec["Region code"], "Region": rec["Region"],
+                                     "host": rec.get("host_key"), "Host tree": rec["Host tree"], "inventory": inv,
+                                     "growing_stock_m3": gs, "area_ha": ar, "inventory_year": yr,
+                                     "source": rec.get("Source"), "comment": rec.get("Comment")})
 
     # ---- answers
     st = wb["Start here"]
