@@ -9,6 +9,7 @@ Output sheets
   Abiotic       – one row per damage type × region × year (volume_m3, area_ha).
   Species       – one row per species × region: years already reported (grey cells) or the expert's 0–3 confidence,
                   plus 'first recorded (year)' and comment.
+  Host          – host availability per region × tree species (latest / earlier inventory, with years)
   Answers       – the answers to the 'Questions for you' block and who filled the file.
 NOTE: values are stored exactly as the expert typed them. The country-specific conversion
 factors used in EUForDam (e.g. FI ha × 122) are NOT applied here.
@@ -47,7 +48,7 @@ def read_grid(ws):
     return pd.DataFrame(recs)
 
 
-ins_all, ab_all, sp_all, ans_all, problems = [], [], [], [], []
+ins_all, ab_all, sp_all, ans_all, host_all, problems = [], [], [], [], [], []
 for f in FILES:
     m = re.search(r"DataRequest_([A-Z]{2})", os.path.basename(f))
     country = m.group(1) if m else "??"
@@ -95,7 +96,7 @@ for f in FILES:
 
     # ---- species presence
     # grey cells hold the years already reported ("2003–2022" / "2015"); yellow cells hold 0–3 confidence
-    ws = wb["3 Species presence"]
+    ws = wb[[n for n in wb.sheetnames if n.endswith("Species presence")][0]]
     codes = [c.value for c in ws[4]]
     names = [c.value for c in ws[5]]
     nat = codes[2] is not None and str(codes[2]).startswith("Reported nationally")
@@ -126,6 +127,24 @@ for f in FILES:
             sp_all.append({**common, "NUTS": "", "Region": "", "source": "expert", "reported_from": None,
                            "reported_to": None, "confidence": None})
 
+    # ---- host availability
+    hn = [n for n in wb.sheetnames if n.endswith("Host availability")]
+    if hn:
+        hw = wb[hn[0]]
+        hh = [c_.value for c_ in hw[4]]
+        for row in hw.iter_rows(min_row=5, values_only=True):
+            rec = dict(zip(hh, row))
+            if not rec.get("Region code"):
+                continue
+            filled = [rec.get(k) for k in hh[5:13]]
+            if any(v not in (None, "") for v in filled):
+                host_all.append({"Country": country, "NUTS": rec["Region code"], "Region": rec["Region"],
+                                 "host": rec.get("host_key"), "Tree species": rec["Tree species"],
+                                 "held_m3": rec[hh[3]], "held_ha": rec[hh[4]],
+                                 "latest_m3": rec[hh[5]], "latest_ha": rec[hh[6]], "latest_year": rec[hh[7]],
+                                 "earlier_m3": rec[hh[8]], "earlier_ha": rec[hh[9]], "earlier_year": rec[hh[10]],
+                                 "source": rec["Source"], "comment": rec["Comment"]})
+
     # ---- answers
     st = wb["Start here"]
     last_q = None
@@ -139,7 +158,7 @@ for f in FILES:
             ans_all.append({"Country": country, "Question": a_, "Answer": b_})
 
 with pd.ExcelWriter(OUT) as xw:
-    for name, parts in (("Insects_REW", ins_all), ("Abiotic", ab_all), ("Species", sp_all), ("Answers", ans_all)):
+    for name, parts in (("Insects_REW", ins_all), ("Abiotic", ab_all), ("Host", host_all), ("Species", sp_all), ("Answers", ans_all)):
         df = pd.concat(parts, ignore_index=True) if parts and isinstance(parts[0], pd.DataFrame) else pd.DataFrame(parts)
         df.to_excel(xw, sheet_name=name, index=False)
     pd.DataFrame({"problem": problems or ["none"]}).to_excel(xw, sheet_name="Problems", index=False)

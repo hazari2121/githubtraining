@@ -1,6 +1,6 @@
 """Build one expert-facing data-request workbook per country.
 
-Usage: python expert_build.py <build_inventory.py> <EUForDam_REW.xlsx> <old_inventory.xlsx> <out_dir>
+Usage: python build_expert_requests.py <build_inventory.py> <EUForDam_REW.xlsx> <old_inventory.xlsx> <out_dir> [Data_Klim_Tree_NUTS.xlsx]
 Reuses the data definitions in build_inventory.py (everything above its 'styles' section).
 """
 import os
@@ -14,6 +14,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
 BUILD, REW, OLD, OUTDIR = sys.argv[1:5]
+HOSTFILE = sys.argv[5] if len(sys.argv) > 5 else None   # Data_Klim_Tree_NUTS_*.xlsx (host availability we hold)
 src = open(BUILD, encoding="utf-8").read()
 src = src[: src.index("# ---------------------------------------------------------------- styles")]
 sys.argv = [BUILD, REW, OLD, "unused.xlsx"]
@@ -22,6 +23,27 @@ exec(compile(src, BUILD, "exec"), ns)
 d, AGENT, COUNTRY, TARGET, SUBNAT, ABIO = ns["d"], ns["AGENT"], ns["COUNTRY"], ns["TARGET"], ns["SUBNAT"], ns["ABIO"]
 UNIT_NAMES, host, unit_of, LEVEL = ns["UNIT_NAMES"], ns["host"], ns["unit_of"], ns["LEVEL"]
 os.makedirs(OUTDIR, exist_ok=True)
+
+# ---- host availability we already hold (Data_Klim_Tree_NUTS, sheet DATA_CLEAN)
+HOSTS = [("spruce", "Norway spruce (Picea abies)"), ("pine", "Scots pine (Pinus sylvestris)"), ("oak", "Oaks (Quercus spp.)"),
+         ("fir", "Silver fir (Abies alba)"), ("coniferous", "All conifers"), ("deciduous", "All broadleaves")]
+HOSTVAL, HOST_UNITS = {}, {}
+if HOSTFILE:
+    import pandas as _pd
+    _k = _pd.read_excel(HOSTFILE, sheet_name="DATA_CLEAN")
+    _k["COUNTRY"] = _k["COUNTRY"].replace({"SL": "SI"})
+    for _, row in _k.iterrows():
+        cc_ = row["COUNTRY"]
+        code_, name_ = (row["NUTS_region"], row["NUTS_CODE"]) if cc_ == "PL" else (str(row["NUTS_CODE"]).replace(";", "; ").replace("  ", " "), row["NUTS_region"])
+        if cc_ not in SUBNAT:
+            code_ = cc_
+        for hk, _n in HOSTS:
+            def num(v):
+                v = _pd.to_numeric(v, errors="coerce")
+                return None if _pd.isna(v) else float(v)
+            HOSTVAL[(cc_, code_, hk)] = (num(row.get(f"{hk}_m3")), num(row.get(f"{hk}_ha")))
+        if cc_ in SUBNAT:
+            HOST_UNITS.setdefault(cc_, []).append((code_, UNIT_NAMES.get(code_, name_)))
 
 # expert-friendly names for group codes / special cases
 FRIENDLY = {
@@ -249,8 +271,69 @@ for c in COUNTRY:
     grid_sheet(ab, f"{COUNTRY[c]} – abiotic damage", note, ["Damage type", "Measure", "Unit code", "Region"],
                [34, 12, 10, 22], rows, years)
 
+    # ---------------- Host availability
+    hs = wb.create_sheet("3 Host availability")
+    hs["A1"] = f"{COUNTRY[c]} – host availability (main tree species)"
+    hs["A1"].font = T
+    hs["A2"] = ("Growing stock (m3) and forest area (ha) of each main tree species, for the same regions as the damage data.  "
+                "Grey = values we already have (please check).  Yellow: the latest values with their inventory year, and – if available – "
+                "an earlier inventory (ideally around 2000–2010) so we can follow change over 2000–2025.  "
+                "Area = area of stands where the species is present or dominant – say which in Comment.")
+    hs["A2"].font = B
+    hs["A2"].alignment = Alignment(wrap_text=True, vertical="top")
+    hs.merge_cells("A2:N2")
+    hs.row_dimensions[2].height = 62
+    hcols = ["Region code", "Region", "Tree species", "We have: growing stock (m3)", "We have: area (ha)",
+             "Latest: growing stock (m3)", "Latest: area (ha)", "Latest: inventory year",
+             "Earlier: growing stock (m3)", "Earlier: area (ha)", "Earlier: inventory year", "Source", "Comment", "host_key"]
+    header(hs, 4, hcols, [10, 24, 26, 14, 12, 14, 12, 11, 14, 12, 11, 22, 34, 10])
+    hs.column_dimensions["N"].hidden = True
+    dv_n = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
+                          error="Please enter a number ≥ 0 (leave blank if no data).", showErrorMessage=True)
+    dv_y = DataValidation(type="whole", operator="between", formula1="1990", formula2="2026", allow_blank=True,
+                          error="Enter a year, e.g. 2021.", showErrorMessage=True)
+    hs.add_data_validation(dv_n)
+    hs.add_data_validation(dv_y)
+    host_units = HOST_UNITS.get(c) or (units + [(c, "National total")])
+    if c not in HOST_UNITS and c not in SUBNAT:
+        pass
+    elif c in SUBNAT and c not in HOST_UNITS:
+        host_units = units
+    if c in SUBNAT and c != "CZ":   # CZ host data are NUTS 3 kraje; elsewhere add damage units lacking host data
+        have_ = {u for u, _ in host_units}
+        host_units = host_units + [(u, nm) for u, nm in units if u not in have_]
+    r = 5
+    for u, nm in host_units:
+        for i, (hk, hname) in enumerate(HOSTS + [("other1", "Other main species (name it in Comment)")]):
+            held = HOSTVAL.get((c, u, hk), (None, None))
+            vals = [u, nm, hname, held[0], held[1]]
+            for j, v in enumerate(vals, 1):
+                cell = hs.cell(r, j, v)
+                cell.font, cell.border = B, BOX
+            for j in (4, 5):
+                hs.cell(r, j).fill = GRY
+                hs.cell(r, j).number_format = "#,##0"
+            for j in range(6, 14):
+                cell = hs.cell(r, j)
+                cell.fill, cell.border = (OPT if j in (9, 10, 11) else YEL), BOX
+                if j in (6, 7, 9, 10):
+                    dv_n.add(cell.coordinate)
+                    cell.number_format = "#,##0"
+                elif j in (8, 11):
+                    dv_y.add(cell.coordinate)
+            hs.cell(r, 14, hk).font = Font(name=F, size=8, color="808080")
+            if i == 0:
+                hs.cell(r, 1).font = hs.cell(r, 2).font = BB
+                for j in range(1, 14):
+                    hs.cell(r, j).border = Border(left=thin, right=thin, bottom=thin, top=Side(style="medium", color="305496"))
+            else:
+                hs.cell(r, 1).font = hs.cell(r, 2).font = Font(name=F, size=10, color="A6A6A6")
+            r += 1
+    hs.freeze_panes = "D5"
+    hs.auto_filter.ref = f"A4:M{r - 1}"
+
     # ---------------- Species presence (copied logic from inventory)
-    sp = wb.create_sheet("3 Species presence")
+    sp = wb.create_sheet("4 Species presence")
     g = d[d.Country == c].copy()
     if c == "SK":
         g = g[g.sp_code != "ips_dup"]
@@ -365,7 +448,8 @@ for c in COUNTRY:
         ("What we ask", "", BB),
         ("  Sheet 1 – Insect damage", ask_ins, None),
         ("  Sheet 2 – Abiotic damage", f"Wind: {ask_ab(wmode, wy, w_first)}.  Total abiotic: {ask_ab(tmode, ty, t_first)}.", None),
-        ("  Sheet 3 – Species presence", "Grey cells show the years you already reported each species. For the other cells, mark how confident you are that the species occurred there in 2000–2025 (0–3); give the first-recorded year for recent arrivals.", None),
+        ("  Sheet 3 – Host availability", "Growing stock (m3) and area (ha) of each main tree species per region: check the grey values we have, give the latest inventory values and, if available, an earlier inventory.", None),
+        ("  Sheet 4 – Species presence", "Grey cells show the years you already reported each species. For the other cells, mark how confident you are that the species occurred there in 2000–2025 (0–3); give the first-recorded year for recent arrivals.", None),
         ("", None, B),
         ("How to fill in", "", BB),
         ("  Yellow cells", "Please fill. Light yellow = optional (earlier years we do not have). Grey 'held' = we already have this, no action needed.", None),
@@ -375,7 +459,7 @@ for c in COUNTRY:
         ("  Other agents", "Empty rows at the bottom of Sheet 1 – add any important agent we are missing (name, type, host tree, measure, region).", None),
         ("", None, B),
     ]
-    q = QUESTIONS.get(c, [])
+    q = ([] if sub else ["Can you provide district-level (NUTS) data for 2000–2025 – damage values and host availability? (yes / partly / no – please say which agents and years)"]) + QUESTIONS.get(c, [])
     if q:
         lines.append(("Questions for you", "Please answer in the yellow cell next to each question.", BB))
     r = 1
