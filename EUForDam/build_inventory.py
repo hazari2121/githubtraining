@@ -117,15 +117,15 @@ TARGET = {
 
 SUBNAT = ["AT", "CZ", "DE", "FI", "PL"]
 LEVEL = {"AT": "NUTS 2", "CZ": "NUTS 2 (rows are NUTS 3 kraje, labelled with NUTS 2 code)",
-         "DE": "NUTS 1 (RP + SL lumped)", "FI": "NUTS 3", "PL": "RDLP forest regions (not NUTS)"}
+         "DE": "NUTS 1 (RP + SL lumped)", "FI": "NUTS 3", "PL": "RDLP forest regions (treated as NUTS)"}
 NUTS_STATUS = {"AT": "Yes", "CZ": "Yes", "FI": "Yes – 2 regions missing", "DE": "Yes – NUTS 1 only",
-               "PL": "Sub-national, not NUTS – DECIDE"}
+               "PL": "Yes"}
 FLAGS = {
     "AT": "Series start 2002. Optional: ask whether 2000–2001 exist. Incoming has Ips cembrae (2002–2022) – not in EUForDam AT. L. dispar, Diprion and broadleaf defoliators in EUForDam are not in the Incoming file → other source.",
     "CZ": "Several rows per NUTS 2 × year × agent (= NUTS 3 kraje without their own code). Ask CZ for NUTS 3 codes so rows can be told apart. No 'ips_typ' code – Ips typographus is inside the spruce bark-beetle group code.",
     "DE": "EUForDam zeros are often MISSING data: 120 state-years with no Incoming value are stored as 0 for Ips typographus alone (e.g. Niedersachsen every year, NRW 2018). Values = Incoming × fixed factor per state (2.0–5.9, probably state forest → all forest) – confirm. Incoming ends 2019; source of 2020–2022 unknown. DEB and DEC are separate in Incoming in some years – split possible.",
     "FI": "Only Ips typographus (salvage-logging ha × 122). Series start 2012. Lapland (FI1D7) 'not included' and Åland (FI200) 'not available' per Incoming – ask whether Lapland can be added.",
-    "PL": "Units are RDLP forest regions, not NUTS. Decide (with Roman): accept RDLP + update 2023–2025, or ask PL for NUTS 3. Series start 2003.",
+    "PL": "Units are RDLP forest regions – treated the same as NUTS (decided): update 2023–2025 only. Series start 2003. RDLP→NUTS 3 key exists in Incoming if ever needed.",
     "BG": "2000–2004 blank (no data) for 7 of 8 agents; Tortrix viridana 2000–2004 stored as 0 (fake zeros). Incoming already has 2023 for Ips typographus, I. acuminatus, I. sexdentatus – do not re-ask.",
     "RO": "Ips typographus and Ips duplicatus end 2021.",
     "RS": "Ips typographus 2000–2002 blank ('missing data'). 'Ips typographus' = all bark beetles (90% I. typographus). Serbian comments use NUTS 3 codes (RS110, RS211–RS229) → target NUTS 3.",
