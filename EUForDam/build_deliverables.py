@@ -32,7 +32,7 @@ EXPERT = {  # names as given in the Incoming sheets ('–' = no name in the file
     "DE": "–", "FI": "Tiina Ylioja, Markus Melin (Luke)", "HR": "Milan Pernek", "HU": "Anikó Hirka, György Csóka (Univ. Sopron)",
     "IT": "–", "LT": "Gediminas Brazaitis", "PL": "–", "RO": "Mihai-Leonard Duduman", "RS": "Slobodan Milanović",
     "SE": "Martin Schroeder", "SI": "Maarten de Groot, Marija Kolšek", "SK": "Jozef Vakula (NLC Zvolen)"}
-LEVEL_TXT = {"AT": "NUTS 2", "CZ": "NUTS 2", "DE": "NUTS 1 (federal states)", "FI": "NUTS 3", "PL": "RDLP forest regions (treated as NUTS)"}
+LEVEL_TXT = {"AT": "NUTS 2", "CZ": "NUTS 2", "DE": "NUTS 1 (federal states)", "FI": "NUTS 3", "PL": "RDLP forest regions"}
 FRIENDLY = {"CambXyl_con&BB_con&BO": "other bark beetles on pine", "CambXyl_con&BO": "other bark/wood borers on conifers",
             "CambXyl_con&MD": "bark/wood borers on larch (mixed)", "Def_dec&DB": "other defoliators on broadleaves",
             "Def_dec": "defoliators on Aesculus", "CambXyl_con&BB_con&SM": "spruce bark beetles (mixed)"}
@@ -188,7 +188,7 @@ table(ag_ws, 1, ["Code", "Country", "Agent", "Agent code", "Unit", "# regions he
 # ---- abiotic: who provided what in the Incoming sheets (professor's 3rd point)
 ABIO_UNIT = {  # units as found in each Incoming sheet: (wind, total abiotic)
     "AT": ("–", "m3"), "CZ": ("–", "m3"), "DE": ("–", "m3 / ha mixed"), "FI": ("ha (NFI area)", "ha (NFI area)"),
-    "PL": ("m3 (proxy: broken & fallen trees)", "–"), "BG": ("–", "ha"), "CH": ("m3", "m3 (sum of categories)"),
+    "PL": ("m3 (broken & fallen trees)", "–"), "BG": ("–", "ha"), "CH": ("m3", "m3 (sum of categories)"),
     "HR": ("–", "ha + m3"), "HU": ("ha ('Storm')", "ha"), "IT": ("m3 (Vaia storm only)", "ha + m3"),
     "LT": ("ha + m3", "ha"), "RO": ("ha (+ m3 with gaps)", "–"), "RS": ("–", "m3"),
     "SE": ("million m3 (storm years only)", "million m3 (= storm-felled)"), "SI": ("–", "m3"), "SK": ("–", "m3")}
@@ -204,26 +204,18 @@ for c in ORDER:
     yrs = lambda i0: (yr(a[i0 + 2], a[i0 + 3]) if a[i0] == "Y" else "—")
     rows.append([c, COUNTRY[c],
                  "Yes" if a[0] == "Y" else "No", lev(0), yrs(0), ABIO_UNIT[c][0], abio_req(c, 0),
-                 "Yes" if a[4] == "Y" else "No", lev(4), yrs(4), ABIO_UNIT[c][1], abio_req(c, 4),
-                 a[8]])
+                 "Yes" if a[4] == "Y" else "No", lev(4), yrs(4), ABIO_UNIT[c][1], abio_req(c, 4)])
 table(abw, 4, ["Code", "Country",
                "Wind in Incoming?", "Wind level", "Wind years", "Wind unit", "Wind – we ask",
-               "Total abiotic in Incoming?", "Total level", "Total years", "Total unit", "Total abiotic – we ask",
-               "Notes from the Incoming sheet"],
-      [6, 12, 9, 14, 11, 18, 26, 10, 14, 11, 16, 26, 70], rows)
+               "Total abiotic in Incoming?", "Total level", "Total years", "Total unit", "Total abiotic – we ask"],
+      [6, 12, 9, 14, 11, 18, 26, 10, 14, 11, 16, 26], rows)
 for i, row in enumerate(rows, 5):
     for j in (7, 12):
         abw.cell(i, j).fill = GRN if str(abw.cell(i, j).value).startswith("Update") else RED
     for j in (3, 8):
         abw.cell(i, j).fill = GRN if abw.cell(i, j).value == "Yes" else RED
-    abw.row_dimensions[i].height = 48
+    abw.row_dimensions[i].height = 30
 
-# ---- notes for Roman (internal)
-nr = wb.create_sheet("For Roman (internal)")
-rows = [[c, COUNTRY[c], FLAGS.get(c, ""), INCOMING.get(c, ("",) * 7)[6]] for c in ORDER]
-table(nr, 1, ["Code", "Country", "Data gaps / to clarify", "Incoming vs EUForDam (conversions, errors)"], [6, 12, 70, 90], rows)
-for i in range(2, 2 + len(rows)):
-    nr.row_dimensions[i].height = 75
 for s_ in wb.worksheets:
     s_.sheet_view.zoomScale = 90
 wb.save(os.path.join(OUT, "EUForDam_Inventory_and_Requests.xlsx"))
