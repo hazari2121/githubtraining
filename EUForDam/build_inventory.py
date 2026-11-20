@@ -124,7 +124,7 @@ FLAGS = {
     "AT": "Series start 2002. Optional: ask whether 2000–2001 exist. Incoming has Ips cembrae (2002–2022) – not in EUForDam AT. L. dispar, Diprion and broadleaf defoliators in EUForDam are not in the Incoming file → other source.",
     "CZ": "Several rows per NUTS 2 × year × agent (= NUTS 3 kraje without their own code). Ask CZ for NUTS 3 codes so rows can be told apart. No 'ips_typ' code – Ips typographus is inside the spruce bark-beetle group code.",
     "DE": "EUForDam zeros are often MISSING data: 120 state-years with no Incoming value are stored as 0 for Ips typographus alone (e.g. Niedersachsen every year, NRW 2018). Values = Incoming × fixed factor per state (2.0–5.9, probably state forest → all forest) – confirm. Incoming ends 2019; source of 2020–2022 unknown. DEB and DEC are separate in Incoming in some years – split possible.",
-    "FI": "Only Ips typographus. Series start 2012. Lapland (FI1D7) and Åland (FI200) not in data – ask whether available.",
+    "FI": "Only Ips typographus (salvage-logging ha × 122). Series start 2012. Lapland (FI1D7) 'not included' and Åland (FI200) 'not available' per Incoming – ask whether Lapland can be added.",
     "PL": "Units are RDLP forest regions, not NUTS. Decide (with Roman): accept RDLP + update 2023–2025, or ask PL for NUTS 3. Series start 2003.",
     "BG": "2000–2004 blank (no data) for 7 of 8 agents; Tortrix viridana 2000–2004 stored as 0 (fake zeros). Incoming already has 2023 for Ips typographus, I. acuminatus, I. sexdentatus – do not re-ask.",
     "RO": "Ips typographus and Ips duplicatus end 2021.",
@@ -133,7 +133,7 @@ FLAGS = {
     "SE": "Only Ips typographus. Zeros in non-outbreak years may be missing, not zero.",
     "CH": "Only Ips typographus.",
     "IT": "Only Friuli Venezia Giulia covered.",
-    "LT": "17 agent series at national level.",
+    "LT": "17 agent series at national level. Conversion factors (Ips m3 × 2, Pityogenes ha × 40) undocumented.",
 }
 # ---------------------------------------------------------------- Incoming sheets (checked so far)
 # abiotic inputs: (wind_in, wind_level, wind_y0, wind_y1, tot_in, tot_level, tot_y0, tot_y1, note)
@@ -165,10 +165,22 @@ ABIO = {
     "CH": ("Y", "National", 2000, 2022, "Y", "National", 2000, 2022,
            "CSV by category (m3): windthrow, snow/ice, avalanche, drought, fire, mass movement, other. File 'total' includes bark beetle + ash dieback → abiotic total must be summed. 2023 row is incomplete (bark beetle 0) – not counted."),
     "FI": ("Y", "National", 2009, 2022, "Y", "National", 2009, 2022,
-           "NFI 'area affected' (ha) for wind, snow, total abiotic 2009–2022 – area, not volume, so not comparable to m3 elsewhere. Fire (ha) 1996–2022 from rescue services."),
+           "NFI 'area affected' (ha) for wind, snow, total abiotic 2009–2022 (Melin file) – area, not volume, so not comparable to m3 elsewhere. Fire (ha) 1996–2022 from rescue services."),
+    "HR": ("N", None, None, None, "Y", "National", 2000, 2022,
+           "Abiotic total in ha AND m3, national, 2000–2022. No wind split (ice storm 2014 and storms mentioned in comments)."),
+    "LT": ("Y", "National", 2000, 2022, "Y", "National", 2000, 2022,
+           "State forests, scaled to all forest with an area coefficient (1.29 in 2000 → 1.93 in 2022). Wind damage (ha; m3 from 2001), wind + snow (m3), abiotic total (ha). Red cells = expert guesses. District data exist in the Sanitary Reviews."),
 }
 # insect-side check of each Incoming file
 INCOMING = {
+    "HR": ("AbiBioCro_1_corrMilan (final version; Milan Pernek)", "National; comments give NUTS 3 codes for every agent", "2000–2022", "No",
+           "Geometridae, L. dispar, Ips typographus, Pityokteines spp., Scolytinae on pine, Thaumetopoea pityocampa, Corythucha arcuata, Stereonychus fraxini, Dryocosmus kuriphilus, T. processionea + fungi",
+           "Stereonychus fraxini, Dryocosmus kuriphilus, Corythucha arcuata, Thaumetopoea processionea; fungi (Hymenoscyphus, Cryphonectria, Erysiphe, Phytophthora, Biscogniauxia)",
+           "All 6 shared series match EUForDam 1:1. NUTS 3 codes in comments for every agent/year → good basis for SP_HR and a NUTS 3 resend."),
+    "LT": ("EuropePests_2023_v5_Lithuania_3OK_1.xlsx (Gediminas Brazaitis)", "National (state forests, scaled)", "2000–2022", "No",
+           "~30 agents incl. Ips typographus (ha + m3), Pityogenes, Polygraphus, Dendroctonus micans, Ips acuminatus, Tomicus, Pissodes, Dendrolimus, Diprion, Geometridae, L. dispar, L. monacha, Panolis, Phaenops, Scolytus spp., Tortrix + 'Rest of species' sheet",
+           "Hylobius abietis, Melolontha, Microtus, fungi; 'Rest of species' (Physokermes piceae, Lygaeonematus abietinus, Aradus cinnamomeus …)",
+           "EUForDam ips_typ = m3 column × 2 where m3 exists; years without m3 (2002, 2007–2014) come from elsewhere. Pityogenes = ha × 40. Undocumented factors – confirm. Values already scaled state → all forest. Red cells = expert guesses."),
     "SE": ("EuropePests_2023_v5_Sweden_new_1_1.xlsx (Martin Schroeder)", "National; comments name NUTS 2/3", "2006–2022, outbreak years only", "No",
            "Ips typographus in two columns (south / north), million m3",
            "Polygraphus poligraphus mentioned (2009 outbreak mix) – no values",
@@ -185,10 +197,10 @@ INCOMING = {
            "Bark beetle (= Ips typographus), ash dieback (2016+), 'insects' (all 0)",
            "Ash dieback (fungus)",
            "Bark beetle matches EUForDam 1:1 (2000–2022). Ash dieback 0 before 2016 = not recorded. Collected by forest districts, so NUTS aggregation should be feasible."),
-    "FI": ("Data_Markus_Melin_10Oct2023_1.xlsx", "National (NFI)", "NFI 2009–2022; fire 1996–2022", "No",
-           "Ips typographus – NFI area affected (ha)",
+    "FI": ("Data_Tiina_Ilioya_Feb24_loggings_Ipstypo_1.xlsx (Tiina Ylioja, Markus Melin, Luke) + Data_Markus_Melin_10Oct2023 (NFI)", "NUTS 3 (17 included); Lapland 'not included', Åland 'not available'", "2012–2022", "No",
+           "Ips typographus ('mainly') – hectares of salvage loggings announced due to insect damage in spruce stands",
            "–",
-           "This file is NOT the source of EUForDam FI (NUTS 3 Ips typographus 2012–2022, salvage-based). Is there a separate NUTS 3 file (with the Lapland/Åland note)? Please check Teams."),
+           "EUForDam FI = ha × 122 every year (confirmed). Lapland and Åland absent by design (file says so) – ask whether Lapland can be added. Logged area > area with dead trees (file note)."),
     "AT": ("Austria_NUTS2_damage_m3_NS_1.xlsx (provider Gernot Hoch)", "NUTS 2 (9), long format, one sheet per year", "2002–2022", "No",
            "Ips typographus, Pityogenes chalcographus, Pityokteines, Tomicus, Phaenops, Tetropium gabrieli, pine bark beetles mix, Ips cembrae (m3)",
            "Ips cembrae (2002–2022)",
@@ -336,7 +348,7 @@ lines = [
     ("", body),
     ("Caveats", bold),
     ("Target NUTS = NUTS 2021 codes typed in by hand; NUTS 3 used where NUTS 2 has ≤4 units (HR, LT, SI, SK, RS) and for FVG. Check against the current Eurostat NUTS list before sending.", body),
-    ("Abiotic sheet: filled for countries whose Incoming sheets have been checked (see Incoming_Check); the rest are still blank. Column 'Previous draft v9 (unverified)' holds what v9 wrote.", body),
+    ("Abiotic sheet: filled from the Incoming sheets for all 16 countries (see Incoming_Check). Column 'Previous draft v9 (unverified)' holds what v9 wrote.", body),
     ("CZ: Ips typographus is stored under the spruce bark-beetle group code (CambXyl_con&BB_con&SM); it is counted as Ips typographus in SP_CZ.", body),
 ]
 for i, (t, f) in enumerate(lines, 1):
