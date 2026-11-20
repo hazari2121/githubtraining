@@ -509,7 +509,7 @@ for c in ORDER:
     s3 = wb3.create_sheet("3 Abiotic")
     note(s3, f"{COUNTRY[c]} – abiotic damage by {lvl}",
          "Wind = windthrow / storm damage only.  Total abiotic = all abiotic causes together (wind, snow, ice, drought, fire, other).  "
-         "One row per region; fill the yellow year cells.  Unit: we filled in the unit you used before – change it if needed.  "
+         "One row per region; fill the yellow year cells.  Please SPECIFY THE UNIT (m3 or ha) in the 'Unit' column for every row you fill.  "
          "BLANK = no data, 0 = no damage.", span=16)
 
     def unit_default(i):
@@ -531,8 +531,8 @@ for c in ORDER:
             msg = f"{lab.upper()}: not in the data you sent us – please send the full series 2000–2025 by {lvl}."
         s3.cell(r, 1, msg).font = Font(name=F, size=12, bold=True, color="305496")
         r += 1
-        rows = [[lab, code, c, u, nm, unit_default(ui)] for u, nm in units]
-        r = grid(s3, r, ["Damage type", "code", "Country", "NUTS code", "Region", "Unit (m3/ha)"],
+        rows = [[lab, code, c, u, nm, None] for u, nm in units]      # unit left blank – expert specifies it
+        r = grid(s3, r, ["Damage type", "code", "Country", "NUTS code", "Region", "Unit (specify: m3/ha)"],
                  [14, 10, 8, 10, 24, 9], rows, years)
         for rr in range(r - len(rows), r):          # unit is an input here
             s3.cell(rr, 6).fill = YEL
