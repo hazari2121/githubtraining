@@ -124,12 +124,51 @@ FLAGS = {
     "BG": "2000–2004 blank (no data) for 7 of 8 agents.",
     "RO": "Ips typographus and Ips duplicatus end 2021.",
     "RS": "Ips typographus 2000–2002 blank.",
-    "SK": "All series end 2021. Ips duplicatus has 1 blank year.",
+    "SK": "All series end 2021. EUForDam 'Ips duplicatus' is really SK's 'Other bark beetles' column (mislabelled) – not used for presence marks. Pityokteines spinidens is in Incoming but not in EUForDam.",
     "SE": "Only Ips typographus. Zeros in non-outbreak years may be missing, not zero.",
     "CH": "Only Ips typographus.",
     "IT": "Only Friuli Venezia Giulia covered.",
     "LT": "17 agent series at national level.",
 }
+# ---------------------------------------------------------------- Incoming sheets (checked so far)
+# abiotic inputs: (wind_in, wind_level, wind_y0, wind_y1, tot_in, tot_level, tot_y0, tot_y1, note)
+ABIO = {
+    "CZ": ("N", None, None, None, "Y", "National", 2000, 2021,
+           "Abiotic total only (m3), national; no wind split. 2022 = '–'."),
+    "SK": ("N", None, None, None, "Y", "National", 2000, 2021,
+           "Abiotic total only (m3), national; no wind split. 2022 = '–'. Comments name windstorms (Alžbeta 2004, Filip 2007, Žofia 2014) and NUTS 3 codes."),
+    "HU": ("Y", "National", 2000, 2022, "Y", "National", 2000, 2022,
+           "'Storm' and abiotic total, both in ha (not m3). Also drought and late frost (ha). No NUTS breakdown in this file."),
+    "RO": ("Y", "National", 2000, 2021, "N", None, None, None,
+           "Wind-blown in ha (2000–2021) and m3 (2000–2010, 2015–2021; 2011–2014 'no data'). Abiotic total column empty. Also abnormal drying of fir/beech/oak (ha)."),
+    "PL": ("Y", "NUTS", 2003, 2022, "N", None, None, None,
+           "No labelled wind or abiotic series. 'Processed broken and fallen trees' (m3) per RDLP × spruce/pine/oak 2003–2022 entered as a wind/snow PROXY – confirm. Level = RDLP, same as insects."),
+}
+# insect-side check of each Incoming file
+INCOMING = {
+    "CZ": ("EuropePests_2023_v5_CR_1.xlsx (filled by Roman Modlinger, CULS)", "National; comments give okres (NUTS 4/LAU) codes, key sheet included",
+           "2000–2021 (2022 '–')", "No",
+           "Ips typographus, Ips duplicatus, Ips acuminatus, Tomicus sp., Cephalcia, Tenthredinidae on spruce, defoliators on oaks",
+           "Hylobius abietis, rodents, Lophodermium, Armillaria (not in scope?)",
+           "EUForDam CZ is NUTS 2 with 21 agent codes to 2022, so it comes from another source (Roman?) – this national sheet is not the source."),
+    "SK": ("EuropePests_2023_SK_v5_1.xlsx (Jozef Vakula, NLC Zvolen)", "National; comments name NUTS 3", "2000–2021 (2022 '–')", "No",
+           "Ips typographus, Pityogenes chalcographus, pine bark beetles (80% I. acuminatus), Pityokteines spinidens, other bark beetles, Lymantria dispar",
+           "Pityokteines spinidens (fir, 2007–2021); Armillaria, Chalara (pathogens)",
+           "ERROR IN EUForDam: SK 'ips_dup' (Ips duplicatus) = the 'Other bark beetles' column, identical every year – mislabelled. 2007 blank stored as 0. Pine column stored 1:1 as Ips acuminatus although only 80%."),
+    "HU": ("EuropePests_2023_Hungary_1.xlsx (Hirka, Csóka, Univ. Sopron)", "National", "2000–2022", "No",
+           "Bark beetles (all), Lymantria dispar, Corythucha arcuata – all ha",
+           "Corythucha arcuata (2018–2022, ha); game damage",
+           "EUForDam HU ips_typ = 'Bark beetles' ha × 160 (checked, every year); L. dispar 1:1. Bark beetles are not only Ips typographus."),
+    "RO": ("EuropePests_2023_v5_RO_Duduman_1.xlsx (Mihai-Leonard Duduman)", "National; comments name NUTS 2/3 (RO212–RO215)", "2000–2021 (2022 'no data')", "No",
+           "Ips typographus (ha 2000–2021; two m3 columns 2015–2021), Ips duplicatus (m3 2015–2021)",
+           "–",
+           "EUForDam ips_typ = ha column × 1.52 (2000) rising to × 2.83 (2011+) – method unclear, confirm. EUForDam ips_dup 2000–2014 = 0 but file says 'no data' → fake zeros. RO L. dispar, Tortrix, Geometridae, Clostera in EUForDam are not in this file → other source."),
+    "PL": ("POLAND_Clean_Oct23_1.xlsx", "RDLP (17) + RDLP→NUTS 3 key (72 NUTS 3)", "2003–2022", "No",
+           "Ips typographus, Phaenops, Tomicus, Ips acuminatus, Agrilus biguttatus (processed infested / standing dead / broken & fallen / total, m3); defoliators table (ha)",
+           "Acantholyda spp. (aca_spp), Viscum album (vis_alb)",
+           "EUForDam PL ips_typ = Incoming × 1.25 (checked 2003–2008) – undocumented, confirm. RDLP→NUTS 3 key exists, so PL could be converted to NUTS 3."),
+}
+
 REQ_SUB = "UPDATE: add 2023, 2024, 2025 for every agent × unit series already held (3 values each – see Inventory_Series)"
 REQ_NAT = "FULL SERIES: 2000–2025 at NUTS level for all agents (target units: Target_NUTS) – replaces the national series"
 YEARS = list(range(2000, 2023))
@@ -238,7 +277,7 @@ lines = [
     ("", body),
     ("Caveats", bold),
     ("Target NUTS = NUTS 2021 codes typed in by hand; NUTS 3 used where NUTS 2 has ≤4 units (HR, LT, SI, SK) and for FVG. Check against the current Eurostat NUTS list before sending.", body),
-    ("Abiotic sheet is EMPTY until the Incoming sheets are checked. Column 'Previous draft (unverified)' holds what v9 wrote; v9 states the Incoming sheets were not available to it, so treat as a hint only.", body),
+    ("Abiotic sheet: filled for countries whose Incoming sheets have been checked (see Incoming_Check); the rest are still blank. Column 'Previous draft v9 (unverified)' holds what v9 wrote.", body),
     ("CZ: Ips typographus is stored under the spruce bark-beetle group code (CambXyl_con&BB_con&SM); it is counted as Ips typographus in SP_CZ.", body),
 ]
 for i, (t, f) in enumerate(lines, 1):
@@ -325,9 +364,10 @@ for i, c in enumerate(order):
         prev = (f"Wind: {o['WIND in Incoming? (Y/N)']} / {o['Wind level (District/National)']} / {o['Wind years']}; "
                 f"Total: {o['TOTAL ABIOTIC in Incoming? (Y/N)']} / {o['Total abiotic level (District/National)']} / "
                 f"{o['Total abiotic years']}. {o['Notes']}").replace("nan", "–")
-    rows.append([c, COUNTRY[c], NUTS_STATUS.get(c, "NO"), None, None, None, None,
-                 req(f"D{r}", f"E{r}", f"F{r}", f"G{r}"), None, None, None, None,
-                 req(f"I{r}", f"J{r}", f"K{r}", f"L{r}"), None, prev])
+    a = ABIO.get(c, (None,) * 9)
+    rows.append([c, COUNTRY[c], NUTS_STATUS.get(c, "NO"), a[0], a[1], a[2], a[3],
+                 req(f"D{r}", f"E{r}", f"F{r}", f"G{r}"), a[4], a[5], a[6], a[7],
+                 req(f"I{r}", f"J{r}", f"K{r}", f"L{r}"), a[8], prev])
 table(ws, 4, hdr, rows, [6, 12, 14, 10, 12, 9, 9, 30, 10, 12, 9, 9, 30, 40, 60])
 dv_yn = DataValidation(type="list", formula1='"Y,N"', allow_blank=True)
 dv_lev = DataValidation(type="list", formula1='"NUTS,National"', allow_blank=True)
@@ -346,6 +386,23 @@ for col in ("H", "M"):
     rng = f"{col}5:{col}{last}"
     ws.conditional_formatting.add(rng, FormulaRule(formula=[f'LEFT({col}5,4)="Full"'], fill=red))
     ws.conditional_formatting.add(rng, FormulaRule(formula=[f'LEFT({col}5,6)="Update"'], fill=green))
+
+# ---------------------------------------------------------------- Incoming_Check
+ws = wb.create_sheet("Incoming_Check")
+rows = []
+for c in order:
+    if c in INCOMING:
+        rows.append([c, COUNTRY[c], *INCOMING[c]])
+    else:
+        rows.append([c, COUNTRY[c], "not yet received", "", "", "", "", "", ""])
+table(ws, 1, ["Code", "Country", "Incoming file", "Spatial level", "Years", "Newer than EUForDam (2023+)?",
+              "Agents in Incoming", "Agents in Incoming but NOT in EUForDam", "Issues / to clarify"],
+      rows, [6, 12, 34, 28, 16, 12, 45, 34, 70])
+for i, row in enumerate(rows, 2):
+    ws.cell(i, 3).fill = green if row[0] in INCOMING else lgrey
+    if "ERROR" in row[8] or "fake zeros" in row[8]:
+        ws.cell(i, 9).fill = amber
+ws.cell(len(rows) + 3, 1, f"Checked: {len(INCOMING)} of {len(order)} countries.").font = bold
 
 # ---------------------------------------------------------------- Zero_Only_Series
 ws = wb.create_sheet("Zero_Only_Series")
@@ -407,6 +464,8 @@ dv_conf_text = '"0,1,2,3"'
 for c in order:
     ws = wb.create_sheet(f"SP_{c}")
     g = d[d.Country == c].copy()
+    if c == "SK":  # ips_dup in EUForDam = 'Other bark beetles' (mislabelled) -> do not mark
+        g = g[g.sp_code != "ips_dup"]
     if c == "CZ":  # Ips typographus stored under spruce group code
         g.loc[g.sp_code == "CambXyl_con&BB_con&SM", "sp_code"] = "ips_typ"
     pos = g[g.v > 0].groupby("sp_code").NUTS.agg(set).to_dict()
