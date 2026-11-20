@@ -2,7 +2,6 @@
 
   1. EUForDam_Inventory_and_Requests.xlsx  – what we have, from whom, and what we ask each country
   2. EUForDam_Species_Presence.xlsx        – species × NUTS table, one sheet per country (X = reported, confidence 0–3)
-     species_presence/EUForDam_Species_Presence_XX.xlsx – the same sheet per country, to attach to individual emails
 
 Usage: python build_deliverables.py <build_inventory.py> <EUForDam_REW.xlsx> <old_inventory.xlsx> <Data_Klim_Tree_NUTS.xlsx> <out_dir>
 All content comes from EUForDam_REW, the Incoming sheets (as recorded in build_inventory.py) and the host data we hold.
@@ -26,7 +25,6 @@ exec(compile(src, BUILD, "exec"), ns)
 d, AGENT, COUNTRY, TARGET, SUBNAT = ns["d"], ns["AGENT"], ns["COUNTRY"], ns["TARGET"], ns["SUBNAT"]
 ABIO, INCOMING, FLAGS, UNIT_NAMES, ser = ns["ABIO"], ns["INCOMING"], ns["FLAGS"], ns["UNIT_NAMES"], ns["ser"]
 os.makedirs(OUT, exist_ok=True)
-os.makedirs(os.path.join(OUT, "species_presence"), exist_ok=True)
 
 ORDER = ["AT", "CZ", "DE", "FI", "PL", "BG", "CH", "HR", "HU", "IT", "LT", "RO", "RS", "SE", "SI", "SK"]
 EXPERT = {  # names as given in the Incoming sheets ('–' = no name in the file)
@@ -333,11 +331,6 @@ allw.active.title = "Legend"
 summary = []
 for c in ORDER:
     n_sp, n_u = species_sheet(allw.create_sheet(c), c)
-    one = Workbook()
-    species_sheet(one.active, c)
-    one.active.title = c
-    legend(one.create_sheet("Legend"))
-    one.save(os.path.join(OUT, "species_presence", f"EUForDam_Species_Presence_{c}.xlsx"))
     summary.append(f"{c}:{n_sp}x{n_u}")
 allw.save(os.path.join(OUT, "EUForDam_Species_Presence.xlsx"))
 print("species × regions:", " ".join(summary))
@@ -550,6 +543,9 @@ for c in ORDER:
         dvu.add(f"F{r - len(rows)}:F{r - 1}")
         r += 2
     s3.column_dimensions["B"].hidden = True
+
+    # ---- sheet 4: species presence (species × NUTS, X = reported, confidence 0–3 for the rest)
+    species_sheet(wb3.create_sheet("4 Species presence"), c)
     s3.freeze_panes = "G4"
     for s_ in wb3.worksheets:
         s_.sheet_view.zoomScale = 90
