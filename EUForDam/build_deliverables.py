@@ -77,7 +77,12 @@ def agents_for(c):
         name = CFRIENDLY.get((c, code)) or FRIENDLY.get(code) or AGENT[code][0]
         out.append({"code": code, "name": name, "unit": r[6], "y0": int(r[8]), "y1": int(r[9]), "blank": r[10],
                     "nz": int(r[11]), "units": int(r[7])})
-    out.sort(key=lambda a: (a["code"] in FRIENDLY or (c, a["code"]) in CFRIENDLY and c != "CZ", -a["nz"], a["name"]))
+    def _k(a):
+        if (c, a["code"]) == ("CZ", "CambXyl_con&BB_con&SM"):
+            return (0, -10**9, a["name"])          # CZ Ips typographus lives in this group code
+        grp = a["code"] in FRIENDLY or (c, a["code"]) in CFRIENDLY
+        return (1 if grp else 0, -a["nz"], a["name"])
+    out.sort(key=_k)
     return out
 
 
@@ -336,3 +341,149 @@ for c in ORDER:
     summary.append(f"{c}:{n_sp}x{n_u}")
 allw.save(os.path.join(OUT, "EUForDam_Species_Presence.xlsx"))
 print("species × regions:", " ".join(summary))
+
+# =====================================================================================
+# 3. Data request files – one per country, three sheets, EUForDam_REW fields
+#    1 Insects 2023–2025         : 3 values per agent × NUTS
+#    2 Insects 2000–2022 by NUTS : only the NUTS-level years we do not have
+#    3 Abiotic                   : wind + total abiotic, only the years we need (from the Incoming sheets)
+# =====================================================================================
+os.makedirs(os.path.join(OUT, "country_requests"), exist_ok=True)
+_cols = ["SP_CATEGORY", "SP_SUBCATEGORY", "HOSTTREE", "TREETYPE"]
+_m = d[d.Country != "CZ"]          # CZ category labels are scrambled in EUForDam_REW
+META = (_m.groupby(["sp_code"] + _cols).size().reset_index(name="n").sort_values("n", ascending=False)
+        .drop_duplicates("sp_code").set_index("sp_code")[_cols])
+META = pd.concat([META, d[~d.sp_code.isin(META.index)].groupby(["sp_code"] + _cols).size().reset_index(name="n")
+                  .sort_values("n", ascending=False).drop_duplicates("sp_code").set_index("sp_code")[_cols]])
+UNIT = d.dropna(subset=["sp_unit"]).groupby("sp_code").sp_unit.agg(lambda s: s.mode()[0])
+FIELDS = ["Agent", "sp_code", "SP_CATEGORY", "SP_SUBCATEGORY", "HOSTTREE", "TREETYPE", "Country", "NUTS", "Region", "sp_unit"]
+WID = [30, 20, 12, 18, 15, 8, 7, 9, 22, 7]
+OPTF = PatternFill("solid", fgColor="EDEDED")
+
+
+def note(ws, t, txt, span=12):
+    ws["A1"] = t
+    ws["A1"].font = T
+    ws["A2"] = txt
+    ws["A2"].font = B
+    ws["A2"].alignment = Alignment(wrap_text=True, vertical="top")
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=span)
+    ws.row_dimensions[2].height = 45
+
+
+def grid(ws, r0, fields, widths, rows, years):
+    """Header at r0; reference fields grey, year cells + Comment yellow. Returns next free row."""
+    cols = fields + [str(y) for y in years] + ["Comment"]
+    for j, h_ in enumerate(cols, 1):
+        c_ = ws.cell(r0, j, h_)
+        c_.font, c_.fill, c_.alignment, c_.border = H, HF, CEN, BOX
+    for j, w in enumerate(widths, 1):
+        ws.column_dimensions[get_column_letter(j)].width = w
+    nf = len(fields)
+    for k in range(len(years)):
+        ws.column_dimensions[get_column_letter(nf + 1 + k)].width = 9
+    ws.column_dimensions[get_column_letter(nf + len(years) + 1)].width = 36
+    dv = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
+                        error="Enter a number ≥ 0, or leave blank if there is no data.", showErrorMessage=True)
+    ws.add_data_validation(dv)
+    dvu = DataValidation(type="list", formula1='"m3,ha"', allow_blank=True)
+    ws.add_data_validation(dvu)
+    ucol = fields.index("sp_unit") + 1 if "sp_unit" in fields else None
+    r = r0 + 1
+    for row in rows:
+        for j, v in enumerate(row, 1):
+            c_ = ws.cell(r, j, v)
+            c_.font, c_.border, c_.fill = B, BOX, OPTF
+        if ucol:
+            ws.cell(r, ucol).fill = YEL
+            dvu.add(ws.cell(r, ucol).coordinate)
+        for k in range(len(years) + 1):
+            c_ = ws.cell(r, nf + 1 + k)
+            c_.fill, c_.border = YEL, BOX
+            if k < len(years):
+                c_.alignment = CEN
+                dv.add(c_.coordinate)
+        r += 1
+    return r
+
+
+def agent_rows(c, units):
+    out = []
+    for a in agents_for(c):
+        m_ = META.loc[a["code"]]
+        for u, nm in units:
+            out.append([a["name"], a["code"], m_.SP_CATEGORY, m_.SP_SUBCATEGORY, m_.HOSTTREE, m_.TREETYPE, c, u, nm,
+                        UNIT.get(a["code"], "m3")])
+    return out
+
+
+BLANK_NOTE = ("BLANK = no data / not monitored.  0 = monitored, no damage.  sp_unit = unit we use (m3 or ha); "
+              "if you report in another unit, change it in that row.")
+for c in ORDER:
+    sub = c in SUBNAT
+    units = units_for(c)
+    lvl = level_for(c).replace("RDLP forest regions (treated as NUTS)", "RDLP forest region")
+    wb3 = Workbook()
+
+    # ---- sheet 1: 2023–2025
+    s1 = wb3.active
+    s1.title = "1 Insects 2023-2025"
+    note(s1, f"{COUNTRY[c]} – insect damage 2023–2025 by {lvl}",
+         f"Three values (2023, 2024, 2025) for each agent × region. Grey columns = EUForDam fields (do not change).  {BLANK_NOTE}")
+    rows = agent_rows(c, units)
+    end = grid(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
+    s1.freeze_panes = "K5"
+    s1.auto_filter.ref = f"A4:N{end - 1}"
+
+    # ---- sheet 2: NUTS-level 2000–2022 that we do not have
+    s2 = wb3.create_sheet("2 Insects 2000-2022 by NUTS")
+    if sub:
+        miss = []
+        for a in agents_for(c):
+            if a["y0"] > 2000:
+                miss.append((a, list(range(2000, a["y0"]))))
+        if miss:
+            years = sorted({y for _, ys in miss for y in ys})
+            note(s2, f"{COUNTRY[c]} – earlier years by {lvl}",
+                 f"We hold your data by {lvl} from {min(a['y0'] for a, _ in miss)}. Please add the earlier years "
+                 f"{years[0]}–{years[-1]} if they exist.  {BLANK_NOTE}")
+            rows = [r_ for a, _ in miss for r_ in agent_rows(c, units) if r_[1] == a["code"]]
+            end = grid(s2, 4, FIELDS, WID, rows, years)
+            s2.freeze_panes = "K5"
+        else:
+            note(s2, f"{COUNTRY[c]} – nothing missing",
+                 f"We already hold your data by {lvl} for 2000–2022 for all agents. Nothing to add on this sheet.")
+    else:
+        years = list(range(2000, 2023))
+        note(s2, f"{COUNTRY[c]} – insect damage 2000–2022 by {lvl}",
+             f"We hold only national totals. Please give the same agents by {lvl} for 2000–2022 (2023–2025 go on sheet 1). "
+             f"This replaces the national series.  {BLANK_NOTE}", span=16)
+        end = grid(s2, 4, FIELDS, WID, agent_rows(c, units), years)
+        s2.freeze_panes = "K5"
+
+    # ---- sheet 3: abiotic (wind + total abiotic), only the years we need
+    s3 = wb3.create_sheet("3 Abiotic")
+    note(s3, f"{COUNTRY[c]} – abiotic damage by {lvl}",
+         "Wind = windthrow / storm damage.  Total abiotic = all abiotic causes together (wind, snow, ice, drought, fire, other).  "
+         "Set the unit (m3 or ha) in the 'Unit' column.  BLANK = no data, 0 = no damage.", span=16)
+    r = 4
+    for lab, code, i0 in (("Wind", "ABIO_wind", 0), ("Total abiotic", "ABIO_tot", 4)):
+        a = ABIO[c]
+        upd = a[i0] == "Y" and a[i0 + 1] == "NUTS"
+        years = list(range(a[i0 + 3] + 1, 2026)) if upd else list(range(2000, 2026))
+        s3.cell(r, 1, f"{lab} – {years[0]}–{years[-1]}" + (" (update – we hold earlier years)" if upd else "")).font = \
+            Font(name=F, size=12, bold=True)
+        r += 1
+        rows = [[lab, code, c, u, nm, "m3"] for u, nm in units]
+        r = grid(s3, r, ["Damage type", "code", "Country", "NUTS", "Region", "Unit"], [16, 11, 7, 9, 22, 7], rows, years)
+        for rr in range(r - len(rows), r):          # unit is an input here
+            s3.cell(rr, 6).fill = YEL
+        dvu = DataValidation(type="list", formula1='"m3,ha"', allow_blank=True)
+        s3.add_data_validation(dvu)
+        dvu.add(f"F{r - len(rows)}:F{r - 1}")
+        r += 1
+    s3.freeze_panes = "G4"
+    for s_ in wb3.worksheets:
+        s_.sheet_view.zoomScale = 90
+    wb3.save(os.path.join(OUT, "country_requests", f"EUForDam_Request_{c}.xlsx"))
+print("country request files written:", len(ORDER))
