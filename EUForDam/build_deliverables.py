@@ -182,6 +182,39 @@ for c in ORDER:
 table(ag_ws, 1, ["Code", "Country", "Agent", "Agent code", "Unit", "# regions held", "Years held", "Blank years (2000–2022)",
                  "We ask"], [6, 12, 34, 22, 6, 9, 11, 16, 24], rows)
 
+# ---- abiotic: who provided what in the Incoming sheets (professor's 3rd point)
+ABIO_UNIT = {  # units as found in each Incoming sheet: (wind, total abiotic)
+    "AT": ("–", "m3"), "CZ": ("–", "m3"), "DE": ("–", "m3 / ha mixed"), "FI": ("ha (NFI area)", "ha (NFI area)"),
+    "PL": ("m3 (proxy: broken & fallen trees)", "–"), "BG": ("–", "ha"), "CH": ("m3", "m3 (sum of categories)"),
+    "HR": ("–", "ha + m3"), "HU": ("ha ('Storm')", "ha"), "IT": ("m3 (Vaia storm only)", "ha + m3"),
+    "LT": ("ha + m3", "ha"), "RO": ("ha (+ m3 with gaps)", "–"), "RS": ("–", "m3"),
+    "SE": ("million m3 (storm years only)", "million m3 (= storm-felled)"), "SI": ("–", "m3"), "SK": ("–", "m3")}
+abw = wb.create_sheet("Abiotic", 2)
+abw["A1"] = "Abiotic damage – who provided what in the Incoming sheets, and what we ask"
+abw["A1"].font = T
+abw["A2"] = ("Rule: provided by NUTS → update the last years only; not provided or national only → full series 2000–2025 at NUTS level.")
+abw["A2"].font = B
+rows = []
+for c in ORDER:
+    a = ABIO[c]
+    lev = lambda i0: ("—" if a[i0] != "Y" else (level_for(c) if a[i0 + 1] == "NUTS" else "National"))
+    yrs = lambda i0: (yr(a[i0 + 2], a[i0 + 3]) if a[i0] == "Y" else "—")
+    rows.append([c, COUNTRY[c],
+                 "Yes" if a[0] == "Y" else "No", lev(0), yrs(0), ABIO_UNIT[c][0], abio_req(c, 0),
+                 "Yes" if a[4] == "Y" else "No", lev(4), yrs(4), ABIO_UNIT[c][1], abio_req(c, 4),
+                 a[8]])
+table(abw, 4, ["Code", "Country",
+               "Wind in Incoming?", "Wind level", "Wind years", "Wind unit", "Wind – we ask",
+               "Total abiotic in Incoming?", "Total level", "Total years", "Total unit", "Total abiotic – we ask",
+               "Notes from the Incoming sheet"],
+      [6, 12, 9, 14, 11, 18, 26, 10, 14, 11, 16, 26, 70], rows)
+for i, row in enumerate(rows, 5):
+    for j in (7, 12):
+        abw.cell(i, j).fill = GRN if str(abw.cell(i, j).value).startswith("Update") else RED
+    for j in (3, 8):
+        abw.cell(i, j).fill = GRN if abw.cell(i, j).value == "Yes" else RED
+    abw.row_dimensions[i].height = 48
+
 # ---- notes for Roman (internal)
 nr = wb.create_sheet("For Roman (internal)")
 rows = [[c, COUNTRY[c], FLAGS.get(c, ""), INCOMING.get(c, ("",) * 7)[6]] for c in ORDER]
