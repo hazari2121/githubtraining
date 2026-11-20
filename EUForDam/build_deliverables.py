@@ -356,8 +356,9 @@ META = (_m.groupby(["sp_code"] + _cols).size().reset_index(name="n").sort_values
 META = pd.concat([META, d[~d.sp_code.isin(META.index)].groupby(["sp_code"] + _cols).size().reset_index(name="n")
                   .sort_values("n", ascending=False).drop_duplicates("sp_code").set_index("sp_code")[_cols]])
 UNIT = d.dropna(subset=["sp_unit"]).groupby("sp_code").sp_unit.agg(lambda s: s.mode()[0])
-FIELDS = ["Agent", "sp_code", "SP_CATEGORY", "SP_SUBCATEGORY", "HOSTTREE", "TREETYPE", "Country", "NUTS", "Region", "sp_unit"]
-WID = [30, 20, 12, 18, 15, 8, 7, 9, 22, 9]
+FIELDS = ["Agent", "sp_code", "SP_CATEGORY", "SP_SUBCATEGORY", "HOSTTREE", "TREETYPE", "Country", "NUTS", "Region",
+          "Unit (specify: m3/ha)"]
+WID = [30, 20, 12, 18, 15, 8, 7, 9, 22, 12]
 OPTF = PatternFill("solid", fgColor="EDEDED")
 
 
@@ -388,7 +389,7 @@ def grid(ws, r0, fields, widths, rows, years):
     ws.add_data_validation(dv)
     dvu = DataValidation(type="list", formula1='"m3,ha"', allow_blank=True)
     ws.add_data_validation(dvu)
-    ucol = fields.index("sp_unit") + 1 if "sp_unit" in fields else None
+    ucol = next((j + 1 for j, f_ in enumerate(fields) if str(f_).startswith("Unit")), None)
     r = r0 + 1
     for row in rows:
         for j, v in enumerate(row, 1):
@@ -458,11 +459,11 @@ def agent_rows(c, units):
         m_ = META.loc[a["code"]]
         for u, nm in units:
             out.append([a["name"], a["code"], m_.SP_CATEGORY, m_.SP_SUBCATEGORY, m_.HOSTTREE, m_.TREETYPE, c, u, nm,
-                        UNIT.get(a["code"], "m3")])
+                        None])                               # unit left blank – expert specifies it
     return out
 
 
-BLANK_NOTE = ("For each year: value1 = volume (m3), value2 = area (ha) – fill whichever you have, or both.  "
+BLANK_NOTE = ("Please SPECIFY THE UNIT (m3 or ha) in the 'Unit' column for every row you fill.  "
               "BLANK = no data / not monitored.  0 = monitored, no damage.")
 for c in ORDER:
     sub = c in SUBNAT
@@ -476,34 +477,22 @@ for c in ORDER:
     note(s1, f"{COUNTRY[c]} – insect damage 2023–2025 by {lvl}",
          f"2023, 2024 and 2025 for each agent × region. Grey columns = EUForDam fields (do not change).  {BLANK_NOTE}")
     rows = agent_rows(c, units)
-    end = grid_pair(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
-    s1.freeze_panes = "K6"
+    end = grid(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
+    s1.freeze_panes = "K5"
 
     # ---- sheet 2: NUTS-level 2000–2022 that we do not have
     s2 = wb3.create_sheet("2 Insects 2000-2022 by NUTS")
-    if sub:
-        miss = []
-        for a in agents_for(c):
-            if a["y0"] > 2000:
-                miss.append((a, list(range(2000, a["y0"]))))
-        if miss:
-            years = sorted({y for _, ys in miss for y in ys})
-            note(s2, f"{COUNTRY[c]} – earlier years by {lvl}",
-                 f"We hold your data by {lvl} from {min(a['y0'] for a, _ in miss)}. Please add the earlier years "
-                 f"{years[0]}–{years[-1]} if they exist.  {BLANK_NOTE}")
-            rows = [r_ for a, _ in miss for r_ in agent_rows(c, units) if r_[1] == a["code"]]
-            end = grid_pair(s2, 4, FIELDS, WID, rows, years)
-            s2.freeze_panes = "K6"
-        else:
-            note(s2, f"{COUNTRY[c]} – nothing missing",
-                 f"We already hold your data by {lvl} for 2000–2022 for all agents. Nothing to add on this sheet.")
+    if sub:   # already provided NUTS-level data → nothing to ask on this sheet
+        note(s2, f"{COUNTRY[c]} – not needed",
+             f"You already provided NUTS-level data ({lvl}), so there is nothing to fill on this sheet. "
+             "Please use sheet 1 (2023–2025) and sheet 3 (abiotic).")
     else:
         years = list(range(2000, 2023))
         note(s2, f"{COUNTRY[c]} – insect damage 2000–2022 by {lvl}",
              f"We hold only national totals. Please give the same agents by {lvl} for 2000–2022 (2023–2025 go on sheet 1). "
              f"This replaces the national series.  {BLANK_NOTE}", span=16)
-        end = grid_pair(s2, 4, FIELDS, WID, agent_rows(c, units), years)
-        s2.freeze_panes = "K6"
+        end = grid(s2, 4, FIELDS, WID, agent_rows(c, units), years)
+        s2.freeze_panes = "K5"
 
     # ---- sheet 3: abiotic (wind + total abiotic) – what we have comes from the Incoming sheets
     s3 = wb3.create_sheet("3 Abiotic")
