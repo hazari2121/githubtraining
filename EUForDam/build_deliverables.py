@@ -357,7 +357,7 @@ META = pd.concat([META, d[~d.sp_code.isin(META.index)].groupby(["sp_code"] + _co
                   .sort_values("n", ascending=False).drop_duplicates("sp_code").set_index("sp_code")[_cols]])
 UNIT = d.dropna(subset=["sp_unit"]).groupby("sp_code").sp_unit.agg(lambda s: s.mode()[0])
 FIELDS = ["Agent", "sp_code", "SP_CATEGORY", "SP_SUBCATEGORY", "HOSTTREE", "TREETYPE", "Country", "NUTS", "Region", "sp_unit"]
-WID = [30, 20, 12, 18, 15, 8, 7, 9, 22, 7]
+WID = [30, 20, 12, 18, 15, 8, 7, 9, 22, 9]
 OPTF = PatternFill("solid", fgColor="EDEDED")
 
 
@@ -407,6 +407,51 @@ def grid(ws, r0, fields, widths, rows, years):
     return r
 
 
+def grid_pair(ws, r0, fields, widths, rows, years):
+    """Two header rows: year over [value1 (m3) | value2 (ha)], as value1/value2 in EUForDam_REW.
+    Reference fields grey, value cells + Comment yellow. Returns next free row."""
+    nf, ny = len(fields), len(years)
+    for j, h_ in enumerate(fields, 1):
+        ws.cell(r0, j, h_)
+        ws.merge_cells(start_row=r0, start_column=j, end_row=r0 + 1, end_column=j)
+    for k, y in enumerate(years):
+        c0 = nf + 1 + 2 * k
+        ws.cell(r0, c0, str(y))
+        ws.merge_cells(start_row=r0, start_column=c0, end_row=r0, end_column=c0 + 1)
+        ws.cell(r0 + 1, c0, "value1 (m3)")
+        ws.cell(r0 + 1, c0 + 1, "value2 (ha)")
+    cm = nf + 2 * ny + 1
+    ws.cell(r0, cm, "Comment")
+    ws.merge_cells(start_row=r0, start_column=cm, end_row=r0 + 1, end_column=cm)
+    for rr in (r0, r0 + 1):
+        for j in range(1, cm + 1):
+            c_ = ws.cell(rr, j)
+            c_.font, c_.fill, c_.alignment, c_.border = H, HF, CEN, BOX
+    ws.row_dimensions[r0 + 1].height = 30
+    for j, w in enumerate(widths, 1):
+        ws.column_dimensions[get_column_letter(j)].width = w
+    for k in range(2 * ny):
+        ws.column_dimensions[get_column_letter(nf + 1 + k)].width = 10
+    ws.column_dimensions[get_column_letter(cm)].width = 36
+    dv = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True,
+                        error="Enter a number ≥ 0, or leave blank if there is no data.", showErrorMessage=True)
+    ws.add_data_validation(dv)
+    r = r0 + 2
+    for row in rows:
+        for j, v in enumerate(row, 1):
+            c_ = ws.cell(r, j, v)
+            c_.font, c_.border, c_.fill = B, BOX, OPTF
+        for k in range(2 * ny + 1):
+            c_ = ws.cell(r, nf + 1 + k)
+            c_.fill, c_.border = YEL, BOX
+            if k < 2 * ny:
+                c_.alignment = CEN
+                dv.add(c_.coordinate)
+                c_.number_format = "#,##0.##"
+        r += 1
+    return r
+
+
 def agent_rows(c, units):
     out = []
     for a in agents_for(c):
@@ -417,8 +462,8 @@ def agent_rows(c, units):
     return out
 
 
-BLANK_NOTE = ("BLANK = no data / not monitored.  0 = monitored, no damage.  sp_unit = unit we use (m3 or ha); "
-              "if you report in another unit, change it in that row.")
+BLANK_NOTE = ("For each year: value1 = volume (m3), value2 = area (ha) – fill whichever you have, or both.  "
+              "BLANK = no data / not monitored.  0 = monitored, no damage.")
 for c in ORDER:
     sub = c in SUBNAT
     units = units_for(c)
@@ -429,11 +474,10 @@ for c in ORDER:
     s1 = wb3.active
     s1.title = "1 Insects 2023-2025"
     note(s1, f"{COUNTRY[c]} – insect damage 2023–2025 by {lvl}",
-         f"Three values (2023, 2024, 2025) for each agent × region. Grey columns = EUForDam fields (do not change).  {BLANK_NOTE}")
+         f"2023, 2024 and 2025 for each agent × region. Grey columns = EUForDam fields (do not change).  {BLANK_NOTE}")
     rows = agent_rows(c, units)
-    end = grid(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
-    s1.freeze_panes = "K5"
-    s1.auto_filter.ref = f"A4:N{end - 1}"
+    end = grid_pair(s1, 4, FIELDS, WID, rows, [2023, 2024, 2025])
+    s1.freeze_panes = "K6"
 
     # ---- sheet 2: NUTS-level 2000–2022 that we do not have
     s2 = wb3.create_sheet("2 Insects 2000-2022 by NUTS")
@@ -448,8 +492,8 @@ for c in ORDER:
                  f"We hold your data by {lvl} from {min(a['y0'] for a, _ in miss)}. Please add the earlier years "
                  f"{years[0]}–{years[-1]} if they exist.  {BLANK_NOTE}")
             rows = [r_ for a, _ in miss for r_ in agent_rows(c, units) if r_[1] == a["code"]]
-            end = grid(s2, 4, FIELDS, WID, rows, years)
-            s2.freeze_panes = "K5"
+            end = grid_pair(s2, 4, FIELDS, WID, rows, years)
+            s2.freeze_panes = "K6"
         else:
             note(s2, f"{COUNTRY[c]} – nothing missing",
                  f"We already hold your data by {lvl} for 2000–2022 for all agents. Nothing to add on this sheet.")
@@ -458,8 +502,8 @@ for c in ORDER:
         note(s2, f"{COUNTRY[c]} – insect damage 2000–2022 by {lvl}",
              f"We hold only national totals. Please give the same agents by {lvl} for 2000–2022 (2023–2025 go on sheet 1). "
              f"This replaces the national series.  {BLANK_NOTE}", span=16)
-        end = grid(s2, 4, FIELDS, WID, agent_rows(c, units), years)
-        s2.freeze_panes = "K5"
+        end = grid_pair(s2, 4, FIELDS, WID, agent_rows(c, units), years)
+        s2.freeze_panes = "K6"
 
     # ---- sheet 3: abiotic (wind + total abiotic) – what we have comes from the Incoming sheets
     s3 = wb3.create_sheet("3 Abiotic")
