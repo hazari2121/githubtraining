@@ -119,7 +119,7 @@ TARGET = {
 import json as _json, os as _os
 _ES = _os.path.join(_os.path.dirname(_os.path.abspath(sys.argv[0])), "eurostat_nuts2024_names.json")
 if _os.path.exists(_ES):
-    _N = _json.load(open(_ES, encoding="utf-8"))
+    _N = {k: v.strip() for k, v in _json.load(open(_ES, encoding="utf-8")).items()}
     for _c, (_lvl, _us) in TARGET.items():
         TARGET[_c] = (_lvl, [(u, _N.get(u, nm)) for u, nm in _us])
     for _u in list(UNIT_NAMES):
