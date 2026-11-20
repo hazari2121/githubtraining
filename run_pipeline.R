@@ -6,6 +6,7 @@ if (length(args) < 1) stop("Usage: Rscript run_pipeline.R <input.xlsx> [output_d
 input   <- args[1]
 out_dir <- if (length(args) >= 2) args[2] else "output"
 
+invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))  # UTF-8 text (e.g. Polish names) everywhere
 source(file.path("R", "eufordam_pipeline.R"))
 source(file.path("R", "host_tables.R"))
 source(file.path("R", "host_climate.R"))

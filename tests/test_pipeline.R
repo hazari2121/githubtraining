@@ -1,5 +1,6 @@
 # Run with: Rscript tests/test_pipeline.R path/to/EUForDam.xlsx
 suppressPackageStartupMessages(library(testthat))
+invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))  # UTF-8 text (e.g. Polish names) everywhere
 source(file.path("R", "eufordam_pipeline.R"))
 
 input <- commandArgs(trailingOnly = TRUE)[1]
@@ -237,4 +238,16 @@ test_that("web explorer data keeps every record and the same totals", {
   expect_equal(sum(r[, 5]), sum(mdr$value), tolerance = 1e-6)
   m <- jsonlite::fromJSON(file.path(d, "meta.json"))
   expect_equal(nrow(m$insects), dplyr::n_distinct(mdr$sp_code))
+})
+
+test_that("web data: host amounts per region and implausible growing stock left out", {
+  hc_t <- if (!is.na(hc_path)) read_host_climate(hc_path) else NULL
+  skip_if(is.null(hc_t))
+  d <- file.path(tempdir(), "web_test2")
+  write_web_data(mdr, ht, build_pairs(mdr, ht), d, host_climate = hc_t)
+  m <- jsonlite::fromJSON(file.path(d, "meta.json"), simplifyVector = FALSE)
+  codes <- vapply(m$regions, `[[`, "", "code")
+  expect_setequal(codes[vapply(m$regions, function(r) is.null(r$host), TRUE)], c("DE3", "DE5", "DE6"))
+  expect_setequal(sub(" .*", "", unlist(m$host_excluded)), c("BG", "LT"))
+  expect_false(any(grepl("<U\\+", unlist(lapply(m$regions, `[[`, "name")))))
 })

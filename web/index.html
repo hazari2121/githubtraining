@@ -21,18 +21,24 @@
   --font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --r: 6px;
+  --map-bg: #e4e8e2;
+  --map-line: #c9d0c7;
+  --map-none: #f6f7f4;
+  --map-zero: #f1ead8;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #111613; --surface: #18201b; --surface-2: #1f2822; --fg: #e3eae5; --muted: #9aa79f;
     --line: #2c3731; --accent: #74c29a; --accent-fg: #0f1a14; --bark: #db925c;
     --heat: 116, 194, 154; --neg: 120, 165, 220; color-scheme: dark;
+    --map-bg: #222b25; --map-line: #34403a; --map-none: #151b17; --map-zero: #3a3529;
   }
 }
 :root[data-theme="dark"] {
   --bg: #111613; --surface: #18201b; --surface-2: #1f2822; --fg: #e3eae5; --muted: #9aa79f;
   --line: #2c3731; --accent: #74c29a; --accent-fg: #0f1a14; --bark: #db925c;
   --heat: 116, 194, 154; --neg: 120, 165, 220; color-scheme: dark;
+  --map-bg: #222b25; --map-line: #34403a; --map-none: #151b17; --map-zero: #3a3529;
 }
 * { box-sizing: border-box; }
 html, body { background: var(--bg); color: var(--fg); }
@@ -102,6 +108,19 @@ tr.click:hover td { background: var(--surface-2); }
 svg { width: 100%; height: auto; display: block; }
 svg text { fill: var(--muted); font: 11px var(--mono); }
 .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.75rem; font-family: var(--font); border: 1px solid var(--line); color: var(--muted); }
+.mapwrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .mapwrap { grid-template-columns: 1fr; } }
+.mapbox { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); overflow: hidden; }
+.mapbox svg path.unit { stroke: var(--surface); stroke-width: 0.7; cursor: pointer; }
+.mapbox svg path.unit.approx { stroke-dasharray: 3 2; stroke: var(--muted); }
+.mapbox svg path.unit:hover, .mapbox svg path.unit.sel { stroke: var(--fg); stroke-width: 1.8; }
+.maplegend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.8rem; color: var(--muted); align-items: center; }
+.maplegend span { display: inline-flex; align-items: center; gap: 5px; }
+.maplegend i { width: 16px; height: 12px; border: 1px solid var(--line); display: inline-block; }
+.info { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: flex; flex-direction: column; gap: 6px; min-height: 120px; }
+.info h3 { margin: 0; font-size: 1rem; }
+.info dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 0.88rem; }
+.info dt { color: var(--muted); } .info dd { margin: 0; font-family: var(--mono); text-align: right; }
 .empty { padding: 28px; text-align: center; color: var(--muted); }
 #status { color: var(--muted); }
 @media (max-width: 560px) { h1 { font-size: 1.3rem; } .panel { padding: 12px; } }
@@ -117,6 +136,7 @@ svg text { fill: var(--muted); font: 11px var(--mono); }
     <a href="#explore" data-tab="explore">Explore</a>
     <a href="#compare" data-tab="compare">Compare</a>
     <a href="#pairs" data-tab="pairs">Pairs</a>
+    <a href="#map" data-tab="map">Map</a>
     <a href="#coverage" data-tab="coverage">Coverage</a>
   </nav>
 
@@ -204,6 +224,32 @@ svg text { fill: var(--muted); font: 11px var(--mono); }
     <div class="tablebox" id="pr-table"></div>
   </section>
 
+  <!-- MAP -->
+  <section id="view-map" class="panel" hidden>
+    <p class="intro">Each region coloured by what you choose. Use it to check the data: where damage is recorded, where only zeros are reported, and where records are missing. Grey stripes = no record. Polish forestry districts (dashed) are approximate shapes around each district seat.</p>
+    <div class="sides"><fieldset class="side side-a"><legend><i></i>What</legend>
+      <div class="field"><label for="mp-level">Level</label><select id="mp-level"></select></div>
+      <div class="field"><label for="mp-item">Insect or group</label><select id="mp-item"></select></div>
+      <div class="field"><label for="mp-tree">On host tree</label><select id="mp-tree"></select></div>
+    </fieldset></div>
+    <div class="controls">
+      <div class="field"><label for="mp-measure">Colour by</label><select id="mp-measure"></select></div>
+      <div class="field"><label for="mp-from">Years</label>
+        <div style="display:flex;gap:6px"><input id="mp-from" type="number" min="2000" max="2022" value="2000" aria-label="From year"><input id="mp-to" type="number" min="2000" max="2022" value="2022" aria-label="To year"></div></div>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="mp-single"> Single species only</label>
+      <label><input type="checkbox" id="mp-paper"> In paper dataset only</label>
+      <button id="mp-copy" type="button">Copy region table</button>
+    </div>
+    <div class="maplegend" id="mp-legend"></div>
+    <div class="mapwrap">
+      <div class="mapbox" id="mp-map"></div>
+      <div class="info" id="mp-info"><span class="note">Point at or tap a region to see its numbers.</span></div>
+    </div>
+    <div class="tablebox" id="mp-table"></div>
+  </section>
+
   <!-- COVERAGE -->
   <section id="view-coverage" class="panel" hidden>
     <p class="intro">What is recorded where and when. Each cell counts regions for one insect in one year; darker = more regions. Use it to see where data are missing before modelling.</p>
@@ -223,14 +269,40 @@ const DIMS = [
   ["insect", "Insect"], ["L1", "L1 group"], ["L2", "L2 group"], ["L3", "L3 group"], ["guild", "Guild"],
   ["tree", "Host tree"], ["treeType", "Conifers / broadleaves"], ["country", "Country"], ["region", "Region"], ["year", "Year"]
 ];
-const MEASURES = [["total", "Total damage"], ["records", "Number of records"], ["regions", "Number of regions"],
+const MEASURES = [["total", "Total damage"], ["relative", "Damage as % of host per year"], ["records", "Number of records"], ["regions", "Number of regions"],
   ["average", "Average per record"], ["any", "Any damage (1 / 0)"]];
+// host amount of region r for host key k, in the record's unit (null = not available)
+function hostAmt(r, k, unit) {
+  const h = S.meta.regions[r].host; if (!h) return null;
+  const v = h[S.meta.host_keys[k]]; if (!v) return null;
+  const a = v[unit === "m3" ? 1 : 0];
+  return a === null || a === undefined || !(a > 0) ? null : a;
+}
+// relative damage: damage / host amount, both only for region-years with host data.
+// Each region-year's host counted once; when a cell mixes a tree with the all-conifers
+// (or all-broadleaves) amount that contains it, only the larger amount counts.
+function relAdd(c, x) {
+  const unit = S.meta.insects[x.i].unit, a = hostAmt(x.r, x.k, unit);
+  if (a === null) return;
+  c.rn = (c.rn || 0) + x.v; c.rk = c.rk || new Map();
+  const key = x.r + "|" + x.y; let e = c.rk.get(key); if (!e) { e = { r: x.r, unit, keys: new Set() }; c.rk.set(key, e); }
+  e.keys.add(x.k);
+}
+function relValue(c) {
+  if (!c || !c.rk) return null; let den = 0;
+  for (const e of c.rk.values()) {
+    const hasC = e.keys.has(4), hasD = e.keys.has(5);
+    for (const k of e.keys) { if (hasC && k <= 2) continue; if (hasD && k === 3) continue; den += hostAmt(e.r, k, e.unit); }
+  }
+  return den > 0 ? 100 * c.rn / den : null;
+}
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 function fmt(v, measure) {
   if (v === null || v === undefined || Number.isNaN(v)) return "";
-  if (measure === "records" || measure === "regions" || measure === "any") return String(v);
+  if (measure === "records" || measure === "regions" || measure === "any" || measure === "years") return String(v);
+  if (measure === "relative" || measure === "pct") return (v >= 10 ? v.toFixed(1) : v >= 0.1 ? v.toFixed(2) : v === 0 ? "0" : v.toPrecision(2)) + " %";
   const a = Math.abs(v);
   if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e8 ? 0 : 2) + " M";
   if (a >= 1e4) return Math.round(v).toLocaleString("en-US");
@@ -275,9 +347,10 @@ async function load() {
   const get = (f) => fetch(f).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   const [meta, rec, pairs] = await Promise.all([get("meta.json"), get("records.json"), get("pairs.json")]);
   S.meta = meta; S.pairs = pairs;
+  S.geo = await get("map.json").catch(() => null);
   const code2i = new Map(meta.insects.map((m, i) => [m.code, i]));
   S.code2i = code2i;
-  S.rec = rec.map(([i, r, y, t, v, n, p]) => ({ i, r, y, t, v, n, p }));
+  S.rec = rec.map(([i, r, y, t, v, n, p, k]) => ({ i, r, y, t, v, n, p, k }));
   pairs.forEach((p) => { p.ia = code2i.get(p.a); p.ib = code2i.get(p.b); S.pairIndex.set(p.ia + "-" + p.ib, p); S.pairIndex.set(p.ib + "-" + p.ia, p); });
   S.countries = [...new Set(meta.regions.map((r) => r.country))].sort();
   const nRec = rec.reduce((s, x) => s + x[5], 0);
@@ -351,9 +424,9 @@ function renderExplore() {
     rows.add(rk); cols.add(ck); nRec += x.n;
     const k = rk + "\u0001" + ck;
     let c = cells.get(k); if (!c) { c = { s: 0, n: 0, pos: 0, reg: new Set() }; cells.set(k, c); }
-    c.s += x.v; c.n += x.n; if (x.v > 0) c.pos++; c.reg.add(x.r);
+    c.s += x.v; c.n += x.n; if (x.v > 0) c.pos++; c.reg.add(x.r); relAdd(c, x);
   }
-  const val = (c) => !c ? null : ms === "total" ? c.s : ms === "records" ? c.n : ms === "regions" ? c.reg.size : ms === "average" ? c.s / c.n : (c.pos > 0 ? 1 : 0);
+  const val = (c) => !c ? null : ms === "total" ? c.s : ms === "records" ? c.n : ms === "regions" ? c.reg.size : ms === "average" ? c.s / c.n : ms === "relative" ? relValue(c) : (c.pos > 0 ? 1 : 0);
   const R = [...rows].sort(dimOrder(rd)), C = [...cols].sort(dimOrder(cd));
   $("ex-summary").textContent = R.length ? `${R.length} rows × ${C.length} columns · ${nRec.toLocaleString("en-US")} records · unit ${$("ex-unit").value === "m3" ? "m³" : "ha"}` : "";
   if (!R.length) { $("ex-table").innerHTML = `<div class="empty">No records match these filters. Try another unit or clear a filter.</div>`; return; }
@@ -584,6 +657,110 @@ function renderPairs() {
     openCompare(+tr.dataset.a, +tr.dataset.b); }));
 }
 
+// ---------- map ----------
+const MAP_LEVELS = [["unit", "Everything recorded"], ...LEVELS];
+const MAP_MEASURES = [["total", "Total damage"], ["peryear", "Mean damage per recorded year"], ["relative", "Damage as % of host per year"],
+  ["yrsrec", "Years with a record"], ["yrsdmg", "Years with damage (> 0)"], ["zeroshare", "Share of recorded years with zero damage"], ["records", "Number of records"]];
+function mapItems(level) {
+  if (level === "unit") return [["m3", "All borers (m³)", "borer"], ["ha", "All defoliators (ha)", "defoliator"]];
+  return levelItems(level);
+}
+function mapSide() { return { level: $("mp-level").value, item: $("mp-item").value, tree: $("mp-tree").value }; }
+function mapMatch(side, x) {
+  if (side.level !== "unit") return matchSide(side, x);
+  return S.meta.insects[x.i].unit === side.item && (side.tree === "" || x.t === +side.tree);
+}
+function fillMapItems(keep) {
+  const items = mapItems($("mp-level").value), sel = $("mp-item");
+  const groups = { borer: [], defoliator: [] }; items.forEach((it) => groups[it[2]].push(it));
+  sel.innerHTML = Object.entries(groups).filter(([, v]) => v.length).map(([g, v]) =>
+    `<optgroup label="${g === "borer" ? "Borers (m³)" : "Defoliators (ha)"}">` + v.map(([val, lab]) => `<option value="${esc(val)}">${esc(lab)}</option>`).join("") + "</optgroup>").join("");
+  if (keep !== undefined && items.some((it) => it[0] === String(keep))) sel.value = String(keep);
+  fillMapTrees();
+}
+function fillMapTrees() {
+  const side = { ...mapSide(), tree: "" }, used = new Set();
+  for (const x of S.rec) if (mapMatch(side, x)) used.add(x.t);
+  const sel = $("mp-tree"), prev = sel.value;
+  sel.innerHTML = `<option value="">All its host trees</option>` + S.meta.trees.map((t, i) => [i, t.name]).filter(([i]) => used.has(i))
+    .map(([i, n]) => `<option value="${i}">${esc(n)}</option>`).join("");
+  if ([...sel.options].some((o) => o.value === prev)) sel.value = prev;
+}
+function setupMap() {
+  if (!S.geo) { $("mp-map").innerHTML = `<div class="empty">The map shapes could not be loaded.</div>`; return; }
+  opts($("mp-level"), MAP_LEVELS); opts($("mp-measure"), MAP_MEASURES);
+  fillMapItems();
+  $("mp-level").addEventListener("change", () => { fillMapItems(); renderMap(); });
+  $("mp-item").addEventListener("change", () => { fillMapTrees(); renderMap(); });
+  ["mp-tree", "mp-measure", "mp-from", "mp-to", "mp-single", "mp-paper"].forEach((id) => $(id).addEventListener("change", renderMap));
+  $("mp-copy").addEventListener("click", () => copyText(tableToTSV($("mp-table")), $("mp-copy")));
+  const g = S.geo, code2r = new Map(S.meta.regions.map((r, i) => [r.code, i]));
+  $("mp-map").innerHTML = `<svg viewBox="0 0 ${g.width} ${g.height}" role="img" aria-label="Map of the study regions">` +
+    `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--map-none)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--map-line)" stroke-width="2"/></pattern></defs>` +
+    g.background.map((d) => `<path d="${d}" fill="var(--map-bg)" stroke="var(--map-line)" stroke-width="0.6"/>`).join("") +
+    g.units.map((u) => `<path class="unit${u.approx ? " approx" : ""}" data-r="${code2r.get(u.code)}" d="${u.d}"><title>${esc(u.code)}</title></path>`).join("") + "</svg>";
+  $("mp-map").querySelectorAll("path.unit").forEach((p) => {
+    const show = () => { $("mp-map").querySelectorAll("path.sel").forEach((q) => q.classList.remove("sel")); p.classList.add("sel"); showInfo(+p.dataset.r); };
+    p.addEventListener("mouseenter", show); p.addEventListener("click", show);
+  });
+}
+function mapStats() {
+  const side = mapSide(), from = +$("mp-from").value || 2000, to = +$("mp-to").value || 2022;
+  const single = $("mp-single").checked, paper = $("mp-paper").checked, st = new Map();
+  for (const x of S.rec) {
+    if (x.y < from || x.y > to || !mapMatch(side, x)) continue;
+    if (single && !S.meta.insects[x.i].single) continue;
+    if (paper && !x.p) continue;
+    let c = st.get(x.r); if (!c) { c = { s: 0, n: 0, yr: new Map() }; st.set(x.r, c); }
+    c.s += x.v; c.n += x.n; c.yr.set(x.y, (c.yr.get(x.y) || 0) + x.v); relAdd(c, x);
+  }
+  for (const c of st.values()) {
+    c.yrsrec = c.yr.size; c.yrsdmg = [...c.yr.values()].filter((v) => v > 0).length;
+    c.total = c.s; c.peryear = c.s / c.yrsrec; c.relative = relValue(c); c.records = c.n;
+    c.zeroshare = 100 * (c.yrsrec - c.yrsdmg) / c.yrsrec;
+  }
+  return st;
+}
+function renderMap() {
+  if (!S.geo) return;
+  const ms = $("mp-measure").value, st = mapStats(); S.mapStats = st;
+  const vals = [...st.values()].map((c) => c[ms]).filter((v) => v !== null && v !== undefined && v > 0).sort((a, b) => a - b);
+  const nb = 6, br = [];
+  for (let k = 1; k < nb; k++) { const q = vals[Math.floor(k * vals.length / nb)]; if (q !== undefined && !br.includes(q)) br.push(q); }
+  const cls = (v) => { let k = 0; while (k < br.length && v >= br[k]) k++; return k; }, nc = br.length + 1;
+  const fill = (k) => `rgba(var(--heat),${(0.18 + 0.8 * (nc > 1 ? k / (nc - 1) : 1)).toFixed(2)})`;
+  const unit = (() => { for (const x of S.rec) if (mapMatch(mapSide(), x)) return S.meta.insects[x.i].unit === "m3" ? "m³" : "ha"; return ""; })();
+  const f = (v) => ["yrsrec", "yrsdmg", "records"].includes(ms) ? String(Math.round(v)) : ms === "relative" || ms === "zeroshare" ? fmt(v, "pct") : fmt(v, "total") + " " + unit;
+  $("mp-map").querySelectorAll("path.unit").forEach((p) => {
+    const c = st.get(+p.dataset.r), v = c ? c[ms] : undefined;
+    p.style.fill = !c ? "url(#hatch)" : v === null || v === undefined ? "var(--map-bg)" : v === 0 ? "var(--map-zero)" : fill(cls(v));
+  });
+  const edges = [vals[0], ...br, vals[vals.length - 1]];
+  $("mp-legend").innerHTML = (vals.length ? Array.from({ length: nc }, (_, k) => `<span><i style="background:${fill(k)}"></i>${f(edges[k])}${k < nc - 1 ? " – " + f(edges[k + 1]) : "+"}</span>`).join("") : "") +
+    `<span><i style="background:var(--map-zero)"></i>0</span><span><i style="background:url(#hatch);background:repeating-linear-gradient(45deg,var(--map-none) 0 3px,var(--map-line) 3px 5px)"></i>no record</span>` +
+    (ms === "relative" ? `<span><i style="background:var(--map-bg)"></i>no host data</span>` : "");
+  const rows = S.meta.regions.map((r, i) => ({ i, c: st.get(i) })).sort((a, b) => (b.c ? (b.c[ms] ?? -1) : -2) - (a.c ? (a.c[ms] ?? -1) : -2));
+  $("mp-table").innerHTML = `<table><thead><tr><th>Region</th><th>Country</th><th>${esc(MAP_MEASURES.find((m) => m[0] === ms)[1])}</th><th>Total damage</th><th>Years recorded</th><th>Years with damage</th><th>Records</th><th>% of host / yr</th></tr></thead><tbody>` +
+    rows.map(({ i, c }) => { const r = S.meta.regions[i];
+      return `<tr class="click" data-r="${i}"><td>${esc(r.code + (r.name !== r.code ? " " + r.name : ""))}</td><td style="font-family:var(--font)">${esc(r.country)}</td>` +
+        (c ? `<td data-raw="${c[ms] ?? ""}">${c[ms] === null || c[ms] === undefined ? "–" : f(c[ms])}</td><td data-raw="${c.total}">${fmt(c.total, "total")}</td><td>${c.yrsrec}</td><td>${c.yrsdmg}</td><td>${c.records}</td><td data-raw="${c.relative ?? ""}">${c.relative === null ? "–" : fmt(c.relative, "pct")}</td>`
+           : `<td colspan="6" class="sub" style="text-align:left;font-family:var(--font)">no record</td>`) + "</tr>"; }).join("") + "</tbody></table>";
+  $("mp-table").querySelectorAll("tr.click").forEach((tr) => tr.addEventListener("click", () => { showInfo(+tr.dataset.r);
+    $("mp-map").querySelectorAll("path.sel").forEach((q) => q.classList.remove("sel")); const p = $("mp-map").querySelector(`path[data-r="${tr.dataset.r}"]`); if (p) p.classList.add("sel"); }));
+  if (S.mapSel !== undefined) showInfo(S.mapSel);
+}
+function showInfo(r) {
+  S.mapSel = r; const reg = S.meta.regions[r], c = S.mapStats && S.mapStats.get(r);
+  const ex = (S.meta.host_excluded || []).find((e) => e.startsWith(reg.code + " "));
+  $("mp-info").innerHTML = `<h3>${esc(reg.code + (reg.name !== reg.code ? " " + reg.name : ""))}</h3><span class="sub">Country ${esc(reg.country)}</span>` +
+    (!c ? `<p class="note">No record for this selection in this region.</p>` :
+    `<dl><dt>Total damage</dt><dd>${fmt(c.total, "total")}</dd><dt>Mean per recorded year</dt><dd>${fmt(c.peryear, "total")}</dd>` +
+    `<dt>% of host per year</dt><dd>${c.relative === null ? "–" : fmt(c.relative, "pct")}</dd><dt>Years with a record</dt><dd>${c.yrsrec} of ${(+$("mp-to").value || 2022) - (+$("mp-from").value || 2000) + 1}</dd>` +
+    `<dt>Years with damage</dt><dd>${c.yrsdmg}</dd><dt>Records</dt><dd>${c.records}</dd></dl>`) +
+    (!reg.host ? `<p class="note">No host data for this region, so no % of host.</p>` : "") +
+    (ex ? `<p class="note">Host growing stock left out for ${esc(ex.split(" (")[1].replace(")", ""))}: values look like thousands of m³.</p>` : "");
+}
+
 // ---------- coverage ----------
 function setupCoverage() {
   opts($("cv-country"), S.countries, "All");
@@ -611,7 +788,7 @@ function renderCoverage() {
 }
 
 // ---------- routing ----------
-const VIEWS = ["explore", "compare", "pairs", "coverage"];
+const VIEWS = ["explore", "compare", "pairs", "map", "coverage"];
 function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "explore";
   VIEWS.forEach((x) => { $("view-" + x).hidden = x !== v; });
@@ -620,8 +797,8 @@ function route() {
 window.addEventListener("hashchange", route);
 
 load().then(() => {
-  setupExplore(); setupCompare(); setupPairs(); setupCoverage();
-  renderExplore(); renderCompare(); renderPairs(); renderCoverage(); route();
+  setupExplore(); setupCompare(); setupPairs(); setupMap(); setupCoverage();
+  renderExplore(); renderCompare(); renderPairs(); renderMap(); renderCoverage(); route();
 }).catch((e) => {
   $("status").textContent = "The data files could not be loaded (" + e.message + "). Reload the page to try again.";
   route();

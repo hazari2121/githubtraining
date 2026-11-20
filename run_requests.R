@@ -8,6 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 req_path <- if (length(args) >= 1) args[1] else "requests.xlsx"
 out_dir  <- if (length(args) >= 2) args[2] else "output"
 
+invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))  # UTF-8 text (e.g. Polish names) everywhere
 source(file.path("R", "eufordam_pipeline.R"))
 source(file.path("R", "request.R"))
 

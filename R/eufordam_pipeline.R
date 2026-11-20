@@ -271,7 +271,11 @@ run_pipeline <- function(path, out_dir = "output", ref_dir = "reference",
     readr::write_csv(pairs, file.path(out_dir, "eufordam_pairs.csv"), na = "")
     write_pairs_workbook(pairs, file.path(out_dir, "EUForDAM_pairs.xlsx"))
     # data files for the web explorer (web/index.html reads them)
-    if (exists("write_web_data")) write_web_data(model_data, host, pairs, file.path(out_dir, "web"))
+    if (exists("write_web_data")) {
+      write_web_data(model_data, host, pairs, file.path(out_dir, "web"), host_climate = hc)
+      if (file.exists("reference/map/map_geometry.json"))
+        file.copy("reference/map/map_geometry.json", file.path(out_dir, "web", "map.json"), overwrite = TRUE)
+    }
   }
   if (exists("write_drilldown_workbook"))
     write_drilldown_workbook(model_data, file.path(out_dir, "EUForDAM_drilldown.xlsx"), host = host)

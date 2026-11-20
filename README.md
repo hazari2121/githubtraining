@@ -145,7 +145,18 @@ Known issues:
 - **Explore:** any rows × columns table with filters.
 - **Compare:** pick any two insects or groups (insect, L3, L2, L1, guild), each on all its host trees or one tree, plus where, years and filters. Shows yearly damage side by side, shared regions and years, damage overlap, correlation, 1-year lags and region-by-region results.
 - **Pairs:** the pairs table, sortable and filterable.
+- **Map:** colour regions by total or relative damage, years recorded, years with damage, share of zero years, or records, for any insect or group on any host tree. Hover or tap a region for its numbers; a region table sits below the map.
 - **Coverage:** which insects are recorded where and when.
+
+The Explore and Map tabs also offer **damage as % of host per year**, computed as follows:
+- Damage is divided by the region's growing stock (borers, m³) or area (defoliators, ha) of the record's host tree. That is spruce, pine, fir or oak where the forest data has the tree, otherwise all conifers or all broadleaves.
+- Each region-year's host is counted once.
+- Bulgarian and Lithuanian species volumes (suspected thousands of m³) are left out.
+
+Map boundaries:
+- They come from GADM 4.1 (free for academic use), built once with `Rscript tools/build_map.R <gadm folder>` into `reference/map/map_geometry.json`.
+- The lookup from region codes to boundaries is `reference/map/map_regions.csv`.
+- Polish forestry districts have no official boundaries; they are drawn as approximate areas around each district seat.
 
 It is published as a private claude.ai artifact. After a data update, rerun the pipeline and republish the page together with the three data files.
 

@@ -10,7 +10,16 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-write_web_data <- function(model_data, host, pairs, out_dir) {
+# Host key of a record's host tree: the forest-data column used as its host amount.
+# Trees without their own column use all conifers / all broadleaves (as in the pipeline).
+host_key_of <- function(host_label) {
+  dplyr::case_when(startsWith(host_label, "Picea") ~ "spruce", startsWith(host_label, "Pinus") ~ "pine",
+                   startsWith(host_label, "Abies") ~ "fir", startsWith(host_label, "Quercus") ~ "oak",
+                   startsWith(host_label, "Larix") ~ "coniferous", TRUE ~ "deciduous")
+}
+HOST_KEYS <- c("spruce", "pine", "fir", "oak", "coniferous", "deciduous")
+
+write_web_data <- function(model_data, host, pairs, out_dir, host_climate = NULL) {
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
   h <- add_hierarchy(model_data)
   l2 <- if_else(startsWith(h$L2, "other "), "(no subgroup)", h$L2)
@@ -31,6 +40,18 @@ write_web_data <- function(model_data, host, pairs, out_dir) {
 
   regs <- h |> distinct(nuts, country, region) |> group_by(nuts) |> slice(1) |> ungroup() |>
     arrange(country, nuts)
+  # readable names where the damage data only has a code (DE, AT, FI, whole countries):
+  # from the host file, otherwise from the map lookup
+  nm_host <- if (is.null(host_climate)) character() else
+    setNames(gsub("\\*", "", gsub(";", " + ", host_climate$unit_name)), host_climate$nuts)
+  cw_path <- "reference/map/map_regions.csv"
+  nm_map <- if (file.exists(cw_path)) {
+    cw <- readr::read_csv(cw_path, show_col_types = FALSE, col_types = readr::cols(.default = "c"))
+    setNames(gsub(";", " + ", cw$gadm_names), cw$nuts)
+  } else character()
+  regs$region <- ifelse(regs$region == regs$nuts,
+                        dplyr::coalesce(unname(nm_host[regs$nuts]), unname(nm_map[regs$nuts]), regs$region),
+                        regs$region)
   trees <- read_host_references()$hosts |> distinct(host_label, tree_type, order) |>
     group_by(host_label, tree_type) |> summarise(order = min(order), .groups = "drop") |>
     arrange(order)
@@ -39,7 +60,27 @@ write_web_data <- function(model_data, host, pairs, out_dir) {
     group_by(sp_code, nuts, year, host_label) |>
     summarise(v = sum(value), n = n(), paper = as.integer(any(in_paper_series)), .groups = "drop") |>
     mutate(i = match(sp_code, ins$code) - 1L, r = match(nuts, regs$nuts) - 1L,
-           t = match(host_label, trees$host_label) - 1L, v = round(v, 4))
+           t = match(host_label, trees$host_label) - 1L, v = round(v, 4),
+           k = match(host_key_of(host_label), HOST_KEYS) - 1L)
+
+  # host amount per region and key: [ha, m3]; m3 values implausibly low (< 20 m3 / ha,
+  # e.g. BG and LT species columns, likely in thousands of m3) are left out (null)
+  host_of <- function(nuts) {
+    if (is.null(host_climate)) return(NULL)
+    h1 <- host_climate[host_climate$nuts == nuts, ]
+    if (nrow(h1) == 0) return(NULL)
+    setNames(lapply(HOST_KEYS, function(k) {
+      ha <- h1[[paste0(k, "_ha")]]; m3 <- h1[[paste0(k, "_m3")]]
+      if (!is.na(ha) && !is.na(m3) && ha > 0 && m3 / ha < 20) m3 <- NA
+      c(if (is.na(ha)) NA else ha, if (is.na(m3)) NA else m3)
+    }), HOST_KEYS)
+  }
+  excluded <- if (is.null(host_climate)) character() else unlist(lapply(regs$nuts, function(n) {
+    h1 <- host_climate[host_climate$nuts == n, ]; if (nrow(h1) == 0) return(NULL)
+    k <- HOST_KEYS[vapply(HOST_KEYS, function(k) { ha <- h1[[paste0(k, "_ha")]]; m3 <- h1[[paste0(k, "_m3")]]
+      !is.na(ha) && !is.na(m3) && ha > 0 && m3 / ha < 20 }, logical(1))]
+    if (length(k)) paste0(n, " (", paste(k, collapse = ", "), " m3)")
+  }))
 
   meta <- list(
     generated = format(Sys.Date()),
@@ -48,15 +89,18 @@ write_web_data <- function(model_data, host, pairs, out_dir) {
       L1 = ins$L1[k], L2 = ins$L2[k], L3 = ins$L3[k], single = ins$single[k],
       hosts = I(ins$hosts[[k]]))),
     regions = lapply(seq_len(nrow(regs)), function(k) list(
-      code = regs$nuts[k], country = regs$country[k], name = regs$region[k])),
+      code = regs$nuts[k], country = regs$country[k], name = regs$region[k],
+      host = { hv <- host_of(regs$nuts[k]); if (is.null(hv)) NA else hv })),   # NA -> null
+    host_keys = HOST_KEYS,
+    host_excluded = I(excluded),
     trees = lapply(seq_len(nrow(trees)), function(k) list(
       name = trees$host_label[k], type = trees$tree_type[k]))
   )
   writeLines(toJSON(meta, auto_unbox = TRUE, na = "null"), file.path(out_dir, "meta.json"))
 
-  lines <- sprintf("[%d,%d,%d,%d,%s,%d,%d]", rec$i, rec$r, rec$year, rec$t,
+  lines <- sprintf("[%d,%d,%d,%d,%s,%d,%d,%d]", rec$i, rec$r, rec$year, rec$t,
                    format(rec$v, scientific = FALSE, trim = TRUE, drop0trailing = TRUE),
-                   rec$n, rec$paper)
+                   rec$n, rec$paper, rec$k)
   writeLines(c("[", paste0(lines, c(rep(",", length(lines) - 1), "")), "]"),
              file.path(out_dir, "records.json"))
 
