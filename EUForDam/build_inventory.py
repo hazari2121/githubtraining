@@ -135,7 +135,7 @@ NUTS_STATUS = {"AT": "Yes", "CZ": "Yes", "FI": "Yes – 2 regions missing", "DE"
                "PL": "Yes"}
 FLAGS = {
     "AT": "Series start 2002. Optional: ask whether 2000–2001 exist. Incoming has Ips cembrae (2002–2022) – not in EUForDam AT. L. dispar, Diprion and broadleaf defoliators in EUForDam are not in the Incoming file → other source.",
-    "CZ": "Several rows per NUTS 2 × year × agent (= NUTS 3 kraje without their own code). Ask CZ for NUTS 3 codes so rows can be told apart. No 'ips_typ' code – Ips typographus is inside the spruce bark-beetle group code.",
+    "CZ": "Several rows per NUTS 2 × year × agent (= NUTS 3 kraje without their own code). Ask CZ for NUTS 3 codes so rows can be told apart. No 'ips_typ' code – Ips typographus is inside the spruce bark-beetle group code. SP_CATEGORY/SP_SUBCATEGORY labels in CZ rows are scrambled by region (e.g. Ips acuminatus filed as 'Def_con' in CZ05/CZ06) – CZ only; fix before aggregating by category.",
     "DE": "EUForDam zeros are often MISSING data: 120 state-years with no Incoming value are stored as 0 for Ips typographus alone (e.g. Niedersachsen every year, NRW 2018). Values = Incoming × fixed factor per state (2.0–5.9, probably state forest → all forest) – confirm. Incoming ends 2019; source of 2020–2022 unknown. DEB and DEC are separate in Incoming in some years – split possible.",
     "FI": "Only Ips typographus (salvage-logging ha × 122). Series start 2012. Lapland (FI1D7) 'not included' and Åland (FI200) 'not available' per Incoming – ask whether Lapland can be added.",
     "PL": "Units are RDLP forest regions – treated the same as NUTS (decided): update 2023–2025 only. Series start 2003. RDLP→NUTS 3 key exists in Incoming if ever needed.",
